@@ -46,7 +46,7 @@
   updateHud();
   drawScene();
 
-  startButton.addEventListener("click", startGame);
+  startButton.addEventListener("click", handlePrimaryAction);
 
   window.addEventListener("keydown", (event) => {
     if (["ArrowLeft", "ArrowRight", "Space"].includes(event.code)) {
@@ -54,7 +54,7 @@
     }
 
     if (event.code === "Enter") {
-      startGame();
+      handlePrimaryAction();
       return;
     }
 
@@ -91,6 +91,10 @@
   }
 
   function startGame() {
+    if (state === "playing") {
+      return;
+    }
+
     player = createPlayer();
     bullets = [];
     enemies = [];
@@ -108,6 +112,15 @@
     requestAnimationFrame(loop);
   }
 
+  function handlePrimaryAction() {
+    if (state === "paused") {
+      resumeGame();
+      return;
+    }
+
+    startGame();
+  }
+
   function togglePause() {
     if (state === "playing") {
       state = "paused";
@@ -116,11 +129,15 @@
     }
 
     if (state === "paused") {
-      state = "playing";
-      lastTime = performance.now();
-      hideOverlay();
-      requestAnimationFrame(loop);
+      resumeGame();
     }
+  }
+
+  function resumeGame() {
+    state = "playing";
+    lastTime = performance.now();
+    hideOverlay();
+    requestAnimationFrame(loop);
   }
 
   function loop(timestamp) {
@@ -261,8 +278,14 @@
 
       for (let bulletIndex = bullets.length - 1; bulletIndex >= 0; bulletIndex -= 1) {
         const bullet = bullets[bulletIndex];
+        const bulletRect = {
+          x: bullet.x - bullet.width / 2,
+          y: bullet.y - bullet.height / 2,
+          width: bullet.width,
+          height: bullet.height,
+        };
 
-        if (!circleRectCollision(enemy, bullet)) {
+        if (!circleRectCollision(enemy, bulletRect)) {
           continue;
         }
 
