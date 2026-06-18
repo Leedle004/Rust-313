@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>星际射击 · Star Shooter</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="game-container">
+    <canvas id="game-canvas"></canvas>
+
+    <!-- HUD -->
+    <div id="hud" class="hidden">
+      <div class="hud-left">
+        <div class="hud-item">分数 <span id="score">0</span></div>
+        <div class="hud-item">最高 <span id="high-score">0</span></div>
+      </div>
+      <div class="hud-center">
+        <div class="hud-item">第 <span id="wave">1</span> 波</div>
+      </div>
+      <div class="hud-right">
+        <div class="hud-item lives">生命 <span id="lives">3</span></div>
+      </div>
+      <div id="health-bar-wrap">
+        <div id="health-bar"></div>
+      </div>
+    </div>
+
+    <!-- Start screen -->
+    <div id="start-screen" class="overlay">
+      <h1 class="title">星际射击</h1>
+      <p class="subtitle">STAR SHOOTER</p>
+      <div class="instructions">
+        <p><b>移动</b>：鼠标 / 方向键 / WASD</p>
+        <p><b>射击</b>：自动开火（按住空格强化连射）</p>
+        <p><b>暂停</b>：P 键 / ESC</p>
+        <p>击落敌机、拾取道具、挑战最高分！</p>
+      </div>
+      <button id="start-btn" class="btn">开始游戏</button>
+      <div class="hint">提示：拾取 <span class="pu pu-h">绿</span> 回血 · <span class="pu pu-s">蓝</span> 散射 · <span class="pu pu-r">橙</span> 急速 · <span class="pu pu-b">紫</span> 护盾</div>
+    </div>
+
+    <!-- Pause screen -->
+    <div id="pause-screen" class="overlay hidden">
+      <h2 class="title">已暂停</h2>
+      <button id="resume-btn" class="btn">继续</button>
+      <button id="quit-btn" class="btn btn-secondary">返回主菜单</button>
+    </div>
+
+    <!-- Game over screen -->
+    <div id="gameover-screen" class="overlay hidden">
+      <h2 class="title">游戏结束</h2>
+      <div class="final-stats">
+        <p>本局分数：<span id="final-score">0</span></p>
+        <p>到达波次：<span id="final-wave">1</span></p>
+        <p>最高分：<span id="final-high">0</span></p>
+      </div>
+      <p id="new-record" class="record hidden">🎉 新纪录！</p>
+      <button id="restart-btn" class="btn">再来一局</button>
+      <button id="menu-btn" class="btn btn-secondary">主菜单</button>
+    </div>
+
+    <!-- Mute toggle -->
+    <button id="mute-btn" title="静音切换">🔊</button>
+  </div>
+
+  <script src="js/game.js"></script>
+</body>
+</html>
