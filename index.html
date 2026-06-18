@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>星际突围 | 射击游戏</title>
+    <link rel="stylesheet" href="src/styles.css" />
+  </head>
+  <body>
+    <main class="game-page">
+      <section class="hero" aria-labelledby="game-title">
+        <p class="eyebrow">Canvas arcade shooter</p>
+        <h1 id="game-title">星际突围</h1>
+        <p class="subtitle">
+          驾驶战机穿过陨石带，击退不断逼近的无人机群，尽可能坚持更久。
+        </p>
+      </section>
+
+      <section class="game-card" aria-label="星际突围游戏区域">
+        <div class="hud" aria-live="polite">
+          <span>分数 <strong id="score">0</strong></span>
+          <span>生命 <strong id="lives">3</strong></span>
+          <span>波次 <strong id="wave">1</strong></span>
+          <span>最佳 <strong id="bestScore">0</strong></span>
+          <span id="statusText">准备开始</span>
+        </div>
+
+        <div class="canvas-wrap">
+          <canvas id="gameCanvas" width="960" height="540" aria-label="射击游戏画布"></canvas>
+          <div class="overlay" id="overlay">
+            <div class="panel">
+              <h2 id="overlayTitle">准备起飞</h2>
+              <p id="overlayMessage">
+                使用 WASD / 方向键移动，鼠标瞄准，点击或按空格射击。
+              </p>
+              <button type="button" id="startButton">开始游戏</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <span><kbd>WASD</kbd> / <kbd>方向键</kbd> 移动</span>
+          <span><kbd>鼠标</kbd> 瞄准</span>
+          <span><kbd>点击</kbd> / <kbd>空格</kbd> 射击</span>
+          <span><kbd>P</kbd> 暂停</span>
+          <span><kbd>R</kbd> 重开</span>
+        </div>
+      </section>
+    </main>
+
+    <script src="src/game.js"></script>
+  </body>
+</html>
