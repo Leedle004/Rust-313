@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>星际射手 · Starblaze</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="game-shell">
+    <canvas id="game-canvas" width="900" height="640"></canvas>
+
+    <!-- HUD -->
+    <div id="hud" class="hidden">
+      <div class="hud-left">
+        <div class="hud-row">
+          <span class="hud-label">分数</span>
+          <span id="hud-score" class="hud-value">0</span>
+        </div>
+        <div class="hud-row">
+          <span class="hud-label">最高</span>
+          <span id="hud-best" class="hud-value">0</span>
+        </div>
+        <div class="hud-row">
+          <span class="hud-label">波次</span>
+          <span id="hud-wave" class="hud-value">1</span>
+        </div>
+      </div>
+      <div class="hud-right">
+        <div class="hud-bars">
+          <div class="bar-label">护盾</div>
+          <div class="bar-track"><div id="bar-health" class="bar-fill health"></div></div>
+        </div>
+        <div class="hud-lives">
+          <span class="hud-label">战机</span>
+          <span id="hud-lives" class="hud-value">3</span>
+        </div>
+        <div class="hud-weapon">
+          武器 · <span id="hud-weapon">单发</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Start menu -->
+    <div id="menu" class="overlay">
+      <div class="panel">
+        <h1 class="title">星际射手</h1>
+        <p class="subtitle">STARBLAZE</p>
+        <div class="controls-card">
+          <div class="ctrl"><b>移动</b><span>WASD / 方向键 / 鼠标</span></div>
+          <div class="ctrl"><b>射击</b><span>空格 / 鼠标左键（按住连发）</span></div>
+          <div class="ctrl"><b>暂停</b><span>P / Esc</span></div>
+          <div class="ctrl"><b>提示</b><span>拾取掉落物升级武器与护盾</span></div>
+        </div>
+        <button id="btn-start" class="btn primary">开始游戏</button>
+        <p class="hint">收集 <span class="pill pill-power">P</span> 升级武器 · <span class="pill pill-shield">S</span> 恢复护盾 · <span class="pill pill-bomb">B</span> 清屏炸弹</p>
+      </div>
+    </div>
+
+    <!-- Pause overlay -->
+    <div id="pause" class="overlay hidden">
+      <div class="panel">
+        <h2 class="title small">已暂停</h2>
+        <button id="btn-resume" class="btn primary">继续</button>
+        <button id="btn-quit" class="btn ghost">退出到主菜单</button>
+      </div>
+    </div>
+
+    <!-- Game over overlay -->
+    <div id="gameover" class="overlay hidden">
+      <div class="panel">
+        <h2 class="title small">任务结束</h2>
+        <div class="result">
+          <div class="result-row"><span>本局分数</span><b id="final-score">0</b></div>
+          <div class="result-row"><span>到达波次</span><b id="final-wave">1</b></div>
+          <div class="result-row"><span>历史最高</span><b id="final-best">0</b></div>
+        </div>
+        <div id="newbest" class="newbest hidden">新纪录！</div>
+        <button id="btn-restart" class="btn primary">再来一局</button>
+        <button id="btn-menu" class="btn ghost">返回主菜单</button>
+      </div>
+    </div>
+
+    <!-- Mobile touch controls -->
+    <div id="touch-fire" class="touch-btn hidden">射击</div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/input.js"></script>
+  <script src="js/starfield.js"></script>
+  <script src="js/particle.js"></script>
+  <script src="js/bullet.js"></script>
+  <script src="js/powerup.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/enemy.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
