@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Starfall Shooter</title>
+    <link rel="stylesheet" href="src/styles.css" />
+  </head>
+  <body>
+    <main class="game-shell" aria-label="Starfall Shooter">
+      <canvas id="gameCanvas" aria-label="Game canvas">
+        Your browser does not support the HTML5 canvas element.
+      </canvas>
+
+      <section class="hud" aria-live="polite">
+        <div class="hud-card">
+          <span class="label">Score</span>
+          <strong id="score">0</strong>
+        </div>
+        <div class="hud-card">
+          <span class="label">Wave</span>
+          <strong id="wave">1</strong>
+        </div>
+        <div class="hud-card health-card">
+          <span class="label">Hull</span>
+          <div class="health-bar" aria-label="Player hull">
+            <span id="healthFill"></span>
+          </div>
+        </div>
+      </section>
+
+      <section id="overlay" class="overlay">
+        <div class="panel">
+          <p class="eyebrow">Arcade Canvas Game</p>
+          <h1>Starfall Shooter</h1>
+          <p id="overlayText">
+            Survive the meteor swarm, shoot enemy drones, and push your score
+            as high as you can.
+          </p>
+          <button id="startButton" type="button">Start Mission</button>
+          <ul class="controls">
+            <li><kbd>WASD</kbd> / <kbd>Arrow Keys</kbd> move</li>
+            <li><kbd>Mouse</kbd> aim, <kbd>Click</kbd> or <kbd>Space</kbd> fire</li>
+            <li><kbd>P</kbd> pause, <kbd>R</kbd> restart</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>
