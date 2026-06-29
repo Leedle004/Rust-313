@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 币圈 OS</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪙</text></svg>" />
+</head>
+<body>
+  <!-- 开机动画 -->
+  <div id="boot">
+    <div class="boot-logo">🪙</div>
+    <div class="boot-title">AI 币圈 OS</div>
+    <div class="boot-sub">Pure-AI Crypto Operating System</div>
+    <div class="boot-bar"><span></span></div>
+  </div>
+
+  <!-- 桌面 -->
+  <main id="desktop" class="hidden">
+    <!-- 顶部状态栏 -->
+    <header id="topbar">
+      <div class="topbar-left">
+        <span class="brand">🪙 AI 币圈 OS</span>
+      </div>
+      <div class="topbar-center" id="ticker-strip"></div>
+      <div class="topbar-right">
+        <span id="sentiment-badge" class="badge">情绪 —</span>
+        <span id="clock">--:--:--</span>
+      </div>
+    </header>
+
+    <!-- 桌面图标 -->
+    <section id="desktop-icons"></section>
+
+    <!-- 窗口容器 -->
+    <section id="windows"></section>
+
+    <!-- 底部 Dock -->
+    <nav id="dock"></nav>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
