@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="星尘快递：一款 20MB 发布包预算内的 HTML5 Canvas 太空动作游戏。"
+    />
+    <title>星尘快递 | 20MB Browser Game</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="game-shell" aria-label="星尘快递游戏">
+      <section class="hero-panel">
+        <p class="eyebrow">20MB Budget • No Build Required</p>
+        <h1>星尘快递</h1>
+        <p>
+          驾驶快递飞船穿越碎星带，回收星尘晶体并送回母舰。坚持越久，敌方无人机会越密集。
+        </p>
+        <div class="button-row">
+          <button id="startButton" class="primary-button" type="button">开始任务</button>
+          <button id="muteButton" class="secondary-button" type="button" aria-pressed="false">
+            音效：开
+          </button>
+        </div>
+        <dl class="stats-grid" aria-label="游戏状态">
+          <div>
+            <dt>得分</dt>
+            <dd id="scoreText">0</dd>
+          </div>
+          <div>
+            <dt>波次</dt>
+            <dd id="waveText">1</dd>
+          </div>
+          <div>
+            <dt>护盾</dt>
+            <dd id="shieldText">100%</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="canvas-panel">
+        <canvas id="gameCanvas" width="1280" height="720">
+          你的浏览器不支持 Canvas，无法运行星尘快递。
+        </canvas>
+        <div id="overlay" class="overlay">
+          <h2>准备发射</h2>
+          <p>WASD / 方向键移动，鼠标瞄准，点击或空格发射脉冲；P 暂停，R 重开。</p>
+          <p class="overlay-small">手机端可拖动左下摇杆移动，按住右下按钮射击。</p>
+        </div>
+        <div class="touch-controls" aria-hidden="true">
+          <div id="touchStick" class="touch-stick"><span></span></div>
+          <button id="touchFire" class="touch-fire" type="button">FIRE</button>
+        </div>
+      </section>
+
+      <section class="help-panel">
+        <article>
+          <h2>任务目标</h2>
+          <ul>
+            <li>拾取发光晶体获取分数和短暂加速。</li>
+            <li>回避或击毁红色无人机，连击会提高奖励。</li>
+            <li>护盾归零后任务结束，按 R 可立即重新开始。</li>
+          </ul>
+        </article>
+        <article>
+          <h2>包体策略</h2>
+          <p>
+            游戏所有视觉、粒子和音效都在运行时生成，不依赖大型图片或音频文件，适合作为 20MB
+            以内发布包的原型。
+          </p>
+        </article>
+      </section>
+    </main>
+
+    <script src="./src/game.js"></script>
+  </body>
+</html>
