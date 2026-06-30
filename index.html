@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#05010f" />
+  <title>Nebula Strike</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>" />
+</head>
+<body>
+  <div id="app">
+    <canvas id="game"></canvas>
+
+    <!-- Heads-up display -->
+    <div id="hud" class="hidden">
+      <div class="hud-row">
+        <div class="hud-stat"><span class="label">SCORE</span><span id="score">0</span></div>
+        <div class="hud-stat"><span class="label">LEVEL</span><span id="level">1</span></div>
+        <div class="hud-stat"><span class="label">BEST</span><span id="best">0</span></div>
+      </div>
+      <div class="hud-row">
+        <div id="lives" class="lives"></div>
+        <div id="combo" class="combo"></div>
+      </div>
+      <div id="powerbar" class="powerbar"></div>
+    </div>
+
+    <!-- Main menu -->
+    <div id="menu" class="overlay">
+      <h1 class="title">NEBULA<span>STRIKE</span></h1>
+      <p class="tagline">Defend the sector. Chain combos. Survive the swarm.</p>
+      <button id="playBtn" class="btn primary">▶ PLAY</button>
+      <button id="howBtn" class="btn">HOW TO PLAY</button>
+      <div class="menu-best">Best Score: <strong id="menuBest">0</strong></div>
+      <div class="credit">A lightweight 20MB-class arcade shooter · runs offline</div>
+    </div>
+
+    <!-- How to play -->
+    <div id="how" class="overlay hidden">
+      <h2 class="subtitle">HOW TO PLAY</h2>
+      <ul class="howlist">
+        <li><b>Move</b> — Arrow keys / WASD, mouse, or drag on touch</li>
+        <li><b>Fire</b> — Auto-fires. Hold <b>Space</b> for focused burst</li>
+        <li><b>Bomb</b> — <b>Shift</b> / double-tap clears the screen (limited)</li>
+        <li><b>Pause</b> — <b>P</b> or <b>Esc</b></li>
+        <li>Grab <b>power-ups</b>: spread, rapid, shield, life, bomb</li>
+        <li>Don't break your <b>combo</b> — it multiplies your score</li>
+      </ul>
+      <button id="howBack" class="btn primary">BACK</button>
+    </div>
+
+    <!-- Pause -->
+    <div id="pause" class="overlay hidden">
+      <h2 class="subtitle">PAUSED</h2>
+      <button id="resumeBtn" class="btn primary">RESUME</button>
+      <button id="quitBtn" class="btn">QUIT TO MENU</button>
+    </div>
+
+    <!-- Game over -->
+    <div id="over" class="overlay hidden">
+      <h2 class="subtitle">GAME OVER</h2>
+      <div class="result">
+        <div><span class="label">SCORE</span><strong id="finalScore">0</strong></div>
+        <div><span class="label">WAVE</span><strong id="finalLevel">1</strong></div>
+        <div><span class="label">BEST</span><strong id="finalBest">0</strong></div>
+      </div>
+      <div id="newBest" class="newbest hidden">★ NEW BEST! ★</div>
+      <button id="retryBtn" class="btn primary">PLAY AGAIN</button>
+      <button id="menuBtn" class="btn">MENU</button>
+    </div>
+
+    <!-- Mobile control hint / fire button -->
+    <button id="bombBtn" class="touch-btn hidden" aria-label="Bomb">💥</button>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/input.js"></script>
+  <script src="js/entities.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
