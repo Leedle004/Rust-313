@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#05060f" />
+  <title>Nebula Strike — Arcade Space Shooter</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2305060f'/%3E%3Cpolygon points='16,4 26,28 16,22 6,28' fill='%2346e8ff'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="game-shell">
+    <canvas id="game-canvas" width="960" height="640" aria-label="Nebula Strike game"></canvas>
+
+    <!-- HUD overlay -->
+    <div id="hud" class="hidden">
+      <div class="hud-left">
+        <div class="hud-row"><span class="hud-label">SCORE</span><span id="hud-score">0</span></div>
+        <div class="hud-row"><span class="hud-label">WAVE</span><span id="hud-wave">1</span></div>
+      </div>
+      <div class="hud-center">
+        <div id="boss-bar" class="hidden">
+          <div class="boss-name">BOSS</div>
+          <div class="boss-bar-track"><div id="boss-bar-fill"></div></div>
+        </div>
+      </div>
+      <div class="hud-right">
+        <div class="hud-row"><span class="hud-label">BEST</span><span id="hud-best">0</span></div>
+        <div id="hud-lives" class="hud-lives"></div>
+      </div>
+    </div>
+
+    <!-- Main menu -->
+    <div id="menu" class="overlay">
+      <h1 class="logo">NEBULA<span>STRIKE</span></h1>
+      <p class="tagline">An arcade space shooter — survive the swarm.</p>
+      <button id="btn-start" class="btn primary">START MISSION</button>
+      <button id="btn-how" class="btn">HOW TO PLAY</button>
+      <button id="btn-mute" class="btn ghost">SOUND: ON</button>
+      <div class="best-line">Best Score: <span id="menu-best">0</span></div>
+      <div class="credit">Built with plain HTML5 Canvas — no engine, no dependencies.</div>
+    </div>
+
+    <!-- How to play -->
+    <div id="how" class="overlay hidden">
+      <h2>HOW TO PLAY</h2>
+      <ul class="how-list">
+        <li><b>Move</b> — Arrow keys or <b>W A S D</b> (or drag on touch screens)</li>
+        <li><b>Fire</b> — Auto-fires. Hold <b>Space</b> for a focused burst</li>
+        <li><b>Dash</b> — <b>Shift</b> for a quick evasive boost (brief invulnerability)</li>
+        <li><b>Power-ups</b> — Collect glowing pods: <span class="chip spread">Spread</span> <span class="chip rapid">Rapid</span> <span class="chip shield">Shield</span> <span class="chip heal">Repair</span></li>
+        <li>Clear waves, beat the <b>boss</b> every 5th wave, and chase the high score.</li>
+      </ul>
+      <button id="btn-how-back" class="btn primary">BACK</button>
+    </div>
+
+    <!-- Pause -->
+    <div id="pause" class="overlay hidden">
+      <h2>PAUSED</h2>
+      <button id="btn-resume" class="btn primary">RESUME</button>
+      <button id="btn-quit" class="btn">QUIT TO MENU</button>
+      <div class="hint">Press <b>P</b> or <b>Esc</b> to resume</div>
+    </div>
+
+    <!-- Game over -->
+    <div id="gameover" class="overlay hidden">
+      <h2 class="go-title">GAME OVER</h2>
+      <div class="go-stats">
+        <div><span class="hud-label">SCORE</span><span id="go-score">0</span></div>
+        <div><span class="hud-label">WAVE</span><span id="go-wave">0</span></div>
+        <div><span class="hud-label">BEST</span><span id="go-best">0</span></div>
+      </div>
+      <div id="go-newbest" class="newbest hidden">NEW BEST!</div>
+      <button id="btn-retry" class="btn primary">PLAY AGAIN</button>
+      <button id="btn-menu" class="btn">MAIN MENU</button>
+    </div>
+
+    <!-- Touch controls hint -->
+    <div id="touch-fire" class="hidden"></div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/input.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/starfield.js"></script>
+  <script src="js/entities.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
