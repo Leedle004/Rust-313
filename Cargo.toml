@@ -1,0 +1,32 @@
+[package]
+name = "astro_blaster"
+version = "0.1.0"
+edition = "2021"
+description = "Astro Blaster - a polished Asteroids-style arcade shooter written in Rust with macroquad. Runs natively and in the browser (WASM)."
+license = "MIT"
+repository = "https://github.com/"
+readme = "README.md"
+
+# Pure game logic lives in the library so it can be unit-tested headlessly
+# (no window / GPU required). The binary only adds rendering + input.
+[lib]
+name = "astro_blaster"
+path = "src/lib.rs"
+
+[[bin]]
+name = "astro_blaster"
+path = "src/main.rs"
+
+[dependencies]
+macroquad = "=0.4.14"
+glam = "0.27"
+
+# `quad-rand` is the RNG used by macroquad; it works natively and on WASM
+# (unlike the `rand` crate which needs extra setup for wasm32).
+quad-rand = "0.2"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
