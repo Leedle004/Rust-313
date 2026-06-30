@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>20MB Data Runner</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="game.js"></script>
+  </head>
+  <body>
+    <main class="game-shell" aria-labelledby="game-title">
+      <section class="hero">
+        <p class="eyebrow">Tiny browser game · procedural assets · under 20MB</p>
+        <h1 id="game-title">20MB Data Runner</h1>
+        <p class="subtitle">
+          在崩塌的服务器矩阵中收集数据碎片，躲开病毒守卫，在 90 秒内把系统容量压进 20MB。
+        </p>
+      </section>
+
+      <section class="hud" aria-label="游戏状态">
+        <div>
+          <span>得分</span>
+          <strong id="score">0</strong>
+        </div>
+        <div>
+          <span>生命</span>
+          <strong id="lives">3</strong>
+        </div>
+        <div>
+          <span>剩余</span>
+          <strong id="time">90</strong>
+        </div>
+        <div>
+          <span>最高分</span>
+          <strong id="best-score">0</strong>
+        </div>
+      </section>
+
+      <section class="stage-card">
+        <canvas id="game" width="960" height="540" aria-label="20MB Data Runner 游戏画面"></canvas>
+        <div id="overlay" class="overlay">
+          <div class="panel">
+            <h2 id="overlay-title">准备压缩数据包</h2>
+            <p id="overlay-message">
+              使用 WASD 或方向键移动，收集蓝色数据碎片，避开红色病毒。绿色补丁可以短暂护盾。
+            </p>
+            <button id="primary-action" type="button">开始游戏</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="controls" aria-label="操作说明">
+        <div>
+          <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd>
+          <span>或方向键移动</span>
+        </div>
+        <div>
+          <kbd>P</kbd>
+          <span>暂停/继续</span>
+        </div>
+        <div>
+          <kbd>R</kbd>
+          <span>重新开始</span>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

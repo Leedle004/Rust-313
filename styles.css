@@ -1,0 +1,227 @@
+:root {
+  color-scheme: dark;
+  --bg: #060914;
+  --panel: rgba(11, 18, 36, 0.82);
+  --panel-strong: rgba(15, 27, 55, 0.96);
+  --text: #eef6ff;
+  --muted: #9fb4d0;
+  --accent: #58d7ff;
+  --accent-strong: #8affc1;
+  --danger: #ff5f7a;
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 18% 18%, rgba(88, 215, 255, 0.2), transparent 32rem),
+    radial-gradient(circle at 82% 6%, rgba(138, 255, 193, 0.18), transparent 28rem),
+    linear-gradient(135deg, #050710 0%, #0a1024 58%, #101827 100%);
+}
+
+button {
+  font: inherit;
+}
+
+.game-shell {
+  width: min(1120px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 32px 0;
+}
+
+.hero {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 22px;
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--accent-strong);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.4rem, 8vw, 5.5rem);
+  letter-spacing: -0.07em;
+  line-height: 0.92;
+  text-shadow: 0 0 36px rgba(88, 215, 255, 0.22);
+}
+
+.subtitle {
+  max-width: 760px;
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+.hud {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.hud div,
+.controls,
+.stage-card {
+  border: 1px solid rgba(158, 198, 255, 0.16);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(20px);
+}
+
+.hud div {
+  padding: 14px 18px;
+  border-radius: 20px;
+}
+
+.hud span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hud strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--text);
+  font-size: clamp(1.3rem, 4vw, 2rem);
+  line-height: 1;
+}
+
+.stage-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #050813;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle, rgba(88, 215, 255, 0.16), transparent 28rem),
+    rgba(3, 6, 14, 0.72);
+}
+
+.overlay[hidden] {
+  display: none;
+}
+
+.panel {
+  width: min(560px, 100%);
+  padding: clamp(24px, 5vw, 44px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 28px;
+  background: var(--panel-strong);
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.panel h2 {
+  margin: 0;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  letter-spacing: -0.05em;
+}
+
+.panel p {
+  margin: 14px 0 24px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+#primary-action {
+  min-width: 172px;
+  padding: 13px 20px;
+  border: 0;
+  border-radius: 999px;
+  color: #04111c;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  cursor: pointer;
+  font-weight: 900;
+  box-shadow: 0 14px 36px rgba(88, 215, 255, 0.28);
+}
+
+#primary-action:hover,
+#primary-action:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 44px rgba(88, 215, 255, 0.36);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 22px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 22px;
+  color: var(--muted);
+}
+
+.controls div {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+
+kbd {
+  min-width: 30px;
+  padding: 5px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom-width: 3px;
+  border-radius: 8px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.08);
+  font-weight: 800;
+  text-align: center;
+}
+
+@media (max-width: 720px) {
+  .game-shell {
+    width: min(100vw - 20px, 1120px);
+    padding: 18px 0;
+  }
+
+  .hud {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hud div {
+    padding: 12px 14px;
+    border-radius: 16px;
+  }
+
+  .controls {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+}
