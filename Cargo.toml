@@ -1,0 +1,22 @@
+[package]
+name = "rust313_game"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+description = "Nebula Strike 313 - a fast-paced space shooter written in Rust with macroquad"
+license = "MIT"
+
+[[bin]]
+name = "nebula_strike"
+path = "src/main.rs"
+
+[dependencies]
+macroquad = "0.4"
+
+# Optimised release build: small, fast binary.
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true

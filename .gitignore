@@ -1,0 +1,9 @@
+# Rust build artifacts
+/target
+
+# Local high-score file written by the native build
+nebula_highscore.txt
+
+# OS / editor cruft
+.DS_Store
+*.swp

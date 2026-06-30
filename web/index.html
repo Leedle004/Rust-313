@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nebula Strike 313</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: radial-gradient(circle at 50% 30%, #11142b 0%, #05060f 70%, #000 100%);
+            color: #cfe3ff;
+            font-family: "Segoe UI", system-ui, sans-serif;
+            overflow: hidden;
+        }
+        .wrap {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 26px;
+            letter-spacing: 3px;
+            color: #7fd2ff;
+            text-shadow: 0 0 12px rgba(80, 180, 255, 0.6);
+        }
+        .hint { font-size: 13px; color: #6f86b8; }
+        #glcanvas {
+            border: 1px solid #2b3b66;
+            border-radius: 6px;
+            box-shadow: 0 0 40px rgba(60, 120, 255, 0.25);
+            background: #05060f;
+            /* logical size matches the Rust window_conf (960x720) */
+            width: 960px;
+            height: 720px;
+            max-width: 96vw;
+            max-height: 80vh;
+        }
+        #loading {
+            position: absolute;
+            font-size: 18px;
+            color: #7fd2ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h1>NEBULA STRIKE 313</h1>
+        <div class="hint">Move: WASD / Arrows &nbsp;&middot;&nbsp; Fire: Space / J / Click &nbsp;&middot;&nbsp; Bomb: B &nbsp;&middot;&nbsp; Pause: P</div>
+        <canvas id="glcanvas" tabindex="1" width="960" height="720"></canvas>
+        <div id="loading">Loading game&hellip;</div>
+    </div>
+
+    <!-- The macroquad bundle assigns to a bare global `register_plugin`; predeclare
+         it so the assignment is legal under the bundle's strict-mode IIFEs. -->
+    <script>var register_plugin;</script>
+    <script src="mq_js_bundle.js"></script>
+    <script>
+        // NOTE: the bundle already declares a global `const canvas`, so we must NOT
+        // redeclare it here (doing so is a fatal SyntaxError that stops load()).
+        (function () {
+            var cv = document.getElementById("glcanvas");
+            var loadingEl = document.getElementById("loading");
+            var obs = new MutationObserver(function () { loadingEl.style.display = "none"; });
+            obs.observe(cv, { attributes: true });
+            setTimeout(function () { loadingEl.style.display = "none"; }, 4000);
+            cv.focus();
+        })();
+
+        load("nebula_strike.wasm");
+    </script>
+</body>
+</html>

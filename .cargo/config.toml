@@ -1,0 +1,6 @@
+# macroquad/miniquad resolve OpenGL + platform symbols at runtime through the
+# JavaScript shim (js/gl.js). When building for the web with a modern toolchain
+# (which uses wasm-ld), those externs must be emitted as wasm imports instead of
+# causing "undefined symbol" link errors. `--allow-undefined` does exactly that.
+[target.wasm32-unknown-unknown]
+rustflags = ["-C", "link-arg=--allow-undefined"]
