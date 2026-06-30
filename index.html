@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>20MB Data Dash</title>
+    <link rel="stylesheet" href="src/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero" aria-labelledby="game-title">
+        <p class="eyebrow">A lightweight browser arcade game</p>
+        <h1 id="game-title">20MB Data Dash</h1>
+        <p class="tagline">
+          Collect data packets, dodge malware, and upload every full 20MB cache
+          before the network window closes.
+        </p>
+      </section>
+
+      <section class="game-card" aria-label="20MB Data Dash game area">
+        <div class="hud" aria-live="polite">
+          <div>
+            <span class="label">Uploaded</span>
+            <strong id="uploaded">0MB</strong>
+          </div>
+          <div>
+            <span class="label">Cache</span>
+            <strong id="cache">0/20MB</strong>
+          </div>
+          <div>
+            <span class="label">Shield</span>
+            <strong id="shield">0s</strong>
+          </div>
+          <div>
+            <span class="label">Time</span>
+            <strong id="time">60s</strong>
+          </div>
+        </div>
+
+        <div class="stage-wrap">
+          <canvas id="game" width="960" height="540">
+            Your browser does not support HTML canvas.
+          </canvas>
+          <div id="overlay" class="overlay">
+            <div class="panel">
+              <h2 id="overlay-title">Ready to run the 20MB route?</h2>
+              <p id="overlay-copy">
+                Move with arrow keys, WASD, or drag/tap. Blue packets fill the
+                cache, green shields protect you, red malware steals bandwidth.
+              </p>
+              <button id="start-button" type="button">Start game</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <p><strong>Goal:</strong> turn every 20MB cache into a clean upload.</p>
+          <p><strong>Controls:</strong> arrow keys, WASD, touch, mouse, or trackpad.</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="src/game.js"></script>
+  </body>
+</html>
