@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#07111f" />
+    <title>Starfall 20MB</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="panel">
+        <p class="eyebrow">20MB Browser Game</p>
+        <h1>Starfall 20MB</h1>
+        <p class="summary">
+          驾驶护航舰穿过碎星雨，收集能量晶体并击退无人机。游戏会载入一个确定性的
+          20,000,000 字节资源包，用它生成星云、敌人节奏和颜色主题。
+        </p>
+        <div class="controls">
+          <span>WASD / 方向键移动</span>
+          <span>鼠标 / 触控瞄准</span>
+          <span>Space 冲刺</span>
+          <span>P 暂停</span>
+        </div>
+      </section>
+
+      <section class="game-card">
+        <canvas id="game" width="1280" height="720" aria-label="Starfall 20MB game canvas"></canvas>
+        <div id="overlay" class="overlay">
+          <div>
+            <p id="loading-label" class="loading-label">正在载入 20MB 星图资源...</p>
+            <div class="meter" aria-hidden="true">
+              <span id="loading-bar"></span>
+            </div>
+            <button id="start-button" type="button" disabled>开始护航</button>
+          </div>
+        </div>
+        <div class="hud" aria-live="polite">
+          <span>分数 <strong id="score">0</strong></span>
+          <span>护盾 <strong id="shield">100</strong></span>
+          <span>晶体 <strong id="cargo">0</strong></span>
+          <span>最高 <strong id="best">0</strong></span>
+        </div>
+      </section>
+    </main>
+
+    <script src="./game.js" type="module"></script>
+  </body>
+</html>

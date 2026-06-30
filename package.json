@@ -1,0 +1,19 @@
+{
+  "name": "starfall-20mb",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A dependency-free 20MB browser survival game.",
+  "type": "module",
+  "scripts": {
+    "assets": "node scripts/generate-asset-pack.mjs",
+    "build": "node scripts/build.mjs",
+    "start": "python3 -m http.server 4173 -d public",
+    "test": "node scripts/smoke-test.mjs"
+  },
+  "keywords": [
+    "game",
+    "canvas",
+    "20mb"
+  ],
+  "license": "UNLICENSED"
+}
