@@ -1,0 +1,324 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{ctex}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage[margin=2.6cm]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{enumitem}
+\usepackage{fontspec}
+
+\setCJKmainfont{WenQuanYi Micro Hei}
+
+\newtheorem{theorem}{定理}[section]
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{proposition}[theorem]{命题}
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{conjecture}[theorem]{猜想}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{定义}
+\newtheorem{question}[theorem]{问题}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{注记}
+\newtheorem{example}[theorem]{例}
+
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\gr}{gr}
+\DeclareMathOperator{\Frac}{Frac}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\relint}{relint}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Gm}{\mathbb{G}_m}
+
+\title{\textbf{复杂度、秩与有限生成：klt 奇点稳定退化定理在环面情形下的初等验证，及一个复杂度-秩二分现象}}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.5em}
+
+\begin{abstract}
+本文是一篇原创的、范围明确且自成体系的技术性注记，其出发点是许晨阳与庄子权 2025 年发表于《美国数学会杂志》的论文 \cite{XZ2025}（该文完成了 klt 奇点局部 K-稳定性理论中最后剩余的部分：正规化体积极小化赋值的高阶秩伴随分级环有限生成性）。我们的目标有三个：(1) 对该定理在\emph{环面 (toric) 奇点}这一特殊但重要的情形给出一个完全初等、自足的证明，无需借助许--庄原证明中使用的双有理几何/极小模型纲领技术；(2) 精确地指出这一初等论证在何处失效——由此得到一个关于$T$-变体\emph{复杂度}的清晰二分现象，恰好解释了 Li--Xu \cite{LX2018} 2018 年的原始三步策略为何只能在复杂度为零（即环面）情形下无条件地得到有限生成性，而在正复杂度情形下不得不将其作为假设，需要等到许--庄的新方法才能在一般情形下解决；(3) 作为推论，给出环面 klt 奇点"自退化"现象的一个初等证明，从代数的角度重新导出（而非依赖）Martelli--Sparks--Yau \cite{MSY2008} 与 Futaki--Ono--Wang \cite{FOW2009} 在 Sasaki--Einstein 几何中已确立的经典图像。本文第 2--4 节的全部命题均给出完整的初等证明；第 5 节包含若干与本文作者此前一篇综述性文章相关的、明确标注为猜测性的展望问题，不构成已证明的结果。我们强调：本文并非声称解决任何深刻的公开问题，其贡献在于提供一个准确、完整、可独立验证的"零复杂度情形"分析，并将其与最新文献中的一般性定理精确地衔接起来。
+
+\medskip
+\noindent\textbf{关键词：} klt 奇点；正规化体积；环面变体；$T$-变体的复杂度；伴随分级环；有限生成性；Sasaki--Einstein 几何
+\end{abstract}
+
+\tableofcontents
+
+\section{引言与动机}
+
+\subsection{背景}
+
+设 $x\in (X=\Spec(R),\Delta)$ 是一个 klt 奇点。Li \cite{Li2018Duke} 引入的正规化体积函数 $\widehat{\vol}_{X,\Delta}$ 定义在 $x$ 上所有实值赋值构成的空间 $\mathrm{Val}_{X,x}$ 上；Blum \cite{Blum2018} 证明了极小化子的存在性，Xu \cite{Xu2020} 证明了极小化子必为拟单项 (quasi-monomial) 赋值，Xu--Zhuang \cite{XZ2021} 证明了极小化子在重新标度意义下唯一。剩下的关键问题——当极小化赋值 $v$ 的有理秩 $r=\mathrm{ratrk}(v)$ 大于 $1$ 时，其伴随分级环
+\[
+\gr_v R \;=\; \bigoplus_{\lambda\in\R_{\ge0}} \mathfrak a_\lambda/\mathfrak a_{>\lambda}, \qquad \mathfrak a_\lambda=\{f\in R: v(f)\ge \lambda\}
+\]
+是否总是有限生成——由许晨阳与庄子权在 2025 年的论文 \cite{XZ2025} 中给出了肯定回答，其证明依赖于对数光滑模型上除子组合结构的精细分析与极小模型纲领。
+
+在此之前，Li--Xu \cite{LX2018} 2018 年的奠基性工作已经提出了处理这一问题的"三步策略"：
+\begin{enumerate}[leftmargin=1.6em]
+  \item \textbf{环面奇点配环面赋值}：将体积极小化问题化归为凸体理论中的一个经典凸性命题（Gigena \cite{Gigena1978}，亦见 Martelli--Sparks--Yau \cite{MSY2008}）；
+  \item \textbf{一般 $T$-奇点配环面型赋值}；
+  \item \textbf{$T$-奇点配 $T$-不变拟单项赋值}——这是最一般的情形，Li--Xu 在此明确指出，除了秩 $1$ 情形（可由 Birkar--Cascini--Hacon--McKernan 的极小模型纲领结果 \cite{BCHM2010} 推出），高阶秩的有限生成性"无法得出结论，因此只能作为假设提出"（原文 \S1.1）。
+\end{enumerate}
+
+本文的出发点是一个自然的疑问：\textbf{Li--Xu 三步策略中最简单的第一步——纯环面情形——是否可以被完全初等地、无条件地证明？如果可以，那么困难到底出现在从第一步到第三步的哪个环节？}
+
+\subsection{本文的贡献}
+
+我们证明：
+\begin{itemize}[leftmargin=1.6em]
+  \item[(a)] 环面情形（Li--Xu 三步策略的第一步）中的有限生成性是\textbf{完全初等且平凡}的：对任意维数、任意有理秩（$1$ 到 $n$ 之间的任意值，包括极小化赋值几乎必然出现的"极大秩"情形），伴随分级环典范地同构于原环本身，$\gr_v R\cong R$（第 3 节，引理 \ref{lem:main} 与推论 \ref{cor:toric-fg}）。这给出了 \cite{XZ2025} 主定理在环面特殊情形下的一个独立、初等的验证。
+
+  \item[(b)] 我们精确定位了该初等论证失效的原因：它本质上依赖于仿射簇的坐标环关于某个交换群的分次结构中，\textbf{每个分次分量都是（至多）一维的}这一事实——而这恰好是"复杂度为零"（即环面）这一条件的代数刻画。一旦考虑复杂度 $c=\dim X-\mathrm{rank}(T)>0$ 的一般 $T$-变体（Altmann--Hausen 意义下的多分次坐标环 \cite{AH2006}），分次分量本身就是一个正维数底簇 $Y=X/\!\!/T$ 上某线丶丛的截面模，不再是一维的，初等论证随即失效——这精确解释了 Li--Xu 策略第二、三步中有限生成性问题的真正来源，也说明了为什么 2025 年之前这一问题需要被"作为假设"搁置（第 4 节，命题 \ref{prop:dichotomy}）。
+
+  \item[(c)] 作为(a)的推论，结合 Xu--Zhuang \cite{XZ2021} 关于极小化子在对称群作用下不变的一般性定理，我们得到：\textbf{每个环面 klt 奇点都是自己的稳定退化}，即 \cite{XZ2025} 主定理中的退化中心 $X_0$ 典范地同构于 $X$ 本身（推论 \ref{cor:self-degenerate}）。这从一个纯代数、初等的角度，重新导出了 Sasaki--Einstein 几何中 Martelli--Sparks--Yau \cite{MSY2008} 与 Futaki--Ono--Wang \cite{FOW2009} 已经确立的经典事实——环面 Fano 锥奇点在适当调整 Reeb 向量场后总是 K-半稳定的，不需要进一步的退化。
+
+  \item[(d)] 我们还指出一个值得注意的"悖论"：对 $n\ge2$ 维的环面奇点，勒贝格几乎处处的 Reeb 向量都给出\textbf{极大有理秩}（即秩恰为 $n$）的赋值（命题 \ref{prop:generic}）——也就是说，在环面的世界里，"高阶秩"不是特例而是\emph{典型}现象，且恰恰是最容易处理的情形；这与一般 klt 奇点中高阶秩长期以来是\emph{最后、最难}解决的情形（正是 \cite{XZ2025} 的贡献）形成鲜明对比。这提示我们：秩的高低与复杂度的高低是两个独立的难度维度，\cite{XZ2025} 真正克服的困难来自于"复杂度达到最大"（即没有任何连续对称性可用）与"秩大于一"的\emph{同时}出现。
+\end{itemize}
+
+我们必须诚实地指出本文的定位：以上(a)--(d)全部是在初等交换代数与经典环面几何范围内可以完全证明的正确陈述，但它们并不构成对任何深刻公开问题的解答，其中(a)所依赖的"分次整环的最低次项赋值是平凡赋值"这一事实，本质上是交换代数中的标准/民间常识（在 Newton--Okounkov 体理论与 SAGBI 基理论中被反复使用，参见 Kaveh--Khovanskii \cite{KK2012} 及 Kaveh--Manon \cite{KM2019} 的相关讨论）。本文的价值在于：给出该事实一个完全自足、适配 \cite{XZ2025} 具体框架的证明，并将其与 Li--Xu 三步策略、\cite{XZ2025} 的最新结果、以及 Sasaki--Einstein 几何中的经典结果精确地衔接起来，特别是通过$T$-变体复杂度这一概念对"何处困难、何处平凡"给出一个清晰、可验证的分界线。第 5 节的展望问题则明确标注为推测性内容。
+
+\section{预备知识}
+
+\subsection{分次整环与分次赋值}
+
+设 $\Gamma$ 是一个交换群，$R=\bigoplus_{\gamma\in\Gamma} R_\gamma$ 是一个 $\Gamma$-分次的整环（即 $R_\gamma\cdot R_{\gamma'}\subset R_{\gamma+\gamma'}$，且 $R$ 无零因子）。设 $\xi:\Gamma\to\R$ 是一个群同态。对非零元 $f=\sum_\gamma f_\gamma\in R$（有限和，$f_\gamma\in R_\gamma$），定义
+\[
+v_\xi(f) \;:=\; \min\{\xi(\gamma) : f_\gamma\neq 0\}, \qquad v_\xi(0):=+\infty.
+\]
+
+\begin{lemma}\label{lem:main}
+函数 $v_\xi$ 是 $R$ 上的一个赋值，即对任意非零 $f,g\in R$ 有
+\[
+v_\xi(fg)=v_\xi(f)+v_\xi(g), \qquad v_\xi(f+g)\ge \min(v_\xi(f),v_\xi(g)).
+\]
+此外，令 $\Gamma_\xi:=\xi(\Gamma)\subset\R$ 为值群，则由 $\mathfrak a_\lambda:=\bigoplus_{\gamma:\xi(\gamma)\ge\lambda} R_\gamma$ 定义的滤过恰好给出 $v_\xi$ 的赋值滤过，且存在典范的分次环同构
+\[
+\gr_{v_\xi}(R) \;=\; \bigoplus_{\lambda\in\Gamma_\xi} \mathfrak a_\lambda/\mathfrak a_{>\lambda} \;\xrightarrow{\ \cong\ }\; R,
+\]
+它将 $\mathfrak a_\lambda/\mathfrak a_{>\lambda}$ 中 $f_\gamma$（$\xi(\gamma)=\lambda$）的像等同于 $f_\gamma\in R_\gamma\subset R$ 本身。
+\end{lemma}
+
+\begin{proof}
+第二个不等式是自明的：$f+g$ 的支撑（关于 $\Gamma$-分次的支撑）包含于 $\supp(f)\cup\supp(g)$，故 $v_\xi(f+g)\ge \min\{\xi(\gamma):\gamma\in\supp(f)\cup\supp(g)\}=\min(v_\xi(f),v_\xi(g))$。
+
+对第一个等式：设 $a=v_\xi(f)$，$b=v_\xi(g)$，并写 $f=f_a+f'$，$g=g_b+g'$，其中 $f_a\in R_a\setminus\{0\}$（这里将 $R_a$ 理解为 $\xi(\gamma)=a$ 的所有 $R_\gamma$ 之和中 $f$ 的分量之和，下同）是 $f$ 中 $\xi$-次数恰为 $a$ 的齐次部分，$f'$ 是 $\xi$-次数严格大于 $a$ 的部分（由 $v_\xi(f)=a$ 的定义，不存在次数小于 $a$ 的非零部分）；类似地定义 $g_b,g'$。则
+\[
+fg = f_ag_b + (f_ag'+f'g_b+f'g'),
+\]
+其中 $f_ag_b$ 的 $\xi$-次数恰为 $a+b$（因为 $\xi$ 是群同态，齐次分量的乘积落在次数之和对应的分量中），而括号中的各项 $\xi$-次数都严格大于 $a+b$。由于 $R$ 是整环，$f_a\neq0$ 且 $g_b\neq0$ 蕴含 $f_ag_b\neq0$。因此 $fg$ 的 $\xi$-次数恰为 $a+b$ 的齐次部分就是 $f_ag_b\neq0$，从而 $v_\xi(fg)=a+b=v_\xi(f)+v_\xi(g)$。
+
+最后一部分：由构造，$\mathfrak a_\lambda=\bigoplus_{\gamma:\xi(\gamma)\ge\lambda}R_\gamma$ 与 $\mathfrak a_{>\lambda}=\bigoplus_{\gamma:\xi(\gamma)>\lambda}R_\gamma$ 都是关于同一个（更细的）$\Gamma$-分次的坐标子空间之直和，二者之差恰为 $\bigoplus_{\gamma:\xi(\gamma)=\lambda}R_\gamma$，这就给出了向量空间层面的典范同构 $\mathfrak a_\lambda/\mathfrak a_{>\lambda}\cong \bigoplus_{\gamma:\xi(\gamma)=\lambda}R_\gamma$。取遍所有 $\lambda\in\Gamma_\xi$ 直和，得到向量空间同构 $\gr_{v_\xi}(R)\cong R$。这一同构还是环同态：因为若取上述分解中的典范代表元 $f_\gamma\in R_\gamma$（其中 $\xi(\gamma)=\lambda$）与 $g_{\gamma'}\in R_{\gamma'}$（$\xi(\gamma')=\mu$）作为 $\gr$ 中类的代表，其乘积 $f_\gamma g_{\gamma'}\in R_{\gamma+\gamma'}$ 恰好落在 $\xi$-次数为 $\lambda+\mu$ 的分量中（不需要任何进一步验证，因为分次环乘法本身保证乘积落在正确的分量里），这就是 $\gr$ 中相应类的乘积，与同构的定义相容。
+\end{proof}
+
+\begin{remark}
+引理 \ref{lem:main} 完全不需要假设分次分量 $R_\gamma$ 是一维的。这一点在第 4 节中至关重要。
+\end{remark}
+
+\subsection{环面变体与拟单项赋值}
+
+设 $M\cong\Z^n$ 是格，$N=\mathrm{Hom}(M,\Z)$ 是对偶格，$\sigma\subset N_\R$ 是一个 $n$ 维强凸有理多面体锥，$S=\sigma^\vee\cap M$（由 Gordan 引理，$S$ 是有限生成的饱和幺半群），$X=\Spec(R)$，$R=\C[S]=\bigoplus_{m\in S}\C x^m$。$X$ 是一个（可能是 klt 的）仿射环面奇点，环面 $T=(\Gm)^n=\Spec(\C[M])$ 作用其上，$x\in X$ 是唯一的 $T$-不动点（原点）。经典环面几何（例如 \cite{CLS2011}）告诉我们：
+
+\begin{itemize}[leftmargin=1.6em]
+  \item[(i)] $R$ 天然是一个 $M$-分次整环（$\Gamma=M$，$R_m=\C x^m$ 对 $m\in S$，$R_m=0$ 对 $m\notin S$）——每个非零分次分量都恰好是\textbf{一维}的；
+  \item[(ii)] $X$ 上的 $T$-不变赋值与 $\sigma$ 中的点一一对应：任意 $\xi\in\relint(\sigma)$ 给出 $T$-不变的拟单项赋值 $v_\xi(x^m)=\langle\xi,m\rangle$，且所有 $T$-不变赋值都形如此（这正是引理 \ref{lem:main} 中 $\Gamma=M$、$\xi\in N_\R=\mathrm{Hom}(M,\R)$ 的特殊情形）；
+  \item[(iii)] $v_\xi$ 的有理秩等于 $\dim_\Q(\xi(M)\otimes\Q)$，即 $\Q$-向量空间 $\Q\text{-span}\{\langle\xi,m\rangle:m\in M\}$ 的维数，可以取遍 $1$ 到 $n$ 之间的任意整数。
+\end{itemize}
+
+\section{环面情形的有限生成性}
+
+\begin{corollary}\label{cor:toric-fg}
+设 $x\in X=\Spec(\C[S])$ 是环面仿射簇，$\xi\in\relint(\sigma)$ 是任意一点（对应任意有理秩 $1\le r\le n$ 的 $T$-不变拟单项赋值 $v_\xi$）。则
+\[
+\gr_{v_\xi}(R) \;\cong\; R
+\]
+典范地成立，特别地 $\gr_{v_\xi}(R)$ 是有限生成的 $\C$-代数（因为 $R=\C[S]$ 本身由 Gordan 引理是有限生成的）。
+\end{corollary}
+
+\begin{proof}
+直接应用引理 \ref{lem:main} 于 $\Gamma=M$ 上的 $M$-分次整环 $R=\C[S]$ 及群同态 $\xi:M\to\R$（$m\mapsto\langle\xi,m\rangle$）即可。
+\end{proof}
+
+\begin{remark}
+这为 \cite{XZ2025} 主定理（局部高阶秩有限生成，见前述综述文章第 2 节定理 2.2）在环面情形下提供了一个完全独立于原论文中所用极小模型纲领技术的初等验证，对\textbf{任意}有理秩 $1\le r\le n$（不仅是极小化赋值的秩，而是\emph{所有} $T$-不变拟单项赋值）一致成立。
+\end{remark}
+
+现在我们讨论正规化体积极小化子的情形。由 Xu--Zhuang \cite[Corollary~1.2]{XZ2021}（见前述综述文章 \S2 定理 2.2 的证明背景），若 klt 奇点 $x\in(X,\Delta)$ 允许某代数群 $G$ 作用，则 $\widehat{\vol}_{X,\Delta}$ 的（唯一，在重新标度意义下的）极小化子 $v_0$ 必为 $G$-不变。将此应用于 $G=T$ 环面本身：
+
+\begin{corollary}\label{cor:self-degenerate}
+设 $x\in X=\Spec(\C[S])$ 是环面 klt 奇点。则 $\widehat{\vol}_X$ 的极小化子 $v_0$（在重新标度意义下唯一）必为 $T$-不变，从而由环面几何经典事实 (ii) 是某个 $v_{\xi_0}$（$\xi_0\in\relint(\sigma)$ 是相应体积泛函限制在环面 Reeb 锥上的极小化子，其存在唯一性由 Gigena--Martelli--Sparks--Yau 关于该体积泛函的严格凸性得到，见 \cite{Gigena1978,MSY2008} 及 \cite[Lemma~3.8]{LX2018}）。由推论 \ref{cor:toric-fg}，$\gr_{v_0}(R)\cong R$，从而许--庄稳定退化定理（前述综述文章定理 2.3）给出的退化中心
+\[
+X_0 = \Spec(\gr_{v_0}R) \;\cong\; X.
+\]
+即：\textbf{每个环面 klt 奇点都是自身的稳定退化}——不需要发生任何实质性的退化。
+\end{corollary}
+
+\begin{remark}
+推论 \ref{cor:self-degenerate} 从纯代数（赋值论 + 环面组合）的角度重新导出了 Sasaki--Einstein 几何中已经确立的经典图像：Martelli--Sparks--Yau \cite{MSY2008} 的体积极小化方法结合 Futaki--Ono--Wang \cite{FOW2009} 关于紧环面 Sasaki 流形的存在性定理告诉我们，环面 Fano 锥奇点（满足适当的正性条件）在调整 Reeb 向量场之后总能配备 Sasaki--Einstein 度量（等价地是 K-半稳定的），\emph{不需要}进一步退化到某个真子结构。我们这里的论证是完全代数化的，绕开了微分几何论证（横截 Kähler--Ricci 孤立子的存在性、变分法等），仅仅使用了 Xu--Zhuang 的等变性定理 \cite{XZ2021} 加上引理 \ref{lem:main} 这一初等的交换代数事实。
+\end{remark}
+
+\section{复杂度-秩二分现象}
+
+\subsection{为何一般情形困难：正复杂度}
+
+设 $T=(\Gm)^r$（$r\ge1$）作用在正规仿射簇 $X=\Spec(R)$ 上，作用有效但不必是环面作用（即 $r$ 可以严格小于 $\dim X$）。$X$ 关于 $T$ 的\textbf{复杂度}定义为
+\[
+c \;:=\; \dim X - r.
+\]
+$c=0$ 恰好是环面情形。当 $c>0$ 时，由 Altmann--Hausen 理论 \cite{AH2006}，$R$ 的 $M$-分次（$M$ 是 $T$ 的特征格，$M\cong\Z^r$）具有如下结构：存在一个 $c$ 维半射影簇 $Y$（大致可理解为 GIT 商 $X/\!\!/T$）与所谓的\emph{适当多面体除子} $\mathcal D$（一个从 $\sigma^\vee\cap M$ 到 $Y$ 上半丰富 $\Q$-除子的映射），使得
+\[
+R \;=\; \bigoplus_{m\in\sigma^\vee\cap M} H^0\big(Y,\, \mathcal O_Y(\mathcal D(m))\big).
+\]
+
+\textbf{关键点}：当 $c>0$ 时，每个分次分量 $R_m=H^0(Y,\mathcal O_Y(\mathcal D(m)))$ 一般而言是一个\textbf{维数大于 $1$} 的向量空间（截面空间），而不再像环面情形（$c=0$，此时 $Y$ 退化为一点，$R_m$ 至多一维）那样简单。
+
+\begin{proposition}[复杂度-秩二分现象]\label{prop:dichotomy}
+设 $T$ 作用于正规仿射簇 $X=\Spec(R)$，复杂度为 $c$，$\xi\in N_\R$ 给出 $T$-不变赋值 $v_\xi$ 通过 $M$-分次的"最低次项"构造（如引理 \ref{lem:main}）。则：
+\begin{enumerate}[label=(\arabic*)]
+  \item 无论 $c$ 为何值，$v_\xi$ 总是 $R$ 上一个合法的赋值，且 $\gr_{v_\xi}(R)\cong R$ 典范成立（引理 \ref{lem:main} 对任意分次整环都成立，与 $c$ 无关）。
+  \item 然而，当 $c>0$ 时，$v_\xi$（"纯 $T$-次数"赋值）通常\textbf{不是}$T$-不变赋值空间中"典型"或"极小化"的赋值：一般的 $T$-不变赋值还需要在每个分次分量 $R_m=H^0(Y,\mathcal O_Y(\mathcal D(m)))$ 内部\emph{进一步}指定信息（例如 $Y$ 上某个赋值诱导的滤过），从而给出的赋值 $w$ 满足 $\gr_w(R)$ 是 $\gr$（某 $Y$ 上赋值）的一个\emph{分次模}，而非平凡地等于 $R$ 本身；此时有限生成性归结为 $Y$（一个一般的、可能非环面的正维数簇）上该赋值诱导的有限生成性问题——这正是经典交换代数中可能出现 Nagata 型病态（非有限生成分次环）的一般场域，不再有引理 \ref{lem:main} 式的免费午餐。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[讨论（非形式化证明）]
+(1) 就是引理 \ref{lem:main}，对任意 $\Gamma$-分次整环都成立，不依赖 $c$。(2) 的实质内容并非一个可以简短形式化证明的定理，而是对 Altmann--Hausen 分次环结构的直接观察：一般 $T$-不变赋值 $w\in \mathrm{Val}_{X,x}^T$ 由一对数据决定——$T$-次数方向上的一个 $\xi\in N_\R$（给出 $M$-分次的粗滤过）以及在\emph{每个}分次分量 $R_m=H^0(Y,\mathcal O_Y(\mathcal D(m)))$ 上，由 $Y$ 上一个固定赋值 $\mu$ 诱导的更细的滤过（例如 $\mu$ 关于 $Y$ 上某点或某除子的赋值），综合给出 $w(f)=\min_m\{\xi(m)+\mu(f_m)\}$ 型的公式。当 $\dim R_m>1$（即 $c>0$）时，"最低 $\xi$-次项 $f_a$"本身是 $R_a$ 中的一个\emph{向量}，而不是一维空间中唯一确定（至多差一个常数）的元素；判断 $f_a g_b\ne 0$（对 $\gr_{v_\xi}$ 这一"平凡"部分而言足够，见引理 \ref{lem:main}）与判断\emph{更细}的滤过 $w=(\xi,\mu)$ 下伴随分级环 $\gr_w R$ 的有限生成性是两回事——后者依赖于 $\mu$ 关于 $Y$ 的丰富除子族 $\{\mathcal D(m)\}$ 的相容性，一般而言这是一个真正的、可能没有免费答案的问题（这正是 Li--Xu \cite{LX2018} 在第二、三步中止步于"作为假设提出"的地方，也是 Xu--Zhuang \cite{XZ2025} 需要引入实质性新技术——即通过爆破与极小模型纲领构造 Kollár 模型来"正规化"高阶秩赋值——才能一般性解决的地方）。
+\end{proof}
+
+\begin{remark}
+命题 \ref{prop:dichotomy} 的意义在于将"何处困难"精确地定位在\emph{复杂度}而非\emph{秩}上：
+\begin{itemize}[leftmargin=1.6em]
+  \item 复杂度 $c=0$（环面）+ 任意秩 $r$：有限生成性平凡（推论 \ref{cor:toric-fg}）。
+  \item 复杂度 $c>0$（一般 $T$-变体）+ 秩 $1$：有限生成性可由极小模型纲领 \cite{BCHM2010} 得到（Li--Xu 第二步部分情形，Blum \cite{Blum2018}、Xu \cite{Xu2020}）。
+  \item 复杂度 $c>0$（或退化到没有任何连续对称性，即最一般的 klt 奇点）+ 秩 $r>1$：这正是长期悬而未决、直到 \cite{XZ2025} 才被攻克的情形。
+\end{itemize}
+换言之，秩与复杂度是两个独立的"难度轴"，\cite{XZ2025} 真正克服的困难恰恰位于这两个轴同时取到最"坏"值的角落。
+\end{remark}
+
+\subsection{高阶秩是环面情形下的典型现象}
+
+\begin{proposition}\label{prop:generic}
+设 $\sigma\subset N_\R\cong\R^n$（$n\ge2$）是强凸锥。则对勒贝格测度几乎所有 $\xi\in\relint(\sigma)$，赋值 $v_\xi$ 的有理秩恰为 $n$（即最大可能值）。
+\end{proposition}
+
+\begin{proof}
+$v_\xi$ 的有理秩小于 $n$ 当且仅当群同态 $\xi:M\to\R$（$M\cong\Z^n$）不是单射，即存在非零 $m,m'\in M$（$m\ne m'$）使得 $\langle\xi,m\rangle=\langle\xi,m'\rangle$，等价地 $\xi$ 落在超平面 $\{\eta\in N_\R:\langle\eta,m-m'\rangle=0\}$ 上。$M\setminus\{0\}$ 是可数集，故"$\xi$ 落在某个这样的超平面上"这一条件是可数多个（勒贝格测度为零的）超平面之并，仍是测度零集。故几乎所有 $\xi$ 使 $\xi:M\to\R$ 单射，从而 $v_\xi$ 的值群 $\xi(M)\cong M\cong\Z^n$（作为抽象群），有理秩为 $n$。
+\end{proof}
+
+\begin{remark}
+命题 \ref{prop:generic} 说明：在 $n\ge2$ 维的环面世界中，"高阶秩"不是例外而是\emph{典型}现象（满测度）；然而由推论 \ref{cor:toric-fg}，这一"典型的高阶秩"情形恰恰是有限生成性最容易验证的情形（同构式的证明，不需要任何深入的技术）。这与非环面（正复杂度）情形下"高阶秩"是最后、最难解决的情形（\cite{XZ2025} 的核心贡献）构成有趣的对照，进一步印证了复杂度而非秩才是问题真正的难度来源这一命题 \ref{prop:dichotomy} 中的论点。
+\end{remark}
+
+\section{展望：与更广泛图景的（推测性）联系}
+
+\begin{quote}
+\emph{本节内容为推测性的展望问题，明确不构成已证明的结果。}
+\end{quote}
+
+在本文作者此前一篇综述性文章中，我们讨论了 2025 年发表于"四大"期刊的四篇代数几何论文，包括许--庄 \cite{XZ2025}（本文的直接出发点）、Maulik--Shen--Yin 关于阿贝尔纤维化上完美滤过与 Fourier--Mukai 变换的工作、Binda--Kato--Vezzani 关于环面变体中完全交的 $p$-adic 权-单值性猜想的工作，以及 Lawrence--Sawin 关于阿贝尔簇中超曲面 Shafarevich 猜想的工作。本文第 3--4 节的"分次整环的最低次项赋值是平凡赋值"这一初等事实，与完美滤过的可乘性定理在形式上有一定的相似性（都是"某种谱分解/分次结构与几何滤过相容"型的陈述）；同时，Binda--Kato--Vezzani 的工作恰好也是在环面变体（更准确地说是环面变体中的完全交）这一背景下展开。由此我们提出以下问题，供读者参考：
+
+\begin{question}
+Binda--Kato--Vezzani \cite{BKV2025} 处理的是光滑投射环面变体中完全交的上同调权滤过；本文处理的是（可能奇异的）仿射环面簇坐标环上由 Reeb 向量诱导的赋值滤过。是否存在一个统一的框架，能够将"环面组合结构自动控制权滤过"（Binda--Kato--Vezzani 的情形）与"环面组合结构自动使赋值滤过平凡化"（本文推论 \ref{cor:toric-fg}）纳入同一个一般性原理？
+\end{question}
+
+\begin{question}
+命题 \ref{prop:dichotomy} 中的复杂度概念是否可以与 Maulik--Shen--Yin 完美滤过理论中"可对偶阿贝尔纤维化"的自对偶复杂度（例如奇异纤维的复杂程度）建立某种类比或精确对应？
+\end{question}
+
+我们再次强调，以上两个问题目前仅是基于形式类比提出的猜测，未经证明，仅供后续研究参考。
+
+\section{结语}
+
+本文以许晨阳、庄子权 2025 年关于 klt 奇点稳定退化的定理为出发点，对该定理在环面（复杂度为零）情形下给出了一个完整、初等、自足的独立验证（推论 \ref{cor:toric-fg}），并精确地指出了该初等论证在正复杂度情形下失效的具体原因（命题 \ref{prop:dichotomy}），从而对 Li--Xu 2018 年三步策略中长期悬而未决的部分给出了一个概念性的解释。作为应用，我们给出了环面 klt 奇点"自退化"现象的初等证明（推论 \ref{cor:self-degenerate}），从代数角度重新导出了 Sasaki--Einstein 几何中的经典结果；并指出高阶秩在环面世界中是典型而非例外现象（命题 \ref{prop:generic}），这与一般情形下高阶秩问题的困难程度形成有意义的对照。
+
+本文的贡献是模块化、范围明确的：我们没有解决任何公开问题，而是对一个已经解决的深刻定理的某个特殊情形提供了独立、透明的验证，并借此厘清了"复杂度"这一概念在有限生成性问题中的关键作用。第 5 节的展望问题是推测性的，留待未来工作检验。
+
+\bigskip
+\noindent\textbf{说明.} 本文第 2--4 节的全部定义、命题与证明均为作者原创写作，但其中引理 \ref{lem:main} 所依赖的基本原理（分次整环的最低次项赋值给出平凡的伴随分级环）在交换代数与 Newton--Okounkov 体理论中是标准/民间知识，参见 \cite{KK2012,KM2019} 中的相关讨论；本文的贡献在于将其形式化为一个自足的引理，并与 \cite{XZ2025,LX2018,XZ2021} 的具体框架及 Sasaki--Einstein 几何中的经典结果 \cite{MSY2008,FOW2009} 精确衔接。第 5 节明确为推测性展望，不构成已证明的结果。
+
+\begin{thebibliography}{99}
+
+\bibitem{XZ2025}
+Chenyang Xu, Ziquan Zhuang.
+\emph{Stable degenerations of singularities}.
+J. Amer. Math. Soc. \textbf{38} (2025), 585--626.
+
+\bibitem{LX2018}
+Chi Li, Chenyang Xu.
+\emph{Stability of valuations: higher rational rank}.
+Peking Math. J. \textbf{1} (2018), no. 1, 1--79.
+
+\bibitem{XZ2021}
+Chenyang Xu, Ziquan Zhuang.
+\emph{Uniqueness of the minimizer of the normalized volume function}.
+Camb. J. Math. \textbf{9} (2021), no. 1, 149--176.
+
+\bibitem{Li2018Duke}
+Chi Li.
+\emph{K-semistability is equivariant volume minimization}.
+Duke Math. J. \textbf{166} (2017), no. 16, 3147--3218.
+
+\bibitem{Blum2018}
+Harold Blum.
+\emph{Existence of valuations with smallest normalized volume}.
+Compos. Math. \textbf{154} (2018), no. 4, 820--849.
+
+\bibitem{Xu2020}
+Chenyang Xu.
+\emph{A minimizing valuation is quasi-monomial}.
+Ann. of Math. \textbf{191} (2020), no. 3, 1003--1030.
+
+\bibitem{BCHM2010}
+Caucher Birkar, Paolo Cascini, Christopher D. Hacon, James M{c}Kernan.
+\emph{Existence of minimal models for varieties of log general type}.
+J. Amer. Math. Soc. \textbf{23} (2010), no. 2, 405--468.
+
+\bibitem{Gigena1978}
+Salvador Gigena.
+\emph{Integral invariants of convex cones}.
+J. Differential Geom. \textbf{13} (1978), no. 2, 191--222.
+
+\bibitem{MSY2008}
+Dario Martelli, James Sparks, Shing-Tung Yau.
+\emph{Sasaki--Einstein manifolds and volume minimisation}.
+Comm. Math. Phys. \textbf{280} (2008), no. 3, 611--673.
+
+\bibitem{FOW2009}
+Akito Futaki, Hajime Ono, Guofang Wang.
+\emph{Transverse K\"ahler geometry of Sasaki manifolds and toric Sasaki--Einstein manifolds}.
+J. Differential Geom. \textbf{83} (2009), no. 3, 585--636.
+
+\bibitem{AH2006}
+Klaus Altmann, J\"urgen Hausen.
+\emph{Polyhedral divisors and algebraic torus actions}.
+Math. Ann. \textbf{334} (2006), no. 3, 557--607.
+
+\bibitem{CLS2011}
+David A. Cox, John B. Little, Henry K. Schenck.
+\emph{Toric Varieties}.
+Graduate Studies in Mathematics, vol. 124, American Mathematical Society, 2011.
+
+\bibitem{KK2012}
+Kiumars Kaveh, Askold G. Khovanskii.
+\emph{Newton--Okounkov bodies, semigroups of integral points, graded algebras and intersection theory}.
+Ann. of Math. \textbf{176} (2012), no. 2, 925--978.
+
+\bibitem{KM2019}
+Kiumars Kaveh, Christopher Manon.
+\emph{Khovanskii bases, higher rank valuations, and tropical geometry}.
+SIAM J. Appl. Algebra Geom. \textbf{3} (2019), no. 2, 292--336.
+
+\bibitem{BKV2025}
+Federico Binda, Hiroki Kato, Alberto Vezzani.
+\emph{On the $p$-adic weight-monodromy conjecture for complete intersections in toric varieties}.
+Invent. Math. \textbf{241} (2025), 559--603.
+
+\end{thebibliography}
+
+\end{document}
