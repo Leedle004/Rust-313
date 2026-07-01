@@ -1,0 +1,6 @@
+[target.wasm32-unknown-unknown]
+# Rust 1.96 removed the implicit `--allow-undefined` flag on wasm targets
+# (https://blog.rust-lang.org/2026/04/04/changes-to-webassembly-targets-and-handling-undefined-symbols/).
+# macroquad/miniquad rely on GL functions being resolved as JS imports at
+# runtime rather than at link time, so we restore the old behavior here.
+rustflags = ["-C", "link-arg=--allow-undefined"]

@@ -1,0 +1,16 @@
+[package]
+name = "rust-313"
+version = "0.1.0"
+edition = "2021"
+description = "A 2D arcade space shooter written in Rust with macroquad."
+
+[[bin]]
+name = "rust-313"
+path = "src/main.rs"
+
+[dependencies]
+macroquad = "0.4"
+
+[profile.release]
+opt-level = "s"
+lto = true
