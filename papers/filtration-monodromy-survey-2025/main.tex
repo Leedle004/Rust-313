@@ -1,0 +1,323 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{ctex}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage[margin=2.6cm]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{enumitem}
+\usepackage{fontspec}
+
+\setCJKmainfont{WenQuanYi Micro Hei}
+
+\newtheorem{theorem}{定理}[section]
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{proposition}[theorem]{命题}
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{conjecture}[theorem]{猜想}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{定义}
+\newtheorem{question}[theorem]{问题}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{注记}
+\newtheorem{example}[theorem]{例}
+
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\gr}{gr}
+\DeclareMathOperator{\Gal}{Gal}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Qp}{\mathbb{Q}_p}
+\newcommand{\Zp}{\mathbb{Z}_p}
+
+\title{\textbf{滤过与单值性：四大顶级期刊 2025 年代数几何最新进展的一个统一视角}}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.5em}
+
+\begin{abstract}
+本文以 2025 年发表于国际数学界公认的“四大”期刊——《数学年刊》(\emph{Annals of Mathematics})、《美国数学会杂志》(\emph{Journal of the American Mathematical Society})、《数学新进展》(\emph{Acta Mathematica}) 与《数学新知》(\emph{Inventiones Mathematicae})——的四篇代数几何前沿论文为基础，系统梳理它们各自的背景、主要定理与证明策略，并在此基础上提出一个统一的结构性视角：这四项工作虽然分属奇点的 K-稳定性理论、带扭 Hodge 结构的完美滤过理论、$p$-adic 权-单值性猜想与阿贝尔簇中超曲面的 Shafarevich 猜想等表面上互不相关的方向，但均可纳入“通过控制某种\emph{单值性}（monodromy）或对偶结构来驯服某种\emph{滤过}（filtration），从而得到有限性或刚性结论”这一共同范式之下。我们进一步据此提出若干可能连接这些理论的开放问题，供后续研究参考。本文的第 2–5 节忠实转述原始文献中的定义与定理（并标明出处），第 6 节的统一视角与开放问题部分则是作者本人的观察与推测，并非已被证明的新定理。
+
+\medskip
+\noindent\textbf{关键词：} K-稳定性；正规化体积；完美滤过；Fourier--Mukai 变换；$p$-adic Hodge 理论；权-单值性猜想；Shafarevich 猜想；大单值性
+\end{abstract}
+
+\tableofcontents
+
+\section{引言}
+
+代数几何在最近几年中一个反复出现的主题是：许多看似独立的深刻问题，其解决都依赖于对某种\textbf{滤过结构}（filtration）施加精细控制，而这种控制往往又归结为证明某个相关对象具有\textbf{充分大的单值性}（big monodromy）或某种\textbf{自对偶/对合对称性}。本文选取 2025 年内发表于代数几何领域公认的四本顶级期刊上的四篇代表性论文，逐一介绍其结果，并尝试在这些结果之间建立联系。
+
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{许晨阳 (Chenyang Xu)、庄子权 (Ziquan Zhuang)}，\emph{Stable degenerations of singularities}，
+  \emph{J. Amer. Math. Soc.} \textbf{38} (2025), 585--626 \cite{XZ2025}。
+  该文证明了 klt 奇点的正规化体积极小化子对应的伴随分级环总是有限生成的，从而完成了 Li--Xu 稳定退化猜想 (Stable Degeneration Conjecture) 的最后一步，建立了 klt 奇点局部 K-稳定性理论的完整框架。
+
+  \item \textbf{Davesh Maulik、沈俊良 (Junliang Shen)、尹麒正 (Qizheng Yin)}，\emph{Perverse filtrations and Fourier transforms}，
+  \emph{Acta Math.} \textbf{234}(1) (2025), 1--69 \cite{MSY2025}。
+  该文研究一类可对偶 (dualizable) 阿贝尔纤维化上 Fourier--Mukai 变换与完美滤过 (perverse filtration) 之间的相互作用，给出了运动分解猜想、$P=W$ 猜想 (对 $\mathrm{GL}_r$) 以及局部 $\mathbb{P}^2$ 情形下 $P=C$ 猜想一半部分的证明。
+
+  \item \textbf{Federico Binda、加藤大貴 (Hiroki Kato)、Alberto Vezzani}，\emph{On the $p$-adic weight-monodromy conjecture for complete intersections in toric varieties}，
+  \emph{Invent. Math.} \textbf{241} (2025), 559--603 \cite{BKV2025}。
+  该文将 Scholze 在 $\ell$-adic 情形下对权-单值性猜想的证明策略，通过刚性解析动机 (rigid analytic motives) 的同伦理论移植到 $p$-adic 情形，证明了投射光滑复曲面 (toric) 变体中概型意义下完全交的 $p$-adic 权-单值性猜想。
+
+  \item \textbf{Brian Lawrence、Will Sawin}，\emph{The Shafarevich conjecture for hypersurfaces in abelian varieties}，
+  \emph{Ann. of Math.} \textbf{202}(3) (2025), 857--1000 \cite{LS2025}。
+  该文证明：固定一个维数 $\ge 4$ 的阿贝尔簇 $A/K$ 与 Néron--Severi 群中的一个丰富类，则 $A$ 中代表该类、在给定有限素数集合 $S$ 外具有好还原的光滑超曲面，模去平移后只有有限多个，从而将 Faltings 关于阿贝尔簇的 Shafarevich 猜想推广到超曲面的情形。
+\end{itemize}
+
+这四篇论文分别处于算术几何、Hodge 理论、$p$-adic 几何与双有理几何/奇点理论的交界处，代表了 2025 年代数几何研究的几个最活跃方向。本文第 2--5 节将依次介绍它们的背景、主要定理陈述与证明思路的核心要点；第 6 节尝试提炼出贯穿这四项工作的共同结构性范式，并提出几个可能有意义的开放问题；第 7 节作简短总结。
+
+\emph{声明：} 第 2--5 节中的定义与定理均严格转述自原始文献，并标明出处；第 6 节的“统一视角”与所提出的问题反映的是作者本人基于文献阅读产生的观察与猜测，尚未经过严格证明，读者应将其视为研究方向的提示而非已确立的数学结果。
+
+\section{Klt 奇点的稳定退化与局部 K-稳定性理论的完成}
+
+\subsection{背景：正规化体积与稳定退化猜想}
+
+设 $x \in (X = \Spec(R), \Delta)$ 是一个 klt 奇点。Li \cite{Li2018} 引入了实值 (甚至拟单项，quasi-monomial) 赋值 $v$ 上的\textbf{正规化体积}不变量 $\widehat{\vol}_X(v)$，用以刻画奇点的局部 K-稳定性。经过 Blum \cite{Blum2018}（极小化子存在性）、Xu \cite{Xu2020}（极小化子的拟单项性）、Xu--Zhuang \cite{XZ2021}（极小化子唯一性）等一系列工作，唯一剩下的关键问题是：
+
+\begin{conjecture}[局部高阶秩有限生成，见 \cite{Li2018} Conjecture 7.1(5)]
+设 $v$ 是 $\widehat{\vol}_X$ 在 $\mathrm{Val}_{X,x}$ 上的极小化子。则伴随分级环
+\[
+\gr_v R := \bigoplus_{\lambda \in \R_{\ge 0}} \mathfrak{a}_\lambda / \mathfrak{a}_{>\lambda}, \qquad \mathfrak{a}_\lambda := \{ f \in R \mid v(f) \ge \lambda \}
+\]
+总是有限生成的。
+\end{conjecture}
+
+当 $v$ 的有理秩为 $1$ 时，该有限生成性可由 Birkar--Cascini--Hacon--McKernan 的极小模型纲领结果直接推出 \cite{BCHM2010}（参见 \cite{Blum2018,Xu2020}）；但当 $v$ 的有理秩 $> 1$（即“高阶秩”）时，问题实质上更为困难，因为此时无法直接套用极小模型纲领中关于单个除子的技术。
+
+\subsection{主要定理}
+
+Xu--Zhuang \cite{XZ2025} 完全解决了高阶秩情形：
+
+\begin{theorem}[局部高阶秩有限生成，\cite{XZ2025} Theorem 1.1]
+设 $x \in (X = \Spec(R), \Delta)$ 是 klt 奇点，$v$ 是 $\widehat{\vol}$ 在 $\mathrm{Val}_{X,x}$ 上的一个极小化子。则伴随分级环 $\gr_v R$ 是有限生成的。
+\end{theorem}
+
+结合此前诸结果，作者们完整地建立了：
+
+\begin{theorem}[稳定退化猜想，\cite{XZ2025} Theorem 1.2]
+设 $x \in (X = \Spec(R), \Delta)$ 是 klt 奇点。则：
+\begin{enumerate}[label=(\arabic*)]
+  \item 在重新标度意义下，$\widehat{\vol}$ 在 $\mathrm{Val}_{X,x}$ 上存在唯一的极小化子 $v$，它是拟单项的，其伴随分级环 $\gr_v R$ 有限生成，并诱导 $(X,\Delta)$ 到某个 K-半稳定的对数 Fano 锥奇点 $(X_0 = \Spec(\gr_v R), \Delta_0; \xi_v)$ 的退化，此处 $\xi_v$ 是由 $\gr_v R$ 的分级导出的 Reeb 向量场。
+  \item 反之，若某拟单项赋值 $v$ 的伴随分级环有限生成，且诱导出的对数 Fano 锥奇点 K-半稳定，则 $v$ 就是 $\widehat{\vol}$ 的极小化子。
+\end{enumerate}
+\end{theorem}
+
+\subsection{证明策略的核心}
+
+证明的关键技术困难在于：当极小化赋值 $v$ 的值群 $\Gamma_v \subset \R$ 的秩 $r > 1$ 时，无法将问题化约为单个除子上的处理。作者的策略（简述）是：首先证明极小化子 $v$ 必是某个特殊 $\Q$-补 (special $\Q$-complement) $\Gamma$ 关于某个对数光滑模型 $(Y,E)$ 的一个单项对数中心 (monomial lc place)；随后通过先作爆破、再运行极小模型纲领的方式，将 $(Y,E)$ 修改为一个 Kollár 模型 $(Y_0, E_0) \to X$，使得 $v$ 落在 $\mathrm{QM}(Y_0, E_0)$ 内（拟单项赋值的“正规化”）；在此正规化模型上，多个除子分量之间的组合结构使得可以运用高阶秩情形下的有限生成技术（对应原文 Theorem 1.4，即“单项对数中心的伴随分级环有限生成”这一关键的技术性命题）。这一策略的精妙之处在于：把一个先验的解析/赋值论问题，转化为一个可以借助极小模型纲领（对数光滑模型上除子的组合几何）来处理的代数几何问题。
+
+该定理的意义在于，结合此前 Liu--Xu--Zhuang 关于稳定性阈值极小化赋值有限生成的工作 \cite{LXZ2022}，K-稳定 Fano 簇的模空间理论（K-模空间的正常性、投射性）以及局部奇点的稳定退化理论，共同构成了对偶 Yau--Tian--Donaldson 猜想框架下\emph{完整}的局部-整体 K-稳定性理论。
+
+\section{完美滤过与 Fourier--Mukai 变换：从 $P=W$ 猜想到运动分解猜想}
+
+\subsection{背景：完美滤过与非阿贝尔 Hodge 理论中的对称性猜想}
+
+对一个（可能带奇异纤维的）阿贝尔纤维化 $f: X \to B$，其上同调 $H^*(X)$ 上存在两种天然的滤过：来自 $f$ 的\textbf{完美滤过 (perverse filtration)} $P_\bullet$，以及（当 $X$ 有混合 Hodge 结构时）\textbf{权滤过 (weight filtration)} $W_\bullet$。非阿贝尔 Hodge 理论中的 $P=W$ 猜想（源自 de Cataldo--Hausel--Migliorini 对 Hitchin 系统的研究）预言：在 Dolbeault 模空间（Higgs 丛模空间）与对应的特征簇模空间（局部系统模空间）之间的非阿贝尔 Hodge 对应下，前者上的完美滤过恰对应后者上的权滤过。
+
+\subsection{主要定理}
+
+Maulik--Shen--Yin \cite{MSY2025} 研究了一类满足“可对偶性”(dualizable) 条件的阿贝尔纤维化——它们在自身的某种 Fourier--Mukai 自对偶意义下是稳定的，这类纤维化包括紧化 Jacobi 纤维化 (整型局部平面曲线的紧化 Jacobian 族)。其核心结果包括：
+
+\begin{theorem}[完美滤过的可乘性与 Perverse $\supset$ Chern 现象，\cite{MSY2025} 定理（综述）]
+对可对偶阿贝尔纤维化，完美滤过在 Fourier--Mukai 变换下是可乘的 (multiplicative)，并且满足“Perverse $\supset$ Chern”现象：即由 Chern 类诱导的滤过被完美滤过所支配。
+\end{theorem}
+
+作为应用，作者证明：
+
+\begin{enumerate}[label=(\alph*)]
+  \item \textbf{运动分解猜想}对该类纤维化（包括紧化 Jacobian 纤维化）成立，这将 Deninger--Murre 关于阿贝尔概形的经典定理推广到更一般的情形；
+  \item 对 $\mathrm{GL}_r$ 给出了 \textbf{$P=W$ 猜想}的一个新证明；
+  \item 证明了关于局部 $\mathbb{P}^2$ 的精细 BPS 不变量的 \textbf{$P=C$ 猜想}的一半；
+  \item 证明了整型局部平面曲线所对应的紧化 Jacobian 的完美滤过具有可乘性，推广了 Oblomkov--Yun 关于齐次奇点情形的结果。
+\end{enumerate}
+
+\subsection{证明策略的核心}
+
+证明综合运用了 Arinkin 关于凝聚层范畴的自对偶性理论 (autoduality)、Ngô 关于分解定理的支撑定理 (support theorem)、运算 $K$-理论中的 Adams 运算，以及 Corti--Hanamura 关于相对 Chow 运动的理论。其精神在于：完美滤过原本是一个拓扑/几何来源的滤过（由投射映射的纤维维数跳跃决定），而 Fourier--Mukai 自对偶性质则赋予了阿贝尔纤维化上凝聚层范畴一种代数结构上的对称性；通过 Ngô 支撑定理这一桥梁，作者们把完美滤过的（先验难以直接计算的）组合行为，转译为该对称性下的代数运算（如 Adams 运算的谱分解），从而获得可乘性等强结构性质。
+
+\section{$p$-adic 权-单值性猜想：从 $\ell$-adic 到 $p$-adic 的策略迁移}
+
+\subsection{背景：权-单值性猜想}
+
+设 $K$ 是一个具有离散估值的完备域，$X$ 是 $K$ 上的一个光滑射影变体。对 $\ell \ne p = \mathrm{char}(k)$（$k$ 为剩余域），$X$ 的 $\ell$-adic étale 上同调 $H^i_\ell(X)$ 上存在权滤过 $W_\bullet$ 与单值性滤过 $M_\bullet$（由惯性群的作用诱导，其 Jordan 型决定单值性算子的幂零结构）。\textbf{权-单值性猜想 (WMC)} 断言：
+\[
+M_\bullet = W_{\bullet + i}.
+\]
+该猜想在 $K = \C$ 情形由 Schmid、Steenbrink、齋藤 (Saito) 等人证明；在等特征的局部域情形由 Deligne、伊藤哲史 (Ito) 等证明；在混合特征、$X$ 为集合论意义下完全交的情形由 Scholze \cite{Scholze2012} 证明。$p$-adic 版本（即用 $p$-adic 上同调理论替代 $\ell$-adic 理论）此前只知道 Lazda--Pál 关于等特征局部域情形的结果。
+
+\subsection{主要定理}
+
+Binda--Kato--Vezzani \cite{BKV2025} 证明了：
+
+\begin{theorem}[\cite{BKV2025}]
+设 $K/\Qp$，$X$ 是投射光滑复曲面变体中概型意义下的完全交。则 $X$ 的 $p$-adic 上同调（由 Beilinson 意义下的 Hyodo--Kato 上同调所定义）满足权-单值性猜想。
+\end{theorem}
+
+\subsection{证明策略的核心}
+
+作者们的策略是将 Scholze 在 $\ell$-adic 情形下的证明思路移植到 $p$-adic 场合，其关键步骤（对应海报 \cite{Kato2023} 中的概述）是构造一个分裂单射
+\[
+H^i_\bullet(X) \hookrightarrow H^i_\bullet(Y_0)
+\]
+到某个等特征光滑射影变体 $Y_0$ 上，随后验证 $Y_0$（约化到半稳定情形后）满足 WMC。整个论证依赖于两项此前工作发展的“同伦”工具：(i) 刚性解析动机范畴中的\textbf{对数动机的幂零不变性}（此前 Ayoub 在非对数情形已证明，Vezzani 处理了非对数情形的 $p$-adic 版本），以及 (ii) \textbf{对数 Monsky--Washnitzer 函子与动机镶嵌等价性的兼容性}。将这些工具整合，使得原本只在 $\ell$-adic 情形下有效的支撑定理式论证，可以在 $p$-adic 刚性解析几何的框架下被重新构造出来。
+
+\subsection{与 Lawrence--Sawin 工作的联系}
+
+值得指出的是，这一 $p$-adic 权-单值性结果与下一节 Lawrence--Sawin 关于 Shafarevich 猜想的证明属于同一大范畴——都属于\textbf{$p$-adic Hodge 理论}控制代数几何有限性/刚性现象的范例：前者关心一个固定簇的上同调滤过结构本身，后者则关心一族簇的模空间在 $p$-adic Galois 表示层面的刚性。
+
+\section{阿贝尔簇中超曲面的 Shafarevich 猜想}
+
+\subsection{背景：Shafarevich 猜想及其推广}
+
+经典的 Shafarevich 猜想（由 Faltings \cite{Faltings1983} 证明）断言：固定数域 $K$、有限素数集合 $S$ 与整数 $g$，则 $K$ 上具有\textbf{在 $S$ 外好还原}的 $g$ 维阿贝尔簇同构类只有有限多个。将该有限性现象从“阿贝尔簇本身”推广到“阿贝尔簇中的子簇/超曲面”是一个自然但困难的问题，此前已知的情形包括：曲线（由 Faltings 本人处理的一般情形的特例）、K3 型超曲面族、Fano 三次曲面族等（对应特殊维数或特殊类型）。
+
+\subsection{主要定理}
+
+Lawrence--Sawin \cite{LS2025} 证明：
+
+\begin{theorem}[\cite{LS2025} 主定理]
+设 $A$ 是数域 $K$ 上维数 $\ge 4$ 的阿贝尔簇，$S$ 是 $K$ 的一个有限素数子集，$\eta$ 是 $A$ 的 Néron--Severi 群中一个固定的丰富类。则 $A$ 中代表 $\eta$、在 $S$ 外具有好还原的光滑超曲面，模去平移作用后，只有有限多个。
+\end{theorem}
+
+\subsection{证明策略的核心}
+
+该证明建立在 Lawrence--Venkatesh \cite{LV2020} 发展的方法之上：将 $p$-adic 变化的 Hodge 结构（这里是超曲面中层同调所构成的变分 Hodge 结构）与 $p$-adic Galois 表示的有限性结果（本质上来自 $p$-adic 周期映射的局部常数性 / Sen 算子理论）结合，把一个几何有限性问题转化为周期映射像空间的“体积有界”问题。
+
+要使这一策略在超曲面的情形下奏效，核心的新技术障碍是证明相关变分 Hodge 结构具有\textbf{大单值性 (big monodromy)}——即单值性群在中层同调上的表示要足够“大”（例如是相应经典群或其某个大子群），从而使周期映射对应的局部系统足够刚性。Lawrence--Sawin 通过引入阿贝尔簇上\textbf{层卷积 (sheaf convolution) 的 Tannaka 理论}这一新工具来证明大单值性：将超曲面中层同调的局部系统族，通过卷积运算嵌入到一个由阿贝尔簇上特征簇范畴构成的 Tannaka 范畴中，再借助该范畴的结构定理约束可能出现的单值性群，排除单值性“退化”（即单值性群过小）的情形。
+
+\subsection{注记}
+
+从表述上看，这一结果与前一节的 $p$-adic 权-单值性猜想同属“$p$-adic Hodge 理论支配代数几何有限性现象”这一大范式，但其技术核心（大单值性 / Tannaka 卷积理论）与后者的技术核心（对数动机的幂零不变性 / 刚性解析同伦理论）截然不同——这恰恰说明了 $p$-adic Hodge 理论在过去十年中已经发展出多条相对独立、但服务于同一类几何/算术有限性目标的技术路线。
+
+\section{统一视角：滤过、单值性与退化的三位一体}
+
+\begin{quote}
+\emph{本节内容为作者基于以上四篇文献的阅读所产生的观察与猜测，并非已经证明的数学结果。}
+\end{quote}
+
+\subsection{共同的结构范式}
+
+仔细比较上述四项工作，可以观察到一个反复出现的结构范式，大致可以归纳为如下三步：
+
+\begin{enumerate}[leftmargin=1.6em]
+  \item \textbf{构造滤过}：在研究对象上构造出一个自然的滤过结构——赋值诱导的分级 $\gr_v R$（\S 2）、完美滤过 $P_\bullet$（\S 3）、权滤过/单值性滤过 $W_\bullet, M_\bullet$（\S 4）、$p$-adic 变分 Hodge 结构的 Hodge-Tate 分解（\S 5）。这些滤过先验上只具有拓扑或分析来源，组合结构十分复杂，难以直接控制。
+
+  \item \textbf{寻找对称性/单值性机制}：借助某种额外的对称性结构来约束滤过——极小模型纲领对除子组合几何的控制（对应对数光滑模型上除子的“对称性”，\S 2）、Fourier--Mukai 自对偶性 (\S 3)、刚性解析动机范畴的幂零不变性 (\S 4)、层卷积 Tannaka 范畴的表示论刚性 (\S 5)。
+
+  \item \textbf{导出有限性/刚性结论}：将第二步的对称性机制“翻译”回第一步的滤过语言，得到有限生成性、可乘性、猜想的等价性，或几何对象的有限性。
+\end{enumerate}
+
+这一范式并非新提出的抽象哲学，而是Hodge理论与双有理几何过去数十年发展中反复验证的“工作法则”；本文的贡献仅在于指出，2025 年这四篇分布于不同子领域、几乎没有直接引用关系的论文，恰好都是该范式在各自技术背景下的具体实现。
+
+\subsection{一个可能的联系：$p$-adic 与 Fourier 理论的类比}
+
+Maulik--Shen--Yin 的完美滤过可乘性定理（\S 3）与 Binda--Kato--Vezzani 的权-单值性定理（\S 4）在形式上有一个值得注意的类比：前者证明的是"完美滤过 $\supset$ Chern 滤过"，可以类比理解为一种"代数几何 Fourier 变换下的谱分解与几何滤过相容"的现象；后者证明的是权滤过与单值性滤过的吻合，这本质上也是"Galois/惯性表示的谱分解（Frobenius 特征值的绝对值，即权）与几何滤过（单值性算子的幂零 Jordan 分解）相容"的现象。二者都可以被视为"某种谱分解（Fourier 变换的特征值 / Frobenius 特征值）与某种几何滤过相容"这一更广泛现象的实例。这提示了如下问题：
+
+\begin{question}
+是否存在一个统一的框架（例如某种"动机 Fourier 变换"），使得完美滤过的可乘性定理（对紧化 Jacobian 纤维化）与 $p$-adic 权-单值性猜想（对完全交簇）可以被表述为同一个一般性定理在不同实现（凝聚层范畴 vs. $p$-adic 刚性解析动机范畴）下的特殊情形？
+\end{question}
+
+\subsection{一个可能的联系：K-稳定退化与大单值性}
+
+Xu--Zhuang 的稳定退化定理（\S 2）产生了一个附带 $\mathbb{G}_m^r$-作用的 K-半稳定退化中心 $X_0$，其中 $r$ 是极小化赋值 $v$ 的有理秩；而 Lawrence--Sawin 的大单值性定理（\S 5）依赖于阿贝尔簇上层卷积范畴的表示论结构，其中"大单值性"本质上是在排除单值性表示可以被约化到某个真子群（对应某种退化）的情形。两者都涉及"某个连续对称群（环上的 $\mathbb{G}_m^r$-作用 / 单值性表示的代数群）是否'尽可能大'"这一定性问题。由此我们提出：
+
+\begin{question}
+对 klt 奇点稳定退化中心 $X_0 = \Spec(\gr_v R)$ 上的 $\mathbb{G}_m^r$-作用，是否存在类似"大单值性排除退化"的表示论刻画，使得可以用 Tannaka 范畴或层卷积的语言重新表述稳定退化猜想中"极小化赋值唯一性"这一结果（\cite{XZ2021}）？
+\end{question}
+
+我们强调，以上两个问题目前仅是基于表面结构类比提出的猜测性问题，其数学实质是否成立、乃至能否被严格表述，都需要更细致的研究，本文并不试图（也没有能力在此篇幅内）对其进行严格论证。
+
+\section{结语}
+
+本文围绕 2025 年发表于《数学年刊》、《美国数学会杂志》、《数学新进展》与《数学新知》的四篇代数几何论文，系统梳理了它们各自在 klt 奇点局部 K-稳定性理论、阿贝尔纤维化的完美滤过理论、$p$-adic 权-单值性猜想以及阿贝尔簇中超曲面的 Shafarevich 猜想方面取得的重要进展。这四项工作共同体现了当代代数几何研究中"通过控制单值性或对偶结构来驯服滤过"这一反复出现的方法论主线，也从不同侧面展示了极小模型纲领、非阿贝尔 Hodge 理论、刚性解析几何与 $p$-adic Hodge 理论等现代工具之间日益紧密的相互渗透。我们希望第 6 节提出的开放问题能够为读者提供进一步探索这些理论之间潜在联系的一个起点。
+
+\bigskip
+\noindent\textbf{致谢与说明.} 本文第 2--5 节的全部数学内容（定义、定理陈述、证明策略概述）均忠实转述自所引用的原始论文 \cite{XZ2025,MSY2025,BKV2025,LS2025} 及其直接引用的前期工作，并已核对相应期刊/预印本网站上的公开摘要与论文内容；如有转述不准确之处，请以原始文献为准。第 6 节的统一视角与开放问题为作者本人未经证明的观察，仅供读者参考与批判。
+
+\begin{thebibliography}{99}
+
+\bibitem{XZ2025}
+Chenyang Xu, Ziquan Zhuang.
+\emph{Stable degenerations of singularities}.
+J. Amer. Math. Soc. \textbf{38} (2025), 585--626.
+\url{https://doi.org/10.1090/jams/1055}
+
+\bibitem{MSY2025}
+Davesh Maulik, Junliang Shen, Qizheng Yin.
+\emph{Perverse filtrations and Fourier transforms}.
+Acta Math. \textbf{234}(1) (2025), 1--69.
+\url{https://doi.org/10.4310/ACTA.2025.v234.n1.a1}
+
+\bibitem{BKV2025}
+Federico Binda, Hiroki Kato, Alberto Vezzani.
+\emph{On the $p$-adic weight-monodromy conjecture for complete intersections in toric varieties}.
+Invent. Math. \textbf{241} (2025), 559--603.
+\url{https://doi.org/10.1007/s00222-025-01344-x}
+
+\bibitem{LS2025}
+Brian Lawrence, Will Sawin.
+\emph{The Shafarevich conjecture for hypersurfaces in abelian varieties}.
+Ann. of Math. \textbf{202}(3) (2025), 857--1000.
+\url{https://doi.org/10.4007/annals.2025.202.3.1}
+
+\bibitem{Li2018}
+Chi Li.
+\emph{K-semistability is equivariant volume minimization}.
+Duke Math. J. \textbf{166} (2017), no. 16, 3147--3218.
+
+\bibitem{Blum2018}
+Harold Blum.
+\emph{Existence of valuations with smallest normalized volume}.
+Compos. Math. \textbf{154} (2018), no. 4, 820--849.
+
+\bibitem{Xu2020}
+Chenyang Xu.
+\emph{A minimizing valuation is quasi-monomial}.
+Ann. of Math. \textbf{191} (2020), no. 3, 1003--1030.
+
+\bibitem{XZ2021}
+Chenyang Xu, Ziquan Zhuang.
+\emph{Uniqueness of the minimizer of the normalized volume function}.
+Camb. J. Math. \textbf{9} (2021), no. 1, 149--176.
+
+\bibitem{LXZ2022}
+Yuchen Liu, Chenyang Xu, Ziquan Zhuang.
+\emph{Finite generation for valuations computing stability thresholds and applications to K-stability}.
+Ann. of Math. \textbf{196}(2) (2022), 507--566.
+
+\bibitem{BCHM2010}
+Caucher Birkar, Paolo Cascini, Christopher D. Hacon, James M{c}Kernan.
+\emph{Existence of minimal models for varieties of log general type}.
+J. Amer. Math. Soc. \textbf{23} (2010), no. 2, 405--468.
+
+\bibitem{Scholze2012}
+Peter Scholze.
+\emph{$p$-adic Hodge theory for rigid-analytic varieties}.
+Forum Math. Pi \textbf{1} (2013), e1.
+
+\bibitem{Kato2023}
+Hiroki Kato.
+\emph{$p$-adic weight monodromy conjecture for complete intersections} (会议海报).
+CIRM, 2023.
+
+\bibitem{Faltings1983}
+Gerd Faltings.
+\emph{Endlichkeitss\"atze f\"ur abelsche Variet\"aten \"uber Zahlk\"orpern}.
+Invent. Math. \textbf{73} (1983), no. 3, 349--366.
+
+\bibitem{LV2020}
+Brian Lawrence, Akshay Venkatesh.
+\emph{Diophantine problems and $p$-adic period mappings}.
+Invent. Math. \textbf{221} (2020), no. 3, 893--999.
+
+\end{thebibliography}
+
+\end{document}
