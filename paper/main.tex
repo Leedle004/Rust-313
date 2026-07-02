@@ -1,0 +1,1018 @@
+\documentclass[11pt]{amsart}
+
+\usepackage[margin=1.2in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=green!45!black,urlcolor=blue!60!black]{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem*{theoremA}{Theorem A}
+\newtheorem*{corollaryB}{Corollary B}
+\newtheorem*{corollaryC}{Corollary C}
+\newtheorem*{corollaryD}{Corollary D}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{setup}[theorem]{Setup}
+\newtheorem{question}[theorem]{Question}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\Vol}{vol}
+\DeclareMathOperator{\lct}{lct}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Val}{Val}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Supp}{Supp}
+\newcommand{\A}{A}
+\newcommand{\NR}{N_{\mathbb{R}}}
+\newcommand{\MReal}{M_{\mathbb{R}}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\bmu}{\boldsymbol{\mu}}
+\newcommand{\bary}{\overline{u}}
+
+\title[Stability thresholds of fake weighted projective spaces]{Stability
+thresholds of log pairs on fake weighted projective spaces and
+K\"ahler--Einstein calibration}
+
+\date{July 2, 2026}
+
+\begin{document}
+
+\begin{abstract}
+We give a closed formula for the stability threshold (\(\delta\)-invariant)
+of an arbitrary log Fano pair \((X,\Delta)\), where \(X\) is a fake weighted
+projective space with weights \((a_0,\dots,a_n)\) and
+\(\Delta=\sum_i c_i D_i\) is a torus-invariant boundary: writing
+\(\beta_i = 1-c_i\),
+\[
+\delta(X,\Delta) \;=\; \frac{(n+1)\,\min_i a_i\beta_i}{\sum_i a_i\beta_i},
+\]
+and the infimum is computed by the divisorial valuation of a boundary
+divisor minimizing \(a_i\beta_i\). In particular \(\delta(X,\Delta)\le 1\)
+always: no such pair is uniformly K-stable, and \((X,\Delta)\) is
+K-semistable if and only if the products \(a_i\beta_i\) are all equal, in
+which case it is K-polystable and admits a conical K\"ahler--Einstein
+metric. Consequently every fake weighted projective space carries a
+canonical one-parameter family of \emph{calibrating} boundaries making it a
+K-polystable log Fano pair; the threshold is independent of the fundamental
+group of the smooth locus; and the alpha invariant saturates the lower
+Blum--Jonsson bound, \(\alpha = \delta/(n+1)\). The proof combines the
+toric formula of Blum--Jonsson for \(S\)-invariants with Zhuang's theorem
+on equivariant computation of stability thresholds of K-unstable pairs,
+and yields an explicit chamber decomposition of the coefficient cube by
+optimal destabilizing divisors. We relate the result to recent work on
+delta invariants of weighted hypersurfaces and on wall crossings for
+K-moduli of weighted projective pairs. All formulas have been verified
+independently by exact-arithmetic computer computation.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}\label{sec:intro}
+
+The theory of K-stability of Fano varieties has undergone a spectacular
+development in the last decade. On the foundational side, the resolution of
+the Yau--Tian--Donaldson conjecture \cite{CDS15,Tia15} and its extension to
+singular Fano varieties \cite{LXZ22} established the equivalence between
+K-polystability and the existence of K\"ahler--Einstein metrics, while the
+algebraic construction of projective K-moduli spaces of log Fano pairs was
+completed through the work of many authors (see the surveys
+\cite{Xu21,Xu24}); a new, purely birational proof of the properness of these
+moduli spaces has very recently been given by Blum, Liu, Xu and Zhuang
+\cite{BLXZ25}. On the computational side, the stability threshold, or
+\(\delta\)-invariant, of Fujita--Odaka \cite{FO18} and Blum--Jonsson
+\cite{BJ20}, together with the method of Abban--Zhuang \cite{AZ22}, has made
+it possible to decide K-stability for large explicit classes of Fano
+varieties. Two very recent directions motivate this note:
+
+\begin{itemize}[leftmargin=2em]
+\item \emph{Weighted hypersurfaces.} Sano--Tasin \cite{ST24} proved the
+lower bound \(\delta(\mathcal O_X(1)) \ge (n+1)a_r/d\) for quasi-smooth
+weighted hypersurfaces \(X_d\subset\PP(a_0,\dots,a_{n+1})\) whenever some
+weight \(a_r>1\) divides \(d\), and Campo--Fujita--Sano--Tasin
+\cite{CFST26} developed a general framework of plt flags and convex
+geometry which, among other things, settles K-stability of all quasi-smooth
+Fano weighted hypersurfaces of index \(1\) with at most two weights greater
+than one.
+\item \emph{K-moduli of weighted projective pairs.} Kim--Liu--Wang
+\cite{KLW24} described wall crossings for K-moduli of hypersurfaces in
+\(\PP(1,2,n+2,n+3)\) by reducing to log Fano pairs
+\((\PP(1,2,n+2),\,cD)\) and estimating stability thresholds of such pairs
+with the Abban--Zhuang method; explicit K-moduli descriptions for Fano
+threefold families in the same spirit appear in \cite{EJP25,LZ24}.
+\end{itemize}
+
+In both directions the ambient objects are weighted projective spaces, or
+more generally their finite quotients, decorated with torus-invariant
+boundaries. It is therefore useful to have a \emph{closed formula} for the
+stability threshold of an arbitrary such pair, valid without any genericity
+or smoothability hypothesis. The purpose of this paper is to record this
+formula, its short conceptual proof, and several consequences that do not
+seem to have appeared in the literature in this generality.
+
+Recall that a \emph{fake weighted projective space} is a \(\Q\)-factorial
+projective toric variety of Picard number one \cite{Buc08,Kas09}. Such a
+variety is determined by \(n+1\) primitive lattice vectors
+\(v_0,\dots,v_n\) spanning \(\NR\simeq\R^n\) and satisfying a relation
+\(\sum_i a_i v_i = 0\) with positive integral coprime \emph{weights}
+\(a_i\); it is a quotient \(X = \PP(a_0,\dots,a_n)/G\) of a weighted
+projective space by a finite abelian group acting freely in codimension
+one. Let \(D_0,\dots,D_n\) denote the torus-invariant prime divisors,
+corresponding to the rays \(\R_{\ge0}v_i\).
+
+\begin{theoremA}[= Theorem \ref{thm:main}]
+Let \(X\) be a fake weighted projective space of dimension \(n\) with
+weights \((a_0,\dots,a_n)\), and let
+\(\Delta=\sum_{i=0}^{n} c_i D_i\) with rational \(0\le c_i<1\). Set
+\(\beta_i := 1-c_i\) and \(B:=\sum_{i} a_i\beta_i\). Then \((X,\Delta)\) is
+a log Fano pair, and its stability threshold equals
+\[
+\delta(X,\Delta)\;=\;\frac{(n+1)\min_{0\le i\le n} a_i\beta_i}{B}\,,
+\]
+computed by the divisorial valuation \(\ord_{D_{i_0}}\) for any index
+\(i_0\) minimizing \(a_i\beta_i\). Moreover
+\(\alpha(X,\Delta) = \delta(X,\Delta)/(n+1) = \min_i a_i \beta_i / B\).
+\end{theoremA}
+
+Since \((n+1)\min_i a_i\beta_i \le \sum_i a_i\beta_i\), with equality if
+and only if all the products \(a_i\beta_i\) coincide, Theorem A immediately
+yields:
+
+\begin{corollaryB}[= Corollary \ref{cor:kss}]
+With notation as above:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \(\delta(X,\Delta)\le 1\); in particular no log pair supported on
+the toric boundary of a fake weighted projective space is uniformly
+K-stable.
+\item \((X,\Delta)\) is K-semistable if and only if
+\(a_0\beta_0=a_1\beta_1=\dots=a_n\beta_n\), if and only if the barycenter
+of the moment polytope of \(-(K_X+\Delta)\) is the origin. In this case
+\((X,\Delta)\) is K-polystable and admits a K\"ahler--Einstein metric with
+cone angle \(2\pi\beta_i\) along \(D_i\).
+\item For \(\Delta=0\): a fake weighted projective space is K-semistable
+if and only if all its weights are equal, i.e.\ if and only if it is a
+quotient \(\PP^n/G\) by a finite abelian group acting freely in
+codimension one.
+\end{enumerate}
+\end{corollaryB}
+
+Item (iii) recovers, and makes effective, the barycenter criterion of
+Berman \cite{Ber16} in this class of examples, and complements the
+necessary condition of Hwang--Yoon \cite{HY22} for a fake weighted
+projective space to be K\"ahler--Einstein. The equality case in (ii) has
+the following consequence, which we call \emph{K\"ahler--Einstein
+calibration}: unstable weights can always be repaired, in a unique
+one-parameter fashion, by a boundary.
+
+\begin{corollaryC}[= Corollary \ref{cor:calibration}]
+Let \(X\) be a fake weighted projective space with weights
+\((a_0,\dots,a_n)\) and set \(a_{\min}:=\min_i a_i\). For every
+\(t\in(0,a_{\min}]\cap\Q\) the pair
+\[
+\Bigl(X,\;\Delta(t)\Bigr),\qquad
+\Delta(t) := \sum_{i=0}^n \Bigl(1-\frac{t}{a_i}\Bigr) D_i ,
+\]
+is a K-polystable log Fano pair, and these are the \emph{only}
+torus-invariant boundaries on \(X\) with this property. In particular
+every fake weighted projective space admits a canonical conical
+K\"ahler--Einstein structure.
+\end{corollaryC}
+
+Two further consequences are worth highlighting. First, the formula in
+Theorem A depends only on the weights and not on the lattice; hence the
+stability threshold of a fake weighted projective space agrees with that of
+its weighted projective universal cover (Corollary \ref{cor:lattice}),
+even though the volume drops by the index of the covering. Second, the
+alpha and delta invariants of these pairs saturate the lower bound in the
+Blum--Jonsson inequality
+\(\delta/(n+1)\le\alpha\le n\delta/(n+1)\) \cite{BJ20}, so fake weighted
+projective pairs are extremal for this inequality in all dimensions
+(Corollary \ref{cor:alpha}); via
+\(R(X,\Delta)=\min\{1,\delta(X,\Delta)\}\) \cite{CRZ19,BBJ21} one also
+obtains the greatest Ricci lower bound of all these pairs.
+
+The proof of Theorem A is short but, we believe, instructive. The upper
+bound is an explicit computation with the barycenter formula of
+Blum--Jonsson for \(S\)-invariants of toric valuations \cite{BJ20}. The
+lower bound \emph{does not} require the (hard) toric reduction of
+\cite[Theorem F]{BJ20}: instead we invoke Zhuang's equivariant theorem
+\cite{Zhu21}, which says that the stability threshold of a K-\emph{unstable}
+log Fano pair is computed by \(\Aut\)-invariant divisors that are lc places
+of complements; on a toric pair, torus-invariant divisorial valuations are
+monomial, so K-instability forces \(\delta = \delta^T\), the toric
+threshold. Since the toric threshold never exceeds \(1\) in our situation,
+this single dichotomy proves the theorem in all cases at once. As a
+by-product we obtain an explicit chamber decomposition of the coefficient
+cube \([0,1)^{n+1}\) into \(n+1\) regions on which the \emph{optimal
+destabilizing divisor}, in the sense of \cite{Zhu21,BLXZ25}, is the
+corresponding boundary divisor \(D_i\); the K-semistable locus is exactly
+the common wall (Section \ref{sec:examples}).
+
+All numerical assertions of this paper (the \(S\)-invariant formulas, the
+value of \(\delta\) on families of examples, the barycenter computations,
+and the equality \(\alpha=\delta/(n+1)\)) have been verified independently
+by exact rational-arithmetic computations: finite-level approximations
+\(S_m\) computed from monomial bases of \(H^0(X,-m(K_X+\Delta))\) converge
+to the claimed values, and the infimum of \(A/S\) over several thousand
+randomly sampled toric valuations is attained at the predicted ray, for a
+range of weight systems, quotient lattices and boundary coefficients. The
+verification script is distributed with the source of this article.
+
+\subsection*{Relation to the literature} For \(\Delta=0\) and
+\(X=\PP(a_0,\dots,a_n)\) the formula
+\(\delta = (n+1)a_{\min}/\sum a_i\) is known to experts; it follows,
+for instance, from \cite[Corollary 7.19]{BJ20} after a short computation
+(see Remark \ref{rem:known}). The contribution of this paper is: the
+general boundary version on arbitrary fake weighted projective spaces
+with its uniform one-line formula; the calibration corollary; the
+lattice-independence statement; the saturation of the Blum--Jonsson
+inequality; and the chamber decomposition by optimal destabilizers, which
+gives closed-form baselines for wall-crossing analyses such as
+\cite{KLW24,ADL24}. We emphasize that we make no smoothability assumption,
+which is essential for applications to K-moduli of non-smoothable Fano
+varieties as in \cite{KLW24}.
+
+\subsection*{Organization} Section \ref{sec:prelim} collects background on
+stability thresholds, toric valuations and fake weighted projective
+spaces. Section \ref{sec:proof} proves Theorem A. Section
+\ref{sec:consequences} derives the corollaries. Section \ref{sec:examples}
+discusses examples, the chamber structure, and the wall-crossing picture
+for one-parameter families of coefficients, including the classical
+football \((\PP^1, c_0\{0\}+c_1\{\infty\})\) and the quadric cone
+\((\PP(1,1,2), c D)\). Section \ref{sec:questions} states open questions.
+
+\subsection*{Acknowledgments} This manuscript was prepared with the
+assistance of an automated reasoning system; the formulas were verified by
+independent exact-arithmetic computation as described above, and the
+bibliography was checked against the cited sources. Any remaining errors
+should be attributed to the machine.
+
+\section{Preliminaries}\label{sec:prelim}
+
+We work over \(\C\). A \emph{log Fano pair} \((X,\Delta)\) consists of a
+normal projective variety \(X\) and an effective \(\Q\)-divisor \(\Delta\)
+such that \((X,\Delta)\) is klt and \(-(K_X+\Delta)\) is \(\Q\)-Cartier
+and ample.
+
+\subsection{Stability thresholds}\label{ss:delta}
+Let \((X,\Delta)\) be a log Fano pair of dimension \(n\) and set
+\(L:=-(K_X+\Delta)\). For a prime divisor \(E\) over \(X\) (i.e.\ a prime
+divisor on some normal birational model \(Y\to X\)), let
+\(A_{X,\Delta}(E)\) denote the log discrepancy and
+\[
+S_{X,\Delta}(E) \;=\; S_L(E) \;:=\; \frac{1}{\Vol(L)}\int_0^{\infty}
+\Vol(\pi^*L - tE)\,dt
+\]
+the expected vanishing order. Both quantities extend by homogeneity and
+continuity to valuations. Following \cite{FO18,BJ20} the \emph{stability
+threshold} (or \(\delta\)-invariant) and the \emph{alpha invariant} are
+\[
+\delta(X,\Delta) := \inf_{E}\frac{A_{X,\Delta}(E)}{S_L(E)},
+\qquad
+\alpha(X,\Delta) := \inf_{E}\frac{A_{X,\Delta}(E)}{T_L(E)},
+\]
+where \(T_L(E):=\sup\{t>0 : \pi^*L-tE \text{ big}\}\) and the infima run
+over all prime divisors over \(X\). By \cite{FO18,BJ20} (building on
+\cite{Fuj19,Li17}), \((X,\Delta)\) is K-semistable iff
+\(\delta(X,\Delta)\ge1\) and uniformly K-stable iff
+\(\delta(X,\Delta)>1\); by \cite{LXZ22} uniform K-stability coincides with
+K-stability. The elementary chain of pointwise inequalities
+\begin{equation}\label{eq:ST}
+\frac{1}{\,n+1\,}\,T_L(E)\;\le\; S_L(E)\;\le\;\frac{n}{\,n+1\,}\,T_L(E)
+\end{equation}
+(see \cite[\S3]{BJ20}) yields
+\(\delta/(n+1)\le\alpha\le n\,\delta/(n+1)\).
+
+We will use the following two results. The first is the equivariant
+computation theorem of Zhuang. For the notion of \emph{lc place of a
+complement} see \cite[\S2]{Zhu21}; we only need that the class of
+\(G\)-invariant such divisors is a subclass of all \(G\)-invariant prime
+divisors over \(X\).
+
+\begin{theorem}[{Zhuang \cite[Theorem 1.2]{Zhu21}}]\label{thm:zhuang}
+Let \((X,\Delta)\) be a log Fano pair with \(G=\Aut(X,\Delta)\), and
+assume \((X,\Delta)\) is \emph{not} K-semistable. Then
+\[
+\delta(X,\Delta) = \inf_E \frac{A_{X,\Delta}(E)}{S_L(E)},
+\]
+where the infimum runs over all \(G\)-invariant prime divisors \(E\) over
+\(X\) that are lc places of complements.
+\end{theorem}
+
+The second is the polytope formula for \(S\)-invariants of toric
+valuations, due to Blum--Jonsson.
+
+\subsection{Toric valuations}\label{ss:toric}
+Let \(N\simeq\Z^n\) be a lattice, \(M\) its dual, and \(X=X_\Sigma\) a
+complete toric variety with fan \(\Sigma\subset\NR\) and open torus
+\(T\). Every \(w\in \NR\setminus\{0\}\) determines a \emph{monomial (toric)
+valuation} \(v_w\) on \(\C(X)=\C(M)\), defined on the group algebra by
+\(v_w\bigl(\sum_u c_u\chi^u\bigr)=\min_{c_u\neq0}\langle u,w\rangle\); if
+\(w=v_i\) is a primitive ray generator then \(v_w=\ord_{D_i}\). Given an
+ample \(\Q\)-line bundle \(L\) with moment polytope
+\(P=P_L\subset\MReal\), Blum--Jonsson prove
+\begin{equation}\label{eq:BJS}
+S_L(v_w) \;=\; \langle \bary, w\rangle \;-\;\min_{u\in P}\langle u,
+w\rangle,
+\qquad
+T_L(v_w) \;=\; \max_{u\in P}\langle u,w\rangle-\min_{u\in P}\langle
+u,w\rangle,
+\end{equation}
+where \(\bary\) is the barycenter of \(P\)
+\cite[Corollary 7.7]{BJ20}. If moreover \(\Delta=\sum_i c_iD_i\) is a
+torus-invariant boundary with \(c_i<1\), then \((X,\Delta)\) is
+automatically klt, and the log discrepancy of a monomial valuation is
+given by the piecewise-linear function
+\begin{equation}\label{eq:Atoric}
+A_{X,\Delta}(v_w) = \varphi_\Delta(w), \qquad \text{where }
+\varphi_\Delta \text{ is linear on each cone of } \Sigma \text{ and }
+\varphi_\Delta(v_i)=1-c_i
+\end{equation}
+(see e.g.\ \cite[\S7]{BJ20} for \(\Delta=0\); the general case follows
+from \(A_{X,\Delta}(v_w)=A_X(v_w)-v_w(\Delta)\) and
+\(v_w(D_i)=\lambda_i\) for \(w=\sum\lambda_i v_i\) in a cone containing
+\(v_i\)).
+
+We define the \emph{toric threshold}
+\[
+\delta^T(X,\Delta) := \inf_{w\in\NR\setminus\{0\}}
+\frac{A_{X,\Delta}(v_w)}{S_L(v_w)} .
+\]
+Clearly \(\delta(X,\Delta)\le\delta^T(X,\Delta)\). The following classical
+fact identifies torus-invariant divisorial valuations with monomial ones;
+it goes back to the theory of invariant valuations on spherical varieties
+\cite{Kno93} (see also \cite[\S7]{BJ20}).
+
+\begin{lemma}\label{lem:invariant}
+Let \(X\) be a toric variety with torus \(T\), and let \(v\) be a
+\(T\)-invariant divisorial valuation on \(\C(X)\). Then \(v=c\cdot v_w\)
+for some \(w\in N_{\Q}\) and \(c\in\Q_{>0}\).
+\end{lemma}
+
+\begin{proof}[Sketch of proof]
+A \(T\)-invariant valuation satisfies
+\(v(f)=\min_u v(f_u)\) where \(f=\sum_u f_u\) is the decomposition into
+\(T\)-eigenfunctions \(f_u\in\C^*\chi^u\) (see \cite{Kno93} or
+\cite[\S19-20]{Tim11}). Since \(v\) is multiplicative on characters, the
+assignment \(u\mapsto v(\chi^u)\) is additive, hence given by pairing with
+a unique \(w'\in\NR\); then \(v=v_{w'}\) on all of \(\C(X)\) by the
+displayed formula. Divisoriality forces \(w'\in N_\Q\) up to scaling.
+\end{proof}
+
+\subsection{Fake weighted projective spaces}\label{ss:fwps}
+Fix primitive vectors \(v_0,\dots,v_n\in N\) spanning \(\NR\) with
+\begin{equation}\label{eq:relation}
+\sum_{i=0}^n a_i v_i = 0, \qquad a_i\in\Z_{>0},\quad
+\gcd(a_0,\dots,a_n)=1 .
+\end{equation}
+The fan \(\Sigma\) whose cones are generated by the proper subsets of
+\(\{v_0,\dots,v_n\}\) is complete and simplicial, and
+\(X=X_\Sigma\) is a \(\Q\)-factorial projective toric variety of Picard
+number one: a \emph{fake weighted projective space} with weights
+\((a_0,\dots,a_n)\) \cite{Buc08,Kas09}. If \(N'\subset N\) denotes the
+sublattice generated by \(v_0,\dots,v_n\), then \(X\) is the quotient of
+\(\PP(a_0,\dots,a_n)\) (the case \(N'=N\)) by the dual group of \(N/N'\),
+which acts freely in codimension one; the index \(m=[N:N']\) is called
+the multiplicity of \(X\). Every effective nonzero \(\Q\)-divisor on
+\(X\) is ample. We denote by \(D_i\) the torus-invariant prime divisor of
+the ray \(\R_{\ge0} v_i\), so that \(-K_X=\sum_i D_i\).
+
+For \(n=1\), primitivity and \eqref{eq:relation} force
+\(v_0=-v_1\) and \(a_0=a_1=1\): the only fake weighted projective line is
+\(\PP^1\). This is consistent with the classical fact that
+one-dimensional weighted projective spaces are all isomorphic to
+\(\PP^1\).
+
+\begin{setup}\label{setup}
+Throughout, \(X\) is a fake weighted projective space of dimension
+\(n\ge1\) with weight--ray data \eqref{eq:relation};
+\(\Delta=\sum_{i=0}^n c_iD_i\) with \(c_i\in[0,1)\cap\Q\);
+\(\beta_i:=1-c_i\in(0,1]\); \(B:=\sum_i a_i\beta_i\); and
+\(L:=-(K_X+\Delta)=\sum_i\beta_iD_i\), which is ample. The pair
+\((X,\Delta)\) is klt, hence log Fano. The moment polytope of \(L\) is the
+simplex
+\[
+P \;=\;\{u\in\MReal : \langle u,v_i\rangle\ge-\beta_i \ \text{for }
+0\le i\le n\}.
+\]
+\end{setup}
+
+\section{Proof of the main theorem}\label{sec:proof}
+
+We begin with the elementary convex-geometric heart of the argument.
+
+\begin{lemma}\label{lem:vertex}
+In Setup \textup{\ref{setup}}, \(P\) is a simplex with vertices
+\(u_0,\dots,u_n\) characterized by
+\(\langle u_j,v_i\rangle=-\beta_i\) for \(i\ne j\), and
+\[
+\langle u_j, v_j\rangle = \frac{B}{a_j}-\beta_j
+\qquad (0\le j\le n).
+\]
+Consequently the barycenter \(\bary=\frac{1}{n+1}\sum_j u_j\) of \(P\)
+satisfies
+\begin{equation}\label{eq:barypairing}
+\langle\bary, v_i\rangle = \frac{B}{(n+1)a_i}-\beta_i
+\qquad (0\le i\le n).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Since \(v_0,\dots,\widehat{v_j},\dots,v_n\) form a basis of \(\NR\)
+for each \(j\), the \(n\) linear conditions
+\(\langle u,v_i\rangle=-\beta_i\) \((i\ne j)\) determine a unique point
+\(u_j\), and these are the vertices of the simplex \(P\). Pairing \(u_j\)
+with the relation \eqref{eq:relation} gives
+\[
+0=\Bigl\langle u_j,\textstyle\sum_i a_iv_i\Bigr\rangle
+= a_j\langle u_j,v_j\rangle-\sum_{i\ne j}a_i\beta_i
+= a_j\langle u_j,v_j\rangle-(B-a_j\beta_j),
+\]
+whence \(\langle u_j,v_j\rangle = B/a_j-\beta_j\ge -\beta_j\) with strict
+inequality (so \(u_j\in P\) and \(P\) is nondegenerate). Averaging the
+pairings \(\langle u_j,v_i\rangle\) over \(j\) yields
+\eqref{eq:barypairing}.
+\end{proof}
+
+\begin{lemma}\label{lem:Sray}
+In Setup \textup{\ref{setup}}, for each \(i\),
+\[
+S_L(\ord_{D_i}) \;=\; \frac{B}{(n+1)\,a_i},
+\qquad
+T_L(\ord_{D_i}) \;=\; \frac{B}{a_i},
+\qquad\text{and}\qquad
+\frac{A_{X,\Delta}(\ord_{D_i})}{S_L(\ord_{D_i})}
+=\frac{(n+1)\,a_i\beta_i}{B}.
+\]
+\end{lemma}
+
+\begin{proof}
+By \eqref{eq:BJS} and Lemma \ref{lem:vertex},
+\(\min_{u\in P}\langle u,v_i\rangle=-\beta_i\) (attained on the facet
+opposite \(u_i\)) and
+\(\max_{u\in P}\langle u,v_i\rangle=\langle u_i,v_i\rangle=B/a_i-\beta_i\),
+so
+\(S_L(\ord_{D_i})=\langle\bary,v_i\rangle+\beta_i=B/((n+1)a_i)\)
+and \(T_L(\ord_{D_i})=B/a_i\). Finally
+\(A_{X,\Delta}(\ord_{D_i})=1-c_i=\beta_i\) by \eqref{eq:Atoric}.
+\end{proof}
+
+\begin{proposition}[Toric threshold]\label{prop:toric}
+In Setup \textup{\ref{setup}},
+\[
+\delta^T(X,\Delta)=\frac{(n+1)\min_i a_i\beta_i}{B},
+\]
+and the infimum defining \(\delta^T\) is attained at \(w=v_{i_0}\) for any
+\(i_0\) minimizing \(a_i\beta_i\).
+\end{proposition}
+
+\begin{proof}
+Fix a maximal cone \(\sigma_j=\mathrm{cone}(v_i : i\ne j)\) of
+\(\Sigma\). For \(w=\sum_{i\ne j}\lambda_iv_i\in\sigma_j\)
+(\(\lambda_i\ge0\)), formula \eqref{eq:Atoric} gives the linear expression
+\(A_{X,\Delta}(v_w)=\sum_{i\ne j}\lambda_i\beta_i\); moreover
+\(\min_{u\in P}\langle u,w\rangle = \langle u_j,w\rangle
+=-\sum_{i\ne j}\lambda_i\beta_i\)
+is also linear on \(\sigma_j\) (the minimum over the vertices is attained
+at \(u_j\), because for \(k\ne j\),
+\(\langle u_k,w\rangle=\langle u_j,w\rangle+\lambda_kB/a_k\ge\langle
+u_j,w\rangle\)). Hence by \eqref{eq:BJS} both \(A_{X,\Delta}(v_w)\) and
+\(S_L(v_w)=\langle\bary,w\rangle-\langle u_j,w\rangle\) restrict to
+\emph{linear} positive functions on \(\sigma_j\setminus\{0\}\). A ratio of
+two positive linear functions on the simplex
+\(\mathrm{conv}(v_i: i\neq j)\) is a fractional-linear function, hence
+attains its minimum at a vertex; by homogeneity of degree zero, the
+infimum of \(A/S\) over \(\sigma_j\setminus\{0\}\) is attained at one of
+the rays \(\R_{\ge0}v_i\), \(i\ne j\). Taking the minimum over the
+finitely many maximal cones and applying Lemma \ref{lem:Sray} gives the
+claim.
+\end{proof}
+
+\begin{theorem}\label{thm:main}
+In Setup \textup{\ref{setup}},
+\[
+\delta(X,\Delta)\;=\;\delta^T(X,\Delta)
+\;=\;\frac{(n+1)\min_i a_i\beta_i}{B}\;\le\;1,
+\]
+and \(\delta(X,\Delta)\) is computed by \(\ord_{D_{i_0}}\) for any
+\(i_0\) minimizing \(a_i\beta_i\). Moreover
+\(\alpha(X,\Delta)=\min_i a_i\beta_i/B=\delta(X,\Delta)/(n+1)\).
+\end{theorem}
+
+\begin{proof}
+The inequality \(\delta^T\le1\) is the arithmetic-mean bound
+\((n+1)\min_ia_i\beta_i\le\sum_ia_i\beta_i=B\). Suppose, for the sake of
+contradiction, that \(\delta(X,\Delta)<\delta^T(X,\Delta)\). Then
+\(\delta(X,\Delta)<1\), so \((X,\Delta)\) is not K-semistable, and Theorem
+\ref{thm:zhuang} applies with \(G=\Aut(X,\Delta)\supseteq T\): the
+threshold is computed as an infimum over \(G\)-invariant divisors \(E\)
+over \(X\) that are lc places of complements. Any such \(E\) is in
+particular \(T\)-invariant, hence \(\ord_E\) is a monomial valuation by
+Lemma \ref{lem:invariant}, and therefore
+\(A_{X,\Delta}(E)/S_L(E)\ge\delta^T(X,\Delta)\). Taking the infimum
+gives \(\delta(X,\Delta)\ge\delta^T(X,\Delta)\), a contradiction. Hence
+\(\delta=\delta^T\), and Proposition \ref{prop:toric} computes it.
+
+For the alpha invariant: evaluating at the rays and using Lemma
+\ref{lem:Sray}, \(\alpha(X,\Delta)\le\min_i\beta_i/T_L(\ord_{D_i})
+=\min_ia_i\beta_i/B\). Conversely, by \eqref{eq:ST},
+\(\alpha(X,\Delta)\ge\delta(X,\Delta)/(n+1)=\min_ia_i\beta_i/B\).
+\end{proof}
+
+\begin{remark}\label{rem:complement}
+Theorem \ref{thm:zhuang} restricts the infimum to invariant divisors that
+are lc places of complements; this class is nonempty and, in our setting,
+contains \emph{all} toric boundary divisors: the \(\Q\)-divisor
+\(D:=\sum_i\beta_iD_i\sim_\Q-(K_X+\Delta)\) satisfies
+\(\Delta+D=\sum_iD_i\), the full toric boundary, which is log canonical,
+and every monomial valuation is an lc place of it by
+\eqref{eq:Atoric}. This is consistent with (though not needed for) the
+proof above, which only uses that Zhuang's class consists of invariant
+divisors.
+\end{remark}
+
+\begin{remark}\label{rem:known}
+For \(\Delta=0\) and \(X=\PP(a_0,\dots,a_n)\) the value
+\(\delta=(n+1)a_{\min}/h\), \(h=\sum a_i\), can also be extracted from
+\cite[Corollary 7.19]{BJ20}: the barycenter \(\bary\) of the anticanonical
+simplex satisfies \(-c\,\bary\in\partial P\) exactly for
+\(c=(n+1)a_{\min}/(h-(n+1)a_{\min})\) (when \(a_{\min}<h/(n+1)\)),
+and \(\delta=c/(1+c)\). Similarly, for smooth toric Fano varieties
+the analogous formula for the greatest Ricci lower bound goes back to
+\cite{Li11}. What we wish to stress is the uniform statement for arbitrary
+boundaries and arbitrary quotient lattices, and the method of proof via
+equivariance, which sidesteps the initial-degeneration argument of
+\cite[\S7]{BJ20} entirely.
+\end{remark}
+
+\begin{remark}\label{rem:degenerate}
+The proof shows more precisely that for \emph{any} complete simplicial
+fan whose rays satisfy a positive linear relation, i.e.\ any fake weighted
+projective space, K-instability of a torus-invariant pair is always
+witnessed by one of the \(n+1\) boundary divisors themselves --- no
+higher birational model is needed. In the language of
+\cite{Zhu21,BLXZ25}, the \emph{optimal destabilizing center} of
+\((X,\Delta)\) is the divisor \(D_{i_0}\) with \(a_{i_0}\beta_{i_0}\)
+minimal (when the minimizer is unique), and the associated degeneration
+stays within the toric category. This gives a large supply of explicitly
+computable instances of the destabilization-and-replacement iteration
+used in the recent birational proof of properness of K-moduli spaces
+\cite{BLXZ25}.
+\end{remark}
+
+\section{Consequences}\label{sec:consequences}
+
+\begin{corollary}[K-semistability criterion]\label{cor:kss}
+In Setup \textup{\ref{setup}}:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \(\delta(X,\Delta)\le1\), so \((X,\Delta)\) is never uniformly
+K-stable;
+\item \((X,\Delta)\) is K-semistable \(\iff\)
+\(a_0\beta_0=\dots=a_n\beta_n\) \(\iff\) \(\bary=0\); in this case
+\((X,\Delta)\) is K-polystable and admits a K\"ahler--Einstein metric
+with cone angle \(2\pi\beta_i\) along \(D_i\);
+\item for \(\Delta=0\), \(X\) is K-semistable \(\iff\)
+\(a_0=\dots=a_n=1\) \(\iff\) \(X\cong\PP^n/G\) for a finite abelian
+group \(G\) acting freely in codimension one, and then \(X\) is
+K-polystable.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+(i) is part of Theorem \ref{thm:main}. For (ii): by Theorem
+\ref{thm:main}, \(\delta\ge1\) iff \((n+1)\min_ia_i\beta_i\ge B\), which
+by the arithmetic-mean bound happens iff all \(a_i\beta_i\) are equal; by
+\eqref{eq:barypairing} this is equivalent to
+\(\langle\bary,v_i\rangle=0\) for all \(i\), i.e.\ \(\bary=0\) since the
+\(v_i\) span. When \(\bary=0\), the toric log Fano pair \((X,\Delta)\)
+admits a (conical) K\"ahler--Einstein metric by Berman--Berndtsson
+\cite{BB13}, and K\"ahler--Einstein log Fano pairs are K-polystable by
+Berman \cite{Ber16}. (iii) is the case \(\beta_i\equiv1\) of (ii):
+equality of the weights and \(\gcd=1\) force \(a_i\equiv1\), i.e.\
+\(\sum_iv_i=0\), which is exactly the ray data of \(\PP^n\) in the
+sublattice \(N'\); the multiplicity group \(N/N'\) acts freely in
+codimension one by primitivity of the \(v_i\).
+\end{proof}
+
+\begin{corollary}[Calibration]\label{cor:calibration}
+Let \(X\) be a fake weighted projective space with weights
+\((a_0,\dots,a_n)\), \(a_{\min}=\min_ia_i\). The torus-invariant
+boundaries \(\Delta\) for which \((X,\Delta)\) is K-polystable are
+precisely
+\[
+\Delta(t)=\sum_{i=0}^n\Bigl(1-\frac{t}{a_i}\Bigr)D_i,
+\qquad t\in(0,a_{\min}]\cap\Q .
+\]
+For each such \(t\) the pair \((X,\Delta(t))\) admits a conical
+K\"ahler--Einstein metric; at \(t=a_{\min}\) the divisors of minimal
+weight appear with coefficient \(0\).
+\end{corollary}
+
+\begin{proof}
+K-semistability holds iff \(a_i\beta_i\equiv t\) for some constant
+\(t>0\), i.e.\ \(c_i=1-t/a_i\); the constraint \(c_i\in[0,1)\) is
+equivalent to \(0<t\le a_{\min}\). Polystability and the metric follow
+from Corollary \ref{cor:kss}(ii).
+\end{proof}
+
+\begin{corollary}[Lattice independence]\label{cor:lattice}
+Let \(X=\PP(a_0,\dots,a_n)/G\) be a fake weighted projective space of
+multiplicity \(m=[N:N']\), and let \(\Delta\), \(\Delta'\) be
+corresponding torus-invariant boundaries on \(X\) and on
+\(\PP(a_0,\dots,a_n)\) with the same coefficients. Then
+\[
+\delta(X,\Delta)=\delta\bigl(\PP(a_0,\dots,a_n),\Delta'\bigr),
+\qquad
+\alpha(X,\Delta)=\alpha\bigl(\PP(a_0,\dots,a_n),\Delta'\bigr),
+\]
+although \(\Vol(-(K_X+\Delta)) = \tfrac1m\Vol(-(K+\Delta'))\).
+\end{corollary}
+
+\begin{proof}
+The formulas of Theorem \ref{thm:main} depend only on
+\((a_i,\beta_i)_i\), not on \(N\). The volume statement is standard:
+\(\Vol(L)=n!\,\Vol_M(P)\) and passing from \(N'\) to \(N\) rescales the
+dual measure by \(1/m\).
+\end{proof}
+
+\begin{remark}
+Corollary \ref{cor:lattice} is an instance of the general principle that
+\(\delta\) is preserved under quotients by finite groups acting without
+ramification divisor (compare \cite{LZ22,Zhu21}: K-polystability descends
+along Galois covers); for toric quotients the equality is visibly exact at
+the level of each toric valuation, since neither \eqref{eq:BJS} (after the
+barycenter is expressed in weight data) nor \eqref{eq:Atoric} sees the
+lattice.
+\end{remark}
+
+\begin{corollary}[Extremality for the Blum--Jonsson inequality]
+\label{cor:alpha}
+Every pair in Setup \textup{\ref{setup}} satisfies
+\(\alpha(X,\Delta)=\delta(X,\Delta)/(n+1)\); thus the lower bound in
+\(\delta/(n+1)\le\alpha\le n\delta/(n+1)\) is attained in every dimension
+and for every value \(\delta\in(0,1]\cap\Q\) of the stability threshold.
+Moreover the greatest Ricci lower bound satisfies
+\(R(X,\Delta)=\delta(X,\Delta)\).
+\end{corollary}
+
+\begin{proof}
+The first claim is in Theorem \ref{thm:main}; every value
+\(\delta=(n+1)a_{\min}\beta/B\in(0,1]\) is realized by suitable
+\((a_i,\beta_i)\) (e.g.\ fix \(\beta_i\equiv1\) and vary weights, then
+correct by a small boundary using density of the values of the formula).
+The identity \(R=\min\{1,\delta\}\) holds for log Fano pairs by
+\cite{CRZ19,BBJ21}, and \(\delta\le1\) here.
+\end{proof}
+
+\section{Examples, chambers, and wall crossing}\label{sec:examples}
+
+\subsection{The football}\label{ss:football}
+For \(X=\PP^1\), \(\Delta=c_0\{0\}+c_1\{\infty\}\), Theorem
+\ref{thm:main} gives
+\[
+\delta = \frac{2\min(\beta_0,\beta_1)}{\beta_0+\beta_1},
+\]
+which is \(1\) iff \(\beta_0=\beta_1\). We recover the classical theorem of
+Troyanov \cite{Tro91}: a football (spindle) with cone angles
+\(2\pi\beta_0,2\pi\beta_1\) carries a constant-curvature conical metric
+iff the two angles are equal --- here re-derived as a K-stability
+statement.
+
+\subsection{Weighted projective planes}\label{ss:wpp}
+For \(X=\PP(a_0,a_1,a_2)\), \(\Delta=0\):
+\(\delta = 3a_{\min}/(a_0+a_1+a_2)\). For instance
+\[
+\delta(\PP(1,1,2))=\tfrac34,\qquad
+\delta(\PP(1,2,3))=\tfrac12,\qquad
+\delta(\PP(2,3,5))=\tfrac35,\qquad
+\delta(\PP(1,1,n))=\tfrac{3}{n+2}.
+\]
+In each case the threshold is computed by a weight-\(a_{\min}\)
+coordinate divisor. (For \(\PP(1,2,3)\) one checks
+\(\bary=(0,-\tfrac13)\) in the coordinates of Section \ref{sec:proof},
+and \cite[Corollary 7.19]{BJ20} gives \(c=1\), \(\delta=c/(1+c)=\tfrac12\),
+in agreement.) The calibrating boundaries of Corollary
+\ref{cor:calibration} at \(t=a_{\min}\) are, respectively,
+\[
+\tfrac12D_z \ \text{on } \PP(1,1,2),\qquad
+\tfrac12D_y+\tfrac23D_z \ \text{on } \PP(1,2,3),\qquad
+\tfrac13D_y+\tfrac35D_z \ \text{on } \PP(2,3,5).
+\]
+Each of these pairs is K-polystable with a conical K\"ahler--Einstein
+metric; none was accessible to smoothability-based techniques.
+
+\subsection{Fake examples and lattice independence}\label{ss:fake}
+Let \(\bmu_3\subset\mathrm{PGL}_3\) act on \(\PP^2\) by
+\((x:y:z)\mapsto(x:\omega y:\omega^2z)\). The quotient
+\(X=\PP^2/\bmu_3\) is a fake projective plane with weights \((1,1,1)\)
+and multiplicity \(3\); by Corollary \ref{cor:kss}(iii) it is
+K-polystable with \(\delta=1\). Similarly the quotient
+\(\PP(1,1,2)/\bmu_2\) with ray data
+\(v_0=(-1,2),v_1=(-1,-2),v_2=(1,0)\) in \(N=\Z^2\) has
+\(\delta=\tfrac34=\delta(\PP(1,1,2))\), while its degree drops from
+\(8\) to \(4\). Both computations were confirmed numerically at level
+\(m\le48\) from invariant monomial bases.
+
+\subsection{Chamber decomposition of the coefficient cube}
+\label{ss:chambers}
+Fix the weights and regard
+\(\delta(c)=\delta(X,\textstyle\sum_ic_iD_i)\) as a function on the cube
+\([0,1)^{n+1}\ni c=(c_0,\dots,c_n)\). Theorem \ref{thm:main} exhibits
+\(\delta\) as the minimum of the \(n+1\) smooth functions
+\(c\mapsto (n+1)a_i(1-c_i)/B(c)\), so the cube decomposes into the
+closed chambers
+\[
+\mathsf{Ch}_i=\bigl\{c : a_i(1-c_i)\le a_j(1-c_j)\ \forall j\bigr\},
+\qquad 0\le i\le n,
+\]
+on which the optimal destabilizing divisor is \(D_i\). The K-semistable
+locus is the common intersection
+\(\bigcap_i\mathsf{Ch}_i=\{c(t):0<t\le a_{\min}\}\), the calibration
+segment of Corollary \ref{cor:calibration}: a line segment in an
+\((n+1)\)-cube, of codimension \(n\). Figure \ref{fig:chambers}
+illustrates the case of \(\PP^1\) (where by \S\ref{ss:football} weights
+are \((1,1)\)); the same picture governs each two-dimensional slice of
+the cube in higher dimensions.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[scale=4.6]
+\fill[blue!12] (0,0) -- (1,1) -- (0,1) -- cycle;
+\fill[red!12] (0,0) -- (1,1) -- (1,0) -- cycle;
+\draw[thick] (0,0) rectangle (1,1);
+\draw[very thick, green!50!black] (0,0) -- (1,1);
+\node at (0.30,0.83) {\(\mathsf{Ch}_0:\ \delta=\frac{2(1-c_0)}{B}\)};
+\node at (0.72,0.16) {\(\mathsf{Ch}_1:\ \delta=\frac{2(1-c_1)}{B}\)};
+\node[green!40!black, rotate=45, above=1pt] at (0.60,0.60)
+{\footnotesize K-polystable wall \(c_0=c_1\)};
+\node[below] at (0.5,0) {\(c_0\)};
+\node[left] at (0,0.5) {\(c_1\)};
+\node[below left] at (0,0) {\(0\)};
+\node[below] at (1,0) {\(1\)};
+\node[left] at (0,1) {\(1\)};
+\end{tikzpicture}
+\caption{Chamber decomposition of the coefficient square for
+\((\PP^1,c_0\{0\}+c_1\{\infty\})\), \(B=(1-c_0)+(1-c_1)\). The optimal
+destabilizer is the boundary point with the \emph{smaller} residual
+weight \(1-c_i\); K-polystable pairs form the diagonal wall.}
+\label{fig:chambers}
+\end{figure}
+
+\subsection{One-parameter wall crossing on the quadric cone}
+\label{ss:quadriccone}
+Let \(X=\PP(1,1,2)\), the cone over a conic, and let \(D=D_z\) be the
+weight-\(2\) coordinate divisor (a smooth conic through the smooth
+locus). For \(\Delta=cD\), \(c\in[0,1)\), Theorem \ref{thm:main} gives
+\begin{equation}\label{eq:cone}
+\delta(c)=\frac{3\min\{1,\;2(1-c)\}}{4-2c}
+=\begin{cases}
+\dfrac{3}{4-2c}, & 0\le c\le\tfrac12,\\[2ex]
+\dfrac{3(1-c)}{2-c}, & \tfrac12\le c<1 .
+\end{cases}
+\end{equation}
+Thus \(\delta\) increases from \(\tfrac34\) to the K-polystable wall
+\(\delta(\tfrac12)=1\) and then decreases to \(0\); the optimal
+destabilizer jumps at the wall from a weight-one divisor \(D_x\) to
+\(D_z\) itself (Figure \ref{fig:wall}). The K\"ahler--Einstein pair at
+the wall, \((\PP(1,1,2),\tfrac12D_z)\), is precisely the type of
+non-smoothable toric pair that appears as an orbifold double-cover target
+in the K-moduli wall-crossing analysis of Kim--Liu--Wang \cite{KLW24};
+formula \eqref{eq:cone} gives, without any Abban--Zhuang estimate, the
+exact threshold at which such toric degenerate fibers enter or leave the
+K-moduli spaces \(M_w\) of \emph{loc.\ cit.}\ in the torus-invariant
+locus.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=10.5cm, height=6cm,
+  xlabel={\(c\)}, ylabel={\(\delta(c)\)},
+  xmin=0, xmax=1, ymin=0, ymax=1.12,
+  domain=0:1, samples=200,
+  axis lines=left,
+  xtick={0,0.25,0.5,0.75,1},
+  ytick={0.25,0.5,0.75,1},
+  legend style={at={(0.03,0.22)},anchor=west, draw=none},
+]
+\addplot[blue, thick, domain=0:0.5]{3/(4-2*x)};
+\addlegendentry{\(\delta=\tfrac{3}{4-2c}\) (destabilizer \(D_x\))}
+\addplot[red, thick, domain=0.5:1]{3*(1-x)/(2-x)};
+\addlegendentry{\(\delta=\tfrac{3(1-c)}{2-c}\) (destabilizer \(D_z\))}
+\addplot[blue, dashed, thin, domain=0.5:1]{3/(4-2*x)};
+\addplot[red, dashed, thin, domain=0:0.5]{3*(1-x)/(2-x)};
+\addplot[only marks, mark=*, green!50!black] coordinates {(0.5,1)};
+\node[green!40!black, anchor=south west] at (axis cs:0.53,0.99)
+{\footnotesize K-polystable wall};
+\end{axis}
+\end{tikzpicture}
+\caption{The stability threshold of \((\PP(1,1,2),cD_z)\) as a function
+of the coefficient. Solid curves: \(\delta(c)\); dashed: the inactive
+branch. The two branches are the normalized ratios \(A/S\) of the two
+competing invariant divisors.}
+\label{fig:wall}
+\end{figure}
+
+\subsection{Ambient baselines for weighted hypersurfaces}
+\label{ss:ambient}
+Rescaling Theorem \ref{thm:main} to the fundamental divisor: for
+\(X=\PP(a_0,\dots,a_{n+1})\) of dimension \(n+1\) with
+\(h=\sum_ia_i\), one has \(S_{\mathcal O_X(1)}=S_{-K_X}/h\), hence
+\(\delta(\mathcal O_X(1))=h\cdot\delta(-K_X)=(n+2)\,a_{\min}\).
+It is suggestive to compare this
+with the Sano--Tasin bound
+\(\delta(\mathcal O_{X_d}(1))\ge(n+1)a_r/d\) for a quasi-smooth
+hypersurface \(X_d\subset\PP(a_0,\dots,a_{n+1})\) with \(a_r\mid d\),
+\(a_r>1\) \cite{ST24}: the hypersurface bound has exactly the shape of
+the ambient formula, with the dimension count shifted by one and the
+degree \(d\) playing the role of a weight. Theorem \ref{thm:main} shows
+that this shape is forced already by the toric ambient geometry, and
+suggests that the sharp constant for hypersurfaces should likewise be
+governed by a barycenter datum; the plt-flag framework of \cite{CFST26}
+seems well suited to test this.
+
+\section{Questions}\label{sec:questions}
+
+\begin{question}
+Theorem \ref{thm:main} identifies the optimal destabilizing divisor of
+any K-unstable torus-invariant pair on a fake weighted projective space.
+The associated toric degeneration replaces \((X,\Delta)\) by a new toric
+pair, and the replacement process of \cite{BLXZ25} can be iterated within
+the toric category. Starting from an arbitrary \((X,\Delta)\) as in Setup
+\ref{setup}, does the iteration always terminate at a calibrated pair
+\((X',\Delta'(t))\) as in Corollary \ref{cor:calibration}, and in how
+many steps? A closed answer would give a completely explicit instance of
+the properness algorithm of \cite{BLXZ25}.
+\end{question}
+
+\begin{question}
+For pairs \((X, cD)\) with \(D\) a \emph{general} member of
+\(|\mathcal O_X(k)|\) rather than a torus-invariant divisor, the
+threshold \(\delta(X,cD)\) is no longer given by Theorem \ref{thm:main},
+but it is natural to ask whether the torus-invariant formula computes its
+infimum over the linear system, i.e.\ whether toric degenerations of the
+boundary are always destabilizing-optimal. A positive answer would give
+sharp a priori bounds for the K-moduli wall crossings of
+\cite{ADL24,KLW24} in weighted projective settings.
+\end{question}
+
+\begin{question}
+Blum--Jonsson's toric formula \(\delta(L)=\lct(D_{\bary})\) holds for
+every toric variety \cite{BJ20}. For which toric log Fano pairs of higher
+Picard rank does \(\delta\) admit a closed form in the combinatorial data
+analogous to Theorem \ref{thm:main}? The Gorenstein toric Fano threefold
+tables of \cite{Yot23} suggest that the Picard-rank-one answer is the
+germ of a piecewise-rational formula on the space of fans.
+\end{question}
+
+\begin{thebibliography}{XXX}
+
+\bibitem[AZ22]{AZ22} H.~Abban and Z.~Zhuang,
+\emph{K-stability of Fano varieties via admissible flags},
+Forum Math. Pi \textbf{10} (2022), Paper No. e15.
+
+\bibitem[ADL24]{ADL24} K.~Ascher, K.~DeVleming and Y.~Liu,
+\emph{Wall crossing for K-moduli spaces of plane curves},
+Proc. Lond. Math. Soc. (3) \textbf{128} (2024), Paper No. e12615.
+
+\bibitem[BB13]{BB13} R.~J.~Berman and B.~Berndtsson,
+\emph{Real Monge--Amp\`ere equations and K\"ahler--Ricci solitons on
+toric log Fano varieties},
+Ann. Fac. Sci. Toulouse Math. (6) \textbf{22} (2013), no. 4, 649--711.
+
+\bibitem[BBJ21]{BBJ21} R.~J.~Berman, S.~Boucksom and M.~Jonsson,
+\emph{A variational approach to the Yau--Tian--Donaldson conjecture},
+J. Amer. Math. Soc. \textbf{34} (2021), no. 3, 605--652.
+
+\bibitem[Ber16]{Ber16} R.~J.~Berman,
+\emph{K-polystability of \(\Q\)-Fano varieties admitting
+K\"ahler--Einstein metrics},
+Invent. Math. \textbf{203} (2016), no. 3, 973--1025.
+
+\bibitem[BJ20]{BJ20} H.~Blum and M.~Jonsson,
+\emph{Thresholds, valuations, and K-stability},
+Adv. Math. \textbf{365} (2020), 107062.
+
+\bibitem[BLXZ25]{BLXZ25} H.~Blum, Y.~Liu, C.~Xu and Z.~Zhuang,
+\emph{Relative stability theory and properness of K-moduli spaces},
+preprint (2025), arXiv:2510.06197.
+
+\bibitem[Buc08]{Buc08} W.~Buczy\'nska,
+\emph{Fake weighted projective spaces},
+preprint (2008), arXiv:0805.1211.
+
+\bibitem[CFST26]{CFST26} L.~Campo, K.~Fujita, T.~Sano and L.~Tasin,
+\emph{K-stability of Fano weighted hypersurfaces via plt flags and convex
+geometry}, preprint (2026), arXiv:2601.02974.
+
+\bibitem[CDS15]{CDS15} X.~Chen, S.~Donaldson and S.~Sun,
+\emph{K\"ahler--Einstein metrics on Fano manifolds. I, II, III},
+J. Amer. Math. Soc. \textbf{28} (2015), 183--197, 199--234, 235--278.
+
+\bibitem[CRZ19]{CRZ19} I.~Cheltsov, Y.~A.~Rubinstein and K.~Zhang,
+\emph{Basis log canonical thresholds, local intersection estimates, and
+asymptotically log del Pezzo surfaces},
+Selecta Math. (N.S.) \textbf{25} (2019), no. 2, Paper No. 34.
+
+\bibitem[EJP25]{EJP25} E.~Etxabarri-Alberdi, J.~M.~Jones and
+T.~S.~Papazachariou,
+\emph{K-moduli of Fano threefolds of family 3.3},
+preprint (2025), arXiv:2510.13611.
+
+\bibitem[FO18]{FO18} K.~Fujita and Y.~Odaka,
+\emph{On the K-stability of Fano varieties and anticanonical divisors},
+Tohoku Math. J. (2) \textbf{70} (2018), no. 4, 511--521.
+
+\bibitem[Fuj19]{Fuj19} K.~Fujita,
+\emph{A valuative criterion for uniform K-stability of \(\Q\)-Fano
+varieties}, J. Reine Angew. Math. \textbf{751} (2019), 309--338.
+
+\bibitem[HY22]{HY22} D.~Hwang and Y.~Yoon,
+\emph{On K\"ahler--Einstein fake weighted projective spaces},
+Eur. J. Math. \textbf{8} (2022), 985--990.
+
+\bibitem[Kas09]{Kas09} A.~M.~Kasprzyk,
+\emph{Bounds on fake weighted projective space},
+Kodai Math. J. \textbf{32} (2009), no. 2, 197--208.
+
+\bibitem[KLW24]{KLW24} I.-K.~Kim, Y.~Liu and C.~Wang,
+\emph{Wall crossing for K-moduli spaces of certain families of weighted
+projective hypersurfaces}, preprint (2024), arXiv:2406.07907.
+
+\bibitem[Kno93]{Kno93} F.~Knop,
+\emph{\"Uber Bewertungen, welche unter einer reduktiven Gruppe invariant
+sind}, Math. Ann. \textbf{295} (1993), no. 2, 333--363.
+
+\bibitem[Li11]{Li11} C.~Li,
+\emph{Greatest lower bounds on Ricci curvature for toric Fano manifolds},
+Adv. Math. \textbf{226} (2011), no. 6, 4921--4932.
+
+\bibitem[Li17]{Li17} C.~Li,
+\emph{K-semistability is equivariant volume minimization},
+Duke Math. J. \textbf{166} (2017), no. 16, 3147--3218.
+
+\bibitem[LXZ22]{LXZ22} Y.~Liu, C.~Xu and Z.~Zhuang,
+\emph{Finite generation for valuations computing stability thresholds and
+applications to K-stability},
+Ann. of Math. (2) \textbf{196} (2022), no. 2, 507--566.
+
+\bibitem[LZ22]{LZ22} Y.~Liu and Z.~Zhu,
+\emph{Equivariant K-stability under finite group action},
+Internat. J. Math. \textbf{33} (2022), no. 1, 2250007.
+
+\bibitem[LZ24]{LZ24} Y.~Liu and J.~Zhao,
+\emph{K-moduli of Fano threefolds and genus four curves},
+J. Reine Angew. Math. (2025), published online,
+doi:10.1515/crelle-2025-0016; arXiv:2403.16747.
+
+\bibitem[ST24]{ST24} T.~Sano and L.~Tasin,
+\emph{Delta invariants of weighted hypersurfaces},
+preprint (2024), arXiv:2408.03057.
+
+\bibitem[Tia15]{Tia15} G.~Tian,
+\emph{K-stability and K\"ahler--Einstein metrics},
+Comm. Pure Appl. Math. \textbf{68} (2015), no. 7, 1085--1156.
+
+\bibitem[Tim11]{Tim11} D.~A.~Timashev,
+\emph{Homogeneous spaces and equivariant embeddings},
+Encyclopaedia of Mathematical Sciences \textbf{138}, Springer, 2011.
+
+\bibitem[Tro91]{Tro91} M.~Troyanov,
+\emph{Prescribing curvature on compact surfaces with conical
+singularities}, Trans. Amer. Math. Soc. \textbf{324} (1991), no. 2,
+793--821.
+
+\bibitem[Xu21]{Xu21} C.~Xu,
+\emph{K-stability of Fano varieties: an algebro-geometric approach},
+EMS Surv. Math. Sci. \textbf{8} (2021), no. 1--2, 265--354.
+
+\bibitem[Xu24]{Xu24} C.~Xu,
+\emph{K-stability of Fano varieties},
+Annals of Mathematics Studies, Princeton University Press, 2024.
+
+\bibitem[Yot23]{Yot23} N.~Yotsutani,
+\emph{The delta invariant and the various GIT-stability notions of toric
+Fano varieties}, preprint (2022--2023).
+
+\bibitem[Zhu21]{Zhu21} Z.~Zhuang,
+\emph{Optimal destabilizing centers and equivariant K-stability},
+Invent. Math. \textbf{226} (2021), no. 1, 195--223.
+
+\end{thebibliography}
+
+\end{document}
