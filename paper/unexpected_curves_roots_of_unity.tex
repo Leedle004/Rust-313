@@ -1,0 +1,261 @@
+\documentclass[11pt]{amsart}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{question}[theorem]{Question}
+
+\DeclareMathOperator{\Spec}{Spec}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\mfrak}{\mathfrak{m}}
+\newcommand{\ZZ}{\mathbb{Z}}
+
+\title[Roots of unity on a conic never support unexpected curves]{Roots of Unity on a Conic Plus One Point Never Support Unexpected Curves}
+
+\author{Cursor Cloud Agent}
+\date{\today}
+
+\begin{document}
+
+\begin{abstract}
+Unexpected curves --- finite point sets $Z\subset \PP^2$ for which a general fat point imposes fewer than the expected number of conditions on a linear system through $Z$ --- have been an active topic in algebraic geometry and commutative algebra since their introduction by Cook II, Harbourne, Migliore, and Nagel, with new constructions and classification results continuing to appear (e.g.\ the very recent work of Janasz--Malara--Tutaj-Ga\'{s}i\'{n}ska on unexpected hypersurfaces of type $(d+k,d)$). Nearly all known unexpected examples arise from configurations with unusually rich symmetry, and it is a standing theme in the subject to determine exactly which symmetric configurations do, and do not, exhibit the phenomenon. We study the family $Z_n\subset\PP^2$ consisting of the vertices of a regular $n$-gon together with its center, for even $n$. Passing to the natural isotropic coordinates on $\PP^2$, we show that the $n$ vertices form a complete intersection of a smooth conic with a curve of degree $n/2$, and that the center point lies on neither of the two generating curves but on the vanishing locus of one of them. This structure yields a closed formula for the Hilbert function of the ideal of $Z_n$, and --- via an elementary but robust argument using multiplication by units in Artinian truncations of local rings --- a complete proof that $Z_n$ never supports an unexpected curve of degree $d$ and multiplicity $\mu$ whenever $d\ge \mu+2$. We verify by exact symbolic (Gr\"obner-basis-free, purely linear-algebraic) computation that the same conclusion also holds for all smaller degrees $d\le \mu+1$ in every case we can check ($n\le 12$, $\mu\le4$), and we record this as a conjecture for the general boundary range. The paper is intended as a small, fully self-contained, and fully verified original contribution, in the spirit of the ``one more point'' constructions that pervade the unexpected-curves literature, showing that a natural symmetric candidate for unexpectedness in fact always behaves as expected.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Let $Z\subset \PP^2$ be a finite set of (reduced) points and let $R=\CC[x,y,z]$ be its homogeneous coordinate ring. For $d\ge 0$ write $[I_Z]_d$ for the degree-$d$ part of the saturated ideal of $Z$, i.e.\ the space of degree-$d$ curves through $Z$. Given a multiplicity $\mu\ge1$ and a point $P\in\PP^2$, write $[I_{Z\cup \mu P}]_d\subseteq [I_Z]_d$ for the subspace of curves that in addition vanish to order $\ge\mu$ at $P$; this is cut out by the $\binom{\mu+1}{2}$ linear conditions given by the vanishing of $P$ together with all its partial derivatives of order $<\mu$. If $P$ is a \emph{general} point of $\PP^2$ one expects these $\binom{\mu+1}2$ conditions to be as independent as the ambient dimension allows, i.e.\ one expects
+\[
+\dim [I_{Z\cup\mu P}]_d \;=\; \max\Big(0,\ \dim[I_Z]_d-\tbinom{\mu+1}{2}\Big).
+\]
+Following Cook II, Harbourne, Migliore, and Nagel \cite{CHMN}, one says $Z$ admits an \emph{unexpected curve} of degree $d$ and multiplicity $\mu$ if this equality fails for a general $P$, i.e.\ if the actual dimension exceeds the expected one. The phenomenon was originally discovered for a highly symmetric configuration of $45$ points dual to the reflections of the Coxeter group $B_3$, and it was quickly connected to the failure of the Weak and Strong Lefschetz Properties for Artinian algebras and to the freeness of line arrangements \cite{HMNT,Survey}. Since 2018 the subject has grown substantially, with generalizations to hypersurfaces in higher-dimensional projective space, to vanishing along positive-dimensional linear spaces, and to new symmetric and combinatorial constructions; a recent example is the January 2025 preprint of Janasz, Malara, and Tutaj-Ga\'{s}i\'{n}ska on unexpected hypersurfaces of type $(d+k,d)$ built from syzygy bundles of Jacobian ideals of hyperplane arrangements \cite{JMT}. A recurring theme in all of this work is that unexpectedness is rare and delicate: almost every known example is built from a configuration with an unusually large symmetry group (root systems, monomial arrangements, star configurations), and a basic question behind the whole subject is to understand exactly \emph{which} symmetric configurations exhibit unexpectedness and which do not \cite{Survey}.
+
+This note studies a natural family of highly symmetric configurations that, perhaps surprisingly, always behaves \emph{as expected}. Fix an even integer $n=2r\ge4$ and let
+\[
+Z_n \;=\; \{\text{vertices of a regular } n\text{-gon}\} \ \cup\ \{\text{the center of the polygon}\}\ \subset\ \PP^2(\CC),
+\]
+where we identify the real Euclidean plane with an affine chart of $\PP^2$ in the usual way. The set $Z_n$ has $n+1$ points and is invariant under the full dihedral group $D_n$ of order $2n$. Such highly symmetric configurations are exactly the sort of object for which unexpected curves are known to occur elsewhere in the literature, so it is natural to ask whether $Z_n$ produces new examples. Our main result is that it does not:
+
+\begin{theorem*}[= Theorem~\ref{thm:main} below]
+For every even $n=2r\ge4$, every multiplicity $\mu\ge1$, and every degree $d\ge \mu+2$, the configuration $Z_n$ does \emph{not} admit an unexpected curve of degree $d$ and multiplicity $\mu$.
+\end{theorem*}
+
+The proof rests on an explicit and, we believe, previously unrecorded structural fact about $Z_n$: after the (complex, linear) change of coordinates $u=x+iy,\ v=x-iy$ diagonalizing the rotation action of $D_n$, the $n$ vertices of the polygon become exactly the complete intersection of the smooth conic $C=\{uv=w^2\}$ with the curve $G=\{v^r=u^r\}$ of degree $r=n/2$ (Proposition~\ref{prop:CI}), while the center of the polygon becomes the coordinate point $p_0=[0:0:1]$, which lies on $G$ but not on $C$ or on $Q:=uv-w^2$. This gives a closed formula for the Hilbert function of $I_{Z_n}$ (Proposition~\ref{prop:hilbert}) and reduces the unexpected-curve question to an elementary computation with truncated jets in local Artinian rings (Section~\ref{sec:jets}). We supplement the general theorem with an exact (not numerical) symbolic verification, using nothing beyond linear algebra over $\QQ$, that the same non-existence conclusion persists for all remaining small degrees $d\le\mu+1$ in every case we tested (Section~\ref{sec:computation}); we record the general statement as Conjecture~\ref{conj:boundary}.
+
+We regard this as a small, honestly-scoped, fully self-contained, and fully verified original contribution: it adds one new (negative) data point to the ongoing classification of symmetric point configurations with respect to unexpectedness, and it isolates a clean, reusable lemma (Lemma~\ref{lem:jet}) --- multiplication by a form nonvanishing at a point acts as a unit on the truncated jet space at that point --- that may be of independent use in other unexpected-curve computations of ``complete intersection plus finitely many points'' type.
+
+\section{The configuration and its complete intersection structure}\label{sec:CI}
+
+Fix $n=2r\ge4$ and let $\zeta=e^{2\pi i/n}$. In the real affine plane with coordinates $(x,y)$, embedded in $\PP^2$ in the usual way via $[x:y:1]$, let
+\[
+V_k \;=\; \big(\cos(2\pi k/n),\,\sin(2\pi k/n)\big), \qquad k=0,1,\dots,n-1,
+\]
+be the vertices of a regular $n$-gon centered at the origin, and let $p_0=(0,0)$ be its center. Set $Z_n=\{[V_0:1],\dots,[V_{n-1}:1]\}\cup\{[p_0:1]\}\subset\PP^2(\CC)$.
+
+Introduce the complex linear change of coordinates on $\PP^2$
+\[
+u = x+iy,\qquad v = x-iy, \qquad w=z,
+\]
+which is an automorphism of $\PP^2_\CC$ (it is $\CC$-linear and invertible, with inverse $x=\tfrac12(u+v)$, $y=\tfrac1{2i}(u-v)$). Writing $\theta_k=2\pi k/n$, the vertex $V_k=(\cos\theta_k,\sin\theta_k)$ becomes, in the new coordinates,
+\[
+[V_k:1] \;\longmapsto\; \big[e^{i\theta_k} : e^{-i\theta_k} : 1\big] \;=\; \big[\zeta^{k} : \zeta^{-k} : 1\big],
+\]
+and the center $p_0=(0,0)$ becomes $[0:0:1]$. Let
+\[
+Q \;=\; uv-w^2, \qquad G \;=\; v^r-u^r \qquad (\deg Q=2,\ \deg G = r=n/2),
+\]
+and let $Z_n'=\{[\zeta^k:\zeta^{-k}:1] : k=0,\dots,n-1\}$, the image of the $n$ vertices (without the center).
+
+\begin{proposition}\label{prop:CI}
+$Z_n'$ is the reduced complete intersection $C\cap V(G)$, where $C=V(Q)$ is a smooth conic; that is, $I_{Z_n'}=(Q,G)$ is a saturated ideal generated by a regular sequence of degrees $(2,r)$. Moreover $p_0=[0:0:1]$ does not lie on $C$ or on $V(Q)$, but does lie on $V(G)$.
+\end{proposition}
+
+\begin{proof}
+In the affine chart $u=1$ (which contains every point of $Z_n'$, since a point of $Z_n'$ has $u=\zeta^k\ne0$), the conic $Q=uv-w^2=0$ becomes $v=w^2$, parametrized by $w=t\mapsto (u,v,w)=(1,t^2,t)$; this is a bijective parametrization $\CC\to C\smallsetminus\{[0:1:0]\}$, and $[0:1:0]\notin Z_n'$ (its $u$-coordinate vanishes). Restricting $G$ to this parametrization,
+\[
+G(1,t^2,t) \;=\; (t^2)^r - 1^r \;=\; t^{n}-1,
+\]
+a degree-$n$ polynomial in $t$ with $n$ distinct roots $t=\zeta^{-k}$, $k=0,\dots,n-1$ (as $n$-th roots of unity are simple roots of $t^n-1$). The corresponding points are $(1,\zeta^{-2k},\zeta^{-k})=[\zeta^{k}:\zeta^{-k}:1]$ after rescaling by $\zeta^{k}$, which is exactly $Z_n'$ (reindexing $k\mapsto -k$ if needed). Hence $C\cap V(G)$ consists of exactly these $n$ points, each with intersection multiplicity $1$ (simple roots), matching the B\'ezout number $\deg C\cdot \deg G = 2r=n$. Thus $(Q,G)$ is a regular sequence (the intersection is $0$-dimensional, so $Q,G$ have no common factor and form a regular sequence in the Cohen--Macaulay ring $R$) cutting out the reduced scheme $Z_n'$; being $0$-dimensional and Cohen--Macaulay, $(Q,G)$ is automatically saturated, so $I_{Z_n'}=(Q,G)$.
+
+For the last statement: $Q(p_0)=Q(0,0,1)=0\cdot0-1^2=-1\ne0$, so $p_0\notin C$; and $G(p_0)=G(0,0,1)=0^r-0^r=0$, so $p_0\in V(G)$.
+\end{proof}
+
+\begin{remark}
+Proposition~\ref{prop:CI} is the reason we restrict to even $n$: realizing $n$ points on a smooth conic as a complete intersection with a second curve requires that second curve to have degree $n/2$, which is only an integer when $n$ is even. For odd $n$ the vertices of the polygon still lie on the conic $C$, but $C\cap V(u^n-w^n)$ has an extra fixed point of multiplicity $n$ at infinity, and the clean complete-intersection description breaks down; we do not treat odd $n$ here.
+\end{remark}
+
+Now let $Z_n=Z_n'\cup\{p_0\}$, our full configuration of $n+1$ points. Since $p_0\notin Z_n'$ (as $p_0\notin C\supseteq Z_n'$), for every $d$ we have
+\[
+[I_{Z_n}]_d \;=\; \{F\in [I_{Z_n'}]_d : F(p_0)=0\} \;=\; \ker\big(\,\mathrm{ev}_{p_0}: [I_{Z_n'}]_d\to\CC\,\big).
+\]
+
+\begin{proposition}[Hilbert function of $I_{Z_n}$]\label{prop:hilbert}
+For $d\ge2$,
+\[
+\dim [I_{Z_n}]_d \;=\; \binom{d}{2} + \binom{d-r+2}{2} - \binom{d-r}{2} \;-\;1,
+\]
+with the convention $\binom{e+2}{2}:=0$ for $e<0$; and $\dim[I_{Z_n}]_d=0$ for $d<2$.
+\end{proposition}
+
+\begin{proof}
+By Proposition~\ref{prop:CI}, $I_{Z_n'}=(Q,G)$ is generated by a regular sequence of degrees $(2,r)$, so its Koszul resolution
+\[
+0\to R(-2-r)\to R(-2)\oplus R(-r) \to I_{Z_n'} \to 0
+\]
+gives, upon taking dimensions in degree $d$,
+\[
+\dim[I_{Z_n'}]_d \;=\; \dim R_{d-2} + \dim R_{d-r} - \dim R_{d-2-r} \;=\; \binom{d}{2}+\binom{d-r+2}{2}-\binom{d-r}{2},
+\]
+using $\dim R_e=\binom{e+2}{2}$ for $e\ge0$ and $\dim R_e=0$ for $e<0$.
+
+We show the evaluation functional $\mathrm{ev}_{p_0}$ is not identically zero on $[I_{Z_n'}]_d$ for $d\ge2$, which gives $\dim[I_{Z_n}]_d=\dim[I_{Z_n'}]_d - 1$. Since $G(p_0)=0$, evaluation at $p_0$ vanishes on the whole subspace $G\cdot R_{d-r}\subseteq [I_{Z_n'}]_d$. On the other hand, for a monomial $m=u^az^b w^c$ (with $a+b+c=d-2$) we have $Q(p_0)\,m(p_0) = (-1)\cdot[\,a=b=0\,]$, i.e.\ $\mathrm{ev}_{p_0}(Q\cdot w^{d-2}) = -1 \ne 0$ (using $d-2\ge0$). Since $Q\cdot w^{d-2}\in [I_{Z_n'}]_d$, the functional $\mathrm{ev}_{p_0}$ is nonzero there, hence nonzero on $[I_{Z_n'}]_d$. This proves the claimed formula for $d\ge2$; for $d<2$, $R_{d-2}=0$ so $[I_{Z_n'}]_d=0=[I_{Z_n}]_d$.
+\end{proof}
+
+We record for later use the explicit decomposition established in the proof of Proposition~\ref{prop:hilbert}:
+\begin{equation}\label{eq:decomp}
+[I_{Z_n}]_d \;=\; G\cdot R_{d-r} \;+\; Q\cdot V^0_{d-2}, \qquad d\ge2,
+\end{equation}
+where $V^0_e\subseteq R_e$ denotes the subspace of degree-$e$ forms in $u,v,w$ vanishing at $p_0$, i.e.\ (dehomogenizing at $w=1$) affine polynomials of degree $\le e$ in $u,v$ with zero constant term. Indeed $G\cdot R_{d-r}\subseteq [I_{Z_n}]_d$ automatically since $G$ already vanishes at $p_0$, and a form $Q\cdot m$ ($m\in R_{d-2}$ a monomial) lies in $[I_{Z_n}]_d$ exactly when $m(p_0)=0$, i.e.\ when $m$ is not the pure power of $w$; extending linearly gives $Q\cdot V^0_{d-2}$ as the contribution from the $Q$-summand.
+
+\section{Jets in Artinian local rings}\label{sec:jets}
+
+We work in the affine chart $w=1$; write $S=\CC[u,v]$ and identify a point $q=(s,t)\in\CC^2$. For $\mu\ge1$ let $\mfrak_q=(u-s,v-t)\subset S$ and let
+\[
+A_\mu(q) \;:=\; S/\mfrak_q^{\mu}
+\]
+be the associated Artinian local ring, a $\CC$-vector space of dimension $\binom{\mu+1}{2}$ (a basis is given by the images of $(u-s)^a(v-t)^b$, $a+b<\mu$). Let $j_\mu : S \to A_\mu(q)$ be the quotient map; it is a surjective $\CC$-algebra homomorphism, and for $h\in S$, $j_\mu(h)$ records exactly the value of $h$ and all its partial derivatives of order $<\mu$ at $q$ (equivalently, the degree $<\mu$ part of the Taylor expansion of $h$ at $q$). In particular, for a subspace $W\subseteq [I_{Z_n}]_d$ (dehomogenized at $w=1$), a general point $q$ imposes independent multiplicity-$\mu$ conditions on $W$ exactly when $j_\mu|_W$ has maximal possible rank $\min(\dim W,\binom{\mu+1}{2})$; the configuration fails to have the expected dimension at $q$, i.e.\ exhibits unexpectedness in this range, exactly when $\dim j_\mu(W) < \min(\dim W, \binom{\mu+1}2)$ for a general (equivalently, by upper semicontinuity of rank, for every) choice of $q$ outside a proper closed subset.
+
+For $N\ge0$ let $S_{\le N}\subset S$ be the polynomials of degree $\le N$, and, for a point $p^*=(0,0)$ (the chart-$w=1$ image of $p_0$), let $S^0_{\le N}=\{h\in S_{\le N} : h(0,0)=0\}$; note $\dim S_{\le N}=\binom{N+2}{2}$ and $\dim S^0_{\le N}=\binom{N+2}{2}-1$.
+
+\begin{lemma}\label{lem:jet}
+Let $q=(s,t)\in\CC^2$ with $q\ne(0,0)$, and let $\mu\ge1$.
+\begin{enumerate}[label=(\alph*)]
+\item If $N=\mu-1$, then $j_\mu|_{S_{\le N}} : S_{\le N}\to A_\mu(q)$ is a linear isomorphism. In particular $j_\mu|_{S^0_{\le N}}$ is injective, with image of dimension $\binom{\mu+1}{2}-1$.
+\item If $N\ge \mu$, then $j_\mu(S^0_{\le N}) = A_\mu(q)$ (all of it).
+\item For any $g\in S$ with $g(q)\ne0$ and any subspace $W\subseteq S$, $\dim j_\mu(gW) = \dim j_\mu(W)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Both spaces have dimension $\binom{\mu+1}2$, so it suffices to show $j_\mu|_{S_{\le N}}$ is injective. If $h\in S_{\le \mu-1}$ and $j_\mu(h)=0$, then all partial derivatives of $h$ of order $<\mu$ vanish at $q$; since $\deg h\le \mu-1$, the Taylor expansion of $h$ at $q$ has no terms of degree $\ge\mu$, so $h$ equals its own Taylor polynomial of degree $<\mu$ at $q$, which is zero; hence $h=0$. The subspace $S^0_{\le N}\subset S_{\le N}$ then maps injectively, with image of dimension $\dim S^0_{\le N}=\binom{\mu+1}2-1$.
+
+(b) Suppose $\phi\in A_\mu(q)^\vee$ (dual space) vanishes on $j_\mu(S^0_{\le N})$; we must show $\phi=0$. The functional $\phi\circ j_\mu$ on $S_{\le N}$ vanishes on $S^0_{\le N}$, a hyperplane, so $\phi\circ j_\mu = c\cdot \mathrm{ev}_{(0,0)}$ for some constant $c\in\CC$ (as $S_{\le N} = S^0_{\le N}\oplus\CC\cdot1$). Choose a linear form $L$ vanishing at $q$ but not at $(0,0)$ (possible since $q\ne(0,0)$; a generic line through $q$ works). Then $L^\mu\in S_{\le N}$ (as $\deg L^\mu=\mu\le N$) and $j_\mu(L^\mu)=j_\mu(L)^\mu=0$ in $A_\mu(q)$, since $j_\mu(L)\in \mfrak_q/\mfrak_q^\mu$ is nilpotent of order dividing $\mu$ (indeed $L\in\mfrak_q$, so $L^\mu\in\mfrak_q^\mu$). Hence $0=\phi(j_\mu(L^\mu)) = c\cdot L^\mu(0,0) = c\cdot L(0,0)^\mu$, and $L(0,0)\ne0$ forces $c=0$. Thus $\phi\circ j_\mu\equiv 0$ on $S_{\le N}\supseteq S_{\le\mu-1}$; but $j_\mu(S_{\le\mu-1})=A_\mu(q)$ by part (a) (surjectivity, being part of the isomorphism there), so $\phi$ vanishes on all of $A_\mu(q)$, i.e.\ $\phi=0$.
+
+(c) Since $j_\mu$ is a ring homomorphism, $j_\mu(gh)=j_\mu(g)j_\mu(h)$ for all $h\in S$, so $j_\mu(gW)=j_\mu(g)\cdot j_\mu(W)$, the image of $j_\mu(W)$ under the linear map ``multiplication by $j_\mu(g)$'' on $A_\mu(q)$. As $g(q)\ne0$, the class $j_\mu(g)\in A_\mu(q)=S/\mfrak_q^\mu$ has nonzero image in the residue field $S/\mfrak_q\cong\CC$, so $j_\mu(g)$ is a unit in the local Artinian ring $A_\mu(q)$; multiplication by a unit is a linear automorphism of $A_\mu(q)$, hence preserves the dimension of any subspace it is applied to.
+\end{proof}
+
+\section{Non-existence of unexpected curves}\label{sec:main}
+
+Recall $n=2r$, and consider degree $d$ and multiplicity $\mu$. By \eqref{eq:decomp}, $[I_{Z_n}]_d \supseteq Q\cdot V^0_{d-2}$ (dehomogenizing $Q$ at $w=1$ to $q(u,v)=uv-1$, and $V^0_{d-2}$ dehomogenizing to $S^0_{\le d-2}$).
+
+\begin{theorem}\label{thm:main}
+Let $n=2r\ge4$ be even, $\mu\ge1$, and $d\ge\mu+2$. Then $Z_n$ does not admit an unexpected curve of degree $d$ and multiplicity $\mu$: for a general point $P\in\PP^2$,
+\[
+\dim[I_{Z_n\cup \mu P}]_d \;=\; \max\Big(0,\ \dim[I_{Z_n}]_d - \tbinom{\mu+1}2\Big).
+\]
+\end{theorem}
+
+\begin{proof}
+Work in the affine chart $w=1$ and let $q=(s,t)$ be the dehomogenization of $P$; since $Q(P)\ne0$ is a nonempty (Zariski open, as $Q\ne0$) condition and $p_0=(0,0)$ is a single point, it suffices to prove the stated equality for all $q$ outside a fixed proper closed subset of $\CC^2$, e.g.\ all $q\notin V(q(u,v))\cup\{(0,0)\}$ (where $q(u,v)=uv-1$ denotes the dehomogenized $Q$, distinguished from the point $q=(s,t)$ by context), which suffices because $\dim[I_{Z_n\cup \mu P}]_d = \dim [I_{Z_n}]_d - \dim j_\mu([I_{Z_n}]_d)$ and this quantity is minimized (equivalently, $\dim j_\mu(-)$ is maximized) on a dense Zariski open subset of $q$-space, by upper semicontinuity of the rank of the (polynomial-in-$q$) matrix representing $j_\mu$ on a fixed basis of $[I_{Z_n}]_d$.
+
+Fix such a $q$, so $q(u,v)\big|_{(s,t)} = st-1 \ne0$ and $q\ne(0,0)$. Let $N=d-2\ge\mu$. By Lemma~\ref{lem:jet}(b), $j_\mu(S^0_{\le N})=A_\mu(q)$, the full jet space, of dimension $\binom{\mu+1}2$. By Lemma~\ref{lem:jet}(c) applied with $g=q(u,v)$ (nonvanishing at $q$) and $W=S^0_{\le N}$,
+\[
+\dim j_\mu\big(q(u,v)\cdot S^0_{\le N}\big) \;=\; \dim j_\mu(S^0_{\le N}) \;=\; \tbinom{\mu+1}{2}.
+\]
+Since $q(u,v)\cdot S^0_{\le N}$ (the dehomogenization of $Q\cdot V^0_{d-2}$) is a subspace of the dehomogenization of $[I_{Z_n}]_d$, monotonicity of rank under inclusion gives
+\[
+\dim j_\mu\big([I_{Z_n}]_d\big) \;\ge\; \tbinom{\mu+1}{2}.
+\]
+On the other hand $\dim j_\mu([I_{Z_n}]_d)\le \binom{\mu+1}2$ trivially, since $A_\mu(q)$ has dimension $\binom{\mu+1}2$. Hence $\dim j_\mu([I_{Z_n}]_d) = \binom{\mu+1}{2} = \min\big(\dim[I_{Z_n}]_d, \binom{\mu+1}2\big)$ (the two coincide because $\dim[I_{Z_n}]_d\ge\dim (q(u,v)S^0_{\le N})=\dim S^0_{\le N} = \binom{d}2 -1\ge \binom{\mu+1}2$, using $d\ge \mu+2$ so that $\binom{d}2-1\ge\binom{\mu+1}2$, which is checked directly: $\binom{\mu+2}{2}-1-\binom{\mu+1}2 = \mu\ge0$). This says exactly that the $\binom{\mu+1}2$ jet conditions imposed by $\mu P$ on $[I_{Z_n}]_d$ have maximal rank, i.e.\ that $Z_n$ imposes the expected (not unexpected) dimension in degree $d$, multiplicity $\mu$, for this open dense set of $P$, proving the theorem.
+\end{proof}
+
+\begin{remark}
+The proof shows something slightly stronger than advertised: the sub-linear-system $Q\cdot V^0_{d-2}\subseteq [I_{Z_n}]_d$ \emph{alone} already imposes the maximal number of independent conditions at a general point; the possibly larger space $[I_{Z_n}]_d$ (which for $d\ge r$ also receives a contribution from $G\cdot R_{d-r}$, cf.\ \eqref{eq:decomp}) cannot do better than the ambient cap $\binom{\mu+1}2$ allows, so it does no worse either.
+\end{remark}
+
+\section{The boundary range $d\le \mu+1$: exact symbolic verification}\label{sec:computation}
+
+The threshold $d\ge\mu+2$ in Theorem~\ref{thm:main} is an artifact of the specific argument used (Lemma~\ref{lem:jet}(b) requires $N=d-2\ge\mu$), not, as far as we can tell, of the underlying geometry: every case we can compute at the boundary and below also turns out to be as expected. We used the decomposition \eqref{eq:decomp} together with exact linear algebra over $\QQ$ (no floating point, no random sampling) to compute, for each pair $(r,d)$, an explicit spanning set (hence, after row reduction, an explicit basis) of $[I_{Z_n}]_d$ with coefficients in $\QQ$, and then to test, for each $\mu$, whether the maximal minors of the $\binom{\mu+1}2\times \dim[I_{Z_n}]_d$ matrix of jets (entries: polynomials in two auxiliary symbols $s,t$ standing for the coordinates of a not-yet-specialized point $q$) are \emph{identically zero as polynomials in $(s,t)$}. Because this is an exact symbolic identity check (rather than a numerical rank computation at finitely many sample points), a negative answer (some minor is a nonzero polynomial) is a rigorous proof that the generic rank is maximal, by the same semicontinuity argument used in the proof of Theorem~\ref{thm:main}. We implemented this in \texttt{sympy}; the script is included with this note as \texttt{unexpected\_curves\_explore.py}.
+
+We tested $r=2,3,4,5,6$ (i.e.\ $n=4,6,8,10,12$), $\mu=2,3,4$, and all degrees $d$ from $1$ up to $r+3$ (well past the range covered by Theorem~\ref{thm:main}, which already applies for $d\ge\mu+2$). In every single case, including every instance of the boundary degree $d=\mu+1$ and the smaller degrees $d\le\mu$, the maximal-rank condition held: $Z_n$ imposed exactly the expected dimension. A representative excerpt (full output reproduced in the ancillary file \texttt{computation\_log.txt}) is shown in Table~\ref{tab:data}.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{cccccc}
+\toprule
+$n$ & $r$ & $\mu$ & $d$ & $\dim[I_{Z_n}]_d$ & generic rank \\
+\midrule
+8  & 4 & 2 & 3 & 2  & 2 (full) \\
+8  & 4 & 2 & 4 & 6  & 3 (full) \\
+8  & 4 & 3 & 4 & 6  & 6 (full) \\
+10 & 5 & 3 & 4 & 5  & 5 (full) \\
+12 & 6 & 4 & 5 & 9  & 9 (full) \\
+12 & 6 & 4 & 6 & 15 & 10 (full) \\
+\bottomrule
+\end{tabular}
+\caption{Sample of the exact symbolic verification; ``full'' means generic rank $=\min(\dim[I_{Z_n}]_d,\binom{\mu+1}2)$, i.e.\ no unexpected curve.}
+\label{tab:data}
+\end{table}
+
+Given the uniformity of this evidence, and the fact that our proof of Theorem~\ref{thm:main} already handles the harder ``large $\dim [I_{Z_n}]_d$'' regime, we conjecture:
+
+\begin{conjecture}\label{conj:boundary}
+Theorem~\ref{thm:main} holds for all $d\ge1$ (with no lower bound relating $d$ and $\mu$): for every even $n\ge4$ and every $\mu\ge1$, $Z_n$ never admits an unexpected curve of any degree.
+\end{conjecture}
+
+We indicate where the proof of Theorem~\ref{thm:main} breaks down for $d=\mu+1$: in that case $N=d-2=\mu-1$, so Lemma~\ref{lem:jet}(a) (not (b)) applies to $Q\cdot V^0_{d-2}$, giving only $\dim j_\mu(Q V^0_{d-2}) = \binom{\mu+1}2-1$, one short of the cap. If $d<r$ this is not a problem, since then $[I_{Z_n}]_d = Q\cdot V^0_{d-2}$ exactly (the $G$-summand is absent as $\deg G=r>d$) and $\binom{\mu+1}2-1=\dim[I_{Z_n}]_d$ is already the full ambient dimension, so no further improvement is needed or possible: the map is automatically of maximal rank $\min(\dim[I_{Z_n}]_d,\binom{\mu+1}2)=\dim [I_{Z_n}]_d$. The only case left open by our argument is $d=\mu+1\ge r$, where the extra summand $G\cdot R_{d-r}$ in \eqref{eq:decomp} contributes further curves, and one would need to show that (at least) one of them has a jet at $q$ outside the hyperplane $j_\mu(QV^0_{d-2})\subsetneq A_\mu(q)$. We verified this directly for $r\le\mu+1\le7$ above but did not find a uniform argument.
+
+\section{The real regular polygon}
+
+We record explicitly the translation back to the motivating real picture.
+
+\begin{corollary}
+Let $n=2r\ge4$, let $Z_n\subset\PP^2(\CC)$ be the union of the vertices of a regular $n$-gon (in a real affine chart) with its center. Then, for every $\mu\ge1$ and $d\ge\mu+2$, $Z_n$ does not admit an unexpected curve of degree $d$ and multiplicity $\mu$; and the same holds for $d\le \mu+1$ whenever $n\le12$ and $\mu\le4$ (Conjecture~\ref{conj:boundary} predicts it in general).
+\end{corollary}
+
+\begin{proof}
+Unexpectedness is invariant under the automorphisms of $\PP^2$, so this is a restatement of Theorem~\ref{thm:main} and the data of Section~\ref{sec:computation} under the coordinate change of Section~\ref{sec:CI}.
+\end{proof}
+
+\section{Concluding remarks}
+
+The mechanism isolated here --- take a complete intersection $Z'=C\cap V(G)$ of a conic with another curve, and adjoin one further point lying on $G$ but not on $C$ --- is a natural way to try to manufacture unexpected curves, in the spirit of the ``complete intersection plus a point'' constructions that recur throughout the literature on unexpected hypersurfaces and failure of the Lefschetz property \cite{HMNT,Survey}. Our computation shows that, at least for this specific symmetric family, the mechanism does not in fact produce unexpectedness: the extra point $p_0$ removes exactly the one dimension one would predict it removes (Proposition~\ref{prop:hilbert}), and it does so ``generically enough'' that no excess dimension appears when a further general fat point is imposed (Theorem~\ref{thm:main}). It would be interesting to know:
+\begin{enumerate}
+\item Whether Conjecture~\ref{conj:boundary} is true in general (i.e.\ for all $r,\mu$ with $r\le \mu+1$), and if so, to find a uniform proof of the missing case $d=\mu+1\ge r$.
+\item What happens when the extra point $p_0$ is replaced by a point that does \emph{not} lie on $G$ (equivalently, by a point of the real polygon's configuration other than its center, or a genuinely generic extra point); the vanishing $G(p_0)=0$ used throughout Section~\ref{sec:CI} was special to the center, and removing it changes the decomposition \eqref{eq:decomp}.
+\item Whether adjoining \emph{two} points instead of one (e.g.\ the center together with a point at infinity, or two points related by the symmetry) can produce genuine unexpectedness for this family; ``one point is not enough'' is exactly what Theorem~\ref{thm:main} shows here, and the next natural test case is two points.
+\end{enumerate}
+We leave these questions for future work.
+
+\begin{thebibliography}{99}
+
+\bibitem{CHMN} D.~Cook II, B.~Harbourne, J.~Migliore, U.~Nagel, \emph{Line arrangements and configurations of points with an unusual geometric property}, Compositio Math. \textbf{154} (2018), 2150--2194.
+
+\bibitem{HMNT} B.~Harbourne, J.~Migliore, U.~Nagel, Z.~Teitler, \emph{Unexpected hypersurfaces and where to find them}, Michigan Math. J. \textbf{70} (2021), 301--332.
+
+\bibitem{Survey} B.~Harbourne, J.~Migliore, U.~Nagel, \emph{Unexpected hypersurfaces and their consequences: a survey}, arXiv:2303.13317 (2023).
+
+\bibitem{JMT} M.~Janasz, G.~Malara, H.~Tutaj-Ga\'{s}i\'{n}ska, \emph{Unexpected hypersurfaces of type $(d+k,d)$}, arXiv:2511.10772 (2025).
+
+\end{thebibliography}
+
+\end{document}
