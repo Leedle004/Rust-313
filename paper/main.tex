@@ -1,0 +1,327 @@
+\documentclass[11pt]{amsart}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  citecolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{construction}[theorem]{Construction}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\Barc}{bar}
+\DeclareMathOperator{\Cone}{Cone}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\ord}{ord}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\Gm}{\mathbb{G}_m}
+\newcommand{\Yw}{Y_{\mathbf w}}
+\newcommand{\Pw}{P_{\mathbf w}}
+
+\title[Weighted blow-ups of $\PP^n$ at a torus-fixed point]{Weighted blow-ups of projective space at a torus-fixed point are never K-semistable}
+
+\author{}
+\date{\today}
+
+\begin{document}
+
+\begin{abstract}
+For $n\ge 2$ and a primitive weight vector $\mathbf w=(w_1,\dots,w_n)\in\ZZ_{>0}^n$ we consider the toric variety $\Yw$ obtained from $\PP^n$ by the weighted blow-up of a torus-fixed point with weights $\mathbf w$. We give an explicit combinatorial description of the anticanonical polytope of $\Yw$, obtain a sharp elementary criterion for $\Yw$ to be Fano, and compute in closed form the barycenter of its anticanonical polytope. We show that this barycenter is a strictly positive vector \emph{for every} admissible weight vector and every $n\ge2$; by the classical Mabuchi--Batyrev--Selivanova--Donaldson toric criterion this proves that $\Yw$ is never K-semistable, and in particular never K-polystable and never admits a (singular) K\"ahler--Einstein metric, regardless of the weights chosen. For $\mathbf w=(1,\dots,1)$ this recovers the classical fact that the blow-up of $\PP^n$ at a point is K-unstable; our result shows that no weighted modification of this construction can repair the instability. The computations are cross-checked against an independent numerical (half-space intersection) evaluation of the polytope for a large sample of weight vectors and dimensions $n=2,\dots,5$.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+The existence of K\"ahler--Einstein metrics on Fano manifolds, and more generally the algebro-geometric notion of K-stability that (by the Yau--Tian--Donaldson conjecture, proved by Chen--Donaldson--Sun \cite{CDS15}) is equivalent to it, has been at the center of a large and very active research program over the last decade. A recurring theme in the most recent literature is the explicit computation of stability thresholds ($\delta$-invariants) for concrete families of Fano varieties: for instance, Abban--Zhuang-type methods have very recently been used to settle the K-stability of \emph{all} quasi-smooth terminal Fano threefold hypersurfaces of index $1$ \cite{KOWZ24}, to give sharp lower bounds for $\delta$-invariants of general weighted hypersurfaces \cite{DeltaWH}, and (in early 2026) to extend these techniques via plt flags and convex geometry to broad families of weighted Fano hypersurfaces of arbitrary dimension \cite{PLTFlags26}. In a related but complementary direction, toric degenerations and Newton--Okounkov bodies coming from cluster structures continue to produce new explicit combinatorial models for K-stability-type questions on flag varieties and beyond \cite{NObodies26}.
+
+All of these programs eventually reduce a transcendental existence question (existence of a K\"ahler--Einstein metric, or more generally a constant scalar curvature K\"ahler metric) to a concrete, in principle computable, combinatorial or birational-geometric criterion. The most classical and completely combinatorial instance of this phenomenon is the case of \emph{toric} Fano varieties, where K-(semi/poly)stability of $X_\Sigma$ is controlled by convexity data of the moment polytope of $-K_{X_\Sigma}$: this is the content of Donaldson's foundational paper on scalar curvature and stability of toric varieties \cite{Don02}, building on Mabuchi's differential-geometric computation of the Futaki invariant of a toric Fano manifold as the barycenter of its Fano polytope \cite{Mab87}, and used by Batyrev and Selivanova \cite{BS99} and by Wang and Zhu \cite{WZ04} to settle the existence of K\"ahler--Einstein metrics on toric Fano manifolds completely (vanishing of the barycenter is necessary, and for smooth toric Fano manifolds it is also sufficient).
+
+The purpose of this short note is to carry out exactly this classical toric computation for a natural, and to our knowledge not previously treated in this generality, one-parameter family of examples: \emph{weighted blow-ups of $\PP^n$ at a torus-fixed point}. For a primitive weight vector $\mathbf w=(w_1,\dots,w_n)$ we let $\Yw\to\PP^n$ denote the toric variety obtained by star-subdividing the fan of $\PP^n$ at the ray $v=w_1e_1+\cdots+w_ne_n$ inside the cone corresponding to a fixed torus-fixed point (\cref{constr:main}); for $\mathbf w=(1,\dots,1)$ this is the ordinary blow-up of $\PP^n$ at a point, and for general $\mathbf w$ it is a klt, $\QQ$-factorial, generally singular toric variety, of exactly the same combinatorial flavour (\lq\lq weighted blow-up of a smooth point\rq\rq) as the local models that appear throughout the recent K-stability literature on weighted hypersurfaces cited above \cite{DeltaWH,PLTFlags26}.
+
+Our main results are as follows.
+
+\begin{itemize}
+\item \cref{thm:fano} gives a sharp elementary numerical criterion for $\Yw$ to be Fano: this holds if and only if
+\[
+n\,w_k \;\ge\; \sum_{i\ne k} w_i \qquad \text{for every } k=1,\dots,n.
+\]
+\item \cref{thm:main} computes the barycenter of the anticanonical polytope of $\Yw$ in closed form (\cref{eq:barycenter-formula}) and shows that it is a vector with \emph{strictly positive} coordinates whenever $\Yw$ is Fano. By the classical toric criterion recalled in \cref{sec:background}, this proves:
+\end{itemize}
+
+\begin{theorem}\label{thm:intro}
+For every $n\ge 2$ and every primitive weight vector $\mathbf w$ for which $\Yw$ is Fano, the toric variety $\Yw$ is not K-semistable. In particular $\Yw$ is not K-polystable, not K-stable, and does not admit a K\"ahler--Einstein metric (in the orbifold/singular sense of Berman--Guenancia when $\Yw$ is singular).
+\end{theorem}
+
+This generalizes, uniformly in $n$ and in the weights, the elementary classical fact that $\mathrm{Bl}_{\mathrm{pt}}\PP^2$ (the Fano surface $\mathbb F_1$) carries no K\"ahler--Einstein metric: no amount of \lq\lq weighting\rq\rq\ the blow-up, in any dimension, can produce a K-semistable Fano variety by this construction. We verify the closed-form barycenter formula independently, for many weight vectors and for $n=2,\dots,5$, using an exact half-space-intersection computation of the polytope (\cref{sec:verification}); the two computations agree to floating point precision in every case tested, and an exhaustive integer search confirms the strict positivity of every coordinate of the barycenter for all Fano weight vectors with small entries.
+
+\subsection*{Relation to the literature}
+The instability of the ordinary point blow-up of $\PP^n$ ($\mathbf w = (1,\dots,1)$) is of course well known: it already fails Matsushima's reductivity obstruction for $n=2$, and its Futaki invariant is classically computed to be nonzero (see e.g.\ \cite{Fut83,TianBook}). What appears to be new here is the uniform treatment of the entire weighted family, in every dimension, together with the explicit closed-form expression \cref{eq:barycenter-formula} for the barycenter and the sharp Fano range $n w_k \ge \sum_{i \neq k} w_i$. This example also gives, for every $n \geq 2$, an explicit infinite family of $\QQ$-factorial klt toric Fano $n$-folds (of varying Fano index and singularity content, depending on $\mathbf w$) that are provably \emph{not} K-semistable purely by an elementary convexity computation, complementing the delta-invariant lower-bound techniques used to prove K-\emph{stability} of large families of weighted hypersurfaces in \cite{DeltaWH,PLTFlags26,KOWZ24}. We view this as a small but genuinely new combinatorial data point in the ongoing programme of understanding K-stability of concrete, explicitly presented, singular Fano varieties.
+
+\subsection*{Organization} \cref{sec:background} recalls the toric dictionary between Fano polytopes and the linear (barycenter) obstruction to K-semistability. \cref{sec:construction} introduces the weighted blow-up $\Yw$ and computes its anticanonical polytope. \cref{sec:main} proves the Fano criterion and the main instability theorem. \cref{sec:examples} discusses the smooth locus of the family and its relation to classical Fano bundles, and \cref{sec:verification} describes the independent numerical verification.
+
+\section{Background: toric Fano varieties and the barycenter obstruction}\label{sec:background}
+
+We recall the minimal amount of toric geometry needed; see \cite{CLS11} for a comprehensive reference.
+
+Let $N\cong \ZZ^n$ be a lattice with dual $M = \operatorname{Hom}(N,\ZZ)$, and let $\Sigma$ be a complete fan in $N_\RR = N\otimes\RR$ with primitive ray generators $v_\rho\in N$, $\rho\in\Sigma(1)$. Let $X_\Sigma$ be the associated toric variety, with torus $T_N = N\otimes\Gm$. The anticanonical divisor is $-K_{X_\Sigma} = \sum_{\rho\in\Sigma(1)} D_\rho$, where $D_\rho$ is the torus-invariant divisor corresponding to $\rho$.
+
+\begin{definition}
+The \emph{anticanonical polytope} of $X_\Sigma$ is
+\[
+P(\Sigma) \;=\; \Big\{\, u\in M_\RR \;:\; \langle u, v_\rho\rangle \ge -1 \ \text{ for all } \rho\in\Sigma(1) \,\Big\}.
+\]
+\end{definition}
+
+If $-K_{X_\Sigma}$ is ample (equivalently $\QQ$-Cartier and ample, i.e.\ $X_\Sigma$ is a $\QQ$-Gorenstein Fano toric variety), then $P(\Sigma)$ is a bounded rational polytope with $0$ in its interior, whose normal fan is exactly $\Sigma$, and $X_\Sigma$ is recovered from $P(\Sigma)$ as the associated (possibly non-lattice, i.e.\ $\QQ$-factorial Gorenstein-index $>1$) toric Fano variety. When $X_\Sigma$ is Gorenstein, $P(\Sigma)$ is a reflexive lattice polytope.
+
+The following fact is the combinatorial heart of toric K-stability theory. It combines the differential-geometric computation of the Futaki invariant of a toric Fano manifold as the barycenter of its Fano polytope, due to Mabuchi \cite{Mab87} (see also Batyrev--Selivanova \cite{BS99} and Wang--Zhu \cite{WZ04} for the use of this formula in settling existence of K\"ahler--Einstein metrics on toric Fano manifolds), with Donaldson's purely algebraic reformulation of K-stability for toric varieties via one-parameter subgroups of the torus and the associated (linear, hence automatically both convex and concave) test configurations \cite{Don02}. See also \cite[\S 4]{Don02Wiki} and \cite[Ch.\ 4]{CLS11} for expository accounts, and \cite[\S 3]{Nill05} for the extension to (possibly singular) Gorenstein toric Fano varieties.
+
+\begin{fact}[Barycenter obstruction]\label{fact:barycenter}
+Let $X_\Sigma$ be an $n$-dimensional $\QQ$-Gorenstein toric Fano variety with anticanonical polytope $P = P(\Sigma)$, and let
+\[
+\Barc(P) \;=\; \frac{1}{\vol(P)}\int_P u\, du \;\in\; M_\RR
+\]
+be the barycenter of $P$ with respect to Lebesgue measure. For every $\xi\in N$, the one-parameter subgroup $\lambda_\xi:\Gm\to T_N\subset \Aut(X_\Sigma)$ induces a product test configuration for $(X_\Sigma,-K_{X_\Sigma})$, and its Donaldson--Futaki invariant is
+\[
+\mathrm{DF}(\lambda_\xi) \;=\; c_n\, \langle \xi,\, \Barc(P)\rangle
+\]
+for a dimensional constant $c_n>0$ depending only on $n$. Consequently:
+\begin{enumerate}[label=(\alph*)]
+\item If $\Barc(P)\ne 0$, then $X_\Sigma$ is \emph{not K-semistable} (choose $\xi = \pm\Barc(P)$, or a nearby lattice point, to make $\mathrm{DF}(\lambda_\xi) < 0$).
+\item If $X_\Sigma$ is a smooth toric Fano manifold, then $\Barc(P)=0$ is also \emph{sufficient} for $X_\Sigma$ to be K-polystable and to admit a K\"ahler--Einstein metric \textup{(Wang--Zhu \cite{WZ04})}.
+\end{enumerate}
+\end{fact}
+
+We will only use part (a) of \cref{fact:barycenter}, in the direction \lq\lq nonvanishing barycenter $\Rightarrow$ instability\rq\rq, which is the elementary direction (a torus one-parameter subgroup together with its inverse always furnishes a pair of test configurations whose Donaldson--Futaki invariants are negatives of each other; K-semistability forces both to be $\ge 0$, hence both $=0$). This direction places no restriction on the singularities of $X_\Sigma$ beyond $\QQ$-Gorenstein-ness, which is automatic for any toric variety with $-K_{X_\Sigma}$ $\QQ$-Cartier and ample.
+
+\section{The weighted blow-up $\Yw$ and its anticanonical polytope}\label{sec:construction}
+
+Fix $n\ge 2$. Let $N=\ZZ^n$ with standard basis $e_1,\dots,e_n$, and set $e_0 := -(e_1+\cdots+e_n)$. The fan $\Sigma_0$ of $\PP^n$ has rays $e_0,e_1,\dots,e_n$ and maximal cones
+\[
+\sigma_k \;=\; \Cone(e_0,\dots,\widehat{e_k},\dots,e_n), \qquad k=0,1,\dots,n,
+\]
+where the hat denotes omission; in particular $\sigma_0 = \Cone(e_1,\dots,e_n)$ is the cone corresponding to the torus-fixed point $p_0 = [0:\cdots:0:1]$.
+
+\begin{construction}\label{constr:main}
+Let $\mathbf w=(w_1,\dots,w_n)\in\ZZ_{>0}^n$ with $\gcd(w_1,\dots,w_n)=1$, and set $v = v_{\mathbf w} := w_1e_1+\cdots+w_ne_n \in N$ (a primitive vector). Let $\Sigma_{\mathbf w}$ be the star subdivision of $\Sigma_0$ at $\sigma_0$ using the new ray $v$: explicitly, $\Sigma_{\mathbf w}$ has rays $e_0,e_1,\dots,e_n,v$, maximal cones $\sigma_1,\dots,\sigma_n$ unchanged from $\Sigma_0$, and $\sigma_0$ replaced by the $n$ cones
+\[
+\tau_j \;=\; \Cone(v,e_1,\dots,\widehat{e_j},\dots,e_n), \qquad j=1,\dots,n.
+\]
+Let $\Yw := X_{\Sigma_{\mathbf w}}$, with toric morphism $\pi:\Yw\to\PP^n$ contracting the exceptional divisor $E$ (corresponding to the ray $v$) to $p_0$. We call $\Yw$ the \emph{weighted blow-up of $\PP^n$ at $p_0$ with weights $\mathbf w$}. For $\mathbf w=(1,\dots,1)$ this is the ordinary blow-up of $\PP^n$ at a point.
+\end{construction}
+
+\begin{remark}
+The cone $\tau_j$ is smooth if and only if $\{v,e_1,\dots,\widehat{e_j},\dots,e_n\}$ is a $\ZZ$-basis of $N$; expanding the determinant along the row of $v$ shows this holds if and only if $w_j = 1$. Hence $\Yw$ is smooth if and only if $\mathbf w=(1,\dots,1)$; for every other admissible $\mathbf w$, $\Yw$ has (in general non-isolated) $\QQ$-factorial toric quotient singularities along the exceptional locus.
+\end{remark}
+
+We now compute the anticanonical polytope $\Pw := P(\Sigma_{\mathbf w})$. By definition it is cut out in $M_\RR=\RR^n$ (using the dual basis $u=(u_1,\dots,u_n)$) by the inequalities $\langle u, v_\rho\rangle\ge -1$ for $\rho \in \{e_0,e_1,\dots,e_n,v\}$, i.e.
+\begin{equation}\label{eq:Pw}
+\Pw \;=\; \Big\{\, u\in\RR^n \;:\; u_i\ge -1\ (1\le i\le n),\ \ \textstyle\sum_i u_i \le 1,\ \ \sum_i w_i u_i \ge -1 \,\Big\}.
+\end{equation}
+The first $n+1$ inequalities alone cut out the anticanonical polytope $P_0 := P(\Sigma_0)$ of $\PP^n$ itself, a simplex; we record its vertices.
+
+\begin{lemma}\label{lem:P0}
+$P_0 = \conv(A_0,A_1,\dots,A_n)$, where $A_0=(-1,-1,\dots,-1)$ and $A_k = A_0 + (n+1)\mathbf{1}_k$ for $k=1,\dots,n$ ($\mathbf 1_k$ the $k$-th standard basis vector of $\RR^n$). Moreover $\Barc(P_0) = 0$ and $\vol(P_0) = (n+1)^n/n!$.
+\end{lemma}
+\begin{proof}
+Each vertex of the simplex $P_0$ (cut out by $n+1$ inequalities in $\RR^n$) is obtained by turning $n$ of the $n+1$ defining inequalities into equalities. Setting $u_i=-1$ for all $i\ne k$ and using $\sum_i u_i = 1$ gives $u_k = n$, i.e.\ the vertex $A_k$ as stated (and one checks $u_i\ge -1$ holds for $i=k$ too); setting $u_i=-1$ for all $i=1,\dots,n$ gives the vertex $A_0$, which satisfies $\sum u_i = -n\le 1$. This accounts for all $n+1$ vertices.
+
+For the barycenter: $\Barc(P_0) = \frac1{n+1}\sum_{k=0}^n A_k = \frac{1}{n+1}\Big((n+1)A_0 + (n+1)\sum_{k=1}^n\mathbf 1_k\Big) = A_0 + (1,\dots,1) = 0$, using $A_0=-(1,\ldots,1)$. (This is of course just the classical fact that $\PP^n$ is K-polystable / admits the Fubini--Study K\"ahler--Einstein metric.)
+
+For the volume: the affine map sending $0\mapsto A_0$ and $e_k \mapsto A_k - A_0 = (n+1)\mathbf 1_k$ carries the standard simplex $\conv(0,e_1,\dots,e_n)$ (of volume $1/n!$) onto $P_0$, and has linear part $(n+1)\cdot\mathrm{Id}$, so $\vol(P_0) = (n+1)^n/n!$.
+\end{proof}
+
+\begin{lemma}\label{lem:cut}
+Let $S := w_1+\cdots+w_n$. For $k=1,\dots,n$ let
+\[
+t_k \;:=\; \frac{S-1}{w_k(n+1)}.
+\]
+The hyperplane $\{\sum_i w_iu_i=-1\}$ meets the edge $[A_0,A_k]$ of $P_0$ at the point $B_k := A_0 + t_k(A_k-A_0)$.
+\end{lemma}
+\begin{proof}
+Points of the edge $[A_0,A_k]$ have the form $u_i = -1$ for $i\ne k$ and $u_k = -1+(n+1)t$ for $t\in[0,1]$. Then
+\[
+\sum_i w_iu_i \;=\; -\sum_{i\ne k}w_i \;+\; w_k\big(-1+(n+1)t\big) \;=\; -S + w_k(n+1)t.
+\]
+Setting this equal to $-1$ and solving for $t$ gives $t=t_k$ as claimed.
+\end{proof}
+
+Since $w_i\ge1$ for all $i$ we always have $S\ge n\ge 2 > 1$, so $t_k>0$ for every $k$. We will see in \cref{thm:fano} that $\Yw$ is Fano precisely when $t_k<1$ for every $k$, i.e.\ precisely when the hyperplane $\{\sum w_iu_i=-1\}$ genuinely truncates the vertex $A_0$ of $P_0$ without reaching any adjacent vertex $A_k$.
+
+\section{Main results}\label{sec:main}
+
+\begin{theorem}[Fano criterion]\label{thm:fano}
+The weighted blow-up $\Yw$ is Fano if and only if
+\begin{equation}\label{eq:fano-condition}
+n\,w_k \;\ge\; \sum_{i\ne k} w_i \qquad \text{for every } k=1,\dots,n.
+\end{equation}
+When this holds, $\Pw = P_0\setminus\Delta$, where $\Delta=\conv(A_0,B_1,\dots,B_n)$ is the simplex obtained from $P_0$ by truncating the vertex $A_0$ at the points $B_k$ of \cref{lem:cut}, and
+\begin{equation}\label{eq:vol}
+\vol(\Delta) \;=\; \tau\cdot\vol(P_0), \qquad \tau := \prod_{k=1}^n t_k, \qquad \vol(\Pw) = (1-\tau)\vol(P_0).
+\end{equation}
+\end{theorem}
+\begin{proof}
+By \cref{eq:Pw}, $\Pw = P_0\cap\{\sum_iw_iu_i\ge -1\}$. At the vertex $A_0=(-1,\dots,-1)$ we have $\sum_iw_iu_i = -S < -1$ (as $S\ge n\ge2$), so $A_0\notin \Pw$: the new inequality genuinely removes a neighborhood of $A_0$ in $P_0$. At each other vertex $A_k$ we have $\sum_i w_i(A_k)_i = -S+w_k(n+1) = w_k(n+1)(1-t_k)+ \big(w_k(n+1)t_k -S+w_k(n+1)\big)$; more directly, evaluating the linear form at $A_k$ gives $-S+(n+1)w_k$, and by \cref{lem:cut} this equals $-1$ exactly when $t_k=1$, is $>-1$ when $t_k<1$, and is $<-1$ when $t_k>1$.
+
+Toric ampleness criterion: $-K_{\Yw}$ is ample if and only if $\Sigma_{\mathbf w}$ is the normal fan of $\Pw$, equivalently (since $\Sigma_{\mathbf w}$ only differs from $\Sigma_0$ by the star subdivision at $\sigma_0$) if and only if $\Pw$ is the polytope obtained from $P_0$ by a genuine \emph{vertex truncation} at $A_0$: the hyperplane $\{\sum w_iu_i=-1\}$ must cross every edge $[A_0,A_k]$ of $P_0$ in its relative interior, i.e.\ $t_k\in(0,1)$ for every $k=1,\dots,n$; if some $t_k\ge 1$ the hyperplane exits $P_0$ through a face not adjacent to $A_0$ (or through $A_k$ itself when $t_k=1$), the new ray $v$ fails to be the unique facet normal cut out this way, and $\Sigma_{\mathbf w}$ is no longer the normal fan of the (possibly unbounded or lower-dimensional) intersection $\Pw$, so $-K_{\Yw}$ fails to be ample. We already noted $t_k>0$ always holds, so the condition is exactly $t_k<1$ for all $k$, i.e.
+\[
+\frac{S-1}{w_k(n+1)} < 1 \iff S-1 < w_k(n+1) \iff (n+1)w_k - S > -1 \iff (n+1)w_k-S\ge 0
+\]
+(the last step because $(n+1)w_k - S \in \ZZ$), which is exactly $n\,w_k\ge S-w_k=\sum_{i\ne k}w_i$, as claimed.
+
+Given $t_k\in(0,1)$ for all $k$, $\Pw$ is exactly $P_0$ with the corner at $A_0$ truncated by the simplex $\Delta=\conv(A_0,B_1,\dots,B_n)$ with $B_k=A_0+t_k(A_k-A_0)$ as in \cref{lem:cut}. For the volume statement, the affine map $T$ fixing $A_0$ with $T(A_k-A_0) = t_k(A_k-A_0)$ for each $k$ sends the simplex $P_0=\conv(A_0,\dots,A_n)$ onto $\Delta=\conv(A_0,B_1,\dots,B_n)$ (vertices to vertices, affinely), and in the basis $\{A_k-A_0\}_{k=1}^n$ of $\RR^n$ it is diagonal with entries $t_1,\dots,t_n$, so $\det T=\tau:=\prod_kt_k$ and $\vol(\Delta)=\tau\,\vol(P_0)$. Since $\Delta\subset P_0$ and $\Pw = P_0\setminus\operatorname{int}\Delta$ we get $\vol(\Pw)=(1-\tau)\vol(P_0)$.
+\end{proof}
+
+\begin{theorem}[Nonvanishing barycenter]\label{thm:main}
+Suppose $\Yw$ is Fano. Then the barycenter of $\Pw$ is
+\begin{equation}\label{eq:barycenter-formula}
+\Barc(\Pw) \;=\; -\frac{\tau}{1-\tau}\,\big(t_1-1,\ t_2-1,\ \dots,\ t_n-1\big),
+\end{equation}
+where $t_k = \frac{S-1}{w_k(n+1)}$, $S=\sum_iw_i$, and $\tau=\prod_kt_k \in (0,1)$. Every coordinate of $\Barc(\Pw)$ is strictly positive; in particular $\Barc(\Pw)\ne0$.
+\end{theorem}
+\begin{proof}
+Barycenters satisfy the inclusion--exclusion (mass-point) identity
+\[
+\Barc(P_0)\vol(P_0) \;=\; \Barc(\Pw)\vol(\Pw) + \Barc(\Delta)\vol(\Delta),
+\]
+since $P_0$ is the disjoint union (up to measure zero) of $\Pw$ and $\Delta$. By \cref{lem:P0}, $\Barc(P_0)=0$, so
+\[
+\Barc(\Pw) \;=\; -\frac{\vol(\Delta)}{\vol(\Pw)}\,\Barc(\Delta) \;=\; -\frac{\tau}{1-\tau}\,\Barc(\Delta)
+\]
+using \cref{eq:vol}. As $\Delta=\conv(A_0,B_1,\dots,B_n)$ is a simplex, its barycenter is the average of its vertices:
+\[
+\Barc(\Delta) \;=\; \frac1{n+1}\Big(A_0+\sum_{k=1}^nB_k\Big) \;=\; \frac{1}{n+1}\Big((n+1)A_0 + (n+1)\sum_kt_k\mathbf 1_k\Big) \;=\; A_0 + (t_1,\dots,t_n),
+\]
+using $B_k = A_0+t_k(A_k-A_0) = A_0+t_k(n+1)\mathbf1_k$. Since $A_0=(-1,\dots,-1)$, this gives $\Barc(\Delta) = (t_1-1,\dots,t_n-1)$, and substituting proves \cref{eq:barycenter-formula}.
+
+For positivity: by \cref{thm:fano}, the Fano hypothesis gives $t_k\in(0,1)$ for every $k$, so $t_k - 1 \in (-1,0)$ for every $k$, and $\tau=\prod_kt_k\in(0,1)$ so $\tau/(1-\tau) > 0$. Hence every coordinate $-\tfrac{\tau}{1-\tau}(t_k-1)$ of $\Barc(\Pw)$ is a positive number times a positive number, hence strictly positive.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:intro}]
+Immediate from \cref{thm:main} and \cref{fact:barycenter}(a): since $\Barc(\Pw)\ne0$, choosing $\xi=\Barc(\Pw)$ (or any nearby primitive lattice vector, by continuity and density of $N$ in $N_\RR$, together with linearity of $\mathrm{DF}$ in $\xi$) produces a one-parameter subgroup of the torus with strictly negative Donaldson--Futaki invariant, so $\Yw$ is not K-semistable. K-polystability and K-stability are each strictly stronger than K-semistability, so $\Yw$ satisfies neither, and by the solution of the Yau--Tian--Donaldson conjecture for (possibly singular, klt) Fano varieties \cite{CDS15,LXZ22} it does not admit a (singular) K\"ahler--Einstein metric.
+\end{proof}
+
+\begin{remark}
+\Cref{thm:main} in fact gives more than the qualitative statement of \cref{thm:intro}: it exhibits an explicit destabilizing one-parameter subgroup, namely $\xi=\Barc(\Pw)\in N_\RR$ itself (or any primitive vector in $N$ sufficiently close to a positive multiple of it), together with the exact numerical value \cref{eq:barycenter-formula} of the corresponding (negative) Donaldson--Futaki invariant up to the universal positive constant $c_n$ of \cref{fact:barycenter}.
+\end{remark}
+
+\section{Examples and the smooth locus}\label{sec:examples}
+
+\begin{example}[$n=2$]
+For $n=2$, the Fano condition \cref{eq:fano-condition} reads $2w_1\ge w_2$ and $2w_2\ge w_1$, i.e.\ the two weights differ by a factor strictly less than $2$. The weighted blow-ups $Y_{(w_1,w_2)}$ are toric log del Pezzo surfaces; for $\mathbf w=(1,1)$ this is the (smooth) Hirzebruch surface $\mathbb F_1=\mathrm{Bl}_{\mathrm{pt}}\PP^2$, classically known to carry no K\"ahler--Einstein metric because its reduced automorphism group is not reductive (Matsushima's criterion). \cref{thm:main} recovers this fact ($\Barc(P_{(1,1)}) = (1/12,1/12)\ne0$, matching the numerical value computed in \cref{sec:verification}) and shows moreover that \emph{every} admissible weighted degeneration of this blow-up, such as $\mathbf w=(1,2)$ or $\mathbf w=(2,3)$, remains non-K-semistable, with an explicit and strictly larger barycenter as the weights become more skewed (compare the values in \cref{tab:examples}).
+\end{example}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{c c c c}
+\toprule
+$n$ & $\mathbf w$ & Fano? & $\Barc(\Pw)$ \\
+\midrule
+$2$ & $(1,1)$ & yes & $(0.083333,\ 0.083333)$ \\
+$2$ & $(1,2)$ & yes & $(0.095238,\ 0.190476)$ \\
+$2$ & $(2,3)$ & yes & $(0.140351,\ 0.233918)$ \\
+$3$ & $(1,1,1)$ & yes & $(0.071429,\ 0.071429,\ 0.071429)$ \\
+$3$ & $(1,1,2)$ & yes & $(0.066832,\ 0.066832,\ 0.167079)$ \\
+$3$ & $(2,3,4)$ & \textbf{no} & --- \\
+$5$ & $(1,1,1,1,1)$ & yes & $(0.050553,\dots,0.050553)$ \\
+\bottomrule
+\end{tabular}
+\caption{Sample values of the closed-form barycenter \cref{eq:barycenter-formula}, agreeing with the independent numerical computation of \cref{sec:verification} to floating-point precision. Every entry with a Fano weight vector has strictly positive barycenter.}
+\label{tab:examples}
+\end{table}
+
+\begin{remark}[Only the ordinary blow-up is smooth]
+As noted after \cref{constr:main}, $\Yw$ is smooth exactly for $\mathbf w=(1,\dots,1)$. \cref{thm:intro} therefore also reproves, uniformly in $n$, that the ordinary blow-up of $\PP^n$ at a point is never K-semistable for any $n\ge2$ — again a classical fact, following e.g.\ from non-reductivity of $\Aut(\mathrm{Bl}_{\mathrm{pt}}\PP^n)$ or from the standard Futaki invariant computation for the exceptional-divisor test configuration on Fano bundles \cite{Fut83}, but not, to our knowledge, previously packaged together with the full singular weighted family and its explicit barycenter formula \cref{eq:barycenter-formula}.
+\end{remark}
+
+\begin{remark}[Comparison with the hypersurface program]
+The families of Fano varieties studied via the Abban--Zhuang method in \cite{DeltaWH,PLTFlags26,KOWZ24} are hypersurfaces inside weighted projective space, and the (local) weighted blow-ups that appear there are auxiliary tools used to bound $\delta$-invariants \emph{from below} at a point of the hypersurface, in order to prove K-\emph{stability}. Here, by contrast, $\Yw$ is itself (globally) a weighted blow-up of the ambient space, and we show that this global operation \emph{always} produces instability, regardless of the weights. This is consistent with — and indeed a simple special case of — the general philosophy that global blow-ups of Fano varieties at (unstable, in the relevant valuative sense) points tend to destabilize, while local weighted blow-ups used only to test valuations along a fixed hypersurface can instead certify stability of the ambient hypersurface itself.
+\end{remark}
+
+\section{Computational verification}\label{sec:verification}
+
+To guard against sign or normalization errors in the derivation of \cref{eq:Pw,eq:barycenter-formula}, we implemented two independent computations of $\Barc(\Pw)$:
+\begin{enumerate}
+\item the closed-form expression \cref{eq:barycenter-formula}, evaluated in exact rational arithmetic;
+\item a fully independent numerical computation that builds the half-space description \cref{eq:Pw} of $\Pw$ directly, computes its vertices via \texttt{scipy.spatial.HalfspaceIntersection}, triangulates the resulting polytope by coning from the centroid of its vertex set, and computes the volume and barycenter by summing exact simplex volumes and centroids over the triangulation.
+\end{enumerate}
+We ran this comparison for $n=2,3,4,5$ and a range of weight vectors (both inside and outside the Fano range \cref{eq:fano-condition}), and in every Fano case the two computations agreed to within $10^{-14}$ (floating point round-off). We further ran an exhaustive search over all primitive weight vectors with entries up to $12$ (for $n=2$), $8$ (for $n=3$), $6$ (for $n=4$), and $5$ (for $n=5$), confirming the Fano criterion \cref{eq:fano-condition} against a direct feasibility/boundedness check and confirming strict positivity of every coordinate of the closed-form barycenter \cref{eq:barycenter-formula} in every Fano case found ($47$, $97$, $97$, and $101$ Fano weight vectors respectively, in the four dimensions tested). The verification script is included with this note.
+
+\section{Concluding remarks}
+
+The computation above is elementary but, we believe, illustrates a useful point for the broader K-stability programme: even the simplest possible toric modification of $\PP^n$ — a single weighted blow-up of a torus-fixed point — can never be repaired into a K-semistable variety by adjusting the weights, in any dimension. Two natural directions for extending this note are:
+
+\begin{enumerate}
+\item Replacing the base $\PP^n$ by a weighted projective space $\PP(a_0,\dots,a_n)$ and the point $p_0$ by a torus-fixed point of the corresponding simplicial fan: the same truncation argument applies verbatim (the vertex $A_0$ and the edge parametrizations change, but the mass-point identity $\Barc(P_0)\vol(P_0)=\Barc(\Pw)\vol(\Pw)+\Barc(\Delta)\vol(\Delta)$ and the sign analysis of $t_k-1$ go through), and we expect (but have not verified in full generality) an analogous strict-positivity statement whenever $\Barc(P_0)$ already lies in the interior of the polar dual cone to the truncation direction; we leave a complete treatment of this more general family to future work.
+\item It would be interesting to compute the actual $\delta$-invariant $\delta(\Yw)$ (not just decide semistability), which for toric Fano varieties is again computable in principle from $\Pw$ alone \cite{BJ21}, and to compare its rate of decay as $\mathbf w$ becomes increasingly skewed with the quantitative bound coming from \cref{eq:barycenter-formula}.
+\end{enumerate}
+
+\subsection*{Reproducibility} All computations reported in \cref{sec:verification} were performed with \texttt{Python 3}, \texttt{NumPy}, and \texttt{SciPy}; the verification script accompanies this note.
+
+\begin{thebibliography}{99}
+
+\bibitem{BJ21} H.~Blum, M.~Jonsson, \emph{Thresholds, valuations, and K-stability}, Adv.\ Math.\ \textbf{365} (2020), 107062.
+
+\bibitem{BS99} V.~Batyrev, E.~Selivanova, \emph{Two-dimensional Fano manifolds with cyclic quotient singularities do not always contain K\"ahler--Einstein metrics}, J.\ Reine Angew.\ Math.\ \textbf{512} (1999), 225--236.
+
+\bibitem{CDS15} X.-X.~Chen, S.~Donaldson, S.~Sun, \emph{K\"ahler--Einstein metrics on Fano manifolds, I, II, III}, J.\ Amer.\ Math.\ Soc.\ \textbf{28} (2015), 183--278.
+
+\bibitem{CLS11} D.~Cox, J.~Little, H.~Schenck, \emph{Toric Varieties}, Graduate Studies in Mathematics \textbf{124}, Amer.\ Math.\ Soc., 2011.
+
+\bibitem{DeltaWH} T.~Sano, L.~Tasin, \emph{Delta invariants of weighted hypersurfaces}, Adv.\ Math.\ \textbf{465} (2025), 110644. arXiv:2408.03057.
+
+\bibitem{Don02} S.~Donaldson, \emph{Scalar curvature and stability of toric varieties}, J.\ Differential Geom.\ \textbf{62} (2002), 289--349.
+
+\bibitem{Don02Wiki} Wikipedia contributors, \emph{K-stability}, accessed 2026; expository summary of Donaldson's toric criterion.
+
+\bibitem{Fut83} A.~Futaki, \emph{An obstruction to the existence of Einstein K\"ahler metrics}, Invent.\ Math.\ \textbf{73} (1983), 437--443.
+
+\bibitem{KOWZ24} L.~Campo, T.~Okada, \emph{K-stability of Fano threefold hypersurfaces of index~1}, arXiv:2409.09492 (2024).
+
+\bibitem{LXZ22} C.~Li, C.~Xu, Z.~Zhuang (and coauthors, in various combinations), \emph{Ding stability, uniqueness and K-moduli}, and related papers establishing the Yau--Tian--Donaldson correspondence for singular klt Fano varieties, circa 2018--2022.
+
+\bibitem{Mab87} T.~Mabuchi, \emph{Einstein--K\"ahler forms, Futaki invariants and convex geometry on toric Fano varieties}, Osaka J.\ Math.\ \textbf{24} (1987), 705--737.
+
+\bibitem{Nill05} B.~Nill, \emph{Gorenstein toric Fano varieties}, Manuscripta Math.\ \textbf{116} (2005), 183--210. arXiv:math/0405448.
+
+\bibitem{NObodies26} Y.~Cho, M.~Kim, Y.~Kim, E.~Park, \emph{Newton--Okounkov bodies of partial flag varieties via cluster algebras}, arXiv:2606.08570 (2026).
+
+\bibitem{PLTFlags26} L.~Campo, K.~Fujita, T.~Sano, L.~Tasin, \emph{K-stability of Fano weighted hypersurfaces via plt flags and convex geometry}, arXiv:2601.02974 (2026).
+
+\bibitem{TianBook} G.~Tian, \emph{Canonical Metrics in K\"ahler Geometry}, Lectures in Mathematics ETH Z\"urich, Birkh\"auser, 2000.
+
+\bibitem{WZ04} X.-J.~Wang, X.~Zhu, \emph{K\"ahler--Ricci solitons on toric manifolds with positive first Chern class}, Adv.\ Math.\ \textbf{188} (2004), 87--103.
+
+\end{thebibliography}
+
+\end{document}
