@@ -1,0 +1,705 @@
+\documentclass[11pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+
+\numberwithin{equation}{section}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem*{theoremA}{Theorem A}
+\newtheorem*{theoremB}{Theorem B}
+\newtheorem*{theoremC}{Theorem C}
+\newtheorem*{theoremD}{Theorem D}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{question}[theorem]{Question}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{notation}[theorem]{Notation}
+
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\AAff}{\mathbb{A}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\DuBois}[1]{\underline{\Omega}^{#1}}
+\newcommand{\Pic}{\operatorname{Pic}}
+\newcommand{\Sing}{\operatorname{Sing}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\Spec}{\operatorname{Spec}}
+\newcommand{\codim}{\operatorname{codim}}
+\newcommand{\Kzero}{K_0}
+
+\title[Higher Du Bois singularities of cones over K3 surfaces]{Higher Du Bois singularities of affine cones over K3 surfaces}
+
+\begin{document}
+
+\begin{abstract}
+Let $(X,B)$ be a complex polarized K3 surface and let $Z=C(X,B)$ be the associated affine cone, a three-dimensional isolated Gorenstein log canonical singularity.
+Combining the cone criteria of Shen--Venkatesh--Vo for the higher Du Bois conditions with Totaro's classification of Bott vanishing for K3 surfaces, we determine when $Z$ has $1$-Du Bois singularities.
+When $X$ has Picard number one and $B$ generates $\Pic(X)$, we show that $Z$ is $1$-Du Bois if and only if the degree $B^2$ equals $20$ or is at least $24$.
+For arbitrary Picard number we prove that $Z$ is $1$-Du Bois whenever $B^2\ge 74$ and $X$ contains no elliptic curve of $B$-degree at most $4$, and we exhibit pairs of polarized K3 surfaces with isometric polarized Picard lattices whose cones behave differently, so that the $1$-Du Bois property of these cone singularities is not detected by the Picard lattice; in particular its failure is not cut out by Noether--Lefschetz divisors.
+Finally, using the description of the $K$-theory of cones due to Corti\~nas--Haesemeyer--Walker--Weibel and Popa--Shen, we prove that $K_{-\ell}(Z)=0$ for all $\ell\ge 1$ and that $\Kzero(Z)\cong \ZZ\oplus\bigoplus_{m\ge 1}H^1(X,\Omega^1_X\otimes B^m)$, a finite-dimensional augmentation; thus the $1$-Du Bois property of $Z$ is equivalent to the vanishing of $\widetilde{\Kzero}(Z)$, while negative $K$-theory never sees these singularities.
+\end{abstract}
+
+\subjclass[2020]{14J28, 14B05, 32S35, 19E08}
+\keywords{K3 surface, higher Du Bois singularities, Du Bois complex, Bott vanishing, affine cone, algebraic $K$-theory}
+
+\maketitle
+
+\section{Introduction}\label{sec:intro}
+
+Rational and Du Bois singularities occupy a central place in birational geometry: Kawamata log terminal singularities are rational and log canonical singularities are Du Bois.
+In the last few years, developments in Hodge theory---above all Saito's theory of mixed Hodge modules---have led to an intensive study of their \emph{higher} analogues, the $k$-Du Bois and $k$-rational singularities, beginning with the case of hypersurfaces and local complete intersections \cite{MOPW,JKSY,MP,CDM,FL} and continuing with the general definitions proposed by Shen, Venkatesh and Vo \cite{SVV}.
+The subject remains very active: recent work includes the injectivity theorems of \cite{PSV}, the extension of the theory to pairs in the sense of the minimal model program \cite{NN}, inversion of adjunction for higher rational singularities \cite{KW}, depth bounds for Du Bois complexes and the local cohomological defect \cite{Bur}, the computation of Du Bois complexes of cones \cite{PS}, and the relation between higher Du Bois singularities and $K$-regularity \cite{Sh}.
+
+For local complete intersections the higher conditions are governed by a single numerical invariant, Saito's minimal exponent, and they are in particular constructible in families.
+Outside the lci world much less is known, and the affine cones
+\[
+Z \;=\; C(X,L)\;=\;\Spec \bigoplus_{m\ge 0}H^0(X,L^{m})
+\]
+over smooth polarized varieties $(X,L)$ form the fundamental class of test examples: they are almost never local complete intersections, and by \cite{SVV,PS} their Du Bois complexes are completely described by the twisted Hodge cohomology groups $H^i(X,\Omega^p_X\otimes L^m)$.
+When $X$ satisfies \emph{Bott vanishing}, i.e.\ $H^i(X,\Omega^p_X\otimes A)=0$ for all $i>0$, $p\ge 0$ and all ample line bundles $A$, all cones over $X$ are pre-$k$-Du Bois for every $k$ \cite[Cor.~7.6]{SVV}.
+
+The purpose of this note is to work out completely the first family of examples beyond the toric and Fano range, namely cones over K3 surfaces, where Bott vanishing exhibits genuinely delicate behavior.
+By Totaro's theorem \cite{Tot}, a polarized K3 surface of Picard number one satisfies Bott vanishing if and only if its degree is $20$ or at least $24$; the failure in degree $22$ is caused by the existence of the genus-$12$ prime Fano threefolds, and in low degrees by Riemann--Roch.
+Cones over K3 surfaces are also natural from the point of view of the minimal model program: since $\omega_X\cong\cO_X$, the cone $Z=C(X,B)$ is a three-dimensional isolated Gorenstein singularity with $\omega_Z\cong\cO_Z$ which is log canonical but not klt \cite[\S3.1]{Kol}, hence Du Bois but not rational.
+They are exactly the local models of the simplest degenerate Calabi--Yau threefolds, whose deformation theory is one of the motivations for the higher Du Bois conditions \cite{FLdef}.
+
+Throughout, a \emph{polarized K3 surface} $(X,B)$ is a complex projective K3 surface $X$ together with an ample line bundle $B$; the degree is $d=B^2$, an even positive integer.
+We use the notions of pre-$k$-Du Bois, $k$-Du Bois, pre-$k$-rational and $k$-rational singularities of \cite{SVV}, recalled in Section~\ref{sec:prelim}; for local complete intersections they agree with the notions studied in \cite{MOPW,JKSY,MP,CDM,FL}.
+Since $\dim X=2$, the cone $Z$ can be at most $1$-Du Bois (Proposition~\ref{prop:structure}), so the following results give the complete picture.
+
+Our first result is a closed classification in Picard number one.
+
+\begin{theoremA}[= Theorem~\ref{thm:A}]
+Let $X$ be a complex projective K3 surface with $\Pic(X)=\ZZ\cdot B$, where $B$ is ample of degree $d=B^2$, and let $Z=C(X,B)$.
+The following are equivalent:
+\begin{enumerate}
+\item $Z$ has $1$-Du Bois singularities;
+\item $Z$ has pre-$k$-Du Bois singularities for every $k\ge 0$;
+\item $H^1(X,\Omega^1_X\otimes B^m)=0$ for all $m\ge 1$;
+\item $d=20$ or $d\ge 24$.
+\end{enumerate}
+Moreover, $Z$ is always Du Bois, and it is never pre-$k$-rational for any $k\ge0$; in particular it never has rational singularities.
+\end{theoremA}
+
+In arbitrary Picard number, the elliptic curves of low degree on $X$ control the answer in large degree.
+
+\begin{theoremB}[= Theorem~\ref{thm:B}]
+Let $(X,B)$ be a polarized K3 surface with $B^2\ge 74$, and suppose that $X$ contains no curve $E$ with $E^2=0$ and $B\cdot E\le 4$.
+Then $Z=C(X,B)$ has $1$-Du Bois singularities.
+\end{theoremB}
+
+The degree bound cannot be lowered past $64$: there is a polarized K3 surface of degree $62$ with no isotropic curve classes whose cone is not $1$-Du Bois (Remark~\ref{rem:sharpness}).
+
+For local complete intersections, the $k$-Du Bois property is detected by the minimal exponent, and for hypersurface sections of fixed type it is in particular determined by ``linear-algebraic'' data.
+Our third result shows that for K3 cones the $1$-Du Bois property is a genuinely non-linear condition: it is not determined by the polarized Picard lattice, and its failure locus in moduli is not a countable union of Noether--Lefschetz loci.
+This reflects, on the singularity-theoretic side, Totaro's observation that Bott vanishing on elliptic K3 surfaces depends on the Kodaira types of the singular fibers.
+
+\begin{theoremC}[= Theorem~\ref{thm:C}]
+There exist polarized K3 surfaces $(X,B)$ and $(X',B')$ of degree $40$, with $B,B'$ primitive, together with an isometry $\Pic(X)\xrightarrow{\ \sim\ }\Pic(X')$ carrying $B$ to $B'$, such that $C(X,B)$ has $1$-Du Bois singularities while $C(X',B')$ is not even pre-$1$-Du Bois.
+\end{theoremC}
+
+Finally, we determine the non-positive algebraic $K$-theory of all K3 cones, using the computation of $K$-groups of cones from \cite{CHWW,PS}.
+Define the \emph{defect space}
+\[
+V(X,B)\;:=\;\bigoplus_{m\ge 1}H^1\!\left(X,\Omega^1_X\otimes B^{m}\right),
+\]
+a $\CC$-vector space which we show is always finite-dimensional, with contributions only in the range $m\le 6$ (Proposition~\ref{prop:finiteness}).
+
+\begin{theoremD}[= Theorem~\ref{thm:K}]
+Let $(X,B)$ be any polarized K3 surface and $Z=C(X,B)$. Then:
+\begin{enumerate}
+\item $K_{-\ell}(Z)=0$ for all $\ell\ge 1$;
+\item $\Kzero(Z)\;\cong\;\ZZ\oplus V(X,B)$ as abelian groups.
+\end{enumerate}
+In particular, $Z$ has $1$-Du Bois singularities if and only if $\Kzero(Z)\cong\ZZ$.
+\end{theoremD}
+
+Thus for K3 cones the entire higher Du Bois theory is captured by the reduced Grothendieck group $\widetilde{\Kzero}(Z)$, while negative $K$-theory---which by Weibel's conjecture (a theorem of \cite{CHSW}) vanishes below $-\dim Z$---is completely blind to these singularities: $K_{-1}(Z)=K_{-2}(Z)=K_{-3}(Z)=0$ always, even though $Z$ is singular.
+Combining Theorems A and D gives a purely $K$-theoretic reading of Totaro's classification: for $\Pic(X)=\ZZ B$,
+\[
+\Kzero\big(C(X,B)\big)\cong\ZZ \iff B^2=20 \text{ or } B^2\ge 24 .
+\]
+
+\subsection*{Strategy and relation to the literature}
+The proofs are geometric rather than Hodge-module-theoretic and rest on three inputs.
+First, the criteria of \cite[Prop.~F]{SVV} reduce all higher Du Bois conditions on $Z$ to statements about the groups $H^i(X,\Omega^p_X\otimes B^m)$.
+Second, two elementary observations about K3 surfaces (Section~\ref{sec:cohomology})---the vanishing $H^2(X,\Omega^1_X\otimes B^m)=0$, which we deduce from Bogomolov--Sommese vanishing, and the Riemann--Roch identity $\chi(X,\Omega^1_X\otimes N)=N^2-20$---show that the entire theory is governed by the single sequence of groups $H^1(X,\Omega^1_X\otimes B^m)$, $m\ge1$.
+Third, the results of Totaro \cite{Tot}, which build on work of Beauville, Mori--Mukai, Ciliberto--Dedieu--Sernesi \cite{CDS}, Arbarello--Bruno--Sernesi \cite{ABS} and Feyzbakhsh \cite{Fey}, together with Prokhorov's bound $(-K_Y)^3\le 72$ for Fano threefolds with canonical Gorenstein singularities \cite{Pro}, control these groups.
+The $K$-theoretic statements then follow from \cite{CHWW,PS} together with a d\'evissage of Q-differentials (Lemma~\ref{lem:Qdifferentials}).
+
+We emphasize that each individual input is known; the contribution of this note is the resulting complete and, we believe, instructive picture for the first natural class of non-lci singularities of Calabi--Yau type: a closed classification (Theorem A), an effective criterion (Theorem B), the failure of lattice-detection (Theorem C)---a phenomenon invisible in the lci theory---and the identification of $\widetilde{\Kzero}$ as a complete invariant of the higher Du Bois property (Theorem D).
+Along the way we record consequences that seem not to have been observed before, e.g.\ that $H^1(X,\Omega^1_X\otimes\cO_X(4))\ne0$ for \emph{every} smooth quartic surface $X\subset\PP^3$ (Example~\ref{ex:quartic}).
+
+\subsection*{Conventions}
+We work over $\CC$. A variety is a reduced separated scheme of finite type over $\CC$.
+For a line bundle $L$ we write $L^m$ for $L^{\otimes m}$.
+For a projective variety $X$ with an ample line bundle $L$, the (abstract, affine) cone is $C(X,L)=\Spec\bigoplus_{m\ge0}H^0(X,L^m)$; when $X\subset\PP^N$ is embedded by a complete linear system and is projectively normal, this agrees with the classical cone.
+
+\subsection*{Acknowledgements}
+This note is an exercise in synthesis, and its debts are evident: it would not exist without the papers of Shen--Venkatesh--Vo, Totaro, and Popa--Shen cited above.
+
+\section{Preliminaries}\label{sec:prelim}
+
+\subsection{Higher Du Bois and higher rational singularities}
+Let $X$ be a variety of dimension $n$. Du Bois \cite{DB} associated to $X$ a filtered complex $(\DuBois{\bullet}_X,F)$, the \emph{Du Bois complex}, whose graded pieces
+\[
+\DuBois{p}_X:=\mathrm{gr}^p_F\,\DuBois{\bullet}_X[p]\in D^b_{\mathrm{coh}}(X)
+\]
+receive canonical maps $\Omega^p_X\to\DuBois{p}_X$ from the K\"ahler differentials which are isomorphisms on the smooth locus.
+$X$ has \emph{Du Bois singularities} if $\cO_X\xrightarrow{\sim}\DuBois{0}_X$.
+
+Following \cite{SVV}, we use the following notions, which for local complete intersections coincide with those of \cite{MOPW,JKSY,MP,CDM,FL}.
+
+\begin{definition}[{\cite[Def.~1.1, 1.2, 1.3]{SVV}}]\label{def:higherDB}
+Let $X$ be a variety of dimension $n$ and $k\ge0$ an integer.
+\begin{enumerate}
+\item $X$ has \emph{pre-$k$-Du Bois} singularities if $\cH^i\DuBois{p}_X=0$ for all $i>0$ and $0\le p\le k$.
+\item $X$ has \emph{$k$-Du Bois} singularities if it is seminormal, $\codim_X\Sing(X)\ge 2k+1$, it is pre-$k$-Du Bois, and $\cH^0\DuBois{p}_X$ is reflexive for all $p\le k$.
+\item $X$ has \emph{pre-$k$-rational} singularities if $\cH^i(\mathbb{D}_X(\DuBois{n-p}_X))=0$ for all $i>0$ and $0\le p\le k$, where $\mathbb{D}_X(-)=R\mathcal{H}om(-,\omega^\bullet_X)[-n]$.
+\item $X$ has \emph{$k$-rational} singularities if it is normal, $\codim_X\Sing(X)> 2k+1$, and it is pre-$k$-rational.
+\end{enumerate}
+For $k=0$ these recover the classical Du Bois and rational conditions \cite[Prop.~5.5]{SVV}; pre-$k$-rational implies pre-$k$-Du Bois \cite[Thm.~B]{SVV}.
+\end{definition}
+
+\subsection{Cones}\label{ssec:cones}
+Let $X$ be a smooth projective variety of dimension $n$ with an ample line bundle $L$, and let $Z=C(X,L)$, a normal affine variety of dimension $n+1$, smooth away from the vertex $o\in Z$ \cite[\S3.1]{Kol}.
+The key computational tool is the following criterion of Shen--Venkatesh--Vo; parts (1) and (3) are proved via an explicit description of $\DuBois{p}_Z$ in terms of the twisted Hodge cohomology of $X$, extended to singular $X$ in \cite{PS}.
+
+\begin{theorem}[{\cite[Prop.~F]{SVV}}]\label{thm:SVVcone}
+With notation as above:
+\begin{enumerate}
+\item $Z$ is pre-$k$-Du Bois if and only if
+$H^i(X,\Omega^p_X\otimes L^m)=0$ for all $i>0$, $0\le p\le k$, $m\ge1$.
+\item $Z$ is $k$-Du Bois if and only if it is pre-$k$-Du Bois, $k\le n/2$, and $H^i(X,\cO_X)=0$ for $0<i\le k$.
+\item For $k\le n$, $Z$ is pre-$k$-rational if and only if
+$H^i(X,\Omega^p_X\otimes L^m)=0$ for all $i>0$, $p\le k$, $m\ge0$, except that for $m=0$, $i=p$ one requires instead that cup product with $c_1(L)$ induce isomorphisms
+$H^0(X,\cO_X)\xrightarrow{\sim}H^1(X,\Omega^1_X)\xrightarrow{\sim}\cdots\xrightarrow{\sim}H^k(X,\Omega^k_X)$.
+\item $Z$ is $k$-rational if it is pre-$k$-rational and $k<n/2$.
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}\label{rem:bott}
+If $X$ satisfies Bott vanishing, then by (1) the cone $C(X,L)$ is pre-$k$-Du Bois for every $k$ and every ample $L$ \cite[Cor.~7.6]{SVV}; see \cite[\S7]{PS} for a converse when $X$ has rational singularities.
+\end{remark}
+
+\subsection{Bott vanishing for K3 surfaces}\label{ssec:totaro}
+We will use the following results of Totaro; recall that on a K3 surface any curve $E$ with $E^2=0$ (which we call an \emph{isotropic curve}) is a fiber of an elliptic fibration $\pi\colon X\to\PP^1$.
+
+\begin{theorem}[{\cite[Thm.~3.1, 3.2]{Tot}}]\label{thm:tot32}
+Let $(X,B)$ be a polarized K3 surface.
+\begin{enumerate}
+\item If $B^2<20$, then $H^1(X,\Omega^1_X\otimes B)\ne0$.
+\item If $\Pic(X)=\ZZ B$ and $B^2=20$ or $B^2\ge24$, then $H^1(X,\Omega^1_X\otimes B)=0$.
+\item If $B$ is primitive of degree $B^2=22$, then $H^1(X,\Omega^1_X\otimes B)\ne0$.
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[{\cite[Thm.~5.1]{Tot}}]\label{thm:tot51}
+Let $B$ be an ample line bundle on a K3 surface $X$ with $B^2\ge74$.
+If $H^1(X,\Omega^1_X\otimes B)\ne0$, then there is a curve $E$ in $X$ with $E^2=0$ and $1\le B\cdot E\le 4$.
+\end{theorem}
+
+Theorem~\ref{thm:tot51} follows from the extension theory of Ciliberto--Dedieu--Sernesi \cite{CDS} together with Prokhorov's bound $(-K_Y)^3\le72$ for Fano threefolds with canonical Gorenstein singularities \cite{Pro}.
+
+\begin{theorem}[{\cite[Thm.~6.1, 6.2]{Tot}}]\label{thm:tot6}
+Let $B$ be an ample line bundle on a K3 surface $X$, let $E$ be a curve with $E^2=0$ and $r:=B\cdot E\in\{1,2,3,4\}$, and let $\pi\colon X\to\PP^1$ be the associated elliptic fibration.
+\begin{enumerate}
+\item If $r=1$, then $H^1(X,\Omega^1_X\otimes B)\ne0$ if and only if $B^2\le38$ or some fiber of $\pi$ has Kodaira type $\mathrm{II}$.
+\item If $r=2$ and $B^2\ge92$, then $H^1(X,\Omega^1_X\otimes B)\ne0$ if and only if some fiber of $\pi$ has type $\mathrm{III}$.
+\item If $r=3$ and $B^2\ge140$, then $H^1(X,\Omega^1_X\otimes B)\ne0$ if and only if some fiber of $\pi$ has type $\mathrm{IV}$.
+\item If $r=4$ and $B^2\ge194$, then $H^1(X,\Omega^1_X\otimes B)=0$.
+\end{enumerate}
+\end{theorem}
+
+\section{Twisted Hodge cohomology of K3 surfaces}\label{sec:cohomology}
+
+Throughout this section $X$ is a K3 surface and $B$ an ample line bundle on $X$.
+Recall $\omega_X\cong\cO_X$, $H^1(X,\cO_X)=0$, $h^2(X,\cO_X)=1$, and $\Omega^2_X\cong\cO_X$.
+
+\begin{lemma}\label{lem:vanishing}
+For every $m\ge1$:
+\begin{enumerate}
+\item $H^i(X,B^m)=0$ for all $i>0$;
+\item $H^2(X,\Omega^1_X\otimes B^m)=0$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) is Kodaira vanishing, since $B^m\cong\omega_X\otimes B^m$ and $B^m$ is ample.
+
+(2) By Serre duality and the triviality of $\omega_X$,
+\[
+H^2(X,\Omega^1_X\otimes B^m)^\vee \;\cong\; H^0\!\big(X,T_X\otimes B^{-m}\big).
+\]
+A nowhere-vanishing symplectic form $\sigma\in H^0(X,\Omega^2_X)$ induces an isomorphism $T_X\cong\Omega^1_X$, so it suffices to show $\Hom(B^m,\Omega^1_X)=0$.
+Suppose $\varphi\colon B^m\to\Omega^1_X$ is nonzero, and let $\mathcal{L}\subset\Omega^1_X$ be the saturation of its image, an invertible subsheaf of $\Omega^1_X$ containing $B^m$; thus $\mathcal{L}\cong B^m(D)$ for some effective divisor $D$, and in particular $\mathcal{L}$ is big.
+By Bogomolov--Sommese vanishing \cite[Cor.~6.9]{EV}, any invertible subsheaf of $\Omega^1_X$ has Iitaka dimension at most $1$, contradicting $\kappa(\mathcal{L})=2$.
+\end{proof}
+
+\begin{lemma}\label{lem:RR}
+For any line bundle $N$ on $X$,
+\[
+\chi\big(X,\Omega^1_X\otimes N\big)=N^2-20 .
+\]
+In particular, if $N$ is ample with $N^2<20$, then $H^1(X,\Omega^1_X\otimes N)\ne0$.
+\end{lemma}
+
+\begin{proof}
+By Hirzebruch--Riemann--Roch on the K3 surface $X$, $\chi(E)=2\,\mathrm{rk}(E)+\tfrac12 c_1(E)^2-c_2(E)$ for any vector bundle $E$.
+For $E=\Omega^1_X\otimes N$ we have $\mathrm{rk}(E)=2$, $c_1(E)=2N$ (since $c_1(\Omega^1_X)=0$) and
+$c_2(E)=c_2(\Omega^1_X)+c_1(\Omega^1_X)\cdot N+N^2=24+N^2$,
+whence $\chi(E)=4+2N^2-24-N^2=N^2-20$.
+If $N$ is ample, then $h^2(\Omega^1_X\otimes N)=0$ by Lemma~\ref{lem:vanishing}(2), so
+$h^1(\Omega^1_X\otimes N)=h^0(\Omega^1_X\otimes N)-\chi\ge 20-N^2>0$ when $N^2<20$.
+\end{proof}
+
+The first part of Lemma~\ref{lem:RR} together with the argument above is due to Totaro \cite[Thm.~3.1]{Tot}; we included the short proof for completeness.
+
+We can now show that for cones over K3 surfaces the entire hierarchy of higher Du Bois conditions collapses onto a single sequence of cohomology groups.
+Recall the defect space
+\[
+V(X,B)=\bigoplus_{m\ge 1}H^1\!\left(X,\Omega^1_X\otimes B^{m}\right).
+\]
+
+\begin{proposition}\label{prop:structure}
+Let $(X,B)$ be a polarized K3 surface and $Z=C(X,B)$, a normal affine threefold with a single (non-smooth) singular point at the vertex. Then:
+\begin{enumerate}
+\item $Z$ has Du Bois singularities, and $\omega_Z\cong\cO_Z$; the singularity is log canonical but not klt.
+\item The following are equivalent:
+\begin{enumerate}
+\item[(i)] $Z$ is pre-$1$-Du Bois;
+\item[(ii)] $Z$ is pre-$k$-Du Bois for every $k\ge0$;
+\item[(iii)] $Z$ is $1$-Du Bois;
+\item[(iv)] $V(X,B)=0$.
+\end{enumerate}
+\item $Z$ is not $k$-Du Bois for any $k\ge2$.
+\item $Z$ is not pre-$k$-rational for any $k\ge0$; in particular $Z$ does not have rational singularities.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Since $\omega_X\cong\cO_X$, the cone $Z$ is Gorenstein with $\omega_Z\cong\cO_Z$, and it is log canonical but not klt at the vertex \cite[\S3.1]{Kol}; as smooth points are klt, the vertex is a genuine singular point. Log canonical singularities are Du Bois; alternatively, Du Bois-ness follows from Theorem~\ref{thm:SVVcone}(1) for $k=0$ together with Lemma~\ref{lem:vanishing}(1). This proves (1).
+
+(2) By Theorem~\ref{thm:SVVcone}(1), $Z$ is pre-$k$-Du Bois if and only if $H^i(X,\Omega^p_X\otimes B^m)=0$ for $i>0$, $p\le k$, $m\ge1$.
+For $p=0$ and $p=2$ these groups vanish by Lemma~\ref{lem:vanishing}(1), using $\Omega^2_X\cong\cO_X$; for $p=1$, the group with $i=2$ vanishes by Lemma~\ref{lem:vanishing}(2), and $\Omega^p_X=0$ for $p>2$.
+Hence pre-$1$-Du Bois, pre-$k$-Du Bois for all $k$, and condition (iv) are all equivalent.
+Finally, by Theorem~\ref{thm:SVVcone}(2) with $n=2$, $Z$ is $1$-Du Bois if and only if it is pre-$1$-Du Bois, $1\le n/2=1$, and $H^1(X,\cO_X)=0$; the last two conditions hold automatically for a K3 surface.
+
+(3) is immediate from Theorem~\ref{thm:SVVcone}(2), since $k\le n/2=1$ is required.
+
+(4) The pre-$k$-rational conditions are nested in $k$, so it suffices to rule out pre-$0$-rationality.
+By Theorem~\ref{thm:SVVcone}(3) with $k=0$, pre-$0$-rationality requires $H^i(X,\cO_X)=0$ for all $i>0$; but $H^2(X,\cO_X)\cong\CC$.
+For $k=0$, pre-$0$-rational is equivalent to rational for normal varieties \cite[Prop.~5.5]{SVV}, recovering the classical fact that cones over K3 surfaces are not rational.
+\end{proof}
+
+We next observe that the defect space is always finite-dimensional, concentrated in a short explicit range of twists.
+
+\begin{proposition}\label{prop:finiteness}
+Let $(X,B)$ be a polarized K3 surface of degree $d=B^2$. Then
+\[
+H^1(X,\Omega^1_X\otimes B^m)=0 \qquad\text{for all } m\ge5 \text{ with } m^2 d\ge74 .
+\]
+Consequently $V(X,B)=\bigoplus_{m=1}^{6}H^1(X,\Omega^1_X\otimes B^m)$ is finite-dimensional, and if $d\ge4$ only the twists $1\le m\le4$ can contribute; the twists $m=5,6$ can contribute only when $d=2$.
+\end{proposition}
+
+\begin{proof}
+Fix $m\ge5$ with $m^2d\ge74$ and suppose $H^1(X,\Omega^1_X\otimes B^m)\ne0$.
+Applying Theorem~\ref{thm:tot51} to the ample line bundle $B^m$, whose degree is $m^2d\ge74$, we obtain a curve $E$ with $E^2=0$ and $1\le mB\cdot E\le4$, hence $B\cdot E\le 4/m<1$.
+But $B$ is ample and $E$ is a nonzero effective curve, so $B\cdot E\ge1$, a contradiction.
+For $d\ge4$ and $m\ge5$ we have $m^2d\ge100\ge74$; for $d=2$ and $m\ge7$ we have $m^2d\ge98\ge74$.
+Since each group $H^1(X,\Omega^1_X\otimes B^m)$ is finite-dimensional, the claim follows.
+\end{proof}
+
+\begin{remark}
+The bound is meaningful: for the very general double sextic plane $(X,A)$ of degree $2$, Totaro shows $H^1(X,\Omega^1_X\otimes A^6)\ne0$ \cite[Ex.~5.2]{Tot}, so the twist $m=6$ really can contribute when $d=2$. See Section~\ref{sec:complements}.
+\end{remark}
+
+\section{Proofs of the main theorems}\label{sec:main}
+
+\begin{theorem}\label{thm:A}
+Let $X$ be a K3 surface with $\Pic(X)=\ZZ\cdot B$, $B$ ample of degree $d=B^2$, and let $Z=C(X,B)$.
+The following are equivalent:
+\begin{enumerate}
+\item $Z$ has $1$-Du Bois singularities;
+\item $Z$ has pre-$k$-Du Bois singularities for every $k\ge0$;
+\item $V(X,B)=0$;
+\item $d=20$ or $d\ge24$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The equivalence of (1), (2), (3) is Proposition~\ref{prop:structure}(2).
+
+(4)$\Rightarrow$(3).
+Since $\Pic(X)=\ZZ B$ and the intersection form is $\langle d\rangle$ with $d>0$, there is no nonzero class of square zero, hence no isotropic curve on $X$.
+For $m=1$, $H^1(X,\Omega^1_X\otimes B)=0$ by Theorem~\ref{thm:tot32}(2).
+For $m\ge2$, the ample line bundle $B^m$ has degree $m^2d\ge4\cdot20=80\ge74$, so if $H^1(X,\Omega^1_X\otimes B^m)$ were nonzero, Theorem~\ref{thm:tot51} would produce an isotropic curve on $X$, a contradiction.
+
+(3)$\Rightarrow$(4).
+Since the intersection form on a K3 surface is even, $d$ is even, so if (4) fails then $d\le18$ or $d=22$.
+If $d\le18$, then $H^1(X,\Omega^1_X\otimes B)\ne0$ by Lemma~\ref{lem:RR}.
+If $d=22$, then $B$ is primitive and $H^1(X,\Omega^1_X\otimes B)\ne0$ by Theorem~\ref{thm:tot32}(3).
+In both cases $V(X,B)\ne0$.
+\end{proof}
+
+\begin{theorem}\label{thm:B}
+Let $(X,B)$ be a polarized K3 surface with $B^2\ge74$ such that $X$ contains no curve $E$ with $E^2=0$ and $B\cdot E\le4$.
+Then $Z=C(X,B)$ has $1$-Du Bois singularities.
+\end{theorem}
+
+\begin{proof}
+By Proposition~\ref{prop:structure}(2) we must show $H^1(X,\Omega^1_X\otimes B^m)=0$ for all $m\ge1$.
+Fix $m\ge1$ and suppose the group is nonzero. The ample line bundle $B^m$ has degree $m^2B^2\ge74$, so Theorem~\ref{thm:tot51} yields a curve $E$ with $E^2=0$ and $1\le mB\cdot E\le4$; then $B\cdot E\le 4/m\le4$, contradicting the hypothesis.
+\end{proof}
+
+\begin{remark}\label{rem:sharpness}
+The bound $74$ in Theorem~\ref{thm:B} cannot be lowered past $64$.
+Totaro constructs a K3 surface $X$ (a smooth anticanonical divisor in $\PP(\cO\oplus\cO(2))\to\PP^2$) with a primitive ample line bundle $B$ of degree $62$ such that $H^1(X,\Omega^1_X\otimes B)\ne0$ while the Picard lattice of $X$ represents zero only trivially, so $X$ contains no isotropic curves at all \cite[Ex.~5.3]{Tot}; by Proposition~\ref{prop:structure}, $C(X,B)$ is not $1$-Du Bois.
+Similarly, on the very general double sextic plane $(X,A)$ of degree $2$ one has $H^1(X,\Omega^1_X\otimes A^6)\ne0$ with $(A^6)^2=72$ \cite[Ex.~5.2]{Tot}, so the non-primitive polarization $B=A^6$ of degree $72$ also yields a cone that is not $1$-Du Bois, with no isotropic curves present.
+\end{remark}
+
+We now prove that the $1$-Du Bois property of K3 cones is not determined by the polarized Picard lattice.
+Recall from \cite[\S6]{Tot} the relevant elliptic surfaces.
+Let $\pi\colon X\to\PP^1$ be an elliptic K3 surface with a section $B_0$, so $B_0^2=-2$, $E^2=0$ and $B_0\cdot E=1$, where $E$ is the fiber class; a general such surface (in either of the two families below) has
+\[
+\Pic(X)=\ZZ B_0\oplus\ZZ E\;\cong\;U,
+\]
+the hyperbolic plane.
+Generically the fibration has $24$ nodal fibers (type $\mathrm{I}_1$); using a Weierstrass equation one constructs surfaces, still with Picard lattice $U$, having exactly $22$ nodal fibers and one cuspidal fiber (type $\mathrm{II}$) \cite[\S6]{Tot}.
+
+\begin{theorem}\label{thm:C}
+Let $\pi\colon X\to\PP^1$ and $\pi'\colon X'\to\PP^1$ be elliptic K3 surfaces with sections as above, with $\Pic(X)\cong\Pic(X')\cong U$ generated by the section and fiber classes, such that all singular fibers of $\pi$ are nodal, while $\pi'$ has a cuspidal (type $\mathrm{II}$) fiber.
+Set $B=B_0+21E$ and $B'=B_0'+21E'$, primitive ample classes of degree $40$ matching under the evident isometry $\Pic(X)\cong\Pic(X')$.
+Then $C(X,B)$ has $1$-Du Bois singularities, while $C(X',B')$ is not pre-$1$-Du Bois.
+
+In particular, the $1$-Du Bois property of affine cones over polarized K3 surfaces is not determined by the polarized Picard lattice, and its failure locus in the moduli space of polarized K3 surfaces of degree $40$ is not a countable union of Noether--Lefschetz loci.
+\end{theorem}
+
+\begin{proof}
+We first record the lattice-theoretic facts, which are identical for $X$ and $X'$.
+Write $\Pic(X)=\ZZ B_0\oplus\ZZ E$ with $B_0^2=-2$, $E^2=0$, $B_0\cdot E=1$, and $B=B_0+21E$, so $B^2=-2+42=40$ and $B\cdot E=1$; in particular $B$ is primitive.
+A class $aB_0+bE$ is isotropic if and only if $2a(b-a)=0$, i.e.\ $a=0$ or $a=b$; hence every isotropic effective class is a positive multiple of $E$ or of $D:=B_0+E$, and
+\[
+B\cdot E=1,\qquad B\cdot D=(B_0+21E)\cdot(B_0+E)=-2+1+21=20 .
+\]
+Ampleness of $B$ follows from Nakai--Moishezon: $B^2=40>0$; every fiber component is irreducible of class $E$ (types $\mathrm{I}_1$ and $\mathrm{II}$ are irreducible), with $B\cdot E=1>0$; $B\cdot B_0=19>0$; and any other irreducible curve $C=aB_0+bE$ has $a=C\cdot E\ge1$ and $C\cdot B_0\ge0$, i.e.\ $b\ge2a$, whence $B\cdot C=19a+b>0$.
+
+\emph{The cone over $X'$ is not pre-$1$-Du Bois.}
+Apply Theorem~\ref{thm:tot6}(1) to $(X',B')$ with the fiber class $E'$: we have $B'\cdot E'=1$ and $\pi'$ has a type $\mathrm{II}$ fiber, so $H^1(X',\Omega^1_{X'}\otimes B')\ne0$, and Proposition~\ref{prop:structure}(2) concludes.
+
+\emph{The cone over $X$ is $1$-Du Bois.}
+By Proposition~\ref{prop:structure}(2) we must show $H^1(X,\Omega^1_X\otimes B^m)=0$ for all $m\ge1$.
+Note that for every $m\le4$, the only isotropic curves of $B^m$-degree at most $4$ are fibers of $\pi$ (the class $D$ has $B^m\cdot D=20m>4$), so in each application of Theorem~\ref{thm:tot6} below the relevant elliptic fibration is $\pi$, all of whose singular fibers are nodal (type $\mathrm{I}_1$).
+\begin{itemize}
+\item $m=1$: $B\cdot E=1$ and $B^2=40\ge40$; since $\pi$ has no type $\mathrm{II}$ fiber, Theorem~\ref{thm:tot6}(1) gives $H^1(X,\Omega^1_X\otimes B)=0$.
+\item $m=2$: the bundle $B^{2}$ satisfies $B^{2}\cdot E=2$ and $(B^{2})^2=160\ge92$; since $\pi$ has no type $\mathrm{III}$ fiber, Theorem~\ref{thm:tot6}(2) gives the vanishing.
+\item $m=3$: $(B^{3})\cdot E=3$ and $(B^3)^2=360\ge140$; no type $\mathrm{IV}$ fiber, so Theorem~\ref{thm:tot6}(3) applies.
+\item $m=4$: $(B^{4})\cdot E=4$ and $(B^4)^2=640\ge194$, so Theorem~\ref{thm:tot6}(4) gives the vanishing unconditionally.
+\item $m\ge5$: every isotropic curve has $B^m$-degree $\ge m\ge5$, and $(B^m)^2=40m^2\ge74$, so Theorem~\ref{thm:tot51} gives the vanishing.
+\end{itemize}
+Thus $V(X,B)=0$ and $C(X,B)$ is $1$-Du Bois.
+
+For the last assertion, note that $(X,B)$ and $(X',B')$ have the same polarized Picard lattice $(U,B_0+21E)$, and inside the corresponding Noether--Lefschetz locus of the moduli space of degree-$40$ polarized K3 surfaces, both behaviors occur; hence the failure locus of the $1$-Du Bois property is not a union of loci defined by conditions on the Picard lattice.
+As observed by Totaro \cite[\S6]{Tot}, the presence of a cuspidal fiber is not detected by the Picard lattice.
+\end{proof}
+
+\begin{remark}
+Theorem~\ref{thm:C} contrasts sharply with the lci theory: for a hypersurface $V(f)$, the $k$-Du Bois property is equivalent to the numerical condition $\widetilde\alpha_f\ge k+1$ on the minimal exponent \cite{MOPW,JKSY,Sai}, which is in particular constructible in families and constant on suitable strata.
+For the non-lci cone singularities considered here, the property depends on ``non-abelian'' data of the surface (the Kodaira type of a singular fiber) rather than on its Hodge-lattice.
+\end{remark}
+
+\section{$K$-theory of K3 cones}\label{sec:ktheory}
+
+In this section we prove Theorem D.
+We use the computation of the non-positive $K$-groups of cones due to Corti\~nas--Haesemeyer--Walker--Weibel \cite{CHWW} for classical cones over smooth varieties, in the form extended to abstract cones by Popa--Shen \cite[Cor.~D]{PS}: for a smooth complex projective variety $X$ of dimension $n$ with ample line bundle $L$ and $Z=C(X,L)$,
+\begin{equation}\label{eq:PS}
+\Kzero(Z)\cong\ZZ\oplus\bigoplus_{i=1}^{n}\bigoplus_{m\ge1}H^i\!\big(X,\Omega^i_{X/\QQ}\otimes L^m\big),
+\qquad
+K_{-\ell}(Z)\cong\bigoplus_{i=0}^{n-\ell}\bigoplus_{m\ge1}H^{\ell+i}\!\big(X,\Omega^i_{X/\QQ}\otimes L^m\big)
+\end{equation}
+for $\ell\ge1$, where $\Omega^i_{X/\QQ}$ denotes the sheaf of K\"ahler $i$-forms of $X$ relative to $\QQ$ (for smooth $X$ this agrees with the Du Bois complex over $\QQ$ appearing in \cite{PS}).
+
+The passage from $\QQ$-differentials to the usual holomorphic differentials is handled by the following standard d\'evissage.
+
+\begin{lemma}\label{lem:Qdifferentials}
+Let $X$ be a smooth complex variety. Then for each $i\ge0$ the sheaf $\Omega^i_{X/\QQ}$ carries a finite decreasing filtration with graded pieces
+\[
+\mathrm{gr}^j\,\Omega^i_{X/\QQ}\;\cong\;\Omega^{i-j}_{X/\CC}\otimes_{\CC}\Lambda^j_{\CC}\,\Omega^1_{\CC/\QQ},
+\qquad 0\le j\le i,
+\]
+where $\Omega^1_{\CC/\QQ}$ is regarded as a (huge) $\CC$-vector space.
+Moreover, for any coherent sheaf $F$ on a projective variety and any $\CC$-vector space $W$, one has $H^q(X,F\otimes_\CC W)\cong H^q(X,F)\otimes_\CC W$.
+\end{lemma}
+
+\begin{proof}
+Since $X\to\Spec\CC$ is smooth and $\CC/\QQ$ is a field extension in characteristic zero, the conormal sequence
+\[
+0\to \cO_X\otimes_\CC\Omega^1_{\CC/\QQ}\to \Omega^1_{X/\QQ}\to\Omega^1_{X/\CC}\to0
+\]
+is exact (left-exactness follows from the transitivity triangle of cotangent complexes, using that $L_{X/\CC}\simeq\Omega^1_{X/\CC}$ is locally free and $L_{\CC/\QQ}\simeq\Omega^1_{\CC/\QQ}[0]$).
+The filtration on $\Omega^i_{X/\QQ}=\Lambda^i\,\Omega^1_{X/\QQ}$ is the standard filtration of the exterior power of an extension whose quotient $\Omega^1_{X/\CC}$ is locally free.
+The last statement holds because $F\otimes_\CC W$ is a direct sum of copies of $F$ indexed by a basis of $W$, and sheaf cohomology on a noetherian topological space commutes with arbitrary direct sums.
+\end{proof}
+
+\begin{theorem}\label{thm:K}
+Let $(X,B)$ be a polarized K3 surface and $Z=C(X,B)$. Then:
+\begin{enumerate}
+\item $K_{-\ell}(Z)=0$ for all $\ell\ge1$;
+\item $\Kzero(Z)\cong\ZZ\oplus V(X,B)$ as abelian groups, and $V(X,B)$ is a finite-dimensional $\CC$-vector space.
+\end{enumerate}
+In particular, $Z$ is $1$-Du Bois if and only if $\Kzero(Z)\cong\ZZ$.
+\end{theorem}
+
+\begin{proof}
+We evaluate \eqref{eq:PS} with $n=2$ and $L=B$, computing the groups $H^q(X,\Omega^i_{X/\QQ}\otimes B^m)$, $m\ge1$, via Lemma~\ref{lem:Qdifferentials} and Lemma~\ref{lem:vanishing}.
+Write $W_j=\Lambda^j_\CC\,\Omega^1_{\CC/\QQ}$.
+
+For $i=0$: $\Omega^0_{X/\QQ}=\cO_X$, so $H^q(X,B^m)=0$ for $q\in\{1,2\}$ by Lemma~\ref{lem:vanishing}(1).
+
+For $i=1$: the graded pieces of $\Omega^1_{X/\QQ}\otimes B^m$ are $B^m\otimes_\CC W_1$ and $\Omega^1_{X/\CC}\otimes B^m$.
+Since $H^1(X,B^m)=H^2(X,B^m)=0$, the long exact sequence gives
+\[
+H^1\!\big(X,\Omega^1_{X/\QQ}\otimes B^m\big)\cong H^1\!\big(X,\Omega^1_{X/\CC}\otimes B^m\big),
+\qquad
+H^2\!\big(X,\Omega^1_{X/\QQ}\otimes B^m\big)\cong H^2\!\big(X,\Omega^1_{X/\CC}\otimes B^m\big)=0,
+\]
+the last vanishing by Lemma~\ref{lem:vanishing}(2).
+
+For $i=2$: the graded pieces of $\Omega^2_{X/\QQ}\otimes B^m$ are $B^m\otimes_\CC W_2$, $\Omega^1_{X/\CC}\otimes B^m\otimes_\CC W_1$, and $\Omega^2_{X/\CC}\otimes B^m\cong B^m$.
+Their $H^2$ all vanish (Lemma~\ref{lem:vanishing}), so $H^2(X,\Omega^2_{X/\QQ}\otimes B^m)=0$.
+
+Substituting into \eqref{eq:PS}:
+for $\ell=1$, $K_{-1}(Z)\cong\bigoplus_m\big[H^1(X,B^m)\oplus H^2(X,\Omega^1_{X/\QQ}\otimes B^m)\big]=0$;
+for $\ell=2$, $K_{-2}(Z)\cong\bigoplus_m H^2(X,B^m)=0$;
+for $\ell\ge3$ the index range in \eqref{eq:PS} is empty.
+For $\Kzero$,
+\[
+\Kzero(Z)\;\cong\;\ZZ\oplus\bigoplus_{m\ge1}H^1\!\big(X,\Omega^1_{X/\CC}\otimes B^m\big)\;=\;\ZZ\oplus V(X,B),
+\]
+and $V(X,B)$ is finite-dimensional by Proposition~\ref{prop:finiteness}.
+The final assertion follows from Proposition~\ref{prop:structure}(2).
+\end{proof}
+
+\begin{corollary}\label{cor:K}
+Let $X$ be a K3 surface with $\Pic(X)=\ZZ B$, $B$ ample of degree $d$. Then
+\[
+\Kzero\big(C(X,B)\big)\cong\ZZ
+\iff d=20 \text{ or } d\ge24,
+\]
+and otherwise $\Kzero(C(X,B))\cong\ZZ\oplus\CC^N$ with $N\ge\max(20-d,1)$.
+\end{corollary}
+
+\begin{proof}
+Combine Theorems \ref{thm:A} and \ref{thm:K}; the lower bound on $N$ comes from Lemma~\ref{lem:RR} when $d<20$ (namely $h^1(\Omega^1_X\otimes B)\ge20-d$) and from Theorem~\ref{thm:tot32}(3) when $d=22$.
+\end{proof}
+
+\begin{remark}\label{rem:Kregularity}
+(a) The vanishing of the negative $K$-groups in Theorem~\ref{thm:K}(1) is stronger than the general bounds: for any affine threefold, $K_{-\ell}=0$ for $\ell\ge4$ by \cite{CHSW}, but $K_{-1},K_{-2},K_{-3}$ are typically nonzero for singular $Z$.
+For K3 cones the negative $K$-theory is that of a smooth variety, while $\widetilde{\Kzero}(Z)=V(X,B)$ records the higher Du Bois defect exactly.
+
+(b) In the language of $K$-regularity \cite{Sh}: if $Z$ is $1$-Du Bois, then $Z$ is $K_{-1}$-regular by \cite[Prop.~A(1)]{Sh} (with $d=\dim Z=3$, $m=1$).
+Conversely, since $Z$ is affine, $K_0$-regularity of $Z$ implies that $Z$ is pre-$1$-Du Bois by \cite[Prop.~A(2)]{Sh}, hence $1$-Du Bois by Proposition~\ref{prop:structure}(2).
+\end{remark}
+
+\section{Complements, examples, and questions}\label{sec:complements}
+
+\subsection{Cones over quartic surfaces}
+Shen--Venkatesh--Vo computed by hypersurface methods that for a smooth quartic $X\subset\PP^3$ the cone $C(X,\cO_X(l))$ is $1$-Du Bois if and only if $l\ge5$ \cite[Ex.~5.12(2)]{SVV}.
+Our results are consistent with, and complement, this computation.
+
+\begin{example}\label{ex:quartic}
+Let $X\subset\PP^3$ be a smooth quartic surface and $A=\cO_X(1)$, of degree $A^2=4$.
+\begin{enumerate}
+\item For $l\ge5$ and $X$ very general (so $\Pic(X)=\ZZ A$ and $X$ has no isotropic curves), every twist satisfies $(A^{lm})^2=4\,l^2m^2\ge100\ge74$, so Theorem~\ref{thm:tot51} gives $V(X,A^l)=0$, recovering the $1$-Du Bois property of $C(X,\cO_X(l))$ for very general $X$; the result of \cite{SVV} shows it in fact holds for every smooth quartic.
+\item In the boundary case $l=4$, of degree $64<74$, the cone fails to be $1$-Du Bois by \cite{SVV}.
+For the very general quartic, all twists $m\ge2$ vanish as in (1) (degree $\ge256$), so the failure must occur at $m=1$:
+\[
+H^1\!\big(X,\Omega^1_X\otimes\cO_X(4)\big)\ne0 \quad\text{for the very general quartic } X\subset\PP^3 .
+\]
+By upper semicontinuity, the locus of quartics where this group is nonzero is closed; containing the very general point, it is everything.
+Hence $H^1(X,\Omega^1_X\otimes\cO_X(4))\ne0$ for \emph{every} smooth quartic surface, a Bott-type non-vanishing at degree $64$ which complements Totaro's primitive degree-$62$ example \cite[Ex.~5.3]{Tot}.
+\end{enumerate}
+\end{example}
+
+\subsection{Non-primitive polarizations in degree two}
+Let $(X,A)$ be a very general polarized K3 surface of degree $2$, i.e.\ a double cover of $\PP^2$ branched along a very general sextic, with $\Pic(X)=\ZZ A$.
+For the cones $Z_l=C(X,A^l)$, Proposition~\ref{prop:structure} and the results above give:
+\begin{itemize}
+\item $Z_l$ is \emph{not} $1$-Du Bois for $l\in\{1,2,3\}$, since $(A^l)^2=2l^2<20$ (Lemma~\ref{lem:RR});
+\item $Z_6$ is \emph{not} $1$-Du Bois, since $H^1(X,\Omega^1_X\otimes A^6)\ne0$ by \cite[Ex.~5.2]{Tot} (a Lvovski-type non-extension result for $X_6\subset\PP(3,1,1,1)$);
+\item $Z_l$ \emph{is} $1$-Du Bois for $l\ge7$, since all twists have degree $2l^2m^2\ge98\ge74$ and $X$ has no isotropic curves;
+\item for $l\in\{4,5\}$, $Z_l$ is $1$-Du Bois if and only if $H^1(X,\Omega^1_X\otimes A^l)=0$, since the higher twists have degree $\ge128\ge74$.
+\end{itemize}
+
+\begin{question}\label{q:deg2}
+For the very general K3 surface $(X,A)$ of degree $2$, do the groups $H^1(X,\Omega^1_X\otimes A^4)$ and $H^1(X,\Omega^1_X\otimes A^5)$ (of degrees $32$ and $50$) vanish?
+Equivalently, are the cones $C(X,A^4)$ and $C(X,A^5)$ $1$-Du Bois?
+Note that $A^4$ and $A^5$ lie in the ``gap'' region $20\le N^2<74$ where neither Riemann--Roch nor the Fano-threefold obstruction decides the answer.
+\end{question}
+
+\subsection{Cones over abelian surfaces}
+The K3 case should be contrasted with the abelian one.
+If $A$ is an abelian surface and $L$ any ample line bundle, then $\Omega^p_A$ is trivial, so Bott vanishing holds and $C(A,L)$ is pre-$k$-Du Bois for every $k$ by \cite[Cor.~7.6]{SVV}.
+Nevertheless $C(A,L)$ is \emph{not} $1$-Du Bois, since $H^1(A,\cO_A)\ne0$ violates the criterion of Theorem~\ref{thm:SVVcone}(2).
+Thus among cones over surfaces of Kodaira dimension $0$ with trivial canonical bundle, the $1$-Du Bois property forces the base to be a K3 surface, and then Theorems A--C apply.
+
+\subsection{Further questions}
+
+\begin{question}
+Ciliberto--Dedieu--Galati--Knutsen have computed $H^1(X,\Omega^1_X\otimes B)$ for general polarized Enriques surfaces \cite{CDGK} (see the discussion in \cite[\S3]{Tot}).
+Cones over Enriques surfaces are klt (indeed $\omega_X$ is torsion of order $2$), hence have rational singularities.
+For which polarized Enriques surfaces $(X,B)$ is $C(X,B)$ $1$-Du Bois, or $1$-rational?
+Note that here Theorem~\ref{thm:SVVcone}(3) has genuine content, since $H^2(X,\cO_X)=0$.
+\end{question}
+
+\begin{question}
+Theorem~\ref{thm:C} shows the failure locus of the $1$-Du Bois property in the moduli space $\mathcal{F}_{40}$ of degree-$40$ polarized K3 surfaces is not a union of Noether--Lefschetz loci.
+Is it a countable union of algebraic subvarieties? By Proposition~\ref{prop:finiteness} the answer is yes---the locus is
+$\bigcup_{m\le4}\{h^1(\Omega^1_X\otimes B^m)>0\}$, a finite union of closed algebraic conditions---so the interesting problem is to describe its components and their dimensions, extending \cite[Thm.~6.1, 6.2]{Tot} to a complete description in the tetragonal range $B^2<194$.
+\end{question}
+
+\begin{thebibliography}{CHWW13}
+
+\bibitem[ABS14]{ABS}
+E.~Arbarello, A.~Bruno, and E.~Sernesi,
+\emph{Mukai's program for curves on a K3 surface},
+Algebr. Geom. \textbf{1} (2014), 532--557.
+
+\bibitem[Bur26]{Bur}
+A.~Burke,
+\emph{Local cohomological defect and a conjecture of Musta\c{t}\u{a}--Popa},
+preprint arXiv:2602.05197 (2026).
+
+\bibitem[CDM24]{CDM}
+Q.~Chen, B.~Dirks, and M.~Musta\c{t}\u{a},
+\emph{The minimal exponent and $k$-rationality for local complete intersections},
+preprint arXiv:2212.01898.
+
+\bibitem[CDGK20]{CDGK}
+C.~Ciliberto, T.~Dedieu, C.~Galati, and A.~L.~Knutsen,
+\emph{Moduli of curves on Enriques surfaces},
+Adv. Math. \textbf{365} (2020), 107010.
+
+\bibitem[CDS20]{CDS}
+C.~Ciliberto, T.~Dedieu, and E.~Sernesi,
+\emph{Wahl maps and extensions of canonical curves and K3 surfaces},
+J. Reine Angew. Math. \textbf{761} (2020), 219--245.
+
+\bibitem[CHSW08]{CHSW}
+G.~Corti\~nas, C.~Haesemeyer, M.~Schlichting, and C.~Weibel,
+\emph{Cyclic homology, cdh-cohomology and negative $K$-theory},
+Ann. of Math. (2) \textbf{167} (2008), 549--573.
+
+\bibitem[CHWW13]{CHWW}
+G.~Corti\~nas, C.~Haesemeyer, M.~E.~Walker, and C.~Weibel,
+\emph{$K$-theory of cones of smooth varieties},
+J. Algebraic Geom. \textbf{22} (2013), 13--34.
+
+\bibitem[DB81]{DB}
+P.~Du Bois,
+\emph{Complexe de de Rham filtr\'e d'une vari\'et\'e singuli\`ere},
+Bull. Soc. Math. France \textbf{109} (1981), 41--81.
+
+\bibitem[EV92]{EV}
+H.~Esnault and E.~Viehweg,
+\emph{Lectures on vanishing theorems},
+DMV Seminar \textbf{20}, Birkh\"auser, Basel, 1992.
+
+\bibitem[Fey20]{Fey}
+S.~Feyzbakhsh,
+\emph{Mukai's program (reconstructing a K3 surface from a curve) via wall-crossing},
+J. Reine Angew. Math. \textbf{765} (2020), 101--137.
+
+\bibitem[FL24]{FL}
+R.~Friedman and R.~Laza,
+\emph{Higher Du Bois and higher rational singularities},
+Duke Math. J. (2024), with an appendix by M.~Saito; arXiv:2205.04729.
+
+\bibitem[FL22]{FLdef}
+R.~Friedman and R.~Laza,
+\emph{Deformations of singular Fano and Calabi--Yau varieties},
+preprint arXiv:2203.04823.
+
+\bibitem[JKSY22]{JKSY}
+S.-J.~Jung, I.-K.~Kim, M.~Saito, and Y.~Yoon,
+\emph{Higher Du Bois singularities of hypersurfaces},
+Proc. Lond. Math. Soc. (3) \textbf{125} (2022); arXiv:2107.06619.
+
+\bibitem[KW25]{KW}
+T.~Kawakami and J.~Witaszek,
+\emph{Inversion of adjunction for higher rational singularities},
+preprint arXiv:2510.11378 (2025).
+
+\bibitem[Kol13]{Kol}
+J.~Koll\'ar,
+\emph{Singularities of the minimal model program},
+Cambridge Tracts in Mathematics \textbf{200}, Cambridge University Press, 2013.
+
+\bibitem[MOPW23]{MOPW}
+M.~Musta\c{t}\u{a}, S.~Olano, M.~Popa, and J.~Witaszek,
+\emph{The Du Bois complex of a hypersurface and the minimal exponent},
+Duke Math. J. (2023); arXiv:2105.01245.
+
+\bibitem[MP25]{MP}
+M.~Musta\c{t}\u{a} and M.~Popa,
+\emph{On $k$-rational and $k$-Du Bois local complete intersections},
+Algebr. Geom. \textbf{12} (2025), no.~2, 237--261.
+
+\bibitem[NN25]{NN}
+H.~Ning and B.~Nugent,
+\emph{Higher Du Bois and higher rational pairs},
+preprint arXiv:2510.19813 (2025).
+
+\bibitem[PS24]{PS}
+M.~Popa and W.~Shen,
+\emph{Du Bois complexes of cones over singular varieties, local cohomological dimension, and $K$-groups},
+Rev. Roumaine Math. Pures Appl. (2025); arXiv:2406.03593.
+
+\bibitem[PSV24]{PSV}
+M.~Popa, W.~Shen, and A.~D.~Vo,
+\emph{Injectivity and vanishing for the Du Bois complexes of isolated singularities},
+preprint arXiv:2409.18019 (2024).
+
+\bibitem[Pro05]{Pro}
+Yu.~Prokhorov,
+\emph{The degree of Fano threefolds with canonical Gorenstein singularities},
+Sb. Math. \textbf{196} (2005), 77--114.
+
+\bibitem[Sai24]{Sai}
+M.~Saito,
+\emph{Appendix to: Higher Du Bois and higher rational singularities} (by R.~Friedman and R.~Laza),
+Duke Math. J. (2024).
+
+\bibitem[Sh25]{Sh}
+W.~Shen,
+\emph{On higher Du Bois singularities and $K$-regularity},
+preprint arXiv:2504.12402 (2025).
+
+\bibitem[SVV23]{SVV}
+W.~Shen, S.~Venkatesh, and A.~D.~Vo,
+\emph{On $k$-Du Bois and $k$-rational singularities},
+preprint arXiv:2306.03977 (2023).
+
+\bibitem[Tot20]{Tot}
+B.~Totaro,
+\emph{Bott vanishing for algebraic surfaces},
+Trans. Amer. Math. Soc. \textbf{373} (2020), no.~5.
+
+\end{thebibliography}
+
+\end{document}
