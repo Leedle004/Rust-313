@@ -1,0 +1,321 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{ctex}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage[margin=2.6cm]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{enumitem}
+\usepackage{fontspec}
+
+\setCJKmainfont{WenQuanYi Micro Hei}
+
+\newtheorem{theorem}{定理}[section]
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{proposition}[theorem]{命题}
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{conjecture}[theorem]{猜想}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{定义}
+\newtheorem{question}[theorem]{问题}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{注记}
+\newtheorem{example}[theorem]{例}
+
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Ver}{Ver}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\PP}{\mathbb{P}}
+
+\title{\textbf{凸几何方法在 2025--2026 年代数几何前沿中的应用：\\
+从环面 Fano 稳定化问题到 Hurwitz 空间不可约性}}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.5em}
+
+\begin{abstract}
+本文以四篇 2025--2026 年发表或被顶级期刊接收的代数几何前沿论文为基础，系统梳理它们各自的背景、
+主要定理与证明策略核心：Jin--Rubinstein 关于环面 Fano 流形上 Tian 稳定化问题的完全解决
+（\emph{Geometry \& Topology}，2025）、Matsumura--Wang 关于具有 nef 反典范除子的 klt 对的结构定理
+（\emph{J. Eur. Math. Soc.}，2025 年网络首发）、Christ--He--Tyomkin 关于环面曲面上 Severi 簇与经典
+Hurwitz 空间不可约性的证明（\emph{Invent. Math.}，已接收）、以及赵俊彦关于亏格四曲线与 Fano 三次
+超曲面 K-模空间的显式刻画（\emph{J. Reine Angew. Math.}，2025）。第 2--5 节忠实转述这四篇原始文献
+的定义、主要定理陈述与证明思路核心，并标明出处；第 6 节在此基础上提出一个统一的方法论观察——凸
+几何（多面体组合学与热带几何）在 2025 年前沿代数几何中扮演的日益核心的角色——并列出两个开放问题，
+该部分明确标注为作者本人的观察，并非已被证明的新数学结果。本文的原创技术性贡献收录于配套文档
+\texttt{original-note.tex} 中，其内容以第 2 节讨论的 Jin--Rubinstein 定理为出发点，对射影空间
+$\PP^n$ 及其任意有限对称子群给出该定理的一个完全显式、初等自足的推广。
+
+\medskip
+\noindent\textbf{关键词：} Tian $\alpha$-不变量；环面 Fano 流形；K-稳定性；klt 对；
+Beauville--Bogomolov--Yau 分解；Hurwitz 空间；Severi 簇；热带几何；K-模空间
+\end{abstract}
+
+\tableofcontents
+
+\section{引言}
+
+2025--2026 年间，代数几何中一个引人注目的现象是：\textbf{凸几何}（多面体的组合学与热带几何）
+在多个表面上互不相关的深刻问题的最终解决中扮演了核心而非仅仅是辅助的角色。本文选取四篇代表性论文，
+逐一介绍其结果，并在第 6 节尝试提炼出这一共同线索。
+
+\begin{itemize}[leftmargin=1.6em]
+  \item \textbf{Chenzi Jin、Yanir A.\ Rubinstein}，\emph{Tian's stabilization problem for toric Fanos}，
+  \emph{Geometry \& Topology} \textbf{29}:5 (2025), 2609--2652 \cite{JR2025}。
+  该文首次一般性地解决了 Tian 于 1988 年提出的、关于等变整体对数典范阈值 $\alpha_{k,G}$ 是否随
+  $k\to\infty$ 稳定于 $\alpha_G$ 的稳定化问题，在环面 Fano 流形的情形下给出了 $\alpha_{k,G}$ 的
+  完全显式的多面体组合公式，并证明其对\emph{每个}固定的 $k$ 都等于 $\alpha_G$（而非仅在极限意义下）。
+
+  \item \textbf{Shin-ichi Matsumura、Juanyong Wang}，\emph{Structure theorem for projective klt pairs
+  with nef anti-canonical divisor}，\emph{J. Eur. Math. Soc.}，2025 年网络首发 \cite{MW2025}。
+  该文证明了对数 Calabi--Yau 型 klt 对的一个 Beauville--Bogomolov--Yau 型分解定理：在有限拟étale
+  覆盖下，此类对可分解为有理连通簇与 Calabi--Yau 簇的乘积；这一结果建立在对具有 nef 反对数典范除子
+  的更广一类 klt 对的极大有理连通纤维化结构定理之上。
+
+  \item \textbf{Karl Christ、何翔 (Xiang He)、Ilya Tyomkin}，\emph{The irreducibility of Hurwitz spaces
+  and Severi varieties on toric surfaces}，\emph{Invent. Math.}，已接收待刊 \cite{CHT2026}。
+  该文利用热带几何方法解决了 Fulton 1969 年提出的经典 Hurwitz 空间不可约性问题在特征 $\le d$ 情形下
+  的空白，并证明了包括 $\PP^2$、Hirzebruch 曲面与环面 del Pezzo 曲面在内的一大类环面曲面上 Severi
+  簇在任意特征下的不可约性。
+
+  \item \textbf{赵俊彦 (Junyan Zhao)}，\emph{K-moduli of Fano threefolds and genus four curves}，
+  \emph{J. Reine Angew. Math.} (Crelle) \textbf{2025} (824) \cite{Zhao2025}。
+  该文利用模连续性方法与格化极化 K3 曲面的模空间，显式刻画了 $\PP^3$ 沿 $(2,3)$-完全交曲线炸开所得
+  Fano 三次超曲面族的 K-模空间，并证明该 K-模空间是亏格四曲线的 Hassett--Keel 纲领的一个双有理模型。
+\end{itemize}
+
+这四篇论文分别处于凯勒几何/K-稳定性、双有理几何、经典枚举几何与模空间理论的交界处。本文第 2--5 节
+将依次介绍它们的背景、主要定理陈述与证明思路的核心要点；第 6 节尝试提炼出贯穿这些工作的方法论线索，
+并提出两个开放问题；第 7 节作简短总结。
+
+\emph{声明：} 第 2--5 节中的定义与定理均严格转述自原始文献，并标明出处；第 6 节的观察与所提出的问题
+反映的是作者本人基于文献阅读产生的看法，尚未经过严格证明，读者应将其视为研究方向的提示而非已确立的
+数学结果。
+
+\section{Tian 稳定化问题在环面 Fano 流形上的完全解决}
+
+\subsection{背景：Tian 不变量与稳定化问题}
+
+设 $(X,L,\omega)$ 是 $n$ 维极化 Kähler 流形，$L$ 是其上的极丰富线丛，$\omega$ 是代表 $c_1(L)$ 的
+Kähler 形式。设
+\[
+  \mathcal{H}_L := \{\varphi \in C^\infty(X) : \omega_\varphi := \omega + \sqrt{-1}\partial\bar\partial \varphi > 0\}
+\]
+是 Calabi 空间。Tian~\cite{Tian1987} 证明 $\mathcal{H}_L$ 可由有限维空间 $\mathcal{H}_k$（由
+$H^0(X,L^k)$ 诱导的 Kodaira 嵌入拉回的 Fubini--Study 度量的势函数构成）逼近。给定 $\Aut(X)$ 的
+一个紧子群 $G$，Tian 引入不变量
+\[
+  \alpha_G := \sup\Big\{c>0 : \sup_{\varphi \in \mathcal{H}_L^G} \int_X e^{-c(\varphi - \sup \varphi)}\,\omega^n < \infty\Big\},
+\]
+以及其“量子化”版本 $\alpha_{k,G}$（在 $\mathcal{H}_k^G$ 上取上确界定义）。当 $L = K_X^{-1}$ 时，
+$\alpha_G > \tfrac{n}{n+1}$ 是 Kähler--Einstein 度量存在的充分条件~\cite{Tian1987}。由 $\mathcal{H}_k
+\subset \mathcal{H}_L$ 可知 $\alpha_G \le \inf_k \alpha_{k,G}$，但这并不足以由 $\alpha_{k,G}$ 反推出
+$\alpha_G$ 的下界。为此 Tian 在 1988 年提出：
+
+\begin{quote}
+\textbf{问题（Tian 稳定化问题）.} 是否对充分大的 $k$，$\alpha_{k,G} = \alpha_G$？
+\end{quote}
+
+在此之前，这一问题对一般 Fano 流形而言完全未知；Song~\cite{Song2005} 与 Y.~Li--Zhu~\cite{LZ2021}
+分别在环面与（约化复李群的）群紧化的特殊情形下给出了部分结果，但 Jin--Rubinstein~\cite[\S 1.3]{JR2025}
+指出这些证明中所依赖的 $\alpha_{k,G}$ 关于 $k$ 的最终单调性这一关键步骤此前从未被证明，也未见诸文献。
+
+\subsection{主要定理：环面情形下的显式公式}
+
+设 $X$ 是 $n$ 维环面 Fano 流形，对应于格 $N$ 中由本原元素 $v_1,\dots,v_r$ 生成的扇 $\Sigma$，
+$P \subset M_\R$ 是 $(X,-K_X)$ 对应的（reflexive）多面体，即
+\[
+  P = \{y \in M_\R : \langle y, v_i\rangle \ge -1,\ i=1,\dots,r\}.
+\]
+记 $\Aut(P) \le \mathrm{GL}(M) \cong \mathrm{GL}(n,\Z)$ 为保持 $P$ 不变的格自同构群（这是一个有限群），
+对 $H \le \Aut(P)$，令 $G(H) := H \ltimes (S^1)^n$ 为由 $H$ 与极大紧环面 $(S^1)^n$ 生成的紧群。
+记 $P^H := \{y \in P : h\cdot y = y\ \forall h \in H\}$ 为不动点集，$\pi_H := \frac{1}{|H|}\sum_{h\in H} h$
+为 $H$-轨道平均投影。Jin--Rubinstein 证明了如下显式公式：
+
+\begin{theorem}[Jin--Rubinstein~{\cite[Theorem~1.4]{JR2025}}]\label{thm:JR14}
+对任意 $k \in \N$，
+\[
+  \alpha_{k,G(H)} \;=\; \min_{u \in \Ver(P^H)} \frac{1}{\max_i \langle u, v_i\rangle + 1}
+  \;=\; \min_{u \in \pi_H(\Ver P)} \frac{1}{\max_i \langle u, v_i\rangle + 1},
+\]
+特别地 $\alpha_{k,G(H)}$ 与 $k$ 无关，等于 $\alpha_{G(H)}$。
+\end{theorem}
+
+这一结果对\emph{每个固定的} $k$（而不仅是 $k\to\infty$ 的极限）都给出精确等式，是 Tian 稳定化问题在
+环面情形下最强意义上的解决。证明的关键新工具包括：(a) 将 $\mathcal{H}_k^{G(H)}$ 用有限群 $H$ 在
+$kP\cap M$ 上的轨道结构完全刻画（其 Lemma 4.5）；(b) 建立 $\alpha_{k,G(H)}$ 与代数化的 $H$-等变
+整体对数典范阈值 $\mathrm{glct}_{k,G(H)}$ 之间对每个固定 $k$ 都成立的等式（他们的 Proposition~1.3，
+解决了作者提出的第二个 Demailly 型问题）；(c) 一个关于支撑函数与复奇点指数关系的新估计（其
+Proposition 6.2）。
+
+\subsection{Grassmannian 型不变量与凸几何障碍}
+
+Jin--Rubinstein 进一步考虑 Tian 定义的 Grassmannian 型不变量 $\alpha_{k,m,G}$（对应于取 $\mathcal{H}_k$
+中维数为 $m$ 的线性子系统），并完全解决了 Tian 2012 年提出的关于其稳定化的猜想。他们引入纯凸几何条件
+\[
+  (\star)\qquad \max\big(k\cdot\|{-}\|_P\big)\big|_{P \setminus \Ver P} < \max_P k\cdot\|{-}\|_P
+\]
+（即支撑函数 $\max_i\langle y,v_i\rangle$ 在 $P$ 上的最大值\emph{仅}在顶点处取得），证明：
+
+\begin{theorem}[Jin--Rubinstein~{\cite[Theorem~1.6]{JR2025}}]\label{thm:JR16}
+设 $X$ 是环面 Fano 流形，$\alpha := \alpha_{(S^1)^n}$。Tian 的 Grassmannian 稳定化猜想（对固定 $H=\{\mathrm{id}\}$
+情形）成立当且仅当条件 $(\star)$ \emph{不}成立；若 $(\star)$ 成立，则对所有 $k \in \N$、$m \ge 2$，
+$\alpha_{k,m,(S^1)^n} > \alpha$（严格不等式，永不稳定于 $\alpha$，尽管当 $k\to\infty$ 时仍趋于 $\alpha$）。
+\end{theorem}
+
+作者在论文第 8 节对全部 5 类光滑环面 del Pezzo 曲面逐一验证了定理~\ref{thm:JR14} 与~\ref{thm:JR16}，
+并证明：当 $n=2$ 时，$(\star)$ 成立当且仅当 $P$ 不是中心对称的；但当 $n \ge 3$ 时这一等价关系不再成立
+（例如 $\PP^2 \times \PP^1$ 的多面体不是中心对称的，但 $(\star)$ 失效）。本文配套的原创注记
+（见 \texttt{original-note.tex}）将定理~\ref{thm:JR14} 与~\ref{thm:JR16} 的显式计算从他们论文中逐例
+验证的 $\PP^2$（$n=2$）推广到所有维数 $n$ 与所有子群 $H \le S_{n+1} = \Aut(P)$ 的射影空间 $\PP^n$ 情形，
+给出一个依赖于 $H$-轨道大小的完全封闭公式。
+
+\section{具有 nef 反典范除子的 klt 对的结构定理}
+
+Matsumura--Wang~\cite{MW2025} 研究的是极小模型纲领中一类重要的结构问题：一个 klt 对 $(X,\Delta)$ 若
+其反对数典范除子 $-(K_X+\Delta)$ 是 nef 的，其整体几何结构能被刻画到何种程度？他们的主要结果为：
+
+\begin{theorem}[Matsumura--Wang~{\cite[主定理]{MW2025}}]
+设 $(X,\Delta)$ 是射影 klt 对，$-(K_X+\Delta)$ 是 nef 的。则存在有限拟étale覆盖 $X' \to X$，使得
+$(X',\Delta')$（$\Delta'$ 为 $\Delta$ 的拉回）承认一个局部平凡的极大有理连通纤维化 $X' \to Y$，
+其中 $Y$ 是一个 Calabi--Yau 簇（$K_Y \sim_\Q 0$）。特别地，若 $(X,\Delta)$ 还属于对数 Calabi--Yau 型
+（即 $K_X + \Delta \sim_\Q 0$），则在有限拟étale覆盖下 $(X',\Delta')$ 分解为有理连通簇与 Calabi--Yau
+簇的乘积。
+\end{theorem}
+
+这一结果是经典的 Beauville--Bogomolov 分解定理（针对 $K_X\sim_\Q 0$ 的光滑情形）向奇异对数对情形的
+自然推广，也呼应了 Yau 关于 Ricci-平坦度量存在性理论在奇异设定下的延伸。证明的核心工具是对极大有理
+连通纤维化的相对全纯 $1$-形式与 $2$-形式所满足的局部平凡性的精细分析，利用了半正性定理与极小模型
+纲领中关于 klt 对纤维化结构的已知技术。
+
+\section{环面曲面上 Hurwitz 空间与 Severi 簇的不可约性}
+
+Fulton 于 1969 年引入经典 Hurwitz 空间 $\mathcal{H}_{g,d}$，参数化 $\PP^1$ 的 $d$-叶单纯覆盖，并在
+特征 $p > d$（或特征 $0$）的假设下证明了其不可约性；特征 $p \le d$ 情形长期悬而未决。
+Christ--He--Tyomkin~\cite{CHT2026} 完全解决了这一问题：
+
+\begin{theorem}[Christ--He--Tyomkin~{\cite[主定理]{CHT2026}}]
+对任意代数闭域 $k$（不限特征），经典 Hurwitz 空间 $\mathcal{H}_{g,d}$ 均不可约。
+\end{theorem}
+
+其证明策略与 Fulton 的经典单值性/退化论证完全不同，转而利用作者们此前发展的\textbf{参数化曲线族的
+热带化理论}。核心中间结果是：
+
+\begin{theorem}[Christ--He--Tyomkin~{\cite[主定理]{CHT2026}}]
+设 $S$ 是一大类极化环面曲面（包括 $\PP^2$、Hirzebruch 曲面与所有环面 del Pezzo 曲面），$\Delta$ 是
+$S$ 的动量多面体。则参数化亏格 $g$、不可约、属于线性系 $|L_\Delta|$ 的曲线所构成的 Severi 簇
+$V_{g,\Delta}(S)$ 在任意特征的代数闭域上都是不可约的。
+\end{theorem}
+
+他们证明 $\PP^1 \times \PP^1$ 上双次数 $(c,d)$（$c \gg 1$）的 Severi 簇支配 $\mathcal{H}_{g,d}$，从而
+Severi 簇的不可约性蕴含 Hurwitz 空间的不可约性。论文中另外两个独立价值的结果是关于参数化热带曲线的
+一个提升定理，以及参数化热带曲线模空间的一个强连通性质，二者均是纯组合/热带几何陈述，不依赖特征。
+
+\section{亏格四曲线与 Fano 三次超曲面的 K-模空间}
+
+赵俊彦~\cite{Zhao2025} 研究 Fano 三次超曲面族 №2.15（按 Iskovskikh--Mori--Mukai 分类），即
+$\PP^3$ 沿一条光滑 $(2,3)$-完全交曲线的炸开。这族 Fano 三次超曲面的一般成员是 K-稳定的
+\cite[Proposition 4.33]{ACCCKMSSV2023}，因此其 K-模空间是良好定义的、分离的、紧的代数空间。
+
+\begin{theorem}[赵俊彦~{\cite[主定理]{Zhao2025}}]
+族 №2.15 的 K-模空间中的每个成员都同构于 $\PP^3$ 沿某条 $(2,3)$-完全交曲线的炸开。进一步，该
+K-模空间可与 Casalaina-Martin--Jensen--Laza 研究的 $\PP^1\times\PP^1$ 上双次数 $(3,3)$ 曲线的
+变分 GIT 商模空间序列 $\overline{M}^{\mathrm{GIT}}(t)$ 中的某一模型等同，具体为该 GIT 商模空间经过
+一次爆破再一次飞行（flip）所得到的双有理修正。作为推论，该 K-模空间给出亏格四曲线粗模空间
+$\overline{M}_4$ 的 Hassett--Keel 纲领的一个双有理模型。
+\end{theorem}
+
+证明采用“模连续性方法”（moduli continuity method）：利用格化极化 K3 曲面的模空间、一般初等因子
+（general elephant）技术以及 Sarkisov 链接，逐步在变分 GIT 序列与 K-模空间之间建立双有理对应，
+并classify该变形族中全部 K-（半/多）稳定成员。
+
+\section{一个方法论观察与两个开放问题}
+
+\emph{以下内容是作者本人基于以上四篇文献产生的观察与猜测，未经证明，仅供参考。}
+
+\subsection{凸几何/热带几何作为计算枢纽}
+
+上述四篇论文中，有三篇（\S 2 的 Jin--Rubinstein，\S 4 的 Christ--He--Tyomkin，以及背景中提及的
+环面 K-模空间工作，如~\cite{Zhao2025} 及 Heuberger--Petracci~\cite{HP2025}）的核心突破都直接建立
+在\textbf{将连续几何问题转化为多面体或热带曲线的离散组合问题}这一策略之上：
+
+\begin{itemize}[leftmargin=1.6em]
+  \item Jin--Rubinstein 将 $\alpha_{k,G}$ 这一分析定义的不变量，通过环面结构完全转化为多面体
+  顶点与支撑函数的显式代数运算（定理~\ref{thm:JR14}）；
+  \item Christ--He--Tyomkin 将退化到特征 $p$ 后失效的经典单值性论证，替换为对参数化热带曲线模
+  空间的连通性与提升定理，从而绕开了特征假设；
+  \item 赵俊彦及 Heuberger--Petracci 的 K-模空间工作，均以环面奇点的显式组合描述作为构造 K-稳定
+  退化与局部形变的出发点。
+\end{itemize}
+
+我们观察到，这一现象或许反映了一个更普遍的趋势：\textbf{当代数几何问题涉及的对象具有足够的离散
+对称性或组合结构（环面性、极化格结构）时，将其转化为凸几何/热带几何问题，往往能够绕开经典方法
+（解析延拓、特征限制、单值性表示论）中的实质性障碍。}这与第 3 节 Matsumura--Wang 的工作形成有趣的
+对照——后者处理的是一般（非环面）klt 对，其证明仍然依赖极小模型纲领的解析/双有理几何工具，尚不清楚
+是否存在可与环面情形类比的组合化简化。
+
+\subsection{两个开放问题}
+
+\begin{question}
+Jin--Rubinstein 的定理~\ref{thm:JR14} 依赖于 $X$ 是环面的假设，其证明的关键步骤（$\mathcal{H}_k^{G(H)}$
+由有限群轨道刻画）在此假设下变得可行。对于 Matsumura--Wang 意义下的对数 Calabi--Yau 型 klt 对
+$(X,\Delta)$（不必是环面的，但具有非平凡的有限对称群 $H \le \Aut(X,\Delta)$），是否存在类似的
+显式公式将 $\alpha_{k,G(H)}(X,\Delta)$ 归结为 $(X,\Delta)$ 在 Matsumura--Wang 分解定理下的
+Calabi--Yau 因子 $Y$ 与有理连通因子上的组合/几何不变量的某种组合？
+\end{question}
+
+\begin{question}
+Christ--He--Tyomkin 的热带化技术依赖于环面曲面的极化格结构。是否可以类似地利用热带/组合方法，
+对（非环面）K3 曲面或 Fano 三次超曲面上的 Severi 型模空间（如赵俊彦或 Heuberger--Petracci 研究的
+K-模空间的边界层）的不可约性给出统一的证明，从而将 \S 4 与 \S 5 的两条独立技术路线联系起来？
+\end{question}
+
+\section{小结}
+
+本文介绍了 2025--2026 年发表或被接收的四篇代数几何前沿论文，覆盖凯勒几何中的稳定化问题、双有理几何
+中的结构定理、经典枚举几何中的不可约性问题，以及模空间理论中的显式几何化。我们观察到凸几何/热带几何
+方法在这些看似分散的方向中反复扮演着突破性的角色，并提出两个开放问题供后续研究参考。本文配套的原创
+技术性注记（\texttt{original-note.tex}）以 \S 2 的 Jin--Rubinstein 定理为基础，对射影空间 $\PP^n$ 及
+其任意有限对称子群给出该定理的完全显式推广，是这一主题下的一个独立、自足的原创数学贡献。
+
+\begin{thebibliography}{99}
+
+\bibitem{JR2025} C.\ Jin, Y.\ A.\ Rubinstein, \emph{Tian's stabilization problem for toric Fanos},
+Geometry \& Topology \textbf{29}:5 (2025), 2609--2652.
+
+\bibitem{MW2025} S.\ Matsumura, J.\ Wang, \emph{Structure theorem for projective klt pairs with nef
+anti-canonical divisor}, J. Eur. Math. Soc. (2025), published online first.
+
+\bibitem{CHT2026} K.\ Christ, X.\ He, I.\ Tyomkin, \emph{The irreducibility of Hurwitz spaces and Severi
+varieties on toric surfaces}, Invent. Math., accepted for publication (arXiv:2501.16238).
+
+\bibitem{Zhao2025} J.\ Zhao, \emph{K-moduli of Fano threefolds and genus four curves},
+J. Reine Angew. Math. (Crelle's Journal) \textbf{2025}, no.\ 824.
+
+\bibitem{HP2025} L.\ Heuberger, A.\ Petracci, \emph{On K-moduli of Fano threefolds with degree 28 and
+Picard rank 4}, Ann. Fac. Sci. Toulouse Math. (6) \textbf{34} (2025), no.\ 4, 1159--1184.
+
+\bibitem{Tian1987} G.\ Tian, \emph{On Kähler-Einstein metrics on certain Kähler manifolds with
+$C_1(M)>0$}, Invent. Math. \textbf{89} (1987), 225--246.
+
+\bibitem{Song2005} J.\ Song, \emph{The $\alpha$-invariant on toric Fano manifolds}, Amer. J. Math.
+\textbf{127} (2005), 1247--1259.
+
+\bibitem{LZ2021} Y.\ Li, X.\ Zhu, \emph{Tian's $\alpha_{m,k}^{KO}$-invariants on group compactifications},
+Math. Z. \textbf{298} (2021), 231--259.
+
+\bibitem{ACCCKMSSV2023} C.\ Araujo, A.-M.\ Castravet, I.\ Cheltsov, K.\ Fujita, A.-S.\ Kaloghiros,
+J.\ Martinez-Garcia, C.\ Shramov, H.\ Süß, N.\ Viswanathan, \emph{The Calabi Problem for Fano
+Threefolds}, London Math.\ Soc.\ Lecture Note Ser.\ \textbf{485}, Cambridge Univ.\ Press, 2023.
+
+\end{thebibliography}
+
+\end{document}

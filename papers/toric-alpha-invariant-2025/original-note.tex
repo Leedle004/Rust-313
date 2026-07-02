@@ -1,0 +1,388 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{ctex}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage[margin=2.6cm]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{enumitem}
+\usepackage{fontspec}
+\usepackage{booktabs}
+
+\setCJKmainfont{WenQuanYi Micro Hei}
+
+\newtheorem{theorem}{定理}[section]
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{proposition}[theorem]{命题}
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{conjecture}[theorem]{猜想}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{定义}
+\newtheorem{question}[theorem]{问题}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{注记}
+\newtheorem{example}[theorem]{例}
+
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Ver}{Ver}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\PP}{\mathbb{P}}
+
+\title{\textbf{射影空间 $\PP^n$ 上等变 Tian 不变量的完全显式公式：\\
+Jin--Rubinstein 定理的一个初等推广}}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.5em}
+
+\begin{abstract}
+Jin 与 Rubinstein 在其 2025 年发表于 \emph{Geometry \& Topology} 的论文
+\cite{JR2025} 中一般性地解决了 Tian 于 1988 年提出的等变整体对数典范阈值稳定化问题，给出了环面
+Fano 流形上不变量 $\alpha_{k,G(H)}$ 的完全显式多面体组合公式（他们的 Theorem~1.4）。该文第 8 节
+逐例验证了此公式在 $2$ 维情形（全部 $5$ 类光滑环面 del Pezzo 曲面）下的取值，但未给出任意维数的
+一般封闭公式。本文以此定理为唯一外部输入，给出两项完全初等、自足的原创计算：
+
+\begin{enumerate}[leftmargin=1.8em]
+  \item 对任意 $n \ge 1$ 与任意有限子群 $H \le S_{n+1} = \Aut(P_{\PP^n})$，给出
+  $\alpha_{k,G(H)}(\PP^n)$ 的一个完全封闭公式（定理~\ref{thm:main}）：其值恰好等于
+  $H$ 在齐次坐标指标集 $\{1,\dots,n+1\}$ 上诸轨道中\emph{最小轨道的大小}除以 $n+1$，与 $k$ 无关。
+  这把 Jin--Rubinstein 论文 Example~8.1 中对 $\PP^2$（$n=2$）逐个子群手算验证的结果，推广为
+  一般维数、一般子群下的单一封闭公式，并可与其原文全部数值逐一核对。
+  \item 证明对\emph{每个} $n \ge 1$，$\PP^n$ 的反典范多面体都满足 Jin--Rubinstein 意义下的凸几何
+  条件 $(\star)$（定理~\ref{thm:starcond}），从而由他们的 Theorem~1.6，Tian 的 Grassmannian 型
+  稳定化猜想（在非等变情形 $H=\{\mathrm{id}\}$ 下）对\emph{所有}维数的射影空间都不精确成立：
+  对所有 $k \in \N$、$m \ge 2$，恒有 $\alpha_{k,m,(S^1)^n}(\PP^n) > \alpha(\PP^n) = \tfrac{1}{n+1}$
+  严格成立。这把该文 Example~8.7 中仅对 $n=2$ 情形给出的计算推广到一切维数。
+\end{enumerate}
+
+全文所有命题均给出完整、初等的证明（仅使用线性不等式与凸性的基本事实），第 5 节末尾的推广方向为
+明确标注的、未经证明的推测性讨论，不构成本文已证明的结果。
+
+\medskip
+\noindent\textbf{关键词：} Tian $\alpha$-不变量；环面 Fano 流形；射影空间；对称群；轨道；
+对数典范阈值；凸几何
+\end{abstract}
+
+\tableofcontents
+
+\section{引言与背景}
+
+\subsection{Jin--Rubinstein 定理的陈述}
+
+我们直接引用 \cite{JR2025} 中的记号与结果，作为本文唯一的外部输入。设 $X$ 是 $n$ 维环面 Fano
+流形，其扇 $\Sigma$ 的射线由格 $N$ 中的本原元素 $v_1,\dots,v_r$ 生成，
+\[
+  P := \{y \in M_\R : \langle y, v_i \rangle \ge -1,\ i = 1,\dots, r\} \subset M_\R
+\]
+是与 $(X, -K_X)$ 对应的 reflexive 多面体（$M$ 是 $N$ 的对偶格）。设 $\Aut(P) \le \mathrm{GL}(M)$
+是保持 $P$ 不变的格自同构构成的（有限）群，对 $H \le \Aut(P)$，记
+\[
+  G(H) := H \ltimes (S^1)^n \le \Aut(X)
+\]
+为由 $H$ 与极大紧环面 $(S^1)^n$ 生成的紧群，记
+\[
+  P^H := \{y \in P : h\cdot y = y\ \ \forall h \in H\}, \qquad
+  \pi_H := \frac{1}{|H|}\sum_{h \in H} h \in \mathrm{End}(M_\Q)
+\]
+分别为不动点集与 $H$-轨道平均投影。
+
+\begin{theorem}[Jin--Rubinstein~{\cite[Theorem~1.4]{JR2025}}]\label{thm:JR14}
+在上述记号下，对任意 $k \in \N$，
+\[
+  \alpha_{k,G(H)} \;=\; \min_{u \in \Ver(P^H)} \frac{1}{\max_i \langle u, v_i\rangle + 1}
+  \;=\; \min_{u \in \pi_H(\Ver P)} \frac{1}{\max_i \langle u, v_i\rangle + 1}.
+\]
+特别地 $\alpha_{k,G(H)}$ 与 $k$ 无关，等于 $\alpha_{G(H)}$。
+\end{theorem}
+
+\begin{theorem}[Jin--Rubinstein~{\cite[Theorem~1.6]{JR2025}}]\label{thm:JR16}
+记 $\alpha := \alpha_{(S^1)^n}$。考虑凸几何条件
+\[
+  (\star) \qquad \operatorname*{arg\,max}_{P} \big(\max_i \langle \cdot, v_i \rangle\big) \subseteq \Ver(P).
+\]
+若 $(\star)$ 成立，则对所有 $k \in \N$、$m \ge 2$，$\alpha_{k,m,(S^1)^n} > \alpha$（$P$ 上支持
+$m$ 维线性系的 Grassmannian 型不变量严格大于 $\alpha$，永不精确等于 $\alpha$，尽管由他们的
+Proposition~7.10，当 $k\to\infty$ 时其极限仍等于 $\alpha$）；若 $(\star)$ 不成立，则对充分大的
+$k$，对所有 $m$，$\alpha_{k,m,(S^1)^n} = \alpha$。
+\end{theorem}
+
+\cite{JR2025} 第 8.1 节对全部 $5$ 类光滑环面 del Pezzo 曲面（即 $\PP^2$ 及其不同点数的炸开、
+$\PP^1\times\PP^1$）逐一手算验证了定理~\ref{thm:JR14}；其 Example~8.1 专门处理 $X = \PP^2$
+在 $H = \{\mathrm{id}\}, \mathbb{Z}_2, \mathbb{Z}_3, S_3$ 四种子群下的取值，其 Example~8.7 则
+验证了 $\PP^2$ 满足条件 $(\star)$。本文的目标是将这些针对 $n=2$ 的逐例计算，提升为对\emph{一切}
+维数 $n$、\emph{一切}子群 $H \le S_{n+1}$ 都成立的两个封闭公式（定理~\ref{thm:main} 与
+定理~\ref{thm:starcond}），并给出完全初等的证明。
+
+\subsection{声明}
+
+本文第 2--4 节的全部命题、定理与证明均为原创内容，仅使用定理~\ref{thm:JR14}、
+定理~\ref{thm:JR16}（均严格转述并标注出处）与初等的线性代数、凸几何事实。第 5 节末尾提出的推广
+方向为明确标注的推测性讨论，不构成已证明的结果。
+
+\section{$\PP^n$ 的反典范多面体与对称群作用}
+
+\subsection{对称坐标下的多面体描述}
+
+设 $n \ge 1$。射影空间 $\PP^n$ 的标准扇由 $N = \Z^n$ 中的 $n+1$ 条射线
+\[
+  v_i = e_i\ (i = 1,\dots,n), \qquad v_{n+1} = -(e_1 + \cdots + e_n)
+\]
+的所有真子集张成的锥构成，对应的反典范多面体为
+\[
+  P = \{y \in \R^n : y_i \ge -1\ (i \le n),\ -\textstyle\sum_{i=1}^n y_i \ge -1\}.
+\]
+为使 $S_{n+1}$ 的置换对称性显现，引入\textbf{对称坐标}嵌入
+\[
+  \iota : M_\R = \R^n \hookrightarrow \R^{n+1}, \qquad
+  \iota(y_1,\dots,y_n) = (y_1,\dots,y_n,\, -\textstyle\sum_{i=1}^n y_i),
+\]
+其像恰为超平面 $\Lambda := \{a \in \R^{n+1} : \sum_{i=1}^{n+1} a_i = 0\}$。在此嵌入下：
+
+\begin{lemma}\label{lem:coords}
+在对称坐标 $a = \iota(y) \in \Lambda$ 下：
+\begin{enumerate}[label=(\roman*)]
+  \item 对每个 $l = 1,\dots,n+1$，配对 $\langle y, v_l \rangle = a_l$（即第 $l$ 个坐标分量）；
+  \item $P$ 对应于 $\Lambda \cap \{a : a_i \ge -1,\ i=1,\dots,n+1\}$，是 $\Lambda$ 中的一个单纯形；
+  \item $P$ 的 $n+1$ 个顶点为 $q_1,\dots,q_{n+1} \in \Lambda$，其中
+  \[
+    (q_j)_l = \begin{cases} n, & l = j,\\ -1, & l \ne j; \end{cases}
+  \]
+  \item $\Aut(P) \cong S_{n+1}$，由置换对称坐标 $a_1,\dots,a_{n+1}$（等价地置换 $\PP^n$ 的齐次坐标）
+  给出；在此同构下 $S_{n+1}$ 在 $\{q_1,\dots,q_{n+1}\}$ 上的作用与其在指标集 $\{1,\dots,n+1\}$ 上
+  的自然置换作用一致，即 $\sigma \cdot q_j = q_{\sigma(j)}$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) 对 $l \le n$，$\langle y,v_l\rangle = \langle y, e_l\rangle = y_l = a_l$；对 $l = n+1$，
+$\langle y, v_{n+1}\rangle = -\sum_{i\le n} y_i = a_{n+1}$ 由 $\iota$ 的定义。
+
+(ii) 直接由 $P$ 的定义与 (i) 得到；由于 $\Lambda$ 是 $n$ 维的而约束 $a_i \ge -1$ 有 $n+1$ 个，
+该多面体是单纯形（$n+1$ 个支撑超平面在 $n$ 维空间中一般位置相交，恰给出单纯形的 $n+1$ 个顶点）。
+
+(iii) 验证 $q_j$ 满足 $\sum_l (q_j)_l = n + n\cdot(-1) = 0$（故 $q_j \in \Lambda$），且恰有
+$n$ 个坐标取到约束下界 $-1$（对 $l \ne j$），故 $q_j$ 是 $n$ 个独立约束 $a_l = -1\ (l\ne j)$
+在 $\Lambda$ 中的唯一交点，是一个顶点；由维数计数，这 $n+1$ 个点恰为全部顶点。
+
+(iv) $S_{n+1}$ 对齐次坐标的置换显然保持 $\Lambda$ 与约束集 $\{a_i \ge -1\}$ 不变，故给出
+$\Aut(P)$ 的一个子群，且该作用把 $q_j \mapsto q_{\sigma(j)}$（因为置换 $a$ 的坐标恰好把
+「在位置 $j$ 取值 $n$，其余取值 $-1$」变为「在位置 $\sigma(j)$ 取值 $n$，其余取值 $-1$」）。
+反之，$P$ 是单纯形，其格自同构群必置换其 $n+1$ 个顶点，从而给出到 $S_{n+1}$ 的单射；结合上述
+$S_{n+1} \hookrightarrow \Aut(P)$ 即得同构（此为标准事实，另见 \cite[Example 8.1]{JR2025} 对
+$n=2$ 情形的说明）。
+\end{proof}
+
+\section{主定理一：任意有限对称子群下的封闭公式}
+
+\begin{theorem}\label{thm:main}
+设 $n \ge 1$，$H \le S_{n+1} = \Aut(P)$ 为任意子群。设 $H$ 在指标集 $\{1,\dots,n+1\}$ 上的轨道
+分解为 $O_1,\dots,O_r$，大小分别为 $a_1,\dots,a_r$（$\sum_{i=1}^r a_i = n+1$，$a_i \ge 1$）。则
+对任意 $k \in \N$，
+\[
+  \alpha_{k,G(H)}(\PP^n) \;=\; \alpha_{G(H)}(\PP^n) \;=\; \frac{\min(a_1,\dots,a_r)}{n+1}.
+\]
+\end{theorem}
+
+\begin{proof}
+由引理~\ref{lem:coords}(iv)，$H$ 在 $\Ver(P) = \{q_1,\dots,q_{n+1}\}$ 上的作用与其在指标集
+$\{1,\dots,n+1\}$ 上的自然置换作用一致：$h \cdot q_j = q_{h(j)}$。因此对每个 $j$，
+\[
+  \pi_H(q_j) = \frac{1}{|H|}\sum_{h \in H} q_{h(j)}
+  = \frac{1}{|H|} \sum_{i=1}^{r} \#\{h \in H : h(j) \in O_i,\ j \in O_i\} \cdot (\text{平均值}).
+\]
+更直接地：若 $j \in O_i$，则当 $h$ 遍历 $H$ 时，$h(j)$ 遍历 $O_i$ 中每个元素恰好
+$|H|/|O_i| = |H|/a_i$ 次（这是轨道-稳定子定理的直接推论：$H$ 在其自身轨道 $O_i$ 上的作用是可迁的，
+每个点的稳定子指数为 $a_i$，故轨道中每点被击中的次数均为 $|H|/a_i$）。因此
+\[
+  \pi_H(q_j) = \frac{1}{|H|}\cdot \frac{|H|}{a_i} \sum_{l \in O_i} q_l
+  = \frac{1}{a_i}\sum_{l \in O_i} q_l =: \bar q_{(i)}, \qquad \text{对所有 } j \in O_i.
+\]
+于是 $\pi_H(\Ver P) = \{\bar q_{(1)},\dots,\bar q_{(r)}\}$，恰为 $r$ 个轨道重心。
+
+现计算 $\bar q_{(i)}$ 的坐标。由引理~\ref{lem:coords}(iii)，对 $l \in \{1,\dots,n+1\}$，
+\[
+  (\bar q_{(i)})_l = \frac{1}{a_i} \sum_{j \in O_i} (q_j)_l
+  = \begin{cases}
+      \dfrac{1}{a_i}\big[n + (a_i - 1)(-1)\big] = \dfrac{n+1}{a_i} - 1, & l \in O_i,\\[1.2em]
+      \dfrac{1}{a_i}\cdot a_i \cdot(-1) = -1, & l \notin O_i.
+    \end{cases}
+\]
+（第一种情形：$O_i$ 中恰有一个指标 $j=l$ 使 $(q_j)_l = n$，其余 $a_i - 1$ 个指标使 $(q_j)_l=-1$；
+第二种情形：对 $j \in O_i$ 但 $l \notin O_i$，恒有 $l \ne j$，故 $(q_j)_l = -1$。）
+
+由 $1 \le a_i \le n+1$ 知 $\frac{n+1}{a_i} - 1 \ge 0 > -1$，故由引理~\ref{lem:coords}(i)，
+\[
+  \max_{l} \langle \bar q_{(i)}, v_l \rangle = \max_l (\bar q_{(i)})_l = \frac{n+1}{a_i} - 1.
+\]
+代入定理~\ref{thm:JR14} 的公式：
+\[
+  \alpha_{k,G(H)} = \min_{i=1,\dots,r} \frac{1}{\big(\frac{n+1}{a_i}-1\big)+1}
+  = \min_{i=1,\dots,r} \frac{a_i}{n+1} = \frac{\min_i a_i}{n+1}. \qedhere
+\]
+\end{proof}
+
+\begin{remark}
+定理的证明不需要 $H$ 是「Young 子群」（即形如 $S_{a_1}\times\cdots\times S_{a_r}$ 作用于指标集
+的一个固定划分）；对\emph{任意}子群 $H \le S_{n+1}$，只需取其在 $\{1,\dots,n+1\}$ 上诱导的轨道
+划分即可，证明逐字成立。特别地，对循环群、二面体群等非 Young 子群，公式同样有效（见下面例~\ref{ex:check}
+中 $\mathbb{Z}_3 \le S_3$ 的验证）。
+\end{remark}
+
+\begin{example}[与 Jin--Rubinstein Example~8.1 的逐条核对]\label{ex:check}
+取 $n=2$（即 $\PP^2$，$S_3$ 作用于 $\{1,2,3\}$）。四种子群 $H$ 及其轨道分解、定理~\ref{thm:main}
+给出的 $\alpha_{k,G(H)}$ 与 \cite[Example~8.1]{JR2025} 中的手算结果对照如下：
+
+\begin{center}
+\begin{tabular}{@{}lllc@{}}
+\toprule
+$H$ & 轨道分解 (大小) & $\min_i a_i$ & $\alpha_{k,G(H)} = \min_i a_i / 3$ \\
+\midrule
+$\{\mathrm{id}\}$ & $\{1\},\{2\},\{3\}$ & $1$ & $1/3$ \\
+$\mathbb{Z}_2 = \langle(1\,2)\rangle$ & $\{1,2\},\{3\}$ & $1$ & $1/3$ \\
+$\mathbb{Z}_3 = \langle(1\,2\,3)\rangle$ & $\{1,2,3\}$ & $3$ & $1$ \\
+$S_3$ & $\{1,2,3\}$ & $3$ & $1$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+这与 \cite[Example~8.1]{JR2025} 中对 $\{\mathrm{id}\}$、反射子群 $\mathbb{Z}_2$、$3$ 阶子群、
+$S_3 = \Aut(P)$ 分别给出的 $\alpha_{k,G(H)} = \tfrac13,\ \tfrac13,\ 1,\ 1$ 完全一致。
+\end{example}
+
+\begin{example}[$\PP^3$ 情形，$n=3$，$S_4$ 作用于 $4$ 个指标]
+这一情形未见于 \cite{JR2025}（该文示例仅限 $n \le 3$ 中的具体 del Pezzo 曲面与积簇，未涉及
+$\PP^3$ 及其非平凡子群）。$4$ 的所有分拆对应 $S_4$ 的全部轨道型：
+
+\begin{center}
+\begin{tabular}{@{}llc@{}}
+\toprule
+轨道大小分拆 & 典型子群 $H$（其一） & $\alpha_{k,G(H)}(\PP^3) = \min_i a_i / 4$ \\
+\midrule
+$1+1+1+1$ & $\{\mathrm{id}\}$ & $1/4$ \\
+$2+1+1$ & $\langle(1\,2)\rangle$ & $1/4$ \\
+$2+2$ & $\langle(1\,2),(3\,4)\rangle$ & $2/4 = 1/2$ \\
+$3+1$ & $\langle(1\,2\,3)\rangle$ & $1/4$ \\
+$4$ & $\langle(1\,2\,3\,4)\rangle$ 或 $S_4$ & $4/4 = 1$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+值得注意的是轨道型 $2+2$（例如由两个不相交对换的乘积生成的 $\mathbb{Z}_2 \times \mathbb{Z}_2$ 子群）
+给出 $\alpha_{k,G(H)} = 1/2$，恰好介于平凡情形 $1/4$ 与满对称情形 $1$ 之间，且不同于 $2+1+1$ 型的
+$1/4$——这说明最小轨道大小（而非最大轨道或轨道个数）才是决定该不变量的唯一组合不变量，这一点在
+$n \le 2$（此时轨道型至多是 $1+1+1$、$2+1$、$3$ 三种，两两互异）中并不明显。
+\end{example}
+
+\section{主定理二：$\PP^n$ 对一切维数满足凸几何条件 $(\star)$}
+
+\begin{theorem}\label{thm:starcond}
+对每个 $n \ge 1$，$\PP^n$ 的反典范多面体 $P$ 满足定理~\ref{thm:JR16} 中的条件 $(\star)$：
+函数 $h(y) := \max_{l=1,\dots,n+1}\langle y, v_l\rangle$ 在 $P$ 上的最大值\emph{仅}在
+$P$ 的顶点处取得。
+\end{theorem}
+
+\begin{proof}
+沿用引理~\ref{lem:coords} 的对称坐标 $a \in \Lambda = P$（此处及以下把 $P$ 等同于其在
+$\Lambda \subset \R^{n+1}$ 中的像），此时 $h(a) = \max_l a_l$。
+
+\emph{第一步。} 首先证明 $\max_P h = n$，且这一最大值恰在顶点 $q_1,\dots,q_{n+1}$ 处取得。
+由引理~\ref{lem:coords}(iii)，对每个 $j$ 都有
+$h(q_j) = \max(n,-1,\dots,-1) = n$，故 $\max_P h \ge n$。
+
+\emph{第二步（唯一性，即证明 $(\star)$ 的核心）：若 $a \in P$ 且 $h(a) = n$，则 $a \in \Ver(P)$。}
+设 $h(a) = \max_l a_l = n$，不妨设最大值在指标 $l_0$ 处取得，即 $a_{l_0} = n$。由
+$a \in \Lambda$（$\sum_{l=1}^{n+1} a_l = 0$）知
+\[
+  \sum_{l \ne l_0} a_l = -a_{l_0} = -n.
+\]
+上式左边是 $n$ 个数之和（指标集 $\{1,\dots,n+1\}\setminus\{l_0\}$ 恰有 $n$ 个元素），而 $a\in P$
+要求每个 $a_l \ge -1$，故
+\[
+  \sum_{l \ne l_0} a_l \ge n \cdot (-1) = -n,
+\]
+与上式结合得 $\sum_{l\ne l_0} a_l = -n$ 恰为下界，从而不等式链中每一项都必须取等号：
+$a_l = -1$ 对所有 $l \ne l_0$。于是 $a = q_{l_0} \in \Ver(P)$。
+
+\emph{结论。} 由第一、二步，$\arg\max_P h = \{q_1,\dots,q_{n+1}\} = \Ver(P)$，即条件 $(\star)$
+成立。（注：对 $\Ver(P)$ 中每一点，其自身也满足 $h=n$，故 $\arg\max_P h$ 恰等于 $\Ver(P)$，
+不仅仅是包含关系。）
+\end{proof}
+
+\begin{corollary}\label{cor:gras}
+对每个 $n \ge 1$，$\alpha(\PP^n) = \frac{1}{n+1}$（取定理~\ref{thm:main} 中 $H=\{\mathrm{id}\}$
+的情形），且对所有 $k \in \N$、$m \ge 2$，
+\[
+  \alpha_{k,m,(S^1)^n}(\PP^n) \;>\; \alpha(\PP^n) = \frac{1}{n+1}
+\]
+严格成立；换言之，Tian 的 Grassmannian 型不变量在射影空间上对任意有限 $k$ 都\emph{不会}精确稳定于
+$\alpha(\PP^n)$（尽管由 \cite[Proposition~7.10]{JR2025}，当 $k \to \infty$ 时 $\alpha_{k,m,(S^1)^n}(\PP^n)
+\to \alpha(\PP^n)$）。
+\end{corollary}
+
+\begin{proof}
+第一部分是定理~\ref{thm:main} 在 $H=\{\mathrm{id}\}$（$r=n+1$ 个大小为 $1$ 的轨道）情形下的特例：
+$\alpha(\PP^n) = 1/(n+1)$。第二部分由定理~\ref{thm:starcond} 验证了条件 $(\star)$ 成立，
+再代入定理~\ref{thm:JR16} 的第一种情形（$(\star)$ 成立 $\Rightarrow$ 对所有 $k,m\ge2$ 严格不等式）
+即得。
+\end{proof}
+
+\begin{remark}
+推论~\ref{cor:gras} 把 \cite[Example~8.7]{JR2025} 中仅对 $n=2$（$\PP^2$）情形的具体验证——该处
+作者通过直接检验顶点 $\{(-1,-1),(2,-1),(-1,2)\}$ 是唯一使支撑函数取得最大值 $2$ 的点集——推广为
+对一切维数 $n$ 都成立的一般性陈述，证明方法（对等式情形下诸不等式同时取等号的分析）是完全初等的，
+不依赖 $n=2$ 的具体坐标验证。
+\end{remark}
+
+\section{讨论与推广方向（推测性）}
+
+\emph{以下内容为推测性讨论，未经证明，不构成本文已证明的结果。}
+
+定理~\ref{thm:main} 与~\ref{thm:starcond} 的证明本质上利用了 $\PP^n$ 的反典范多面体是\emph{单纯形}
+这一特殊结构（其顶点恰好与 $\Aut(P)=S_{n+1}$ 的置换表示的基本域一一对应）。一个自然的问题是，这一
+计算能在多大程度上推广到其它具有大有限对称群的环面 Fano 流形：
+
+\begin{itemize}[leftmargin=1.8em]
+  \item \textbf{加权射影空间。} 对满足 Delzant 条件的（即光滑的）加权射影空间——这类流形较为稀少
+  （光滑的加权 $\PP(a_0,\dots,a_n)$ 本质上仅有 $\PP^n$ 本身），本文方法应可平行地应用于计算其
+  $\Aut(P)$（可能远小于 $S_{n+1}$）下的公式，但由于对称群通常退化为平凡群或很小的子群，其信息量
+  可能有限。对于\emph{奇异}的加权射影空间，Theorem~1.4 是否有推广到 klt Fano 变体（而非仅限流形）
+  的版本，这本身在 \cite{JR2025} 中未被讨论，是一个更基本的先决问题。
+
+  \item \textbf{Weyl 多面体族。} 更一般地，考虑与既约根系相伴的 Weyl 群不变多面体（permutohedra 的
+  推广），其自同构群包含相应的 Weyl 群 $W$，这类多面体的顶点结构与本文中 $\PP^n$ 单纯形的顶点结构
+  （$S_{n+1}$ 作用下的单一轨道）有相似之处，但一般 Weyl 群不变多面体的面结构远比单纯形复杂，轨道
+  重心 $\pi_H(\Ver P)$ 的显式计算预计需要借助 Weyl 群不变量理论中关于基本域与胞腔分解的已知结果，
+  作者尚未验证具体细节，仅将其列为一个可能的后续研究方向。
+
+  \item \textbf{乘积构造。} 对 $\PP^{n_1} \times \cdots \times \PP^{n_s}$ 这类乘积环面 Fano 流形，
+  其反典范多面体是各因子多面体的某种「直和」而非直积（因为反典范丛不是各因子反典范丛的外积那样简单
+  相乘），$\Aut(P)$ 一般为 $\prod_i S_{n_i+1}$ 与置换同构因子的对称群的半直积；将定理~\ref{thm:main}
+  的证明推广到此类乘积情形在原则上是可行的（轨道-重心方法本质上是纯组合的），但作者未在本文中完成
+  这一计算，留作后续工作。
+\end{itemize}
+
+\section{小结}
+
+本文以 Jin--Rubinstein 2025 年发表于 \emph{Geometry \& Topology} 的定理（本文中的
+定理~\ref{thm:JR14} 与~\ref{thm:JR16}）为唯一外部输入，给出了两项完全初等、完全证明的推广：
+(1) 对射影空间 $\PP^n$ 及其任意有限对称子群 $H \le S_{n+1}$，给出等变 Tian 不变量
+$\alpha_{k,G(H)}(\PP^n)$ 的封闭公式（定理~\ref{thm:main}），其值等于 $H$ 在齐次坐标指标集上
+最小轨道大小除以 $n+1$；(2) 证明 $\PP^n$ 对一切维数都满足凸几何条件 $(\star)$（定理~\ref{thm:starcond}），
+从而其 Grassmannian 型不变量在有限 $k$ 处永不精确等于非等变 $\alpha$-不变量（推论~\ref{cor:gras}）。
+这些结果把原论文中仅针对 $\PP^2$（$n=2$）逐例验证的现象，提升为对一切维数与一切对称子群都成立的
+统一封闭公式，并在例~\ref{ex:check} 中与原论文的全部数值逐条核实一致。
+
+\begin{thebibliography}{9}
+
+\bibitem{JR2025} C.\ Jin, Y.\ A.\ Rubinstein, \emph{Tian's stabilization problem for toric Fanos},
+Geometry \& Topology \textbf{29}:5 (2025), 2609--2652.
+
+\end{thebibliography}
+
+\end{document}
