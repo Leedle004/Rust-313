@@ -1,0 +1,1210 @@
+\documentclass[11pt]{amsart}
+
+\usepackage[margin=1.2in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\definecolor{linkblue}{rgb}{0.05,0.2,0.5}
+\usepackage[colorlinks=true,linkcolor=linkblue,citecolor=linkblue,urlcolor=linkblue]{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem*{thmA}{Theorem A}
+\newtheorem*{thmB}{Theorem B}
+\newtheorem*{thmC}{Theorem C}
+\newtheorem*{corD}{Corollary D}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{question}[theorem]{Question}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\Bl}{\mathrm{Bl}}
+\newcommand{\vol}{\operatorname{vol}}
+\newcommand{\ord}{\operatorname{ord}}
+\newcommand{\lct}{\operatorname{lct}}
+\newcommand{\Bin}{\operatorname{Bin}}
+\newcommand{\pr}{\operatorname{\mathbf{P}}}
+\newcommand{\Aut}{\operatorname{Aut}}
+
+\title[Stability thresholds of blow-ups along linear subspaces]{Explicit stability thresholds of blow-ups of projective space along linear subspaces}
+
+\date{July 2, 2026}
+
+\begin{document}
+
+\begin{abstract}
+We compute, in closed form, the stability threshold (Fujita--Odaka
+$\delta$-invariant) of two classical families of Fano manifolds: the
+blow-up $X_{n,m}$ of $\PP^n$ along a linear subspace $\PP^m$ with
+$0\le m\le n-2$, and the blow-up $Y_{a,b}$ of $\PP^n$ along a disjoint
+union of two complementary linear subspaces $\PP^a\sqcup\PP^b$ with
+$a+b=n-1$. The key input is an elementary but exact evaluation of the
+barycenter of the anticanonical polytope, which converts the
+Blum--Jonsson toric formula into the closed expression
+\[
+\delta\bigl(X_{n,m}\bigr)
+ \;=\;
+ \frac{(n+1)\,F_{n,m}}{(n+1)\,F_{n,m}+(k-1)^{k}(m+2)^{m+1}},
+ \qquad
+ F_{n,m}=\int_{k-1}^{\,n+1} t^{k-1}(n+1-t)^{m}\,dt,
+\]
+where $k=n-m$, together with an analogous formula for $Y_{a,b}$. In both
+families the threshold is computed by the valuation of an exceptional
+divisor, and $\delta(Y_{a,b})=1$ if and only if $a=b$. For $m=0$ our
+formula recovers the value of Zhang--Zhou for
+$\PP^1$-bundles, and for $m=n-2$ it shows that an upper bound of
+Benammar Ammar--Massonnet--Yin for projective bundles over curves is
+attained at the anticanonical polarization. We determine the exact
+asymptotic behavior of $\delta(X_{n,m})$ in the three natural regimes;
+in particular $\delta(\Bl_{\mathrm{pt}}\PP^n)\to\tanh(1)$ as
+$n\to\infty$, and $\delta(X_{n,m})\sim\sqrt{\pi/(2\theta(1-\theta)n)}$
+when $m\sim\theta n$, so the family contains smooth Fano manifolds with
+stability threshold decaying to zero at an explicit rate. As
+$\delta<1$ throughout the first family, we obtain the exact greatest
+Ricci lower bounds $R(X_{n,m})=\delta(X_{n,m})$, extending computations
+of Sz\'ekelyhidi, Li, and Zhang--Zhou, and quantifying the classical
+K-instability of these manifolds observed by Matsushima and Futaki.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}\label{sec:intro}
+
+By the solution of the Yau--Tian--Donaldson conjecture, a Fano manifold
+admits a K\"ahler--Einstein metric if and only if it is K-polystable;
+see \cite{CDS15,Tian15} for the smooth case and \cite{BBJ21,LXZ22} and
+the references therein for the general theory. The
+\emph{stability threshold}, or $\delta$-invariant, introduced by
+Fujita--Odaka \cite{FO18} and developed by Blum--Jonsson \cite{BJ20},
+detects K-stability numerically: a Fano variety $X$ is K-semistable if
+and only if $\delta(X)\ge 1$, and uniformly K-stable if and only if
+$\delta(X)>1$. The invariant has become the fundamental quantitative
+tool in the explicit K-stability program, from the resolution of the
+Calabi problem for Fano threefolds \cite{ACC23} and the
+Abban--Zhuang method \cite{AZ22}, to the ongoing construction of
+explicit K-moduli spaces of Fano threefolds
+\cite{ADEKJMP25,EJP25,KLPZ26}. For K-\emph{unstable} Fano manifolds the
+invariant retains strong differential-geometric meaning: by
+Berman--Boucksom--Jonsson and Cheltsov--Rubinstein--Zhang
+\cite{BBJ21,CRZ19}, the greatest Ricci lower bound of Tian
+\cite{Tian92,Szekelyhidi11} satisfies
+\begin{equation}\label{eq:RX}
+R(X)=\min\{1,\delta(X)\},
+\end{equation}
+and by Blum--Liu--Zhou \cite{BLZ22} a divisorial valuation computing
+$\delta(X)<1$ induces an \emph{optimal destabilization} of $X$ with
+uniquely determined twisted K-polystable degeneration.
+
+Despite this, the list of Fano manifolds for which $\delta$ is known
+\emph{exactly} in all dimensions is short. Zhang--Zhou \cite{ZZ21}
+computed $\delta$ for $\PP^1$-bundles $\PP_V(L^{-1}\oplus\mathcal O_V)$
+with $L$ proportional to $-K_V$; Zhuang \cite{Zhuang20} treated
+products; Benammar Ammar--Massonnet--Yin \cite{BMY24} recently studied
+arbitrary polarizations on projective bundles over curves; and
+Hwang--Kim--Park \cite{HKP23} computed the greatest Ricci lower bounds
+of horospherical manifolds of Picard number one, exhibiting a family
+with $R\to 0$.
+
+In this paper we add to this list two classical families of toric Fano
+manifolds that have played a distinguished role in the history of
+canonical metrics, and we record the (perhaps surprising) fact that
+their stability thresholds admit clean closed formulas in all
+dimensions.
+
+\subsection*{The two families}
+For $0\le m\le n-2$ let
+\[
+X_{n,m}\;=\;\Bl_{\PP^m}\PP^n
+\]
+be the blow-up of $\PP^n=\PP^n_{\CC}$ along an $m$-dimensional linear
+subspace, a smooth toric Fano manifold of Picard rank $2$; we write
+$k=n-m\ge 2$ for the codimension of the center. Via projection from
+$\PP^m$, the manifold $X_{n,m}$ is the projectivization of
+$\mathcal O_{\PP^{k-1}}(1)\oplus\mathcal O_{\PP^{k-1}}^{\oplus(m+1)}$,
+so this family also realizes all higher-rank analogues of the
+$\PP^1$-bundles of \cite{ZZ21} over projective space. The automorphism
+group of $X_{n,m}$ is non-reductive, so $X_{n,m}$ carries no
+K\"ahler--Einstein metric by Matsushima \cite{Matsushima57}; the case
+$X_{2,0}=\Bl_{\mathrm{pt}}\PP^2$ is the original example, and
+Sz\'ekelyhidi \cite{Szekelyhidi11} famously computed
+$R(X_{2,0})=6/7$.
+
+For $a,b\ge 1$ with $a+b=n-1$ let
+\[
+Y_{a,b}\;=\;\Bl_{\PP^a\sqcup\PP^b}\PP^n
+\]
+be the blow-up of $\PP^n$ along two disjoint (necessarily
+complementary) linear subspaces of dimensions $a$ and $b$. This is a
+smooth toric Fano manifold of Picard rank $3$, isomorphic to a
+$\PP^1$-bundle over $\PP^a\times\PP^b$. The manifold
+$Y_{1,2}=\Bl_{\PP^1\sqcup\PP^2}\PP^4$ is Futaki's original example of a
+Fano manifold with reductive automorphism group and non-vanishing
+Futaki invariant \cite{Futaki83}; the family was recently revisited by
+Delcroix \cite{Delcroix22} (see also \cite{DH21}), who showed that
+$Y_{a,b}$ carries coupled K\"ahler--Einstein metrics for suitable
+$(a,b)$, and that $Y_{a,b}$ is K-unstable whenever $a\ne b$.
+
+Both families are toric, so K-(semi)stability is decided by the
+barycenter of the anticanonical polytope \cite{WZ04,BB13,Berman16},
+and, crucially for us, $\delta$ is given by the formula of
+Blum--Jonsson \cite[\S 7]{BJ20} recalled in
+Section~\ref{sec:prelim}. The point of this paper is that for these
+two families the relevant barycenter integrals collapse, thanks to an
+exact primitive (Lemma~\ref{lem:primitive}), to explicit rational
+numbers in closed form.
+
+\subsection*{Main results}
+Throughout, $k=n-m$ and
+\begin{equation}\label{eq:F}
+F_{n,m}\;=\;\int_{k-1}^{\,n+1} t^{\,k-1}\,(n+1-t)^{m}\,dt
+\;=\;\frac{(k-1)!\,m!}{n!}\,
+\sum_{j=0}^{k-1}\binom{n}{j}\,(k-1)^{j}\,(m+2)^{\,n-j}\;\in\QQ_{>0}.
+\end{equation}
+
+\begin{thmA}\label{thm:A}
+Let $0\le m\le n-2$ and $k=n-m$. Then
+\[
+\delta\bigl(X_{n,m}\bigr)
+=\frac{(n+1)\,F_{n,m}}{(n+1)\,F_{n,m}+(k-1)^{k}\,(m+2)^{m+1}}\;<\;1 .
+\]
+Moreover $\delta(X_{n,m})$ is computed by $\ord_E$, where
+$E\subset X_{n,m}$ is the exceptional divisor of the blow-up, and $E$
+is the unique torus-invariant prime divisor computing it.
+\end{thmA}
+
+Equivalently, in probabilistic form: if
+$B\sim\Bin\bigl(n,\tfrac{k-1}{n+1}\bigr)$, then
+$\delta(X_{n,m})=(1+\beta)^{-1}$ with
+\begin{equation}\label{eq:binomform}
+\beta=(m+1)\cdot\frac{k-1}{n+1}\cdot
+\frac{\pr(B=k-1)}{\pr(B\le k-1)} .
+\end{equation}
+
+For $m=0$, Theorem~A recovers the value
+$\delta=\bigl((n+1)^{n+1}-(n+1)(n-1)^n\bigr)/\bigl((n+1)^{n+1}+(n-1)^{n+1}\bigr)$
+of Zhang--Zhou \cite[Theorem 1.1]{ZZ21} for the $\PP^1$-bundle
+$\Bl_{\mathrm{pt}}\PP^n=\PP_{\PP^{n-1}}(\mathcal O(-1)\oplus\mathcal
+O)$, and for $n=2$ Sz\'ekelyhidi's $6/7$. For $m=n-2$ (codimension-two
+center) the formula collapses to the strikingly simple
+\begin{equation}\label{eq:codim2}
+\delta\bigl(X_{n,n-2}\bigr)=\frac{2n+2}{3n+1},
+\end{equation}
+which coincides with the upper bound
+$s_1=\tfrac{n(n+1)(a\mu+b)}{a((r+1)(a\mu_{\max}+b)+(n-r)(a\mu_{\min}+b))}$
+of Benammar Ammar--Massonnet--Yin \cite[Theorem 1.7]{BMY24} for
+$X_{n,n-2}=\PP_{\PP^1}(\mathcal O(1)\oplus\mathcal O^{\oplus(n-1)})$ at
+the anticanonical polarization: their upper bound is therefore attained
+in this family (their exact formula is proved only for polarizations
+close to the base).
+
+\begin{thmB}\label{thm:B}
+Let $a,b\ge 1$ with $a+b=n-1$, and set
+\[
+F_{a,b}=\int_{b}^{\,b+2} t^{\,b}\,(n+1-t)^{a}\,dt,
+\qquad
+D_{a,b}= b^{\,b+1}(a+2)^{a+1}-(b+2)^{b+1}a^{\,a+1}.
+\]
+Then
+\[
+\delta\bigl(Y_{a,b}\bigr)=\Bigl(1+\frac{|D_{a,b}|}{(n+1)F_{a,b}}\Bigr)^{-1},
+\]
+and $D_{a,b}>0$ if and only if $a<b$. In particular:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $\delta(Y_{a,b})=1$ if and only if $a=b$, in which case $Y_{a,a}$
+is K-polystable and admits a K\"ahler--Einstein metric;
+\item if $a\ne b$ then $Y_{a,b}$ is K-unstable and $\delta(Y_{a,b})$ is
+computed by $\ord_{E}$, where $E$ is the exceptional divisor over the
+\emph{smaller-dimensional} center.
+\end{enumerate}
+\end{thmB}
+
+Theorem~B quantifies the K-instability of the family established
+qualitatively in \cite{Futaki83,Delcroix22}; for Futaki's fourfold we
+get $\delta(Y_{1,2})=125/131$.
+
+The closed formulas make the asymptotic behavior of the thresholds
+completely transparent. Write
+$\gamma(s,x)=\int_0^x t^{s-1}e^{-t}\,dt$ and
+$\Gamma(s,x)=\int_x^\infty t^{s-1}e^{-t}\,dt$ for the incomplete gamma
+functions.
+
+\begin{thmC}\label{thm:C}
+Fix $\theta\in(0,1)$.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \textup{(Fixed center dimension.)} For fixed $m\ge 0$, as
+$n\to\infty$,
+\[
+\delta\bigl(X_{n,m}\bigr)\longrightarrow
+\delta_\infty(m):=\frac{e^{c}\,\gamma(m+1,c)}{e^{c}\,\gamma(m+1,c)+c^{\,m+1}},
+\qquad c=m+2 .
+\]
+In particular
+$\delta\bigl(\Bl_{\mathrm{pt}}\PP^n\bigr)\to\tanh(1)=0.7615\ldots$.
+\item \textup{(Fixed codimension.)} For fixed $k\ge2$, as
+$m\to\infty$,
+\[
+\delta\bigl(X_{n,n-k}\bigr)\longrightarrow
+\frac{H_k}{H_k+k-1},
+\qquad H_k=e^{k-1}(k-1)^{1-k}\,\Gamma(k,k-1),
+\]
+which equals $2/3$ for $k=2$, consistently with \eqref{eq:codim2}.
+\item \textup{(Proportional regime.)} If $m=m(n)$ with
+$m/n\to\theta$, then
+\[
+\sqrt{n}\;\delta\bigl(X_{n,m}\bigr)\longrightarrow
+\sqrt{\frac{\pi}{2\,\theta(1-\theta)}} .
+\]
+\end{enumerate}
+\end{thmC}
+
+Combining Theorem~A with \eqref{eq:RX} we obtain exact greatest Ricci
+lower bounds; part (iii) exhibits what is, to our knowledge, the
+simplest known family of smooth Fano manifolds whose stability
+thresholds decay to $0$, with an explicit rate (compare the odd
+symplectic Grassmannians of \cite{HKP23}).
+
+\begin{corD}\label{cor:D}
+For all $0\le m\le n-2$ one has
+$R(X_{n,m})=\delta(X_{n,m})$, given in closed form by Theorem~A.
+Moreover
+\[
+\min_{0\le m\le n-2}\delta\bigl(X_{n,m}\bigr)\;=\;
+\Theta\bigl(n^{-1/2}\bigr),
+\qquad\text{and}\qquad
+\sqrt{n}\;\delta\bigl(X_{n,\lfloor n/2\rfloor}\bigr)
+\longrightarrow\sqrt{2\pi} .
+\]
+In particular blow-ups of projective spaces along linear subspaces of
+roughly half dimension become arbitrarily K-unstable as $n\to\infty$.
+\end{corD}
+
+\subsection*{Method and organization}
+Both families are toric, and by \cite[\S 7]{BJ20} the computation of
+$\delta$ reduces to the barycenter $\mathbf b$ of the anticanonical
+polytope $P$: one has
+$\delta=\min_i\,(1+\langle\mathbf b,v_i\rangle)^{-1}$ over the primitive
+ray generators $v_i$ of the fan. The barycenter of $P$ is a priori an
+$n$-dimensional integral; the two elementary observations that make the
+paper work are:
+\begin{enumerate}[label=(\alph*)]
+\item the polytopes of $X_{n,m}$ and $Y_{a,b}$ are obtained from the
+simplex of $\PP^n$ by truncation along \emph{one} linear functional
+$\ell$ (respectively a symmetric pair), so a Dirichlet-type pushforward
+reduces all integrals to one variable
+(Lemma~\ref{lem:reduction}); and
+\item the resulting one-variable integrands admit the exact primitive
+\[
+\frac{d}{dt}\Bigl(-\frac{t^{\kappa}\,(W-t)^{\,W-\kappa}}{W}\Bigr)
+= t^{\kappa-1}(W-t)^{\,W-\kappa-1}\,\bigl(t-\kappa\bigr),
+\qquad W,\kappa>0,
+\]
+(Lemma~\ref{lem:primitive}), which evaluates the barycenter
+\emph{exactly}, with no series or special functions.
+\end{enumerate}
+A pleasant feature of the computation is the identity
+$\langle\mathbf b,v\rangle=-\beta/(m+1)$ for \emph{all} rays $v$ of the
+fan other than those meeting the exceptional data
+(Proposition~\ref{prop:pairings}), which pins down the minimizing
+valuation immediately.
+
+Section~\ref{sec:prelim} collects preliminaries.
+Section~\ref{sec:toric} describes the toric geometry of the two
+families and proves that they are Fano. Section~\ref{sec:proofAB}
+proves Theorems A and B. Section~\ref{sec:asymptotics} proves
+Theorem~C and Corollary~D, together with the corresponding asymptotics
+for the second family (Proposition~\ref{prop:famB-asymptotic}).
+Section~\ref{sec:examples} tabulates exact values in low dimensions,
+identifies the threefold members in the Mori--Mukai classification, and
+poses two questions. All closed formulas in this paper have been
+verified independently by exact rational lattice-point counting
+(Ehrhart interpolation) in dimensions $\le 4$ and against all special
+values available in the literature.
+
+\subsection*{Acknowledgements}
+This note is an exercise in applying the toric technology of
+Blum--Jonsson; its debt to \cite{BJ20,ZZ21,Delcroix22,BMY24} will be
+obvious to the reader.
+
+\section{Preliminaries}\label{sec:prelim}
+
+\subsection{The stability threshold}
+Let $X$ be a Fano manifold of dimension $n$ (more generally a $\QQ$-Fano
+variety). For a prime divisor $E$ over $X$, i.e.\ a prime divisor on a
+normal birational model $\pi\colon Z\to X$, let
+$A_X(E)=1+\ord_E(K_Z-\pi^*K_X)$ denote the log discrepancy and
+\[
+S_X(E)=\frac{1}{\vol(-K_X)}\int_0^\infty
+\vol\bigl(\pi^*(-K_X)-tE\bigr)\,dt
+\]
+the expected vanishing order. The stability threshold of Fujita--Odaka
+\cite{FO18} admits the valuative description \cite{BJ20}
+\[
+\delta(X)=\inf_{E}\frac{A_X(E)}{S_X(E)},
+\]
+the infimum running over all prime divisors over $X$. Then $X$ is
+K-semistable iff $\delta(X)\ge1$ and uniformly K-stable iff
+$\delta(X)>1$ \cite{FO18,BJ20}; by \cite{LXZ22} uniform K-stability
+agrees with K-stability. A valuation $\ord_E$ \emph{computes}
+$\delta(X)$ if $A_X(E)/S_X(E)=\delta(X)$.
+
+The greatest Ricci lower bound \cite{Tian92,Szekelyhidi11} is
+\[
+R(X)=\sup\bigl\{t\in[0,1]\;:\;\exists\,
+\omega\in c_1(X)\text{ K\"ahler with }\operatorname{Ric}\omega\ge
+t\,\omega\bigr\},
+\]
+and $R(X)=\min\{1,\delta(X)\}$ by \cite{BBJ21,CRZ19}.
+
+\subsection{The toric formula of Blum--Jonsson}\label{subsec:BJ}
+Let $N\cong\ZZ^n$ be a lattice, $M$ its dual, and let $X=X_\Sigma$ be a
+toric $\QQ$-Fano variety given by a complete fan $\Sigma$ in
+$N_\RR$ with primitive ray generators $v_1,\dots,v_d$. The
+anticanonical polytope is
+\[
+P\;=\;\bigl\{x\in M_\RR\;:\;\langle x,v_i\rangle\ge-1
+\text{ for }1\le i\le d\bigr\},
+\]
+and we write $\mathbf b=\mathbf b(P)\in M_\RR$ for its barycenter with
+respect to Lebesgue measure. Each ray generator $v_i$ defines a
+torus-invariant prime divisor $D_i\subset X$ with $A_X(\ord_{D_i})=1$.
+By \cite[Corollary 7.7 and \S7.6]{BJ20},
+\begin{equation}\label{eq:BJ}
+S_X(\ord_{D_i})=\langle\mathbf b,v_i\rangle+1,
+\qquad
+\delta(X)=\min_{1\le i\le d}\;
+\frac{1}{\langle\mathbf b,v_i\rangle+1},
+\end{equation}
+and $\delta(X)$ is computed by one of the valuations
+$\ord_{D_i}$. Consequently $X$ is K-semistable iff $\mathbf b=0$
+\cite{WZ04,BB13,Berman16,BJ20}; if $\mathbf b=0$ then $X$ is in fact
+K-polystable and admits a K\"ahler--Einstein metric \cite{WZ04}. For
+smooth toric $X$ the right-hand side of \eqref{eq:BJ} also equals
+$R(X)$ when $\mathbf b \neq 0$, by \cite{Li11} (see also
+\cite{Yotsutani22} for a direct combinatorial comparison).
+
+\subsection{A Dirichlet-type reduction}
+We will use the following elementary pushforward computation; we
+include the proof for completeness.
+
+\begin{lemma}\label{lem:reduction}
+Let $p,q\ge1$ be integers and let
+$\sigma\colon\RR_{\ge0}^{p}\times\RR_{\ge0}^{q}\to\RR_{\ge0}^2$ be the
+map $(y,z)\mapsto\bigl(\sum_i y_i,\sum_j z_j\bigr)=(s,t)$. The
+pushforward of Lebesgue measure under $\sigma$ is
+\[
+\sigma_*\bigl(dy\,dz\bigr)
+=\frac{s^{\,p-1}}{(p-1)!}\,\frac{t^{\,q-1}}{(q-1)!}\;ds\,dt .
+\]
+Moreover, conditionally on $(s,t)$ the coordinates are exchangeable, so
+that for any region $T\subset\RR_{\ge0}^2$ and $R=\sigma^{-1}(T)$,
+\[
+\frac{\int_R y_i\,dy\,dz}{\int_R dy\,dz}
+=\frac{1}{p}\cdot
+\frac{\int_T s\,\rho(s,t)\,ds\,dt}{\int_T \rho(s,t)\,ds\,dt},
+\qquad
+\rho(s,t)=s^{\,p-1}t^{\,q-1},
+\]
+and similarly for the $z_j$ with $s$ replaced by $t$ and $p$ by $q$.
+The same statements hold when $p=0$ (no $y$-variables), with
+$\rho=t^{\,q-1}$.
+\end{lemma}
+
+\begin{proof}
+The volume of the simplex $\{y\in\RR^p_{\ge0}:\sum y_i\le s\}$ is
+$s^p/p!$, so the pushforward of $dy$ under $y\mapsto\sum y_i$ has
+density $s^{p-1}/(p-1)!$; the product statement follows by Fubini. The
+second claim follows from the symmetry of $dy$ under permutation of
+coordinates, which gives $\int_R y_i = \frac1p\int_R s$.
+\end{proof}
+
+\subsection{An exact primitive}
+The next observation is the engine of the paper.
+
+\begin{lemma}\label{lem:primitive}
+Let $W>0$ and $0<\kappa<W$. Then on $(0,W)$,
+\[
+\frac{d}{dt}\left(-\frac{t^{\kappa}\,(W-t)^{\,W-\kappa}}{W}\right)
+= t^{\kappa-1}\,(W-t)^{\,W-\kappa-1}\,(t-\kappa).
+\]
+Consequently, for any $0\le\alpha<\beta\le W$,
+\[
+\int_\alpha^\beta t^{\kappa-1}(W-t)^{\,W-\kappa-1}\,(t-\kappa)\,dt
+=\frac{\alpha^{\kappa}(W-\alpha)^{\,W-\kappa}
+-\beta^{\kappa}(W-\beta)^{\,W-\kappa}}{W}.
+\]
+\end{lemma}
+
+\begin{proof}
+Differentiate: the derivative of $-t^{\kappa}(W-t)^{W-\kappa}/W$ equals
+$t^{\kappa-1}(W-t)^{W-\kappa-1}\bigl[-\kappa(W-t)+(W-\kappa)t\bigr]/W
+=t^{\kappa-1}(W-t)^{W-\kappa-1}(t-\kappa)$, since
+$-\kappa(W-t)+(W-\kappa)t=W(t-\kappa)$.
+\end{proof}
+
+The exponents occurring below always satisfy
+$(\kappa-1)+(W-\kappa-1)=W-2$, i.e.\ the two exponents sum to the
+dimension count forced by $-K$; this is the reason the primitive
+exists and the barycenter is exactly computable.
+
+\section{The two families of Fano manifolds}\label{sec:toric}
+
+We fix the lattice $N=\ZZ^n$ with standard basis $e_1,\dots,e_n$ and
+set $e_0=-(e_1+\cdots+e_n)$, so that the fan with rays
+$e_0,e_1,\dots,e_n$ (and all cones generated by proper subsets) is the
+fan of $\PP^n$. Blowing up a smooth torus-invariant subvariety
+corresponds to the star subdivision at the sum of the rays of the
+corresponding cone \cite[\S3.3]{CLS11}.
+
+\subsection{Family one}\label{subsec:famA}
+Let $0\le m\le n-2$ and $k=n-m$. Realize $\PP^m\subset\PP^n$ as the
+torus-invariant subspace corresponding to the cone
+$\langle e_{m+1},\dots,e_n\rangle$; its blow-up $X_{n,m}$ is the toric
+variety with rays
+\[
+e_1,\;\dots,\;e_n,\quad e_0,\quad
+u:=e_{m+1}+\cdots+e_n ,
+\]
+where $u$ is the ray of the exceptional divisor $E$. The anticanonical
+polytope is
+\begin{equation}\label{eq:PA}
+P\;=\;\Bigl\{x\in\RR^n\;:\;
+x_i\ge-1\ (1\le i\le n),\quad
+\textstyle\sum_{i=1}^n x_i\le 1,\quad
+\textstyle\sum_{j=m+1}^{n}x_j\ge-1\Bigr\}.
+\end{equation}
+
+Write $H$ for the pullback of the hyperplane class and $E$ for the
+exceptional divisor, so $-K_{X_{n,m}}=(n+1)H-(k-1)E$.
+
+\begin{proposition}\label{prop:famA-fano}
+$X_{n,m}$ is Fano for every $0\le m\le n-2$.
+\end{proposition}
+
+\begin{proof}
+The linear system $|H-E|$ is the pullback of the hyperplanes through
+$\PP^m$; since blowing up resolves the projection
+$\PP^n\dashrightarrow\PP^{k-1}$ from $\PP^m$, it is base-point free,
+hence nef, and $H$ is nef. Now
+\[
+-K_{X_{n,m}}=(k-1)(H-E)+(m+2)H .
+\]
+By the toric Kleiman criterion \cite[Theorem 6.3.13]{CLS11} it
+suffices to check positivity on torus-invariant curves $C$. If
+$H\cdot C>0$ then $-K\cdot C\ge (m+2)H\cdot C>0$. If $H\cdot C=0$ then
+$C$ is contracted by the blow-down $X_{n,m}\to\PP^n$, hence lies in a
+fiber $\PP^{k-1}$ of $E=\PP^m\times\PP^{k-1}\to\PP^m$, where
+$C\equiv\lambda\,\ell$ for a line $\ell$ with $E\cdot\ell=-1$ and
+$\lambda>0$; then $-K\cdot C=(k-1)\lambda>0$.
+\end{proof}
+
+\begin{remark}\label{rem:bundleA}
+Projection from $\PP^m$ exhibits
+$X_{n,m}\cong\PP_{\PP^{k-1}}\bigl(\mathcal O(1)\oplus\mathcal
+O^{\oplus (m+1)}\bigr)$, a $\PP^{m+1}$-bundle over $\PP^{k-1}$. For
+$m=0$ this is the $\PP^1$-bundle case covered by \cite{ZZ21}; for
+$m\ge1$ the bundle has fiber dimension $\ge 2$ and lies outside the
+scope of the formulas of \cite{ZZ21,BMY24}.
+\end{remark}
+
+\subsection{Family two}\label{subsec:famB}
+Let $a,b\ge1$ with $a+b=n-1$. Realize the two centers as the
+torus-invariant subspaces
+$L_a=\PP^a$ corresponding to $\langle e_{a+1},\dots,e_n\rangle$ and
+$L_b=\PP^b$ corresponding to $\langle e_0,e_1,\dots,e_a\rangle$; they
+are disjoint and complementary. The blow-up $Y_{a,b}$ is the toric
+variety with rays
+\[
+e_1,\dots,e_n,\quad e_0,\quad
+u_1:=e_{a+1}+\cdots+e_n,\quad
+u_2:=e_0+e_1+\cdots+e_a=-u_1 ,
+\]
+with $u_1,u_2$ the rays of the exceptional divisors $E_1$ (over $L_a$)
+and $E_2$ (over $L_b$). The anticanonical polytope is
+\begin{equation}\label{eq:PB}
+Q=\Bigl\{x\in\RR^n:
+x_i\ge-1\ (1\le i\le n),\ \ 
+\textstyle\sum_{i} x_i\le 1,\ \ 
+-1\le\textstyle\sum_{j=a+1}^{n}x_j\le 1\Bigr\}.
+\end{equation}
+Since $\operatorname{codim}L_a=b+1$ and $\operatorname{codim}L_b=a+1$,
+we have $-K_{Y_{a,b}}=(n+1)H-b\,E_1-a\,E_2$.
+
+\begin{proposition}\label{prop:famB-fano}
+$Y_{a,b}$ is Fano for all $a,b\ge1$ with $a+b=n-1$.
+\end{proposition}
+
+\begin{proof}
+As in Proposition~\ref{prop:famA-fano}, $|H-E_1|$ and $|H-E_2|$ are
+base-point free (they resolve the projections from $L_a$, $L_b$), and
+\[
+-K_{Y_{a,b}}=b\,(H-E_1)+a\,(H-E_2)+2H .
+\]
+For a torus-invariant curve $C$ with $H\cdot C>0$ we get
+$-K\cdot C\ge 2H\cdot C>0$. If $H\cdot C=0$ then $C$ lies in a fiber of
+$E_1\to L_a$ or of $E_2\to L_b$, and as before
+$-K\cdot C=b\lambda>0$ or $a\lambda>0$.
+\end{proof}
+
+\begin{remark}
+Projecting from each center exhibits $Y_{a,b}$ as the $\PP^1$-bundle
+$\PP_{\PP^a\times\PP^b}\bigl(\mathcal O(1,0)\oplus\mathcal
+O(0,1)\bigr)$; see \cite[\S2]{Delcroix22}. Since
+$\mathcal O(1,0)\otimes \mathcal O(0,1)^{-1}=\mathcal O(1,-1)$ is not
+proportional to $K_{\PP^a\times\PP^b}$, this family, too, is outside
+the scope of \cite{ZZ21}; and $Y_{a,b}$ is not a product, so
+\cite{Zhuang20} does not apply. Note $Y_{a,b}\cong Y_{b,a}$.
+\end{remark}
+
+\section{Proofs of Theorems A and B}\label{sec:proofAB}
+
+\subsection{Family one: barycenter}\label{subsec:proofA}
+Throughout this subsection fix $0\le m\le n-2$, put $k=n-m\ge2$,
+$W=n+1$, and let $P$ be the polytope \eqref{eq:PA} with barycenter
+$\mathbf b$. Consider the linear functional
+$\ell(x)=\langle x,u\rangle=\sum_{j>m}x_j$ and put
+\[
+\beta:=\langle\mathbf b,u\rangle .
+\]
+By the $\mathfrak S_m\times\mathfrak S_k$-symmetry of $P$ we may write
+$\mathbf b=(A,\dots,A,\,C,\dots,C)$ with $A$ repeated $m$ times and
+$C$ repeated $k$ times, so $\beta=kC$.
+
+Substituting $w=x+(1,\dots,1)$ maps $P$ onto
+\[
+P^+=\Bigl\{w\in\RR^n_{\ge0}:\ \textstyle\sum_i w_i\le W,\ \ 
+\textstyle\sum_{j>m}w_j\ge k-1\Bigr\},
+\]
+and applying Lemma~\ref{lem:reduction} with $p=m$, $q=k$,
+$s=\sum_{i\le m}w_i$, $t=\sum_{j>m}w_j$, all barycenter computations
+happen on the triangle
+\[
+T=\{(s,t):\ s\ge0,\ \ k-1\le t,\ \ s+t\le W\}
+\quad\text{with density}\quad \rho=s^{m-1}t^{k-1} .
+\]
+Let $\mathbb E[\,\cdot\,]$ denote the mean with respect to
+$\rho\,ds\,dt$ on $T$. Integrating out $s$ (for $m \ge 1$) gives the
+marginal density $t^{k-1}(W-t)^m/m$ on $[k-1,W]$, hence
+\begin{equation}\label{eq:Et}
+\mathbb E[t]=\frac{G_{n,m}}{F_{n,m}},
+\qquad
+F_{n,m}=\int_{k-1}^{W}t^{k-1}(W-t)^m dt,\quad
+G_{n,m}=\int_{k-1}^{W}t^{k}(W-t)^m dt,
+\end{equation}
+which also holds verbatim when $m=0$. By Lemma~\ref{lem:reduction},
+$C=\mathbb E[t]/k-1$ and, when $m\ge1$, $A=\mathbb E[s]/m-1$; since
+conditionally on $t$ the variable $s$ has density $s^{m-1}$ on
+$[0,W-t]$, we get $\mathbb E[s\,|\,t]=\tfrac{m}{m+1}(W-t)$ and hence
+$\mathbb E[s]=\tfrac{m}{m+1}\bigl(W-\mathbb E[t]\bigr)$.
+
+\begin{proposition}\label{prop:pairings}
+With $\beta=kC=\mathbb E[t]-k$ we have
+\[
+\langle\mathbf b,e_j\rangle=\frac{\beta}{k}\ \ (m<j\le n),
+\qquad
+\langle\mathbf b,e_i\rangle=\langle\mathbf b,e_0\rangle
+=-\frac{\beta}{m+1}\ \ (1\le i\le m),
+\qquad
+\langle\mathbf b,u\rangle=\beta .
+\]
+\end{proposition}
+
+\begin{proof}
+The first and last identities are the definitions. For $m\ge1$,
+\[
+A=\frac{\mathbb E[s]}{m}-1
+=\frac{W-\mathbb E[t]}{m+1}-1
+=\frac{W-(m+1)-\mathbb E[t]}{m+1}
+=\frac{k-\mathbb E[t]}{m+1}=-\frac{\beta}{m+1},
+\]
+using $W=m+k+1$. Finally
+$\langle\mathbf b,e_0\rangle=-(mA+kC)
+=\tfrac{m\beta}{m+1}-\beta=-\tfrac{\beta}{m+1}$.
+For $m=0$ the middle identities reduce to
+$\langle\mathbf b,e_0\rangle=-kC=-\beta=-\beta/(m+1)$.
+\end{proof}
+
+\begin{lemma}\label{lem:positive}
+$\beta>0$.
+\end{lemma}
+
+\begin{proof}
+Let $\Delta=\{x:x_i\ge-1,\ \sum x_i\le1\}$ be the polytope of
+$\PP^n$, whose barycenter is $0$, and let
+$\Delta_-=\Delta\cap\{\ell<-1\}$, so that $P=\Delta\smallsetminus
+\Delta_-$ up to measure zero. Since $\int_\Delta\ell\,dx=0$,
+\[
+\vol(P)\,\beta=\int_P\ell\,dx=-\int_{\Delta_-}\ell\,dx
+=\int_{\Delta_-}(-\ell)\,dx\;\ge\;\vol(\Delta_-)\;>\;0 ,
+\]
+because $-\ell>1$ on $\Delta_-$, and $\Delta_-$ has nonempty interior:
+the vertex $(-1,\dots,-1)$ of $\Delta$ satisfies $\ell=-k\le-2$.
+\end{proof}
+
+\begin{lemma}\label{lem:closedbeta}
+$\displaystyle
+\beta=\frac{(k-1)^{k}\,(m+2)^{m+1}}{(n+1)\,F_{n,m}}$, with $F_{n,m}$ as
+in \eqref{eq:F}.
+\end{lemma}
+
+\begin{proof}
+By \eqref{eq:Et},
+$\beta\,F_{n,m}=G_{n,m}-kF_{n,m}
+=\int_{k-1}^{W}t^{k-1}(W-t)^{m}(t-k)\,dt$. Apply
+Lemma~\ref{lem:primitive} with $\kappa=k$ and $W=n+1$ (so
+$W-\kappa=m+1$) on the interval $[\,k-1,\,W\,]$:
+\[
+\int_{k-1}^{W}t^{k-1}(W-t)^{m}(t-k)\,dt
+=\frac{(k-1)^{k}\bigl(W-(k-1)\bigr)^{m+1}-0}{W}
+=\frac{(k-1)^{k}(m+2)^{m+1}}{n+1}.
+\]
+For the binomial-sum expression in \eqref{eq:F}, substitute $t=Wv$:
+$F_{n,m}=W^{n}\int_{p}^{1}v^{k-1}(1-v)^{m}dv$ with $p=\frac{k-1}{n+1}$,
+and use the standard identity
+$\int_{p}^{1}v^{k-1}(1-v)^{m}dv
+=\tfrac{(k-1)!\,m!}{n!}\,\pr\bigl(B\le k-1\bigr)$ for
+$B\sim\Bin(n,p)$, $n=k+m$, i.e.
+$\pr(B\le k-1)=\sum_{j=0}^{k-1}\binom nj p^j(1-p)^{n-j}$ with
+$1-p=\frac{m+2}{n+1}$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem A]
+By Lemma~\ref{lem:positive} and
+Proposition~\ref{prop:pairings}, the pairings of $\mathbf b$ with the
+rays of the fan of $X_{n,m}$ are
+$-\tfrac{\beta}{m+1}<0<\tfrac{\beta}{k}<\beta$ (the last inequality is
+strict because $k\ge2$), so the maximum is attained precisely at the
+ray $u$ of the exceptional divisor $E$. By \eqref{eq:BJ},
+\[
+\delta(X_{n,m})=\frac{1}{1+\beta}<1,
+\]
+computed by $\ord_E$ and by no other torus-invariant prime divisor,
+and Lemma~\ref{lem:closedbeta} gives the closed formula
+\[
+\delta(X_{n,m})
+=\frac{(n+1)F_{n,m}}{(n+1)F_{n,m}+(k-1)^{k}(m+2)^{m+1}} .
+\]
+For \eqref{eq:binomform}: dividing numerator and denominator of
+$\beta$ by $(n+1)^{n+1}$ and using the binomial-sum form of $F_{n,m}$,
+\[
+\beta
+=\frac{p^{k}q^{m+1}}{\frac{(k-1)!m!}{n!}\pr(B\le k-1)}
+=(m+1)\,p\cdot\frac{\binom{n}{k-1}p^{k-1}q^{m+1}}{\pr(B\le k-1)}
+=(m+1)\,p\cdot\frac{\pr(B=k-1)}{\pr(B\le k-1)},
+\]
+where $p=\tfrac{k-1}{n+1}$, $q=1-p=\tfrac{m+2}{n+1}$ and
+$\tfrac{n!}{(k-1)!\,m!}=(m+1)\binom{n}{k-1}$.
+
+Finally, for $m=n-2$ (i.e.\ $k=2$) we verify \eqref{eq:codim2}:
+integrating by parts,
+\begin{align*}
+F_{n,n-2}=\int_{1}^{n+1}t\,(n+1-t)^{n-2}\,dt
+&=\Bigl[\frac{-t\,(n+1-t)^{n-1}}{n-1}\Bigr]_1^{n+1}
++\frac{1}{n-1}\int_1^{n+1}(n+1-t)^{n-1}dt\\
+&=\frac{n^{n-1}}{n-1}+\frac{n^{n}}{n(n-1)}
+=\frac{2\,n^{n-1}}{n-1},
+\end{align*}
+whence
+$\beta=\frac{1^2\cdot n^{n-1}}{(n+1)F_{n,n-2}}=\frac{n-1}{2(n+1)}$ and
+$\delta=(1+\beta)^{-1}
+=\frac{2(n+1)}{2(n+1)+(n-1)}=\frac{2n+2}{3n+1}$.
+\end{proof}
+
+\subsection{Family two}\label{subsec:proofB}
+
+Fix $a,b\ge1$, $a+b=n-1$, $W=n+1$, and let $Q$ be the polytope
+\eqref{eq:PB} with barycenter $\mathbf b$. Set
+$\ell(x)=\langle x,u_1\rangle=\sum_{j>a}x_j$ and
+$\beta:=\langle\mathbf b,u_1\rangle$. By symmetry
+$\mathbf b=(A,\dots,A,C,\dots,C)$ with $A$ repeated $a$ times, $C$
+repeated $b+1$ times.
+
+After the shift $w=x+(1,\dots,1)$ and the reduction of
+Lemma~\ref{lem:reduction} with $p=a$, $q=b+1$, the relevant region and
+density are
+\[
+T'=\{(s,t):\ s\ge0,\ b\le t\le b+2,\ s+t\le W\},
+\qquad \rho=s^{a-1}t^{b} .
+\]
+(The constraint $-1\le\ell\le1$ becomes $b\le t\le b+2$; note
+$s+t\le W$ is implied by $s\le W-t$.) Exactly as before,
+\[
+\mathbb E[t]=\frac{G_{a,b}}{F_{a,b}},\qquad
+F_{a,b}=\int_b^{b+2}t^{b}(W-t)^{a}dt,\quad
+G_{a,b}=\int_b^{b+2}t^{b+1}(W-t)^{a}dt,
+\]
+$\beta=(b+1)C=\mathbb E[t]-(b+1)$, and the identical computation as in
+Proposition~\ref{prop:pairings} (with $m$ replaced by $a$ and $k$ by
+$b+1$) yields
+\begin{equation}\label{eq:pairingsB}
+\langle\mathbf b,e_j\rangle=\frac{\beta}{b+1},\quad
+\langle\mathbf b,e_i\rangle=\langle\mathbf b,e_0\rangle
+=-\frac{\beta}{a+1},\quad
+\langle\mathbf b,u_1\rangle=\beta,\quad
+\langle\mathbf b,u_2\rangle=-\beta .
+\end{equation}
+
+\begin{lemma}\label{lem:closedbetaB}
+$\displaystyle
+\beta=\frac{D_{a,b}}{(n+1)\,F_{a,b}}$ with
+$D_{a,b}=b^{\,b+1}(a+2)^{a+1}-(b+2)^{b+1}a^{\,a+1}$.
+\end{lemma}
+
+\begin{proof}
+$\beta F_{a,b}=\int_b^{b+2}t^{b}(W-t)^{a}\bigl(t-(b+1)\bigr)dt$. Apply
+Lemma~\ref{lem:primitive} with $\kappa=b+1$, $W=n+1$ (so
+$W-\kappa=a+1$), on $[\,b,\,b+2\,]$:
+\[
+\beta F_{a,b}
+=\frac{b^{\,b+1}(W-b)^{a+1}-(b+2)^{b+1}(W-b-2)^{a+1}}{W}
+=\frac{b^{\,b+1}(a+2)^{a+1}-(b+2)^{b+1}a^{\,a+1}}{n+1},
+\]
+using $W-b=a+2$ and $W-b-2=a$.
+\end{proof}
+
+\begin{lemma}\label{lem:sign}
+The function $g(x)=\bigl(1+\tfrac2x\bigr)^{x+1}$ is strictly decreasing
+on $(0,\infty)$. Consequently $D_{a,b}>0$ iff $a<b$, $D_{a,b}=0$ iff
+$a=b$, and $D_{a,b}<0$ iff $a>b$.
+\end{lemma}
+
+\begin{proof}
+Dividing by $a^{a+1}b^{b+1}>0$, the sign of $D_{a,b}$ is that of
+$g(a)-g(b)$. Set $\phi(x)=\log g(x)=(x+1)\log\bigl(1+\tfrac2x\bigr)$
+and substitute $t=2/x>0$:
+\[
+\phi'(x)=\log\Bigl(1+\frac2x\Bigr)-\frac{2(x+1)}{x(x+2)}
+=\log(1+t)-\frac{t\,(2+t)}{2\,(1+t)}=:\psi(t).
+\]
+Then $\psi(0)=0$ and
+$\psi'(t)=\frac1{1+t}-\frac{2+2t+t^2}{2(1+t)^2}
+=-\frac{t^2}{2(1+t)^2}<0$, so $\psi(t)<0$ for $t>0$, i.e.\ $\phi'<0$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem B]
+If $a=b$ then $\beta=0$ by Lemma~\ref{lem:closedbetaB} and
+Lemma~\ref{lem:sign}; combined with \eqref{eq:pairingsB} this gives
+$\mathbf b=0$, so $Y_{a,a}$ is K-polystable and K\"ahler--Einstein
+\cite{WZ04,BB13,Berman16}, and $\delta=1$ by \eqref{eq:BJ}.
+
+If $a<b$ then $\beta>0$ and by \eqref{eq:pairingsB} the pairings are
+$-\beta<-\tfrac{\beta}{a+1}<0<\tfrac{\beta}{b+1}<\beta$, so the unique
+maximizing ray is $u_1$, i.e.\ the exceptional divisor $E_1$ over the
+smaller-dimensional center $L_a$, and
+$\delta(Y_{a,b})=(1+\beta)^{-1}<1$. If $a>b$, then by
+$Y_{a,b}\cong Y_{b,a}$ (or by the same argument with $\beta<0$ and
+maximizing ray $u_2$) the threshold is $(1+|\beta|)^{-1}$, computed by
+the exceptional divisor over $L_b$. Lemma~\ref{lem:closedbetaB} gives
+the stated closed formula in all cases.
+\end{proof}
+
+\begin{example}\label{ex:futaki}
+For Futaki's fourfold $Y_{1,2}=\Bl_{\PP^1\sqcup\PP^2}\PP^4$:
+$D_{1,2}=2^3\cdot3^2-4^3\cdot1=8$ and
+$F_{1,2}=\int_2^4t^2(5-t)\,dt=\tfrac{100}{3}$, so
+$\beta=\tfrac{8}{5\cdot 100/3}=\tfrac{6}{125}$ and
+$\delta(Y_{1,2})=\tfrac{125}{131}$.
+\end{example}
+
+\begin{remark}\label{rem:optimal}
+In both families, when $\delta<1$ the threshold is computed by the
+valuation of a divisor \emph{on} $X$ itself. By
+\cite[Theorem 1.2]{BLZ22}, $\ord_E$ induces an optimal destabilizing
+test configuration --- here, the deformation to the normal cone of $E$
+--- whose central fiber is a uniquely determined twisted K-polystable
+Fano variety. It would be interesting to compare this with the optimal
+degenerations for the H-invariant in the sense of Han--Li.
+\end{remark}
+
+\section{Asymptotics}\label{sec:asymptotics}
+
+We now prove Theorem C. Throughout, $\beta=\beta_{n,m}$ denotes the
+quantity of Lemma~\ref{lem:closedbeta}, so
+$\delta(X_{n,m})=(1+\beta)^{-1}$.
+
+\begin{proof}[Proof of Theorem C(i)]
+Fix $m$ and let $n\to\infty$ (so $k=n-m\to\infty$). Substituting
+$t=n+1-s$ in $F_{n,m}$,
+\[
+\frac{(n+1)\,F_{n,m}}{(k-1)^{k}}
+=\int_0^{m+2}\Bigl(\frac{n+1-s}{k-1}\Bigr)^{k-1}
+\cdot\frac{n+1}{k-1}\;s^{m}\,ds .
+\]
+For $s\in[0,m+2]$ we have
+$\bigl(\tfrac{n+1-s}{k-1}\bigr)^{k-1}
+=\bigl(1+\tfrac{m+2-s}{k-1}\bigr)^{k-1}\nearrow e^{\,m+2-s}$
+as $k\to\infty$, and the factor $\tfrac{n+1}{k-1}\le m+3$ for
+$k\ge2$; by dominated convergence the integral converges to
+$\int_0^{m+2}e^{\,m+2-s}s^m\,ds=e^{c}\,\gamma(m+1,c)$ with $c=m+2$.
+Hence $\beta\to c^{\,m+1}/\bigl(e^{c}\gamma(m+1,c)\bigr)$ and
+$\delta\to e^{c}\gamma(m+1,c)/\bigl(e^{c}\gamma(m+1,c)+c^{m+1}\bigr)$.
+For $m=0$: $\gamma(1,2)=1-e^{-2}$, so
+$\delta_\infty(0)=\frac{e^{2}-1}{e^{2}+1}=\tanh(1)$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem C(ii)]
+Fix $k\ge2$ and let $m\to\infty$. Substituting $t=k-1+x$,
+\[
+F_{n,m}=(m+2)^{m}\int_0^{m+2}(k-1+x)^{k-1}
+\Bigl(1-\frac{x}{m+2}\Bigr)^{m}dx .
+\]
+For $m\ge2$ the integrand is dominated by
+$(k-1+x)^{k-1}e^{-x/2}\in L^1(0,\infty)$ and converges pointwise to
+$(k-1+x)^{k-1}e^{-x}$; hence
+\[
+\int_0^{m+2}(k-1+x)^{k-1}\Bigl(1-\tfrac{x}{m+2}\Bigr)^{m}dx
+\longrightarrow
+\int_0^\infty(k-1+x)^{k-1}e^{-x}\,dx
+= e^{\,k-1}\,\Gamma(k,k-1).
+\]
+Therefore, writing
+$J_m=\int_0^{m+2}(k-1+x)^{k-1}\bigl(1-\tfrac{x}{m+2}\bigr)^{m}dx$ and
+using $\tfrac{n+1}{m+2}=\tfrac{m+k+2}{m+2}\to1$,
+\[
+\beta=\frac{(k-1)^{k}(m+2)^{m+1}}{(n+1)F_{n,m}}
+=\frac{m+2}{n+1}\cdot\frac{(k-1)^{k}}{J_m}
+\longrightarrow
+\frac{(k-1)^{k}}{e^{\,k-1}\Gamma(k,k-1)}
+=\frac{k-1}{H_k}
+\]
+with $H_k=e^{k-1}(k-1)^{1-k}\Gamma(k,k-1)$. Hence
+$\delta\to H_k/(H_k+k-1)$. For $k=2$:
+$\Gamma(2,1)=2e^{-1}$, so $H_2=2$ and the limit is $2/3$, in agreement
+with \eqref{eq:codim2}.
+\end{proof}
+
+\begin{proof}[Proof of Theorem C(iii)]
+Let $m=m(n)$ with $m/n\to\theta\in(0,1)$, and use the probabilistic
+form \eqref{eq:binomform}: $\beta=(m+1)\,p\;
+\pr(B=k-1)/\pr(B\le k-1)$ with $B\sim\Bin(n,p)$,
+$p=p_n=\tfrac{k-1}{n+1}\to1-\theta$ and $q_n=1-p_n\to\theta$; in
+particular $p_n$, $q_n$ are bounded away from $0$ and $1$.
+
+The point $k-1$ sits essentially at the mean:
+$k-1-np_n=\tfrac{k-1}{n+1}=p_n\in(0,1)$. By the de Moivre--Laplace
+local limit theorem (see e.g.\ \cite[VII.3]{Feller68}),
+\[
+\pr(B=k-1)=\frac{1+o(1)}{\sqrt{2\pi n p_nq_n}},
+\]
+and by the central limit theorem
+$\pr(B\le k-1)\to\Phi(0)=\tfrac12$. Hence
+\[
+\beta=(1+o(1))\cdot\frac{2\,(m+1)\,p_n}{\sqrt{2\pi n\,p_nq_n}}
+=(1+o(1))\cdot\frac{2\,\theta(1-\theta)\,n}{\sqrt{2\pi
+n\,\theta(1-\theta)}}
+=(1+o(1))\sqrt{\frac{2\,\theta(1-\theta)\,n}{\pi}}\;\to\;\infty,
+\]
+so
+$\delta=(1+\beta)^{-1}=(1+o(1))\,\beta^{-1}
+=(1+o(1))\sqrt{\tfrac{\pi}{2\theta(1-\theta)n}}$.
+\end{proof}
+
+\begin{proof}[Proof of Corollary D]
+The identity $R=\delta$ follows from \eqref{eq:RX} since $\delta<1$ by
+Theorem A, and the limit along $m=\lfloor n/2\rfloor$ is Theorem
+C(iii) with $\theta=1/2$; this also gives the upper bound
+$\min_m\delta(X_{n,m})\le(1+o(1))\sqrt{2\pi/n}$.
+
+For the matching lower bound $\min_m\delta(X_{n,m})\ge c\,n^{-1/2}$ we
+bound $\beta=\beta_{n,m}$ from above, uniformly in $m$, using
+\eqref{eq:binomform}. Write $x=m+1$, $y=k-1$ and $u=xy/n$, so
+$x+y=n$ and $u\le n/4$. First, since $np=(k-1)-p$ with $p\in(0,1)$,
+the integer $k-1$ equals $\lceil np\rceil$, and the median of a
+binomial distribution lies between $\lfloor np\rfloor$ and
+$\lceil np\rceil$ \cite{KB80}; hence $\pr(B\le k-1)\ge\tfrac12$ and
+$\beta\le 2(m+1)\,p\;\pr(B=k-1)$, with
+$(m+1)p=\tfrac{xy}{n+1}\le u$. If $u\le2$ this already gives
+$\beta\le2u\le4$. If $u\ge2$ and $n\ge3$, then
+$npq=\tfrac{n\,y(x+1)}{(n+1)^2}\ge\tfrac{xy}{2n}\cdot\tfrac{2n^2}{(n+1)^2}\ge\tfrac
+u2\ge1$, and a standard Stirling estimate gives an absolute constant
+$C_0$ with $\max_j\pr(B=j)\le C_0/\sqrt{npq}$ whenever $npq\ge1$ (see
+e.g.\ \cite[Ch.~VII]{Feller68}); hence
+\[
+\beta\;\le\;2u\cdot\frac{C_0}{\sqrt{u/2}}
+\;=\;2C_0\sqrt{2u}\;\le\;C_0\sqrt{2n}.
+\]
+In all cases $\beta\le C_1\sqrt n$ for an absolute constant $C_1$,
+whence $\delta=(1+\beta)^{-1}\ge c\,n^{-1/2}$.
+\end{proof}
+
+The same techniques give the limit of the second family; we state it
+for completeness and omit the (identical) dominated-convergence
+argument.
+
+\begin{proposition}\label{prop:famB-asymptotic}
+Fix $a\ge1$ and let $b\to\infty$. Then
+\[
+\delta\bigl(Y_{a,b}\bigr)\longrightarrow
+\frac{C_a}{\,C_a+e^{-2}(a+2)^{a+1}-a^{\,a+1}\,},
+\qquad
+C_a=\int_0^2 e^{-s}\,(a+s)^{a}\,ds ,
+\]
+a number in $(0,1)$ by Lemma~\ref{lem:sign}. For $a=1$ the limit is
+$\dfrac{2-4e^{-2}}{1+5e^{-2}}=0.8699\ldots$.
+\end{proposition}
+
+\section{Examples, tables, and questions}\label{sec:examples}
+
+\subsection{Low-dimensional values}
+Table~\ref{tab:famA} lists the exact thresholds of $X_{n,m}$ for
+$n\le6$, and Table~\ref{tab:famB} those of $Y_{a,b}$ for $n\le7$. For
+$n=3$ these are the Fano threefolds \textnumero2.35
+($X_{3,0}=\Bl_{\mathrm{pt}}\PP^3$), \textnumero2.33
+($X_{3,1}=\Bl_{\mathrm{line}}\PP^3$) and \textnumero3.25
+($Y_{1,1}$, the blow-up of $\PP^3$ along two disjoint lines) in the
+Mori--Mukai classification. The values $\delta(2.35)=\tfrac{14}{17}$
+and $\delta(2.33)=\tfrac45$ refine the K-instability of these families
+recorded in \cite{ACC23}, and $\delta(3.25)=1$ recovers the
+K\"ahler--Einstein property of \textnumero3.25. The value
+$\delta(X_{3,0})=\tfrac{14}{17}$ also agrees with the $\PP^1$-bundle
+formula of \cite{ZZ21}, and the toric threefold values agree with the
+table of \cite{Yotsutani22}.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{cccccc}
+\toprule
+$n\backslash m$ & $0$ & $1$ & $2$ & $3$ & $4$\\
+\midrule
+$2$ & $6/7$ & & & &\\
+$3$ & $14/17$ & $4/5$ & & &\\
+$4$ & $340/421$ & $95/127$ & $10/13$ & &\\
+$5$ & $633/793$ & $13/18$ & $12/17$ & $3/4$ &\\
+$6$ & $59514/75139$ & $24661/34901$ & $2506/3721$ & $203/299$ &
+$14/19$\\
+\bottomrule
+\end{tabular}
+\medskip
+\caption{$\delta(X_{n,m})=R(X_{n,m})$ for $n\le6$. Note the
+non-monotonicity in $m$ (minimal near $m\approx n/2$), consistent with
+Theorem C(iii).}\label{tab:famA}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{ccl}
+\toprule
+$n$ & $(a,b)$ & $\delta(Y_{a,b})$\\
+\midrule
+$3$ & $(1,1)$ & $1$ \quad (K\"ahler--Einstein; \textnumero3.25)\\
+$4$ & $(1,2)$ & $125/131$ \quad (Futaki's example)\\
+$5$ & $(1,3)$ & $1797/1927$\\
+$5$ & $(2,2)$ & $1$ \quad (K\"ahler--Einstein)\\
+$6$ & $(1,4)$ & $7742/8417$\\
+$6$ & $(2,3)$ & $28273/28963$\\
+$7$ & $(1,5)$ & $103403/113455$\\
+$7$ & $(2,4)$ & $34724/36089$\\
+$7$ & $(3,3)$ & $1$ \quad (K\"ahler--Einstein)\\
+\bottomrule
+\end{tabular}
+\medskip
+\caption{$\delta(Y_{a,b})$ for $n\le7$.}\label{tab:famB}
+\end{table}
+
+\subsection{Questions}
+
+\begin{question}
+The blow-up of $\PP^n$ along a disjoint union of linear subspaces
+$L_{a_1}\sqcup\dots\sqcup L_{a_r}$ is again toric whenever the centers
+are torus-invariant, and Fano in a range of cases. The truncation
+structure of the polytope persists, but with several functionals
+$\ell_i$; do the barycenter integrals still evaluate in closed form,
+e.g.\ for chains of nested linear centers (Bott towers)?
+\end{question}
+
+\begin{question}
+By Remark~\ref{rem:optimal}, each $X_{n,m}$ has an optimal
+destabilization given by deformation to the normal cone of $E$. What
+are the twisted K-polystable central fibers, and how do they compare
+with the limits of the normalized K\"ahler--Ricci flow on $X_{n,m}$?
+For $X_{2,0}$ this is understood by work of Sz\'ekelyhidi and
+Zhang--Zhou; the higher-dimensional picture, in particular in the
+regime $m\sim n/2$ where $\delta\to0$, seems new.
+\end{question}
+
+\begin{thebibliography}{ACDE25}
+
+\bibitem[ACC$^{+}$23]{ACC23}
+C.~Araujo, A.-M.~Castravet, I.~Cheltsov, K.~Fujita, A.-S.~Kaloghiros,
+J.~Martinez-Garcia, C.~Shramov, H.~S\"u\ss{}, N.~Viswanathan,
+\emph{The Calabi problem for Fano threefolds},
+London Math. Soc. Lecture Note Ser. 485, Cambridge Univ. Press, 2023.
+
+\bibitem[ACD$^{+}$25]{ADEKJMP25}
+H.~Abban, I.~Cheltsov, E.~Denisova, E.~Etxabarri-Alberdi,
+A.-S.~Kaloghiros, D.~Jiao, J.~Martinez-Garcia, T.~S.~Papazachariou,
+\emph{One-dimensional components in the K-moduli of smooth Fano
+3-folds}, J. Algebraic Geom. (2025), published electronically,
+DOI 10.1090/jag/839.
+
+\bibitem[AZ22]{AZ22}
+H.~Abban, Z.~Zhuang,
+\emph{K-stability of Fano varieties via admissible flags},
+Forum Math. Pi \textbf{10} (2022), Paper No. e15.
+
+\bibitem[BB13]{BB13}
+R.~J.~Berman, B.~Berndtsson,
+\emph{Real Monge--Amp\`ere equations and K\"ahler--Ricci solitons on
+toric log Fano varieties},
+Ann. Fac. Sci. Toulouse Math. (6) \textbf{22} (2013), 649--711.
+
+\bibitem[BBJ21]{BBJ21}
+R.~J.~Berman, S.~Boucksom, M.~Jonsson,
+\emph{A variational approach to the Yau--Tian--Donaldson conjecture},
+J. Amer. Math. Soc. \textbf{34} (2021), no.~3, 605--652.
+
+\bibitem[Ber16]{Berman16}
+R.~J.~Berman,
+\emph{K-polystability of $\QQ$-Fano varieties admitting
+K\"ahler--Einstein metrics},
+Invent. Math. \textbf{203} (2016), 973--1025.
+
+\bibitem[BJ20]{BJ20}
+H.~Blum, M.~Jonsson,
+\emph{Thresholds, valuations, and K-stability},
+Adv. Math. \textbf{365} (2020), 107062.
+
+\bibitem[BLZ22]{BLZ22}
+H.~Blum, Y.~Liu, C.~Zhou,
+\emph{Optimal destabilization of K-unstable Fano varieties via
+stability thresholds},
+Geom. Topol. \textbf{26} (2022), no.~6, 2507--2564.
+
+\bibitem[BMY24]{BMY24}
+H.~Benammar Ammar, L.~Massonnet, C.~Yin,
+\emph{Delta-invariant for projective bundles over a curve and
+K-semistability}, preprint (2024), arXiv:2411.05976.
+
+\bibitem[CDS15]{CDS15}
+X.~Chen, S.~Donaldson, S.~Sun,
+\emph{K\"ahler--Einstein metrics on Fano manifolds. I--III},
+J. Amer. Math. Soc. \textbf{28} (2015), 183--197, 199--234, 235--278.
+
+\bibitem[CLS11]{CLS11}
+D.~A.~Cox, J.~B.~Little, H.~K.~Schenck,
+\emph{Toric varieties},
+Graduate Studies in Mathematics 124, Amer. Math. Soc., 2011.
+
+\bibitem[CRZ19]{CRZ19}
+I.~Cheltsov, Y.~Rubinstein, K.~Zhang,
+\emph{Basis log canonical thresholds, local intersection estimates,
+and asymptotically log del Pezzo surfaces},
+Selecta Math. (N.S.) \textbf{25} (2019), no.~2, Paper No.~34.
+
+\bibitem[Del22]{Delcroix22}
+T.~Delcroix,
+\emph{Examples of K-unstable Fano manifolds},
+Ann. Inst. Fourier (Grenoble) \textbf{72} (2022), no.~5, 2079--2108.
+
+\bibitem[DH21]{DH21}
+T.~Delcroix, J.~Hultgren,
+\emph{Coupled complex Monge--Amp\`ere equations on Fano horosymmetric
+manifolds},
+J. Math. Pures Appl. (9) \textbf{153} (2021), 281--315.
+
+\bibitem[EJP25]{EJP25}
+E.~Etxabarri-Alberdi, J.~M.~Jones, T.~S.~Papazachariou,
+\emph{K-moduli of Fano threefolds of family 3.3},
+preprint (2025), arXiv:2510.13611.
+
+\bibitem[Fel68]{Feller68}
+W.~Feller,
+\emph{An introduction to probability theory and its applications.
+Vol.~I}, 3rd ed., Wiley, 1968.
+
+\bibitem[FO18]{FO18}
+K.~Fujita, Y.~Odaka,
+\emph{On the K-stability of Fano varieties and anticanonical divisors},
+Tohoku Math. J. (2) \textbf{70} (2018), no.~4, 511--521.
+
+\bibitem[Fut83]{Futaki83}
+A.~Futaki,
+\emph{An obstruction to the existence of Einstein K\"ahler metrics},
+Invent. Math. \textbf{73} (1983), no.~3, 437--443.
+
+\bibitem[HKP23]{HKP23}
+D.~Hwang, S.~Kim, K.-D.~Park,
+\emph{Greatest Ricci lower bounds of projective horospherical
+manifolds of Picard number one},
+Ann. Global Anal. Geom. \textbf{64} (2023).
+
+\bibitem[KB80]{KB80}
+R.~Kaas, J.~M.~Buhrman,
+\emph{Mean, median and mode in binomial distributions},
+Statist. Neerlandica \textbf{34} (1980), no.~1, 13--18.
+
+\bibitem[KLPZ26]{KLPZ26}
+A.-S.~Kaloghiros, Y.~Liu, A.~Petracci, J.~Zhao,
+\emph{The boundary of K-moduli of prime Fano threefolds of genus
+twelve}, preprint (2026), arXiv:2603.29827.
+
+\bibitem[Li11]{Li11}
+C.~Li,
+\emph{Greatest lower bounds on Ricci curvature for toric Fano
+manifolds},
+Adv. Math. \textbf{226} (2011), no.~6, 4921--4932.
+
+\bibitem[LXZ22]{LXZ22}
+Y.~Liu, C.~Xu, Z.~Zhuang,
+\emph{Finite generation for valuations computing stability thresholds
+and applications to K-stability},
+Ann. of Math. (2) \textbf{196} (2022), no.~2, 507--566.
+
+\bibitem[Mat57]{Matsushima57}
+Y.~Matsushima,
+\emph{Sur la structure du groupe d'hom\'eomorphismes analytiques d'une
+certaine vari\'et\'e k\"ahl\'erienne},
+Nagoya Math. J. \textbf{11} (1957), 145--150.
+
+\bibitem[Sz\'e11]{Szekelyhidi11}
+G.~Sz\'ekelyhidi,
+\emph{Greatest lower bounds on the Ricci curvature of Fano manifolds},
+Compos. Math. \textbf{147} (2011), no.~1, 319--331.
+
+\bibitem[Tia92]{Tian92}
+G.~Tian,
+\emph{On stability of the tangent bundles of Fano varieties},
+Internat. J. Math. \textbf{3} (1992), no.~3, 401--413.
+
+\bibitem[Tia15]{Tian15}
+G.~Tian,
+\emph{K-stability and K\"ahler--Einstein metrics},
+Comm. Pure Appl. Math. \textbf{68} (2015), no.~7, 1085--1156.
+
+\bibitem[WZ04]{WZ04}
+X.-J.~Wang, X.~Zhu,
+\emph{K\"ahler--Ricci solitons on toric manifolds with positive first
+Chern class},
+Adv. Math. \textbf{188} (2004), no.~1, 87--103.
+
+\bibitem[Yot22]{Yotsutani22}
+N.~Yotsutani,
+\emph{The delta invariant and the various GIT-stability notions of
+toric Fano varieties}, preprint (2022).
+
+\bibitem[Zhu20]{Zhuang20}
+Z.~Zhuang,
+\emph{Product theorem for K-stability},
+Adv. Math. \textbf{371} (2020), 107250.
+
+\bibitem[ZZ21]{ZZ21}
+K.~Zhang, C.~Zhou,
+\emph{Delta invariants of projective bundles and projective cones of
+Fano type},
+Math. Z. \textbf{298} (2021), no.~1--2, 179--207.
+
+\end{thebibliography}
+
+\end{document}
