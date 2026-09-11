@@ -1,0 +1,26 @@
+#include <iostream>
+#include <vector>
+
+int main() {
+    int n = 0;
+    std::cin >> n;
+
+    std::vector<int> a;
+    for (int i = 0; i < n; ++i) {
+        int x = 0;
+        std::cin >> x;
+        a.push_back(x);
+    }
+
+    int target = 0;
+    std::cin >> target;
+
+    int count = 0;
+    for (int x : a) {
+        if (x == target) {
+            count += 1;
+        }
+    }
+    std::cout << count << "\n";
+    return 0;
+}
