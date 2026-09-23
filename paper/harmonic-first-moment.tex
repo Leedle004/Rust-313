@@ -1,0 +1,1003 @@
+\documentclass[11pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+\setlist[enumerate]{itemsep=0.35em,topsep=0.4em}
+\setlist[itemize]{itemsep=0.3em,topsep=0.35em}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\numberwithin{equation}{section}
+
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\sym}{sym}
+\DeclareMathOperator{\Res}{Res}
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\vol}{\operatorname{vol}}
+\newcommand{\ord}{\operatorname{ord}}
+
+\title[Harmonic first moments of level-one central values]{Harmonic first moments of central values of level-one modular $L$-functions}
+\author{Herbert Shen}
+\date{}
+
+\subjclass[2020]{11F11, 11F66, 11F30}
+\keywords{holomorphic cusp forms, Petersson formula, automorphic $L$-functions, central values, approximate functional equation}
+
+\begin{document}
+\begin{abstract}
+Let $S_k$ be the space of holomorphic cusp forms of even weight $k\ge 12$ for $\SL_2(\ZZ)$, and let $B_k$ be its basis of Hecke eigenforms normalized so that the first Fourier coefficient of each form is $1$. Write $\lambda_f(n)$ for the Hecke eigenvalues, $L(s,f)=\sum_{n\ge 1}\lambda_f(n)n^{-s}$ for the standard $L$-function, and
+\[
+\omega_f=\frac{\Gamma(k-1)}{(4\pi)^{k-1}\langle f,f\rangle}
+\]
+for the harmonic Petersson weight. The root number of $L(s,f)$ is $(-1)^{k/2}$. We prove that the Gaussian approximate functional equation, fed into the Petersson formula, produces an off-diagonal that is smaller than every negative power of $k$. Consequently, for every integer $A\ge 1$,
+\[
+\sum_{f\in B_k}\omega_f\, L\bigl(\tfrac12,f\bigr)
+=2+O_A(k^{-A})
+\qquad\text{if }k\equiv 0\pmod{4},
+\]
+while $L(1/2,f)=0$ whenever $k\equiv 2\pmod{4}$, and in that case
+\[
+\sum_{f\in B_k}\omega_f\, L'\bigl(\tfrac12,f\bigr)
+=2\Bigl(\psi\bigl(\tfrac k2\bigr)-\log(2\pi)\Bigr)+O_A(k^{-A}).
+\]
+The same Bessel estimate shows that harmonic second moments of Dirichlet polynomials of length at most $(k-1)/(8\pi)$ are diagonal up to an exponentially small error. Expressing $\omega_f$ through the residue of the Rankin--Selberg series gives $\omega_f=2\pi^2/((k-1)L(1,\sym^2 f))$. Deligne's bound then upgrades the first-moment asymptotic to a harmonic non-vanishing measure $\gg k^{-1/2}(\log k)^{-1}$. The argument is written from the Fourier expansion onward, and the constants in the Petersson formula and in the two approximate functional equations are checked by direct quadrature on the cusp forms of weights $12$ and $18$.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Let $k\ge 12$ be an even integer and let $S_k=S_k(\SL_2(\ZZ))$ be the space of holomorphic cusp forms of weight $k$ on the full modular group. This is a finite-dimensional Hilbert space under the Petersson inner product. Its dimension is positive except for $k=14$, where the space vanishes, and the Hecke operators supply an orthogonal basis $B_k$ of eigenforms. Normalized so that the first Fourier coefficient equals $1$, each $f\in B_k$ has a Dirichlet series
+\[
+L(s,f)=\sum_{n=1}^\infty \lambda_f(n)\,n^{-s},\qquad \Re(s)>1,
+\]
+which continues to an entire function of order one and satisfies a functional equation of conductor essentially $k^2$. The root number is the pure phase $\ii^k=(-1)^{k/2}$. Thus the central value $L(1/2,f)$ is forced to vanish for every eigenform of weight $k\equiv 2\pmod 4$, whereas for $k\equiv 0\pmod 4$ the central value is a real number that can be positive or negative.
+
+Harmonic averaging is adapted to this family. The weights
+\[
+\omega_f=\frac{\Gamma(k-1)}{(4\pi)^{k-1}\langle f,f\rangle}
+\]
+are positive, and the Petersson formula says that they form an asymptotic probability measure on $B_k$: their sum equals $1$ up to an error smaller than every negative power of $k$. The purpose of this paper is to evaluate, under that measure, the central value when the root number is $+1$ and the central derivative when the root number is $-1$.
+
+\begin{theorem}\label{thm:main}
+Let $k\ge 16$ be even, and let $A\ge 1$ be an integer. There is a constant $C_A$, depending only on $A$, such that the following hold.
+\begin{enumerate}[label=\rm(\roman*)]
+\item If $k\equiv 0\pmod 4$ and $S_k\neq 0$, then
+\[
+\Bigl|\sum_{f\in B_k}\omega_f\, L\bigl(\tfrac12,f\bigr)-2\Bigr|\le C_A k^{-A}.
+\]
+\item If $k\equiv 2\pmod 4$ and $S_k\neq 0$, then $L(1/2,f)=0$ for every $f\in B_k$, and
+\[
+\Bigl|\sum_{f\in B_k}\omega_f\, L'\bigl(\tfrac12,f\bigr)
+-2\Bigl(\psi\bigl(\tfrac k2\bigr)-\log(2\pi)\Bigr)\Bigr|
+\le C_A k^{-A}.
+\]
+Here $\psi=\Gamma'/\Gamma$ is the digamma function.
+\end{enumerate}
+In particular, as $k\to\infty$ through multiples of $4$,
+\[
+\sum_{f\in B_k}\omega_f\, L\bigl(\tfrac12,f\bigr)=2+O\bigl(k^{-A}\bigr)
+\]
+for every fixed $A$, and as $k\to\infty$ through integers congruent to $2$ modulo $4$,
+\begin{equation}\label{eq:digamma-expansion}
+\sum_{f\in B_k}\omega_f\, L'\bigl(\tfrac12,f\bigr)
+=2\log\frac{k}{4\pi}-\frac{2}{k}+O(k^{-2}).
+\end{equation}
+\end{theorem}
+
+The shape of the main terms has a direct explanation. An approximate functional equation with an even entire test function writes $L(1/2,f)$, when the root number is $+1$, as twice a Dirichlet polynomial whose $n=1$ term is essentially $1$. The Petersson formula returns $1$ on the diagonal $n=1$ and a Kloosterman--Bessel series off the diagonal. For holomorphic forms of large weight the Bessel function $J_{k-1}(4\pi\sqrt n/c)$ is exponentially small throughout the region where the Gaussian weight has not already killed the coefficient. The same mechanism, applied to a double pole, differentiates the completed $L$-function at the centre and produces the digamma value $\psi(k/2)-\log(2\pi)$, which is the logarithmic derivative of the archimedean factor.
+
+The comparison with Maass forms is instructive. On the critical line for a fixed spectral parameter, or in a family of Maass forms of eigenvalue near $T$, the archimedean Bessel transform oscillates rather than decaying exponentially in the analytic conductor, and the off-diagonal is a genuine problem in exponential sums. Holomorphic forms of level one and large weight are the opposite extreme: once the test function localizes the Dirichlet series below length about $k^2$, every Kloosterman sum is multiplied by a Bessel value smaller than $\ee^{-k/4}$. The first moment is therefore a diagonal theorem. The second moment of $L(1/2,f)$ is not. There the approximate functional equation has two free frequencies $m$ and $n$, the product $mn$ reaches size $k^2$, and $J_{k-1}(4\pi\sqrt{mn}/c)$ sits in its transitional range. Theorem~\ref{thm:main} stops exactly where that transition begins.
+
+A byproduct, useful on its own, is that short polynomials never see the transition.
+
+\begin{theorem}\label{thm:short}
+Let $k\ge 16$ be even and set $N=\lfloor(k-1)/(8\pi)\rfloor$. For arbitrary complex coefficients $\alpha_n$ with $1\le n\le N$,
+\[
+\sum_{f\in B_k}\omega_f\Bigl|\sum_{n\le N}\alpha_n\lambda_f(n)\Bigr|^2
+=\sum_{n\le N}|\alpha_n|^2+\theta\,\ee^{-(k-1)/4}\Bigl(\sum_{n\le N}|\alpha_n|\Bigr)^2,
+\]
+where $|\theta|\le 4\pi$.
+\end{theorem}
+
+The harmonic weights admit an Euler-product description. If $D(s,f)=\sum_{n\ge 1}\lambda_f(n)^2 n^{-s}$ and $L(s,\sym^2 f)$ is defined by removing the polar factor $\zeta(s)/\zeta(2s)$, the residue computation with the Eisenstein series yields the following identity.
+
+\begin{theorem}\label{thm:weight}
+For every Hecke eigenform $f\in S_k$ normalized by $\lambda_f(1)=1$,
+\begin{equation}\label{eq:omega-sym}
+\omega_f=\frac{2\pi^2}{(k-1)\,L(1,\sym^2 f)}.
+\end{equation}
+In particular $\sum_{f\in B_k}\omega_f=1+O(\ee^{-k/5})$ for $k\ge 28$, and therefore
+\[
+\sum_{f\in B_k}\frac{1}{L(1,\sym^2 f)}=\frac{k-1}{2\pi^2}+O\bigl(k\ee^{-k/5}\bigr).
+\]
+\end{theorem}
+
+Deligne's bound $\lvert\lambda_f(n)\rvert\le d(n)$ is not required for Theorems~\ref{thm:main}--\ref{thm:weight}. It enters only when the averaged asymptotic is turned into a statement about individual forms. The convexity bound proved in Section~\ref{sec:nonvan} is the classical one, $L(1/2,f)\ll k^{1/2}\log k$, and it is enough for a quantitative non-vanishing measure.
+
+\begin{theorem}\label{thm:nonvan}
+If $k\equiv 0\pmod 4$ is sufficiently large, then
+\[
+\sum_{\substack{f\in B_k\\ L(1/2,f)\ne 0}}\omega_f
+\gg\frac{1}{k^{1/2}\log k}.
+\]
+If $k\equiv 2\pmod 4$ is sufficiently large, the same lower bound holds for the harmonic measure of the set of $f$ with $L'(1/2,f)\ne 0$.
+\end{theorem}
+
+The method is classical in outline. The geometric side of the Petersson formula goes back to Petersson \cite{Petersson1932}; the Rankin--Selberg expression for the norm goes back to Rankin and Selberg \cite{Rankin1939,Selberg1940}; approximate functional equations in the form used here are in the shape codified by Iwaniec--Kowalski \cite{IK2004}. What is carried out below is a level-one argument in which every constant is tracked, the test function is the Gaussian $\ee^{s^2}$, and the resulting error is smaller than every negative power of the weight. The same Gaussian makes the negative-root-number moment an identity for the digamma function rather than an asymptotic for a logarithm. Section~\ref{sec:numerics} records direct numerical checks of the Petersson constant, of both approximate functional equations, and of the diagonal weight $\omega_\Delta$, on the cusp forms of weights $12$ and $18$.
+
+\subsection*{Notation}
+Throughout, $k\ge 12$ is even, $\ell=k/2$, and $\kappa=(k-1)/2$. The symbol $d(n)$ is the divisor function, $e(z)=\exp(2\pi\ii z)$, and $S(m,n;c)$ is the Kloosterman sum
+\[
+S(m,n;c)=\sum_{\substack{1\le d\le c\\ \gcd(d,c)=1}}
+e\Bigl(\frac{m\overline d+nd}{c}\Bigr),
+\]
+where $\overline d$ is the inverse of $d$ modulo $c$. The implied constant in $O_A(\,\cdot\,)$ depends only on $A$. The inner product $\langle\,\cdot\,,\,\cdot\,\rangle$ is linear in the first variable and conjugate-linear in the second.
+
+\section{Cusp forms and Hecke operators}
+\label{sec:forms}
+
+The group $\SL_2(\ZZ)$ acts on the upper half-plane $\HH=\{z=x+\ii y:y>0\}$ by fractional linear transformations. A holomorphic function $f:\HH\to\CC$ is a cusp form of weight $k$ if $f|_k\gamma=f$ for every $\gamma\in\SL_2(\ZZ)$, where
+\[
+(f|_k\gamma)(z)=(cz+d)^{-k}f(\gamma z),\qquad\gamma=\begin{pmatrix}a&b\\c&d\end{pmatrix},
+\]
+and if the Fourier expansion at the cusp $\infty$ has the shape $f(z)=\sum_{n\ge 1}a_f(n)e(nz)$. Since $-I$ acts by $(-1)^k$, the space $S_k$ is zero for odd $k$. For even $k$ the dimension is given by the classical formula \cite[Chapter~VII]{Serre1973}
+\begin{equation}\label{eq:dimension}
+\dim S_k=
+\begin{cases}
+\lfloor k/12\rfloor-1& \text{if }k\equiv 2\pmod{12},\\
+\lfloor k/12\rfloor& \text{if }k\not\equiv 2\pmod{12}.
+\end{cases}
+\end{equation}
+Thus $S_k=0$ for even $k<12$ and for $k=14$, while $\dim S_k\ge 1$ for every other even $k\ge 12$. In particular $\dim S_k\asymp k$.
+
+The Petersson inner product
+\begin{equation}\label{eq:petersson-product}
+\langle f,g\rangle
+=\int_{\SL_2(\ZZ)\backslash\HH}f(z)\overline{g(z)}\,y^k\,\frac{dx\,dy}{y^2}
+\end{equation}
+converges absolutely on $S_k$. Indeed, $y^{k/2}\lvert f(z)\rvert$ is invariant under $\SL_2(\ZZ)$ and tends to zero as $y\to\infty$ uniformly in $x$, so it is bounded on $\HH$; the resulting majorant is integrable over a fundamental domain because of the exponential decay in the cusp. The product makes $S_k$ a finite-dimensional Hilbert space.
+
+For each integer $n\ge 1$ the $n$th Hecke operator is defined on Fourier expansions, and equivalently by the slash operators of determinant $n$, as
+\begin{equation}\label{eq:hecke-def}
+(T_nf)(z)
+=n^{k-1}\sum_{ad=n}\sum_{b=0}^{d-1}d^{-k}
+f\Bigl(\frac{az+b}{d}\Bigr),
+\end{equation}
+the sum running over positive $a,d$. A direct expansion gives the action on coefficients.
+
+\begin{lemma}\label{lem:hecke-fourier}
+If $f(z)=\sum_{m\ge 1}a_f(m)e(mz)$, then
+\[
+a_m(T_nf)=\sum_{d\mid\gcd(m,n)}d^{k-1}a_f\Bigl(\frac{mn}{d^2}\Bigr).
+\]
+In particular $a_1(T_nf)=a_f(n)$.
+\end{lemma}
+
+\begin{proof}
+Substitute the Fourier series into \eqref{eq:hecke-def}. The sum over $b\bmod d$ of $e(mb/d)$ equals $d$ if $d\mid m$ and equals $0$ otherwise, so
+\[
+\sum_{b=0}^{d-1}f\Bigl(\frac{az+b}{d}\Bigr)
+=d\sum_{\ell\ge 1}a_f(d\ell)\,e(a\ell z).
+\]
+Hence
+\[
+a_\nu(T_nf)
+=n^{k-1}\sum_{\substack{ad=n\\ a\mid\nu}}d^{1-k}a_f\Bigl(\frac{d\nu}{a}\Bigr).
+\]
+Reindexing the divisor $a$ of $\gcd(\nu,n)$ rewrites the right-hand side as $\sum a^{k-1}a_f(n\nu/a^2)$, the sum running over $a\mid\gcd(\nu,n)$. Taking $\nu=1$ leaves only the term $a=1$.
+\end{proof}
+
+The operators $T_n$ commute and are self-adjoint on the Petersson space \cite[Chapter~3]{Shimura1971}, \cite[Chapter~6]{Iwaniec1997}. A commuting family of self-adjoint operators on a finite-dimensional Hilbert space may be simultaneously diagonalized. We write $B_k$ for an eigenbasis normalized by $a_f(1)=1$. Self-adjointness forces every eigenvalue to be real, so the Fourier coefficients $a_f(n)$ are real. Define
+\begin{equation}\label{eq:lambda-def}
+\lambda_f(n)=a_f(n)\,n^{-\kappa},\qquad\kappa=\frac{k-1}{2}.
+\end{equation}
+Then $\lambda_f(1)=1$, $\lambda_f(n)\in\RR$, and Lemma~\ref{lem:hecke-fourier} together with $T_nf=a_f(n)f$ yields the Hecke relations
+\begin{equation}\label{eq:hecke-mult}
+\lambda_f(m)\lambda_f(n)=\sum_{d\mid\gcd(m,n)}\lambda_f\Bigl(\frac{mn}{d^2}\Bigr).
+\end{equation}
+In particular $\lambda_f(p)^2=\lambda_f(p^2)+1$ for every prime $p$. The basis $B_k$ is orthogonal. We do not need it to be orthonormal; the weights $\omega_f$ absorb the norms.
+
+The same boundedness used to converge the inner product gives the trivial coefficient bound, which we record for convergence arguments. The dependence on $f$ is harmless because $\dim S_k<\infty$.
+
+\begin{lemma}\label{lem:trivial-coeff}
+For each $f\in S_k$ there is a constant $C_f$ such that $\lvert a_f(n)\rvert\le C_f n^{k/2}$, or equivalently $\lvert\lambda_f(n)\rvert\le C_f n^{1/2}$.
+\end{lemma}
+
+\begin{proof}
+The function $y^{k/2}\lvert f(z)\rvert$ attains a finite maximum $M_f$ on $\HH$. Integrating the Fourier series over $x\in[0,1]$ at height $y=1/n$ gives
+\[
+\lvert a_f(n)\rvert e^{-2\pi}
+=\Bigl\lvert\int_0^1 f(x+\ii/n)\,e(-nx)\,dx\Bigr\rvert
+\le M_f\, n^{k/2},
+\]
+and $\lambda_f(n)=a_f(n)n^{-\kappa}$ then contributes an extra factor $n^{-(k-1)/2}$, leaving $n^{1/2}$.
+\end{proof}
+
+\section{Poincar\'e series and the Petersson formula}
+\label{sec:petersson}
+
+For an integer $m\ge 1$ the holomorphic Poincar\'e series of weight $k$ and index $m$ is
+\begin{equation}\label{eq:poincare}
+P_m(z)
+=\sum_{\gamma\in\Gamma_\infty\backslash\SL_2(\ZZ)}(f_m|_k\gamma)(z),
+\qquad f_m(z)=e(mz),
+\end{equation}
+where $\Gamma_\infty=\{\pm\begin{pmatrix}1&n\\0&1\end{pmatrix}:n\in\ZZ\}$ is the stabilizer of the cusp. Absolute convergence for $k\ge 4$ follows by comparing the series with $\sum_{(c,d)\neq(0,0)}(c^2+d^2)^{-k/2}$. Because $k$ is even, the sum factors through $\mathrm{PSL}_2(\ZZ)$ and may be parameterized by the identity coset together with the pairs $(c,d)$ where $c\ge 1$, $\gcd(d,c)=1$ and $d$ runs through a complete set of residues modulo $c$. If $ad-bc=1$, then
+\begin{equation}\label{eq:mobius-identity}
+\frac{az+b}{cz+d}=\frac ac-\frac{1}{c(cz+d)},
+\end{equation}
+and $a\equiv\overline d\pmod c$.
+
+\begin{proposition}\label{prop:poincare-fourier}
+For integers $m,n\ge 1$,
+\begin{equation}\label{eq:poincare-coeff}
+\begin{aligned}
+P_m(z)
+&=\sum_{n\ge 1}p_m(n)\,e(nz),\\
+p_m(n)
+&=\delta_{m,n}
++(n/m)^{(k-1)/2}\,2\pi(-\ii)^k
+\sum_{c=1}^\infty\frac{S(m,n;c)}{c}
+J_{k-1}\Bigl(\frac{4\pi\sqrt{mn}}{c}\Bigr).
+\end{aligned}
+\end{equation}
+The series of Kloosterman sums converges absolutely.
+\end{proposition}
+
+The proof is the usual coset computation, followed by the identification of a Hankel integral with the Bessel function. We include it so that the factor $2\pi(-\ii)^k$ is not an external normalization. The same factor is tested numerically in Section~\ref{sec:numerics}.
+
+\begin{lemma}\label{lem:bessel-hankel}
+For $\nu\ge 0$, $\delta>0$ and $z\in\CC$,
+\begin{equation}\label{eq:hankel}
+J_\nu(z)
+=\frac{(z/2)^\nu}{2\pi\ii}
+\int_{\delta-\ii\infty}^{\delta+\ii\infty}
+t^{-\nu-1}\exp\Bigl(t-\frac{z^2}{4t}\Bigr)\,dt,
+\end{equation}
+where the power $t^{-\nu-1}$ uses the principal branch cut along the negative real axis, and the vertical line is oriented upward.
+\end{lemma}
+
+\begin{proof}
+Hankel's formula $\frac{1}{2\pi\ii}\int_{\delta-\ii\infty}^{\delta+\ii\infty}t^{-s-1}e^{t}\,dt=1/\Gamma(s+1)$, valid for every complex $s$ by moving the contour onto a keyhole if necessary, gives the claim after expanding $\exp(-z^2/(4t))=\sum_{m\ge 0}(-1)^m(z/2)^{2m}(m!)^{-1}t^{-m}$. On the line $\Re(t)=\delta$ one has $\lvert\exp(-z^2/(4t))\rvert\le\exp(\lvert z\rvert^2/(4\delta))$, so the series of absolute values is integrable against the Hankel majorant and the interchange is legitimate. The resulting series is the defining expansion
+\[
+J_\nu(z)=\sum_{m\ge 0}\frac{(-1)^m}{m!\,\Gamma(\nu+m+1)}\Bigl(\frac z2\Bigr)^{\nu+2m}.
+\]
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:poincare-fourier}]
+The identity coset contributes $e(mz)$. For the remaining cosets, insert \eqref{eq:mobius-identity} and translate the integration variable in the Fourier coefficient by the upper-triangular unipotents. The result is the absolutely convergent expansion
+\begin{equation}\label{eq:fourier-integral}
+\begin{aligned}
+p_m(n)
+&=\delta_{m,n}
++\sum_{c\ge 1}S(m,n;c)\\
+&\qquad\times\int_{-\infty+\ii y}^{\infty+\ii y}
+(cu)^{-k}\exp\Bigl(-\frac{2\pi\ii m}{c^2 u}-2\pi\ii n u\Bigr)\,du,
+\end{aligned}
+\end{equation}
+for any $y>0$. (The integral is independent of $y$ by Cauchy's theorem and the decay $\lvert u\rvert^{-k}$ with $k\ge 4$.) The integral vanishes for $n\le 0$ by shifting the contour upward, where $-2\pi\ii n u$ decays if $n<0$; we only need $n\ge 1$.
+
+Set $t=-2\pi\ii n\, u$, so $du=dt/(-2\pi\ii n)$ and $\exp(-2\pi\ii n u)=\exp(t)$. As $u$ traverses the horizontal line from left to right, $t$ traverses the vertical line $\Re(t)=2\pi n y$ downward. Accounting for the orientation,
+\[
+\int_{-\infty+\ii y}^{\infty+\ii y}
+u^{-k}\exp\Bigl(-\frac{2\pi\ii m}{c^2 u}-2\pi\ii n u\Bigr)\,du
+=\frac{(-2\pi\ii n)^{k}}{2\pi\ii n}
+\int_{2\pi ny-\ii\infty}^{2\pi ny+\ii\infty}
+t^{-k}\exp\Bigl(t-\frac{4\pi^2 mn}{c^2 t}\Bigr)\,dt.
+\]
+The identity $-2\pi\ii m/(c^2 u)=-4\pi^2 mn/(c^2 t)$ was used here, and since $k$ is an integer the power $u^{-k}$ is single-valued. The prefactor $c^{-k}$ from $(cu)^{-k}$ therefore produces
+\[
+c^{-k}\frac{(-2\pi\ii n)^{k-1}(-2\pi\ii)}{1}
+\cdot
+\frac{2\pi\ii}{(z/2)^{k-1}}J_{k-1}(z)
+\]
+after Lemma~\ref{lem:bessel-hankel} with $\nu=k-1$ and $z=4\pi\sqrt{mn}/c$, because
+\[
+\int t^{-k}\exp\bigl(t-z^2/(4t)\bigr)\,dt
+=\frac{2\pi\ii}{(z/2)^{k-1}}J_{k-1}(z).
+\]
+Simplifying $(-2\pi\ii)^k= (2\pi)^k(-\ii)^k$ against $(z/2)^{k-1}=(2\pi)^{k-1}(mn)^{(k-1)/2}c^{1-k}$ leaves
+\[
+\frac{2\pi(-\ii)^k}{c}\Bigl(\frac nm\Bigr)^{(k-1)/2}J_{k-1}\Bigl(\frac{4\pi\sqrt{mn}}{c}\Bigr).
+\]
+Multiplying by the Kloosterman sum gives \eqref{eq:poincare-coeff}. Absolute convergence of the $c$-series follows from the bound of Lemma~\ref{lem:bessel-small} below: the general term is $O_k\bigl((C\sqrt{mn}/c)^{k}\bigr)$.
+\end{proof}
+
+\begin{lemma}\label{lem:inner-poincare}
+For every $f\in S_k$ and every integer $m\ge 1$,
+\[
+\langle f,P_m\rangle=\frac{\Gamma(k-1)}{(4\pi m)^{k-1}}\,a_f(m).
+\]
+The Poincar\'e series $P_m$ lie in $S_k$ and span $S_k$.
+\end{lemma}
+
+\begin{proof}
+Unfolding \eqref{eq:poincare} against the $\Gamma_\infty$-invariant seed, using invariance of hyperbolic measure and $f|_k\gamma=f$, gives
+\[
+\langle f,P_m\rangle
+=\int_0^\infty\int_0^1 f(x+\ii y)\,\overline{e(m(x+\ii y))}\,y^{k-2}\,dx\,dy.
+\]
+Insert $f=\sum_n a_f(n)e(nz)$. The integral over $x\in[0,1]$ retains the term $n=m$, and
+\[
+\int_0^\infty e^{-4\pi m y}y^{k-2}\,dy=(4\pi m)^{1-k}\Gamma(k-1).
+\]
+If $f$ is orthogonal to every $P_m$, then $a_f(m)=0$ for every $m$, so $f=0$. Thus the Poincar\'e series span the finite-dimensional space $S_k$. Holomorphy and the transformation law are part of the definition, and the constant term at the cusp vanishes because the Fourier expansion in Proposition~\ref{prop:poincare-fourier} starts at $n\ge 1$.
+\end{proof}
+
+\begin{theorem}\label{thm:petersson}
+For all integers $m,n\ge 1$,
+\begin{equation}\label{eq:petersson}
+\sum_{f\in B_k}\omega_f\,\lambda_f(m)\lambda_f(n)
+=\delta_{m,n}
++2\pi(-\ii)^k\sum_{c=1}^\infty\frac{S(m,n;c)}{c}
+J_{k-1}\Bigl(\frac{4\pi\sqrt{mn}}{c}\Bigr),
+\end{equation}
+where $\omega_f=\Gamma(k-1)/((4\pi)^{k-1}\langle f,f\rangle)$. In particular $(-\ii)^k=(-1)^{k/2}$.
+\end{theorem}
+
+\begin{proof}
+Since $\{P_m\}$ spans $S_k$ and $B_k$ is an orthogonal basis of real eigenforms,
+\[
+P_m=\sum_{f\in B_k}\frac{\langle P_m,f\rangle}{\langle f,f\rangle}f
+=\sum_{f\in B_k}\frac{\langle f,P_m\rangle}{\langle f,f\rangle}f.
+\]
+Lemma~\ref{lem:inner-poincare} supplies the coefficient of $e(nz)$ on the right-hand side,
+\[
+\frac{\Gamma(k-1)}{(4\pi m)^{k-1}}\sum_{f\in B_k}\frac{a_f(m)a_f(n)}{\langle f,f\rangle}.
+\]
+On the left-hand side the same coefficient is $p_m(n)$ from Proposition~\ref{prop:poincare-fourier}. Substitute $a_f(j)=\lambda_f(j)j^\kappa$ and simplify the powers of $m$ and $n$:
+\[
+m^{1-k}(mn)^\kappa=m^{-(k-1)/2}n^{(k-1)/2}=(n/m)^{(k-1)/2}.
+\]
+The powers $(n/m)^{(k-1)/2}$ cancel, and the identity \eqref{eq:petersson} remains. Finally $(-\ii)^k=\ee^{-\ii k\pi/2}=(-1)^{k/2}$.
+\end{proof}
+
+\section{The symmetric square and the harmonic weights}
+\label{sec:sym}
+
+Let $E(z,s)=\sum_{\gamma\in\Gamma_\infty\backslash\SL_2(\ZZ)}\Im(\gamma z)^s$ be the non-holomorphic Eisenstein series, initially for $\Re(s)>1$. Its constant term is $y^s+\varphi(s)y^{1-s}$, where
+\begin{equation}\label{eq:scattering}
+\varphi(s)
+=\sqrt\pi\,\frac{\Gamma(s-\tfrac12)}{\Gamma(s)}\,\frac{\zeta(2s-1)}{\zeta(2s)},
+\end{equation}
+and the non-constant Fourier coefficients are holomorphic for $\Re(s)\ge 1$ \cite[Chapter~3]{Iwaniec1997}. The only singularity of $E(z,s)$ on $\Re(s)\ge 1$ is therefore the simple pole of $\varphi(s)$ at $s=1$.
+
+\begin{lemma}\label{lem:residue-E}
+The residue of $E(z,s)$ at $s=1$ is the constant function $3/\pi$.
+\end{lemma}
+
+\begin{proof}
+The non-constant Fourier coefficients do not contribute. From \eqref{eq:scattering}, $\zeta(2s-1)$ has residue $1/2$ at $s=1$ because $\zeta(w)$ has residue $1$ at $w=1$ and $w=2s-1$. Also $\Gamma(1/2)=\sqrt\pi$, $\Gamma(1)=1$ and $\zeta(2)=\pi^2/6$, so
+\[
+\Res_{s=1}\varphi(s)
+=\sqrt\pi\cdot\sqrt\pi\cdot\frac{1/2}{\pi^2/6}
+=\frac{3}{\pi}.
+\]
+The factor $y^{1-s}$ equals $1$ at $s=1$.
+\end{proof}
+
+For $f\in B_k$ define the Rankin--Selberg series $D(s,f)=\sum_{n\ge 1}\lambda_f(n)^2 n^{-s}$, absolutely convergent for $\Re(s)>2$ by Lemma~\ref{lem:trivial-coeff}, and in fact for $\Re(s)>1$ after the continuation below.
+
+\begin{proposition}\label{prop:unfolding}
+For $\Re(s)>1$,
+\begin{equation}\label{eq:unfolding}
+\int_{\SL_2(\ZZ)\backslash\HH}y^k\lvert f(z)\rvert^2 E(z,s)\,\frac{dx\,dy}{y^2}
+=(4\pi)^{-(k+s-1)}\Gamma(k+s-1)\,D(s,f).
+\end{equation}
+Both sides continue meromorphically to $\Re(s)\ge 1$, with a single simple pole at $s=1$.
+\end{proposition}
+
+\begin{proof}
+Unfold $E(z,s)$ and use $\int_0^1\lvert f(x+\ii y)\rvert^2\,dx=\sum_{n\ge 1}\lvert a_f(n)\rvert^2 e^{-4\pi n y}$. The Mellin transform
+\[
+\int_0^\infty e^{-4\pi n y}y^{k+s-2}\,dy=(4\pi n)^{-(k+s-1)}\Gamma(k+s-1)
+\]
+and the relation $\lvert a_f(n)\rvert^2 n^{-(k+s-1)}=\lambda_f(n)^2 n^{-s}$ give \eqref{eq:unfolding}. The left-hand side continues with the Eisenstein series, and $\Gamma(k+s-1)$ has no zero or pole at $s=1$.
+\end{proof}
+
+Define the symmetric-square $L$-function by removing the polar zeta factor,
+\begin{equation}\label{eq:sym-def}
+D(s,f)=\frac{\zeta(s)}{\zeta(2s)}\,L(s,\sym^2 f).
+\end{equation}
+The identity \eqref{eq:hecke-mult} gives the Euler product
+\[
+L(s,\sym^2 f)
+=\prod_p\bigl(1-\alpha_p^2 p^{-s}\bigr)^{-1}
+\bigl(1-p^{-s}\bigr)^{-1}
+\bigl(1-\beta_p^2 p^{-s}\bigr)^{-1},
+\]
+where $\alpha_p+\beta_p=\lambda_f(p)$ and $\alpha_p\beta_p=1$, initially for $\Re(s)$ large; the continuation to $s=1$ is part of Proposition~\ref{prop:unfolding}. In particular $L(s,\sym^2 f)$ is holomorphic and non-zero at $s=1$, because the left-hand side of \eqref{eq:unfolding} has a simple pole of non-zero residue (the Petersson norm is positive) and $\zeta(s)$ contributes exactly one simple pole, while $\zeta(2s)$ is holomorphic and non-zero at $s=1$.
+
+\begin{proof}[Proof of Theorem~\ref{thm:weight}]
+The residue of the left-hand side of \eqref{eq:unfolding} at $s=1$ equals $(3/\pi)\langle f,f\rangle$ by Lemma~\ref{lem:residue-E}. The residue of the right-hand side is
+\[
+(4\pi)^{-k}\Gamma(k)\cdot\Res_{s=1}D(s,f)
+=(4\pi)^{-k}\Gamma(k)\cdot\frac{L(1,\sym^2 f)}{\zeta(2)},
+\]
+and $\zeta(2)=\pi^2/6$. Therefore
+\[
+\frac{3}{\pi}\langle f,f\rangle
+=(4\pi)^{-k}\Gamma(k)\cdot\frac{6}{\pi^2}L(1,\sym^2 f),
+\]
+which rearranges to
+\begin{equation}\label{eq:norm-formula}
+\langle f,f\rangle
+=\frac{\Gamma(k)}{(4\pi)^k}\cdot\frac{2}{\pi}\,L(1,\sym^2 f).
+\end{equation}
+Since $\Gamma(k)=(k-1)\Gamma(k-1)$,
+\begin{align*}
+\omega_f
+&=\frac{\Gamma(k-1)}{(4\pi)^{k-1}\langle f,f\rangle}
+=\frac{\Gamma(k-1)\,(4\pi)^{k}}{(4\pi)^{k-1}\,\Gamma(k)\,(2/\pi)\,L(1,\sym^2 f)}
+=\frac{2\pi^2}{(k-1)L(1,\sym^2 f)}.
+\end{align*}
+For the sum of the weights, apply Theorem~\ref{thm:petersson} with $m=n=1$. For $k\ge 28$ one has $4\pi\le (k-1)/2$, so Lemma~\ref{lem:Bk-small} below yields
+\[
+\sum_{f\in B_k}\omega_f=1+O(\ee^{-k/5}).
+\]
+Dividing by the expression for $\omega_f$ gives the symmetric-square sum.
+\end{proof}
+
+\section{The functional equation}
+\label{sec:fe}
+
+The standard $L$-function $L(s,f)=\sum_{n\ge 1}\lambda_f(n)n^{-s}$ converges absolutely for $\Re(s)>3/2$ by Lemma~\ref{lem:trivial-coeff}, and the Hecke relations \eqref{eq:hecke-mult} provide the Euler product
+\[
+L(s,f)=\prod_p\bigl(1-\lambda_f(p)p^{-s}+p^{-2s}\bigr)^{-1}.
+\]
+Define the completed function by the Mellin transform of the restriction of $f$ to the positive imaginary axis. For $\Re(s)$ large set
+\begin{equation}\label{eq:mellin-I}
+I(s,f)
+=\int_0^\infty f(\ii y)\,y^{s+\kappa}\,\frac{dy}{y}.
+\end{equation}
+
+\begin{proposition}\label{prop:FE}
+The integral $I(s,f)$ extends to an entire function of $s$, and
+\begin{equation}\label{eq:I-Dirichlet}
+I(s,f)=(2\pi)^{-(s+\kappa)}\Gamma(s+\kappa)\,L(s,f).
+\end{equation}
+It satisfies $I(s,f)=\ii^k I(1-s,f)$. Equivalently, the entire function
+\begin{equation}\label{eq:Lambda}
+\Lambda(s,f)=(2\pi)^{-s}\Gamma(s+\kappa)\,L(s,f)
+\end{equation}
+satisfies $\Lambda(s,f)=\ii^k\Lambda(1-s,f)$. The root number $\ii^k$ equals $(-1)^{k/2}$. If $k\equiv 2\pmod 4$, then $L(1/2,f)=0$.
+\end{proposition}
+
+\begin{proof}
+Substitute the Fourier expansion $f(\ii y)=\sum_{n\ge 1}a_f(n)e^{-2\pi n y}$. Termwise integration, justified by Lemma~\ref{lem:trivial-coeff} for $\Re(s)$ large, gives
+\[
+I(s,f)
+=\sum_{n\ge 1}a_f(n)(2\pi n)^{-(s+\kappa)}\Gamma(s+\kappa),
+\]
+and $a_f(n)=\lambda_f(n)n^\kappa$ cancels to \eqref{eq:I-Dirichlet}.
+
+Modularity under $z\mapsto -1/z$ reads $f(-1/z)=z^k f(z)$. On the positive imaginary axis, with the branch $\arg(\ii y)=\pi/2$, one has $(\ii y)^k=\ii^k y^k$ and $-1/(\ii y)=\ii/y$, so
+\begin{equation}\label{eq:inversion}
+f(\ii/y)=\ii^k y^k f(\ii y).
+\end{equation}
+Split $I(s,f)=\int_0^1+\int_1^\infty$. In the integral over $(0,1)$ substitute $y=1/u$. The measure $dy/y$ is invariant, and \eqref{eq:inversion} contributes $\ii^k u^{k-(s+\kappa)}$. Since $k-\kappa=\kappa+1$, the exponent of $u$ is $(1-s)+\kappa$. Therefore
+\begin{equation}\label{eq:I-split}
+I(s,f)
+=\int_1^\infty f(\ii y)\,y^{s+\kappa}\,\frac{dy}{y}
++\ii^k\int_1^\infty f(\ii y)\,y^{(1-s)+\kappa}\,\frac{dy}{y}.
+\end{equation}
+The right-hand side is entire: on $[1,\infty)$ the integrand decays as $e^{-2\pi y}$ times a power of $y$. Replacing $s$ by $1-s$ and using $\ii^{2k}=(-1)^k=1$ gives $I(s,f)=\ii^k I(1-s,f)$. The relation between $I$ and $\Lambda$ is $I(s,f)=(2\pi)^{-\kappa}\Lambda(s,f)$, so the same functional equation holds for $\Lambda$. At $s=1/2$, if $\ii^k=-1$, then $\Lambda(1/2,f)=-\Lambda(1/2,f)$. The gamma factor $\Gamma(k/2)$ is finite and non-zero, hence $L(1/2,f)=0$.
+\end{proof}
+
+\section{Gaussian approximate functional equations}
+\label{sec:afe}
+
+Let $G(s)=\ee^{s^2}$. This is an even entire function, $G(0)=1$, $G'(0)=0$, and $\lvert G(\sigma+\ii t)\rvert=\ee^{\sigma^2-t^2}$. For $y>0$ define
+\begin{align}
+V_k(y)
+&=\frac{1}{2\pi\ii}\int_{(2)}
+\frac{\Gamma(\ell+s)}{\Gamma(\ell)}(2\pi y)^{-s}\frac{G(s)}{s}\,ds,\label{eq:V-def}\\
+W_k(y)
+&=\frac{1}{2\pi\ii}\int_{(2)}
+\frac{\Gamma(\ell+s)}{\Gamma(\ell)}(2\pi y)^{-s}\frac{G(s)}{s^2}\,ds,\label{eq:W-def}
+\end{align}
+the integrals being taken upward on the line $\Re(s)=2$. Both converge absolutely because of the factor $\ee^{-t^2}$.
+
+\begin{proposition}\label{prop:AFE}
+Let $f\in B_k$.
+\begin{enumerate}[label=\rm(\roman*)]
+\item If $k\equiv 0\pmod 4$, then
+\begin{equation}\label{eq:AFE-plus}
+L\bigl(\tfrac12,f\bigr)
+=2\sum_{n=1}^\infty\frac{\lambda_f(n)}{\sqrt n}\,V_k(n).
+\end{equation}
+\item If $k\equiv 2\pmod 4$, then $L(1/2,f)=0$ and
+\begin{equation}\label{eq:AFE-minus}
+L'\bigl(\tfrac12,f\bigr)
+=2\sum_{n=1}^\infty\frac{\lambda_f(n)}{\sqrt n}\,W_k(n).
+\end{equation}
+\end{enumerate}
+The series converge absolutely.
+\end{proposition}
+
+\begin{proof}
+Recall that $\kappa+1/2=\ell$, so $\Lambda(1/2,f)=(2\pi)^{-1/2}\Gamma(\ell)L(1/2,f)$. Consider
+\[
+\mathcal I
+=\frac{1}{2\pi\ii}\int_{(2)}\Lambda\bigl(\tfrac12+s,f\bigr)\frac{G(s)}{s}\,ds.
+\]
+The integrand is holomorphic for $\Re(s)>0$. Shift the contour to $\Re(s)=-2$. The only singularity crossed is the simple pole at $s=0$, of residue $\Lambda(1/2,f)$. Hence
+\[
+\mathcal I=\Lambda\bigl(\tfrac12,f\bigr)+\frac{1}{2\pi\ii}\int_{(-2)}\Lambda\bigl(\tfrac12+s,f\bigr)\frac{G(s)}{s}\,ds.
+\]
+On the left line set $s=-u$. The upward orientation is preserved, and the integrand acquires the factor
+\[
+\Lambda\bigl(\tfrac12-u,f\bigr)\frac{G(-u)}{-u}
+=-\ii^k\Lambda\bigl(\tfrac12+u,f\bigr)\frac{G(u)}{u},
+\]
+where $\Lambda(1/2-u,f)=\ii^k\Lambda(1/2+u,f)$ and $G$ is even. Therefore
+\[
+\mathcal I=\Lambda\bigl(\tfrac12,f\bigr)-\ii^k\mathcal I.
+\]
+If $k\equiv 0\pmod 4$, then $\ii^k=1$ and $\Lambda(1/2,f)=2\mathcal I$. Expanding $L(1/2+s,f)$ as a Dirichlet series on $\Re(s)=2$ and comparing with \eqref{eq:V-def} gives \eqref{eq:AFE-plus}.
+
+If $k\equiv 2\pmod 4$, then $\ii^k=-1$ and the same computation yields the empty identity $0=0$, in agreement with $L(1/2,f)=0$. For the derivative, start instead from
+\[
+\mathcal J
+=\frac{1}{2\pi\ii}\int_{(2)}\Lambda\bigl(\tfrac12+s,f\bigr)\frac{G(s)}{s^2}\,ds.
+\]
+Near $s=0$, $\Lambda(1/2+s,f)=\Lambda'(1/2,f)\,s+O(s^2)$ because $\Lambda(1/2,f)=0$, and $G(s)=1+O(s^2)$. The residue of the integrand is therefore $\Lambda'(1/2,f)$. The same substitution $s=-u$, using $\ii^k=-1$, gives $\mathcal J=\Lambda'(1/2,f)-\mathcal J$, so $\Lambda'(1/2,f)=2\mathcal J$. Differentiating $\Lambda(s,f)=(2\pi)^{-s}\Gamma(s+\kappa)L(s,f)$ and then setting $s=1/2$, the terms which contain a factor $L(1/2,f)$ drop out, and
+\[
+\Lambda'\bigl(\tfrac12,f\bigr)
+=(2\pi)^{-1/2}\Gamma(\ell)\,L'\bigl(\tfrac12,f\bigr).
+\]
+Opening the Dirichlet series in $\mathcal J$ produces \eqref{eq:AFE-minus}.
+
+Absolute convergence of either series follows from Lemma~\ref{lem:trivial-coeff} and the decay of $V_k$ and $W_k$ in Lemma~\ref{lem:weight-bounds}: the general term is $O_f(n^{-A})$ for every $A$ after choosing the contour far enough to the right.
+\end{proof}
+
+The weights have two properties we need: they reproduce $1$, respectively the digamma value, at $y=1$ up to an arbitrarily negative power of $k$, and they decay like an arbitrary power of $k/y$ when $y$ is large.
+
+\begin{lemma}\label{lem:gamma-bound}
+For every real $x>0$ and every real $t$, $\lvert\Gamma(x+\ii t)\rvert\le\Gamma(x)$.
+\end{lemma}
+
+\begin{proof}
+The Weierstrass product $1/\Gamma(z)=z\ee^{\gamma z}\prod_{n\ge 1}(1+z/n)\ee^{-z/n}$ gives
+\[
+\Bigl\lvert\frac{\Gamma(x)}{\Gamma(x+\ii t)}\Bigr\rvert
+=\frac{\lvert x+\ii t\rvert}{x}\prod_{n\ge 1}\frac{\lvert n+x+\ii t\rvert}{n+x}\ge 1,
+\]
+because $\lvert\ee^{\gamma\ii t}\rvert=\lvert\ee^{-\ii t/n}\rvert=1$ and each remaining factor is at least $1$.
+\end{proof}
+
+\begin{lemma}\label{lem:weight-bounds}
+Let $A$ be a positive integer and let $k\ge 4A$ be even.
+\begin{enumerate}[label=\rm(\roman*)]
+\item For every $y>0$,
+\begin{equation}\label{eq:V-decay}
+\lvert V_k(y)\rvert
+\le\ee^{A^2}\Bigl(\frac{\ell+A}{2\pi y}\Bigr)^A,
+\qquad
+\lvert W_k(y)\rvert
+\le\ee^{A^2}\Bigl(\frac{\ell+A}{2\pi y}\Bigr)^A.
+\end{equation}
+\item One has the approximations
+\begin{align}
+\bigl\lvert V_k(1)-1\bigr\rvert
+&\le\ee^{A^2}\Bigl(\frac{2\pi}{\ell-A}\Bigr)^A,\label{eq:V-one}\\
+\Bigl\lvert W_k(1)-\bigl(\psi(\ell)-\log(2\pi)\bigr)\Bigr\rvert
+&\le\ee^{A^2}\Bigl(\frac{2\pi}{\ell-A}\Bigr)^A.\label{eq:W-one}
+\end{align}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Move the integral defining $V_k(y)$ to the line $\Re(s)=A$. Lemma~\ref{lem:gamma-bound} yields $\lvert\Gamma(\ell+A+\ii t)\rvert\le\Gamma(\ell+A)$, and
+\[
+\frac{\Gamma(\ell+A)}{\Gamma(\ell)}=(\ell+A-1)\cdots\ell\le(\ell+A)^A.
+\]
+On this line $\lvert(2\pi y)^{-s}\rvert=(2\pi y)^{-A}$, $\lvert G(s)\rvert=\ee^{A^2-t^2}$ and $\lvert s\rvert\ge A\ge 1$. Therefore
+\[
+\lvert V_k(y)\rvert
+\le\ee^{A^2}\Bigl(\frac{\ell+A}{2\pi y}\Bigr)^A\cdot\frac{1}{2\pi}\int_{-\infty}^\infty\ee^{-t^2}\,dt.
+\]
+The Gaussian integral equals $\sqrt\pi$, so the numerical factor is $1/(2\sqrt\pi)<1$, which is the bound \eqref{eq:V-decay}. The same estimate applies to $W_k$, with $\lvert s\rvert^{-2}\le 1$ in place of $\lvert s\rvert^{-1}$.
+
+For \eqref{eq:V-one}, shift the contour in \eqref{eq:V-def} at $y=1$ from $\Re(s)=2$ to $\Re(s)=-A$, where $1\le A\le\ell/2$. The unique singularity crossed is the simple pole at $s=0$. The residue of $\Gamma(\ell+s)/\Gamma(\ell)\cdot(2\pi)^{-s}G(s)/s$ equals $1$. On the new line, Lemma~\ref{lem:gamma-bound} and the evaluation $\Gamma(\ell)/\Gamma(\ell-A)=(\ell-1)\cdots(\ell-A)\ge(\ell-A)^A$ give
+\[
+\Bigl\lvert\frac{\Gamma(\ell-A+\ii t)}{\Gamma(\ell)}\Bigr\rvert
+\le(\ell-A)^{-A}.
+\]
+The resulting integral is at most $\ee^{A^2}(2\pi/(\ell-A))^A$.
+
+For \eqref{eq:W-one}, set $H(s)=\Gamma(\ell+s)/\Gamma(\ell)\cdot(2\pi)^{-s}G(s)$, so that $W_k(1)$ is the integral of $H(s)/s^2$. Then $H(0)=1$ and
+\[
+H'(0)=\psi(\ell)-\log(2\pi),
+\]
+because the logarithmic derivative of $\Gamma(\ell+s)$ at $s=0$ is $\psi(\ell)$, the derivative of $(2\pi)^{-s}$ is $-\log(2\pi)$, and $G'(0)=0$. The Laurent expansion $H(s)/s^2=H(0)s^{-2}+H'(0)s^{-1}+\cdots$ shows that the residue at $s=0$ is $H'(0)$. Shifting to $\Re(s)=-A$ leaves an integral bounded exactly as above, since $\lvert s\rvert^{-2}\le 1$ on that line.
+\end{proof}
+
+\section{Bessel bounds and the off-diagonal}
+\label{sec:bessel}
+
+\begin{lemma}\label{lem:bessel-small}
+Let $\nu\ge 1$ be an integer and let $x>0$. Then $\lvert J_\nu(x)\rvert\le 1$, and
+\begin{equation}\label{eq:bessel-series-bound}
+\lvert J_\nu(x)\rvert
+\le\frac{(x/2)^\nu}{\nu!}\exp\Bigl(\frac{x^2}{4(\nu+1)}\Bigr).
+\end{equation}
+If in addition $\nu\ge 15$ and $0<x\le\nu/2$, then $\lvert J_\nu(x)\rvert\le\ee^{-\nu/4}$.
+\end{lemma}
+
+\begin{proof}
+The power series and the inequality $\Gamma(\nu+m+1)\ge(\nu+1)^m\nu!$ give
+\begin{align*}
+\lvert J_\nu(x)\rvert
+&\le\sum_{m\ge 0}\frac{(x/2)^{\nu+2m}}{m!\,(\nu+1)^m\,\nu!}
+=\frac{(x/2)^\nu}{\nu!}\exp\Bigl(\frac{x^2}{4(\nu+1)}\Bigr).
+\end{align*}
+For the uniform bound, expand the generating function $\exp\bigl((x/2)(t-1/t)\bigr)=\sum_{n\in\ZZ}J_n(x)t^n$ and substitute $t=\ee^{\ii\theta}$. The constant term of the resulting Fourier series satisfies
+\[
+J_n(x)=\frac{1}{2\pi}\int_0^{2\pi}\exp\bigl(\ii(x\sin\theta-n\theta)\bigr)\,d\theta,
+\]
+so $\lvert J_n(x)\rvert\le 1$.
+
+For the exponential bound, the integral comparison $\sum_{m=1}^\nu\log m\ge\int_1^\nu\log t\,dt$ yields $\nu!\ge\ee(\nu/\ee)^\nu$, hence
+\[
+\frac{(x/2)^\nu}{\nu!}
+\le\ee^{-1}\Bigl(\frac{\ee x}{2\nu}\Bigr)^\nu.
+\]
+If $x\le\nu/2$, then $\ee x/(2\nu)\le\ee/4$ and $x^2/(4(\nu+1))\le\nu/16$, so
+\[
+\lvert J_\nu(x)\rvert
+\le\ee^{-1}\Bigl(\frac{\ee}{4}\Bigr)^\nu\ee^{\nu/16}
+=\exp\bigl(-1-\nu\log(4/\ee)+\nu/16\bigr).
+\]
+Since $\log(4/\ee)>0.386$ and $0.386-1/16>1/4$, the exponent is at most $-\nu/4$ as soon as $\nu\ge 15$.
+\end{proof}
+
+Write
+\begin{equation}\label{eq:Bk-def}
+B_k(n)
+=\sum_{c=1}^\infty\frac{S(1,n;c)}{c}
+J_{k-1}\Bigl(\frac{4\pi\sqrt n}{c}\Bigr).
+\end{equation}
+The trivial bound $\lvert S(1,n;c)\rvert\le c$ will be enough; Weil's estimate is not used.
+
+\begin{lemma}\label{lem:Bk-small}
+Let $k\ge 16$ and $\nu=k-1$. Set $N_0=\nu^2/(64\pi^2)$.
+\begin{enumerate}[label=\rm(\roman*)]
+\item If $1\le n\le N_0$, then $\lvert B_k(n)\rvert\le 2\ee^{-\nu/4}$.
+\item For every $n\ge 1$,
+\[
+\lvert B_k(n)\rvert
+\le\frac{30\sqrt n}{k}+\ee^{-\nu/5}(1+\sqrt n).
+\]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The hypothesis $n\le N_0$ means $4\pi\sqrt n\le\nu/2$. For every $c\ge 1$ the argument of $J_\nu$ is therefore at most $\nu/2$, and Lemma~\ref{lem:bessel-small} gives $\lvert J_\nu\rvert\le\ee^{-\nu/4}$. A sharper summation is available from \eqref{eq:bessel-series-bound}. Using $\nu!\ge\ee(\nu/\ee)^\nu$ and $\lvert S\rvert/c\le 1$,
+\[
+\lvert B_k(n)\rvert
+\le\sum_{c\ge 1}\ee^{-1}\Bigl(\frac{2\pi\ee\sqrt n}{\nu c}\Bigr)^\nu
+\exp\Bigl(\frac{4\pi^2 n}{c^2(\nu+1)}\Bigr).
+\]
+The summand is maximized at $c=1$ in the exponential, and $4\pi^2 n/(\nu+1)\le\nu/16$. Also $2\pi\sqrt n/\nu\le 1/4$, so each factor $(2\pi\ee\sqrt n/(\nu c))^\nu$ contributes at most $(\ee/4)^\nu c^{-\nu}$. Hence
+\[
+\lvert B_k(n)\rvert
+\le\ee^{-1}(\ee/4)^\nu\ee^{\nu/16}\zeta(\nu).
+\]
+For $\nu\ge 2$ one has $\zeta(\nu)\le\zeta(2)=\pi^2/6<2$, and the proof of Lemma~\ref{lem:bessel-small} shows that the remaining factors are at most $\ee^{-\nu/4}$. This is (i), up to adjusting the constant $2$ which covers $\ee^{-1}\cdot 2<1$ for the range $\nu\ge 15$.
+
+For (ii), set $c_0=8\pi\sqrt n/\nu$, so that the argument of $J_\nu$ is at most $\nu/2$ precisely when $c\ge c_0$. If $c_0\le 1$, then (i) applies and there is nothing to prove. If $c_0>1$, the terms with $c\ge c_0$ are estimated as in (i), with the additional ratio $(c_0/c)^\nu$:
+\[
+\sum_{c\ge c_0}\Bigl(\frac{c_0}{c}\Bigr)^\nu
+\le 1+\int_0^\infty\Bigl(1+\frac{t}{c_0}\Bigr)^{-\nu}\,dt
+=1+\frac{c_0}{\nu-1}\le 1+c_0.
+\]
+Thus the large-$c$ contribution is at most $\ee^{-\nu/4}(1+c_0)$. The small-$c$ contribution is at most the number of integers $c$ with $1\le c<c_0$, hence at most $c_0$, because $\lvert J_\nu\rvert\le 1$ and $\lvert S\rvert/c\le 1$. For $k\ge 16$ one has $c_0\le 30\sqrt n/k$, and $\ee^{-\nu/4}(1+c_0)$ is absorbed into $\ee^{-\nu/5}(1+\sqrt n)$ after increasing the multiplicative constant in front of the polynomial term to $30$.
+\end{proof}
+
+\begin{proposition}\label{prop:off-diagonal}
+Let $A\ge 2$ be an integer and let $k\ge\max(16,4A)$ be even. Then
+\begin{equation}\label{eq:off-V}
+\sum_{n=1}^\infty n^{-1/2}\lvert V_k(n)B_k(n)\rvert
+\le C_A k^{1-A},
+\end{equation}
+and the same bound holds with $W_k$ in place of $V_k$. The constant $C_A$ depends only on $A$. Furthermore
+\[
+\sum_{f\in B_k}\omega_f=1+O(\ee^{-k/5})\qquad(k\ge 28).
+\]
+\end{proposition}
+
+\begin{proof}
+Split the sum at $N_0=(k-1)^2/(64\pi^2)$. On $n\le N_0$, Lemma~\ref{lem:Bk-small}(i) and the case $A=1$ of \eqref{eq:V-decay} give $\lvert V_k(n)\rvert\le\ee\, k$ for $n\ge 1$, so
+\[
+\sum_{n\le N_0}n^{-1/2}\lvert V_k(n)B_k(n)\rvert
+\le 2\ee^{-(k-1)/4}\cdot\ee k\sum_{n\le N_0}n^{-1/2}
+\ll k\cdot k\cdot\ee^{-k/5},
+\]
+which is $O(k^{-A})$ for every fixed $A$. On $n>N_0$, Lemma~\ref{lem:Bk-small}(ii) contributes two pieces. The exponentially small piece is negligible against any power of $k$ after multiplication by $\lvert V_k(n)\rvert\ll_A (k/n)^A$ and summation, because $\sum_n n^{-A}(1+\sqrt n)n^{-1/2}$ converges for $A\ge 2$. The remaining piece satisfies
+\[
+n^{-1/2}\cdot\frac{30\sqrt n}{k}\lvert V_k(n)\rvert
+\le\frac{30}{k}\,\ee^{A^2}\Bigl(\frac{\ell+A}{2\pi n}\Bigr)^A.
+\]
+Summing over $n>N_0$ and comparing the series with an integral,
+\[
+\sum_{n>N_0}n^{-A}
+\le\int_{N_0/2}^\infty t^{-A}\,dt
+\ll_A (k^2)^{1-A},
+\]
+we obtain a contribution
+\[
+\ll_A k^{-1}\ee^{A^2}k^{A}\cdot k^{2-2A}
+=\ee^{A^2}O_A\bigl(k^{1-A}\bigr).
+\]
+The factor $\ee^{A^2}$ depends only on $A$. The argument for $W_k$ is identical. The evaluation of $\sum_f\omega_f$ is Theorem~\ref{thm:petersson} at $(m,n)=(1,1)$, where $B_k(1)$ falls under Lemma~\ref{lem:Bk-small}(i) as soon as $4\pi\le(k-1)/2$, i.e.\ $k\ge 28$.
+\end{proof}
+
+\section{Proof of the moment theorems}
+\label{sec:moments}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Assume first that $k\equiv 0\pmod 4$, so $(-\ii)^k=1$ and the root number is $+1$. Proposition~\ref{prop:AFE} and Theorem~\ref{thm:petersson} give, after an interchange justified below,
+\begin{align*}
+\sum_{f\in B_k}\omega_f L\bigl(\tfrac12,f\bigr)
+&=2\sum_{n\ge 1}n^{-1/2}V_k(n)\sum_{f\in B_k}\omega_f\lambda_f(n)\\
+&=2V_k(1)+4\pi\sum_{n\ge 1}n^{-1/2}V_k(n)B_k(n).
+\end{align*}
+Lemma~\ref{lem:weight-bounds} bounds the first term by $2+O_A(k^{-A})$. Proposition~\ref{prop:off-diagonal} bounds the second term by $O_A(k^{1-A})$, which is $O_{A'}(k^{-A'})$ upon replacing $A$ by $A'+1$. This is the first assertion.
+
+The interchange of the $n$-sum and the finite sum over $f$ is legitimate because, on the line $\Re(s)=2$ used to define $V_k$, 
+\[
+\sum_{n\ge 1}n^{-5/2}\lvert B_k(n)\rvert<\infty
+\]
+by Lemma~\ref{lem:Bk-small}(ii), while $\sum_n\lvert\lambda_f(n)\rvert n^{-5/2}<\infty$ by Lemma~\ref{lem:trivial-coeff}. Opening the contour integral for $V_k$ and applying Fubini on $\Re(s)=2$ therefore precedes the insertion of the Petersson formula.
+
+Now assume $k\equiv 2\pmod 4$. Proposition~\ref{prop:FE} gives $L(1/2,f)=0$. The same computation with $W_k$ in place of $V_k$ produces
+\[
+\sum_{f\in B_k}\omega_f L'\bigl(\tfrac12,f\bigr)
+=2W_k(1)+4\pi(-\ii)^k\sum_{n\ge 1}n^{-1/2}W_k(n)B_k(n).
+\]
+The series is $O_A(k^{-A})$ by Proposition~\ref{prop:off-diagonal}, and Lemma~\ref{lem:weight-bounds} replaces $W_k(1)$ by $\psi(\ell)-\log(2\pi)$.
+
+It remains to expand the digamma value. For integers $n\ge 1$,
+\[
+H_n-\log n-\gamma
+=\sum_{m\ge n}\bigl(\log(1+1/m)-1/(m+1)\bigr),
+\]
+and the summand equals $1/(2m^2)+O(m^{-3})$ by the expansions $\log(1+1/m)=1/m-1/(2m^2)+O(m^{-3})$ and $1/(m+1)=1/m-1/m^2+O(m^{-3})$. Comparing $\sum_{m\ge n}m^{-2}$ with $\int_n^\infty x^{-2}\,dx$ gives
+\[
+H_n=\log n+\gamma+\frac{1}{2n}+O(n^{-2}).
+\]
+Hence $\psi(\ell)=-\gamma+H_{\ell-1}=\log\ell-1/(2\ell)+O(\ell^{-2})$. Substituting $\ell=k/2$,
+\[
+2\bigl(\psi(\ell)-\log(2\pi)\bigr)
+=2\log\frac{k}{4\pi}-\frac{2}{k}+O(k^{-2}).
+\]
+The error $O_A(k^{-A})$ with $A=2$ is absorbed into $O(k^{-2})$, which is \eqref{eq:digamma-expansion}.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:short}]
+Expand the square and apply Theorem~\ref{thm:petersson}:
+\begin{align*}
+\sum_{f\in B_k}\omega_f\Bigl\lvert\sum_{n\le N}\alpha_n\lambda_f(n)\Bigr\rvert^2
+&=\sum_{m,n\le N}\alpha_m\overline{\alpha_n}
+\sum_{f\in B_k}\omega_f\lambda_f(m)\lambda_f(n)\\
+&=\sum_{n\le N}\lvert\alpha_n\rvert^2
++2\pi(-\ii)^k\sum_{m,n\le N}\alpha_m\overline{\alpha_n}\,B_k(m,n),
+\end{align*}
+where $B_k(m,n)$ denotes the Kloosterman--Bessel series with $\sqrt{mn}$ in place of $\sqrt n$. The hypothesis $N\le(k-1)/(8\pi)$ forces $4\pi\sqrt{mn}\le(k-1)/2$ whenever $m,n\le N$. The proof of Lemma~\ref{lem:Bk-small}(i) applies verbatim with this argument in place of $4\pi\sqrt n$, and yields $\lvert B_k(m,n)\rvert\le 2\ee^{-(k-1)/4}$. Therefore the off-diagonal is at most
+\[
+2\pi\cdot 2\ee^{-(k-1)/4}\Bigl(\sum_{n\le N}\lvert\alpha_n\rvert\Bigr)^2,
+\]
+which is the stated bound.
+\end{proof}
+
+\section{Convexity and non-vanishing}
+\label{sec:nonvan}
+
+The pointwise bound uses Deligne's theorem $\lvert\lambda_f(n)\rvert\le d(n)$ \cite{Deligne1974}, which is stronger than Lemma~\ref{lem:trivial-coeff} and uniform in $f$. We also use the elementary divisor estimate $d(n)\ll_\eps n^\eps$, proved by writing $d(n)=\prod(a_i+1)$ and observing that $p^{a\eps}\ge a+1$ for all primes $p$ outside a finite set depending on $\eps$, while the remaining Euler factor is $O_\eps(n^{\eps/2})$.
+
+\begin{lemma}\label{lem:pointwise}
+For every $f\in B_k$,
+\[
+\bigl\lvert L\bigl(\tfrac12,f\bigr)\bigr\rvert
+\ll k^{1/2}\log k,
+\qquad
+\bigl\lvert L'\bigl(\tfrac12,f\bigr)\bigr\rvert
+\ll k^{1/2}(\log k)^2.
+\]
+The implied constants are absolute for $k\ge 16$.
+\end{lemma}
+
+\begin{proof}
+Shift the integral for $V_k(y)$ to $\Re(s)=-1$. The residue at $s=0$ is $1$, and the same majorization as in \eqref{eq:V-one} produces a remainder $O(y/k)$. Thus $\lvert V_k(y)\rvert\ll 1$ for $1\le y\le k$. For $y>k$ the bound \eqref{eq:V-decay} with $A=1$ gives $\lvert V_k(y)\rvert\ll k/y\ll 1$. For the derivative weight, the residue of the integrand of $W_k(y)$ at $s=0$ is $\psi(\ell)-\log(2\pi y)$. For $1\le y\le k$ this residue is $O(\log k)$, and the integral on $\Re(s)=-1$ is $O(y/k)=O(1)$, so $\lvert W_k(y)\rvert\ll\log(2+k)$. For $y>k$ one has $\lvert W_k(y)\rvert\ll k/y$ by \eqref{eq:V-decay}.
+
+Thus, in the root-number $+1$ case,
+\[
+\bigl\lvert L\bigl(\tfrac12,f\bigr)\bigr\rvert
+\le 2\sum_{n\ge 1}d(n)n^{-1/2}\lvert V_k(n)\rvert.
+\]
+Let $D(X)=\sum_{n\le X}d(n)$. The elementary bound $D(X)\ll X\log X$ and partial summation give
+\[
+\sum_{n\le k}d(n)n^{-1/2}
+=D(k)k^{-1/2}+\frac12\int_1^k D(t)t^{-3/2}\,dt
+\ll k^{1/2}\log k.
+\]
+On the tail, \eqref{eq:V-decay} with $A=2$ contributes
+\[
+\sum_{n>k}d(n)n^{-1/2}\Bigl(\frac kn\Bigr)^2
+=k^2\sum_{n>k}d(n)n^{-5/2}.
+\]
+Partial summation with $D(t)\ll t\log t$ shows that the series on the right is $O(k^{-3/2}\log k)$.
+The tail is therefore also $O(k^{1/2}\log k)$.
+The derivative bound is the same argument, with an extra factor $\log k$ from $W_k$ on the range $n\le k$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:nonvan}]
+Take $k\equiv 0\pmod 4$ large enough that the error in Theorem~\ref{thm:main} is at most $1$. Then
+\[
+\Bigl\lvert\sum_{f\in B_k}\omega_f L\bigl(\tfrac12,f\bigr)\Bigr\rvert\ge 1.
+\]
+The left-hand side is at most
+\[
+\sup_f\bigl\lvert L\bigl(\tfrac12,f\bigr)\bigr\rvert
+\sum_{\substack{f\in B_k\\ L(1/2,f)\ne 0}}\omega_f.
+\]
+Lemma~\ref{lem:pointwise} supplies the supremum, and the harmonic measure is $\gg k^{-1/2}(\log k)^{-1}$.
+
+If $k\equiv 2\pmod 4$, Theorem~\ref{thm:main} gives a weighted sum of derivatives asymptotic to $2\log(k/(4\pi))$, hence of absolute value $\gg\log k$ for large $k$. Dividing by the pointwise bound $O(k^{1/2}(\log k)^2)$ again leaves a harmonic measure $\gg k^{-1/2}(\log k)^{-1}$.
+\end{proof}
+
+The exponent $-1/2$ is the convexity barrier for a family of analytic conductor $k^2$, and the argument loses a logarithm in partial summation. A subconvex bound on $L(1/2,f)$, or a second-moment asymptotic, would improve the measure. The second moment is outside the range in which $J_{k-1}$ is exponentially small, as explained in the introduction, and is not treated here.
+
+\section{Numerical checks}
+\label{sec:numerics}
+
+The constants assembled above were tested on the two spaces of dimension one in weights $12$ and $18$. Weight $12$ has root number $+1$ and is spanned by the discriminant
+\[
+\Delta(z)=e(z)\prod_{n\ge 1}\bigl(1-e(nz)\bigr)^{24}=\sum_{n\ge 1}\tau(n)e(nz).
+\]
+Weight $18$ has root number $-1$ and is spanned by $f_{18}=\Delta E_6$. Here $E_6(z)=1-504\sum_{n\ge 1}\sigma_5(n)e(nz)$ is the normalized Eisenstein series of weight $6$. The product has first coefficient $1$ and second coefficient $-528$. The values below were computed in arbitrary-precision floating-point arithmetic. The script \texttt{paper/code/verify\_identities.py} recomputes them.
+
+The Petersson norm of $\Delta$ was obtained by integrating $\lvert\Delta(z)\rvert^2 y^{10}$ over the standard fundamental domain. The output is
+\[
+\langle\Delta,\Delta\rangle
+=1.035362056804321\times 10^{-6},
+\]
+and therefore
+\[
+\omega_\Delta
+=\frac{\Gamma(11)}{(4\pi)^{11}\langle\Delta,\Delta\rangle}
+=2.840287375167500.
+\]
+Independently, the series $1+2\pi\sum_{c\le 80}S(1,1;c)c^{-1}J_{11}(4\pi/c)$ equals the same value of $\omega_\Delta$ through the first twenty significant digits. This is the case $m=n=1$, $k=12$ of Theorem~\ref{thm:petersson}. Since $\ii^{12}=1$, the test does not see the sign $(-1)^{k/2}$ by itself; that sign is fixed by the identity $(-\ii)^k=(-1)^{k/2}$ and by the contour computation in Proposition~\ref{prop:poincare-fourier}.
+
+The central value was computed from the rapidly convergent integral \eqref{eq:I-split},
+\[
+L\bigl(\tfrac12,\Delta\bigr)
+=0.792122838646031.
+\]
+The Gaussian formula \eqref{eq:AFE-plus}, truncated at $n\le 200$ with the Mellin integral for $V_{12}$ taken up to height $25$, reproduces this value through six significant digits. At weight $12$ one has $V_{12}(1)\approx 0.4651$, so $2V_{12}(1)\approx 0.930$, while $\omega_\Delta L(1/2,\Delta)\approx 2.250$. The gap is the off-diagonal, which is not yet small: $4\pi\approx 12.57$ is comparable with the Bessel order $11$. The asymptotic regime of Theorem~\ref{thm:main} is large weight, not the discriminant. The approach of $V_k(1)$ to $1$ is visible in the following sample, computed from the same contour integral.
+
+\begin{center}
+\begin{tabular}{crr}
+$k$ & $V_k(1)$ & $k\bigl(1-V_k(1)\bigr)$\\
+\hline
+$12$  & $0.465108$ & $6.419$\\
+$24$  & $0.662394$ & $8.102$\\
+$48$  & $0.822014$ & $8.543$\\
+$120$ & $0.943288$ & $6.805$\\
+$400$ & $0.992698$ & $2.921$\\
+$1600$& $0.999693$ & $0.491$\\
+\end{tabular}
+\end{center}
+
+The quantity $k(1-V_k(1))$ eventually tends to zero, in agreement with an error smaller than $k^{-1}$, but slowly enough that a fixed negative power is not the sharp shape. Optimizing the shift $A$ in Lemma~\ref{lem:weight-bounds} against the factor $\ee^{A^2}(2\pi/(\ell-A))^A$ produces a stronger consequence, which we record explicitly.
+
+\begin{corollary}\label{cor:log-square}
+There exists an absolute constant $c>0$ such that, for all sufficiently large even $k$ in the appropriate congruence class, the error terms in Theorem~\ref{thm:main} are $O\bigl(\exp(-c(\log k)^2)\bigr)$.
+\end{corollary}
+
+\begin{proof}
+In Lemma~\ref{lem:weight-bounds} choose the positive integer
+\[
+A=\bigl\lfloor\tfrac14\log(k/(8\pi))\bigr\rfloor.
+\]
+For large $k$ one has $1\le A\le\ell/2$, and the archimedean errors \eqref{eq:V-one} and \eqref{eq:W-one} satisfy
+\[
+\ee^{A^2}\Bigl(\frac{2\pi}{\ell-A}\Bigr)^A
+\le\exp\bigl(-\tfrac1{20}(\log k)^2\bigr).
+\]
+For the off-diagonal, repeat the estimate from the proof of Proposition~\ref{prop:off-diagonal}, keeping the factor $\ee^{A^2}$ visible.
+The range $n\le N_0$ contributes $O(k^2\ee^{-k/5})$.
+The range $n>N_0$ contributes
+\[
+O\Bigl(k^{-1}\ee^{A^2}\Bigl(\frac{\ell+A}{2\pi}\Bigr)^A\int_{N_0/2}^\infty t^{-A}\,dt\Bigr).
+\]
+The integral is $O\bigl((k^2)^{1-A}\bigr)$, so the product is
+\[
+\exp\bigl(A^2+(1-A)\log k+O(A)\bigr).
+\]
+With $A\sim(\log k)/4$ the exponent equals
+\[
+-\tfrac18(\log k)^2+O(\log k).
+\]
+Each piece is $O\bigl(\exp(-c(\log k)^2)\bigr)$ for a small absolute $c>0$.
+\end{proof}
+
+For the derivative, the same integral representation at weight $18$ gives
+\[
+L'\bigl(\tfrac12,f_{18}\bigr)=0.649604896356.
+\]
+Truncating \eqref{eq:AFE-minus} at $n\le 120$ reproduces this value through five significant digits. Here $W_{18}(1)\approx 0.7445$, while $\psi(9)-\log(2\pi)\approx 0.3028$; the difference tends to zero as the weight grows, at the rate controlled by Lemma~\ref{lem:weight-bounds}. Formula \eqref{eq:omega-sym} at weight $12$ returns the symmetric-square value
+\[
+L(1,\sym^2\Delta)
+=\frac{2\pi^2}{11\,\omega_\Delta}
+=0.631792945728.
+\]
+
+These checks pin down the diagonal constants. They do not, by themselves, probe the exponential decay of $J_{k-1}$ for large $k$; that decay is the content of Lemma~\ref{lem:bessel-small} and is elementary from the power series.
+
+\begin{thebibliography}{99}
+
+\bibitem{Deligne1974}
+P.~Deligne,
+\textit{La conjecture de Weil.~I},
+Inst.\ Hautes \'Etudes Sci.\ Publ.\ Math.\ \textbf{43} (1974), 273--307.
+
+\bibitem{IK2004}
+H.~Iwaniec and E.~Kowalski,
+\textit{Analytic Number Theory},
+Amer.\ Math.\ Soc.\ Colloquium Publications \textbf{53}, Providence, RI, 2004.
+
+\bibitem{Iwaniec1997}
+H.~Iwaniec,
+\textit{Topics in Classical Automorphic Forms},
+Grad.\ Stud.\ Math.\ \textbf{17}, Amer.\ Math.\ Soc., Providence, RI, 1997.
+
+\bibitem{Petersson1932}
+H.~Petersson,
+\textit{\"Uber die Entwicklungskoeffizienten der automorphen Formen},
+Acta Math.\ \textbf{58} (1932), 169--215.
+
+\bibitem{Rankin1939}
+R.~A.~Rankin,
+\textit{Contributions to the theory of Ramanujan's function $\tau(n)$ and similar arithmetical functions.~II. The order of the Fourier coefficients of integral modular forms},
+Proc.\ Cambridge Philos.\ Soc.\ \textbf{35} (1939), 357--372.
+
+\bibitem{Selberg1940}
+A.~Selberg,
+\textit{Bemerkungen \"uber eine Dirichletsche Reihe, die mit der Theorie der Modulformen nahe verbunden ist},
+Arch.\ Math.\ Naturvid.\ \textbf{43} (1940), 47--50.
+
+\bibitem{Serre1973}
+J.-P.~Serre,
+\textit{A Course in Arithmetic},
+Grad.\ Texts in Math.\ \textbf{7}, Springer-Verlag, New York, 1973.
+
+\bibitem{Shimura1971}
+G.~Shimura,
+\textit{Introduction to the Arithmetic Theory of Automorphic Functions},
+Publ.\ Math.\ Soc.\ Japan \textbf{11}, Princeton Univ.\ Press, Princeton, NJ, 1971.
+
+\end{thebibliography}
+
+\end{document}
