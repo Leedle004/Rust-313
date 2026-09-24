@@ -1,0 +1,1 @@
+foreach([-320,-125,-116,-3,49,2662], a, my(f=x^6-a*x-a, G=polgalois(f), K=nfinit(f)); print(a, " : order ", G[1], " T", G[3], " ", G[4], " | subfields degrees: ", vecsort(apply(v->poldegree(v[1]), nfsubfields(K))), " | d_K = ", factor(K.disc)));

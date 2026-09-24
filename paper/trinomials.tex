@@ -1,0 +1,791 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{microtype}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\OK}{\mathcal{O}_K}
+\newcommand{\Gal}{\mathrm{Gal}}
+\newcommand{\disc}{\operatorname{disc}}
+\newcommand{\Norm}{\mathrm{N}}
+\newcommand{\leg}[2]{\Bigl(\dfrac{#1}{#2}\Bigr)}
+\DeclareMathOperator{\rk}{rk}
+
+\title{Integral bases, Galois groups, and class groups\\
+of the trinomials $x^{n}-ax-a$}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+For integers $n\ge 2$ and $a\neq 0$, write $f_{n,a}=x^{n}-ax-a$. Whenever $f_{n,a}$
+is irreducible, let $\theta$ be a root and $K_{n,a}=\Q(\theta)$. The relation
+$\theta^{n}=a(\theta+1)$ determines the arithmetic of $K_{n,a}$ almost completely.
+We compute the discriminant, the factorization of every rational prime, and the
+exact power of every prime dividing the index $[\OK:\Z[\theta]]$, excluding one
+irregular local case. As consequences, the Galois group is determined for every
+irreducible member of degree $3$, $4$, and $5$; the element $\theta+1$ is shown
+to be a unit of norm one, and to be primitive in the unit group for every
+squarefree cubic parameter with $2\le|a|\le 33535$; and the class number is shown
+to be divisible by an explicit genus number built from the prime factors of $a$.
+The cyclic fields of degree three are identified with Shanks' simplest cubic
+fields. The local statements were checked on $6388$ fields and $25287$ ramified
+primes, and the class-group statements on $1878$ fields.
+\end{abstract}
+
+\section{Introduction}
+
+Let $n\ge 2$ and $a\in\Z\setminus\{0\}$, and set
+\[
+f_{n,a}(x)=x^{n}-ax-a,\qquad D_n(a)=n^{n}+(-1)^{n}(n-1)^{n-1}a.
+\]
+If $f_{n,a}$ is irreducible, let $\theta$ be a root and write $K_{n,a}=\Q(\theta)$.
+The polynomial is rigid: its two non-leading coefficients are equal, so a root
+satisfies $\theta^{n}=a(\theta+1)$. Every prime divisor of $a$ therefore ramifies
+in a way that can be read off from the valuation $v_p(a)$, and $\theta+1$ is a
+canonical unit.
+
+Trinomials have been studied from several directions. Jakhar, Khanduja, and
+Sangwan gave coefficient criteria for the ring $\Z[\theta]$ to be the full ring
+of integers of a general trinomial extension; Jones and White constructed
+infinite monogenic families $x^{n}+Ax^{m}+A$ with non-squarefree discriminant
+\cite{JW}; and Ibarra, Lembeck, Ozaslan, Smith, and Stange treated monogenity for
+$x^{n}+ax+b$ in small degree \cite{ILOSS}. The Galois group of a prime-degree
+trinomial $X^{p}+aX^{s}+a$ was determined in almost all cases by Bensebaa,
+Movahhedi, and Salinier \cite{BMS}. Genus fields of non-Galois extensions go back
+to Ishida \cite{Ish75,Ish76}, and the statistics of the resulting class-number
+divisibility have been taken up by McGown, Thorne, and Tucker \cite{MTT}. What is
+missing is a closed-form description, uniform in the degree, of the single family
+in which the middle coefficient equals the constant term.
+
+The paper is organized as follows. Section~\ref{sec:disc} gives the discriminant
+and the splitting of every rational prime. Section~\ref{sec:index} computes the
+index $[\OK:\Z[\theta]]$. Section~\ref{sec:gal} determines the Galois group in
+degrees $3$, $4$, and $5$. Section~\ref{sec:unit} treats the unit $\theta+1$, and
+Section~\ref{sec:class} the genus contribution to the class group.
+Section~\ref{sec:simple} identifies the cyclic cubic members with Shanks' fields.
+Section~\ref{sec:num} records the computations.
+
+\section{Discriminant and splitting}\label{sec:disc}
+
+\begin{proposition}\label{prop:disc}
+$\displaystyle \disc(f_{n,a})=(-1)^{(n-1)(n-2)/2}\,a^{n-1}D_n(a)$.
+\end{proposition}
+
+\begin{proof}
+The discriminant of $x^{n}+Ax+B$ is
+\[
+(-1)^{n(n-1)/2}\Bigl(n^{n}B^{n-1}+(-1)^{n-1}(n-1)^{n-1}A^{n}\Bigr).
+\]
+Substituting $A=B=-a$ and simplifying the sign
+$(-1)^{n(n-1)/2}(-1)^{n-1}=(-1)^{(n-1)(n-2)/2}$ gives the formula. Both expressions
+were compared for $2\le n\le 30$ and $1\le|a|\le 5$.
+\end{proof}
+
+In particular $f_{n,a}$ and $f_{n,a}'$ share a root modulo $p$ if and only if
+$p$ divides $aD_n(a)$. Indeed $nc^{n-1}=a$ and $c^{n}=a(c+1)$ eliminate to
+$D_n(a)\equiv 0$, unless $p$ already divides $a$.
+
+The splitting law is a Newton-polygon computation in the sense of Ore
+\cite{Ore}. We use it in the following form. Let $f\in\Z[x]$ be monic and
+irreducible, and let $p$ be a prime whose Newton polygon consists of one side $S$
+of slope $-h/e$ in lowest terms, with residual polynomial $\overline{R}\in\F_p[Y]$
+separable of degree $d$. If $\overline{R}=\prod_j\overline{R}_j$ is the
+factorization into irreducibles, then
+\[
+p\OK=\prod_j\mathfrak{p}_j^{e},\qquad f(\mathfrak{p}_j/p)=\deg\overline{R}_j.
+\]
+For a side joining $(0,k)$ to $(n,0)$ on which no other point of the coefficient
+sequence lies, one has $e=n/\gcd(k,n)$ and
+$\overline{R}(Y)=Y^{\gcd(k,n)}-\overline{u}$, where $u$ is the prime-to-$p$ part
+of the constant term.
+
+\begin{theorem}\label{thm:split}
+Let $f_{n,a}$ be irreducible, let $K=K_{n,a}$, and let $p$ be a prime.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item Suppose $p\mid a$. Write $k=v_p(a)$, $g=\gcd(k,n)$, and
+$u=ap^{-k}\bmod p$, and assume $p\nmid g$. Then
+$p\OK=\mathfrak{p}_1^{n/g}\cdots\mathfrak{p}_r^{n/g}$, where the residue degrees
+$f(\mathfrak{p}_i/p)$ are the degrees of the irreducible factors of $Y^{g}-u$
+over $\F_p$.
+\item Suppose $p\nmid aD_n(a)$. Then $p$ splits in $K$ according to the
+factorization of $f_{n,a}$ modulo $p$.
+\item Suppose $p\nmid a$ and $k=v_p\bigl(D_n(a)\bigr)\ge 1$. Then $p\nmid n(n-1)$.
+The reduction of $f_{n,a}$ has a double root
+$c\equiv -n(n-1)^{-1}\pmod p$ and no other repeated root, and
+\[
+p\OK=\mathfrak{r}\,\mathfrak{p}_1\cdots\mathfrak{p}_s,
+\]
+where the $\mathfrak{p}_i$ are prime ideals of ramification index $1$ whose
+residue degrees are the degrees of the irreducible factors of
+$f_{n,a}(x)/(x-c)^{2}$ over $\F_p$, and where the factor $\mathfrak{r}$ is
+\begin{itemize}[leftmargin=1.2em]
+\item a prime of ramification index $2$ and residue degree $1$, if $k$ is odd;
+\item a product of two distinct primes of residue degree $1$, if $k$ is even and
+$\leg{-2(n-1)\,n^{n-1}D_n(a)\,p^{-k}}{p}=1$;
+\item a prime of residue degree $2$, if $k$ is even and the same symbol equals $-1$.
+\end{itemize}
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i). The coefficients of $f_{n,a}$ have valuations $0$ (at $x^{n}$), $k$ (at $x$),
+and $k$ (at $x^{0}$). The point $(1,k)$ lies strictly above the segment from
+$(0,k)$ to $(n,0)$, because the height of that segment at the first abscissa is
+$k(n-1)/n<k$. Ore's theorem applies as soon as the residual polynomial
+$Y^{g}-u$ is separable. Its derivative is $gY^{g-1}$, so a common root would force
+$p\mid g$ or $u=0$. Both are excluded: $u\not\equiv 0$ by construction of $k$, and
+$p\nmid g$ by hypothesis. The stated factorization follows.
+
+(ii). Such a prime divides neither the index, by Theorem~\ref{thm:index} below,
+nor the discriminant, so Dedekind's criterion reduces the splitting to the
+factorization of $f_{n,a}$ modulo $p$.
+
+(iii). A common root of $f_{n,a}$ and $f_{n,a}'=nx^{n-1}-a$ modulo $p$ satisfies
+$nc^{n-1}\equiv a$ and $c^{n}\equiv a(c+1)$. Eliminating $a$ gives
+$D_n(a)\equiv 0$, and solving gives $c\equiv -n(n-1)^{-1}$. In particular
+$p\nmid n(n-1)$, and $c\not\equiv 0$. The second derivative
+$f''(c)=n(n-1)c^{n-2}$ is nonzero modulo $p$, so the root is exactly double and
+the cofactor is separable modulo $p$.
+
+Translate $x=c+Y$ with $c\in\Z$ a lift of this root for which
+$v_p\bigl(f(c)\bigr)=k$ and $v_p\bigl(f'(c)\bigr)\ge\lceil k/2\rceil$; such a lift
+exists because $D_n(a)$ is, up to a $p$-unit, the resultant of $f$ and $f'$, hence
+the precise valuation of the double root. The Newton polygon of the translated
+polynomial then has a single side of horizontal length $2$ and slope $-k/2$, the
+remaining roots contributing sides of slope $0$. The residual polynomial of the
+steep side is the quadratic
+\[
+T^{2}-\gamma,\qquad
+\gamma\equiv -2(n-1)\,n^{n-1}D_n(a)\,p^{-k}\pmod{p},
+\]
+up to squares in $\F_p^{\times}$: the leading contribution is
+$\tfrac12 f''(c)= \tfrac12 n(n-1)c^{n-2}$, and substituting
+$c\equiv -n(n-1)^{-1}$ together with $a\equiv n^{n}(n-1)^{1-n}(-1)^{n}$ produces
+the displayed class. If $k$ is odd the slope is $-k/2$ in lowest terms with
+denominator $2$, so the side contributes a unique prime of ramification index $2$
+and residue degree $1$. If $k$ is even the slope is an integer, the ramification
+index is $1$, and the residual quadratic splits, is irreducible, or has a double
+root according to the Legendre symbol of $\gamma$. It has no double root because
+that symbol is $\pm 1$.
+\end{proof}
+
+\section{The index}\label{sec:index}
+
+\begin{theorem}\label{thm:index}
+Let $f_{n,a}$ be irreducible and let $K=K_{n,a}$. For a prime $p$,
+\[
+v_p\bigl([\OK:\Z[\theta]]\bigr)=
+\begin{cases}
+\dfrac{(k-1)(n-1)+g-1}{2},
+  & \text{if }p\mid a,\ k=v_p(a),\ g=\gcd(k,n),\ p\nmid g,\\[4pt]
+\lfloor k/2\rfloor,
+  & \text{if }p\nmid a,\ k=v_p\bigl(D_n(a)\bigr).
+\end{cases}
+\]
+In particular $\Z[\theta]=\OK$ whenever $a$ is squarefree, no prime divisor of $a$
+divides $n$, and $D_n(a)$ is squarefree.
+\end{theorem}
+
+\begin{proof}
+Ore's formula expresses $v_p\bigl([\OK:\Z[\theta]]\bigr)$ as a sum of local
+contributions of the sides of the Newton polygon. On a side of horizontal length
+$\ell$, denominator $e$, and residual polynomial a product of $r$ distinct
+irreducible factors, the contribution is
+$\tfrac12\bigl(\ell(v-1)+e\cdot(\text{number of residual factors})-\ell/e\bigr)$
+in the separable case, which simplifies to the two displayed quantities. In
+case $p\mid a$ with $p\nmid g$ there is one side, of length $n$ and denominator
+$n/g$, with $g$ residual degree in total, and the formula returns
+$\bigl((k-1)(n-1)+g-1\bigr)/2$. In case $p\nmid a$ the only contribution is the
+side of length $2$ and height $k$ from Theorem~\ref{thm:split}(iii), which
+contributes $\lfloor k/2\rfloor$. Every other prime contributes nothing.
+\end{proof}
+
+The hypothesis $p\nmid g$ is essential. If a prime divides both $n$ and
+$v_p(a)$, the residual polynomial is inseparable and the index depends on higher
+digits of $a$. For a concrete illustration, $f_{6,-320}$ is irreducible and the
+power of $2$ in its index is $4$, which neither row of the theorem predicts.
+
+\section{Galois groups in degrees $3$, $4$, and $5$}\label{sec:gal}
+
+\begin{theorem}\label{thm:gal3}
+The polynomial $f_{3,a}$ is reducible if and only if $a=8$, in which case
+$f_{3,8}=(x+2)(x^{2}-2x-4)$. Otherwise $\Gal(f_{3,a})\cong C_3$ if $4a-27$ is a
+square, and $\Gal(f_{3,a})\cong S_3$ if it is not. The square case occurs
+precisely for $a=t^{2}+3t+9$ with $t\in\Z$.
+\end{theorem}
+
+\begin{proof}
+A rational root $r$ is an integer divisor of $a$ with $r^{3}=a(r+1)$, so $r+1$
+divides $r^{3}=\bigl((r+1)-1\bigr)^{3}$ and hence divides $1$. Thus $r\in\{0,-2\}$.
+The value $r=0$ forces $a=0$, and $r=-2$ forces $a=8$. Degree three admits no
+other factorization type. For $a\neq 8$, Proposition~\ref{prop:disc} gives
+$\disc(f_{3,a})=a^{2}(4a-27)$, which is a square if and only if $4a-27$ is a
+square. An irreducible cubic has Galois group $C_3$ or $S_3$ according as its
+discriminant is or is not a square.
+
+If $4a-27=m^{2}$, then $m$ is odd, because $m$ even would make $m^{2}+27\equiv 3\pmod 4$.
+Writing $m=2t+3$ yields $a=t^{2}+3t+9$. Conversely this value of $a$ gives
+$4a-27=(2t+3)^{2}$. None of these equals $8$.
+\end{proof}
+
+The same fields are identified with Shanks' family in Section~\ref{sec:simple}.
+
+\begin{theorem}\label{thm:gal4}
+Let $a\neq 0$ and let $R_a(y)=y^{3}+4ay-a^{2}$ be the cubic resolvent of
+$f_{4,a}$.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $f_{4,a}$ is reducible if and only if $a=-16$, in which case
+$f_{4,-16}=(x+2)(x^{3}-2x^{2}+4x+8)$.
+\item For every $a\neq 0$, $\disc(f_{4,a})$ is not a square. Consequently the
+Galois group is never $A_4$ or $V_4$.
+\item $R_a$ has a rational root if and only if
+\[
+a=(s-2)(s+2)^{2}\qquad\text{or}\qquad a=-(s-2)^{2}(s+2)
+\]
+for some integer $s\ge 0$ with $s\neq 2$. In that case $f_{4,a}$ is irreducible
+except for $a=-16$, the group is $C_4$ for $a=-5$, and the group is $D_4$ for
+every other such $a$.
+\item If $R_a$ is irreducible, then $\Gal(f_{4,a})\cong S_4$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The resolvent of $x^{4}+px^{2}+qx+r$ is $y^{3}-py^{2}-4ry+(4pr-q^{2})$. For
+$f_{4,a}$ one has $p=0$, $q=-a$, $r=-a$, which gives $R_a$.
+
+(i). A linear factor produces a rational root $r$ with $r^{4}=a(r+1)$, so again
+$r+1$ divides $1$ and $r\in\{0,-2\}$. Only $r=-2$ occurs, giving $a=-16$, and the
+factorization is the one stated. Suppose instead
+$f_{4,a}=(x^{2}+px+q)(x^{2}-px+s)$ with $p,q,s\in\Z$. Comparing coefficients gives
+$q+s=p^{2}$, $p(s-q)=-a$, and $qs=-a$. If $p=0$ then $a=0$. If $p\neq 0$, then
+$a=p^{2}\bigl(2\pm\sqrt{p^{2}+4}\bigr)$, so $p^{2}+4$ is a square, say $w^{2}$. Then
+$w^{2}-p^{2}=4$. The integer factorizations of $4$ give only the solution $p=0$,
+which was excluded. Thus there is no quadratic-quadratic factorization.
+
+(ii). By Proposition~\ref{prop:disc},
+$\disc(f_{4,a})=-a^{3}(27a+256)$. A negative integer is not a square, so it is
+enough to rule out $a<0$ with $27a+256>0$, that is $a\in\{-1,\ldots,-9\}$, together
+with the observation that $a\le -10$ makes $27a+256<0$ and $a>0$ makes the
+discriminant negative. The nine values $-a^{3}(27a+256)$ are
+$229$, $1616$, $4725$, $9472$, $15125$, $20304$, $22981$, $20480$, and $9477$,
+none of which is a square. Groups $A_4$ and $V_4$ have square discriminant, so
+neither occurs. An irreducible quartic whose resolvent is irreducible therefore
+has group $S_4$, which is (iv).
+
+(iii). Suppose $R_a(r)=0$ for an integer $r$. The quadratic formula in $a$ gives
+$a=2r\pm\sqrt{r^{2}(r+4)}$, so $r^{2}(r+4)$ must be a square. Since $r^{2}$ is
+already a square, $r+4$ itself is a square: $r=s^{2}-4$ for some integer $s\ge 0$.
+Substituting and simplifying produces exactly the two families
+$a=(s-2)(s+2)^{2}$ and $a=-(s-2)^{2}(s+2)$. The value $s=2$ gives $a=0$. Both
+families satisfy $R_a(s^{2}-4)=0$ by direct substitution, so the list is complete.
+The member $a=-16$ is $s=0$ in the first family; every other member is irreducible
+by (i).
+
+It remains to separate $C_4$ from $D_4$. Both groups occur with non-square
+discriminant, and both have a resolvent with exactly one rational root. Let $r$
+be that root and let $L=\Q(u)$ with $u^{2}=r$. Ferrari's identity factors
+$f_{4,a}$ over $L$ as a product of two quadratics
+$(x^{2}+ux+v)(x^{2}-ux+w)$, and the splitting field is $L\bigl(\sqrt{\Delta_1}\bigr)$
+where $\Delta_1=-r-2a/u$ is the discriminant of the first factor. This extension
+of $\Q$ is Galois of degree $4$ if and only if it is stable under $u\mapsto -u$,
+if and only if $\sigma(\Delta_1)/\Delta_1$ is a square in $L^{\times}$. A direct
+computation gives
+\[
+\frac{\sigma(\Delta_1)}{\Delta_1}=\frac{ru-2a}{ru+2a}.
+\]
+The Galois group then has order $4$. It is not $V_4$, because the resolvent does
+not split completely, so it is $C_4$. Otherwise the splitting field has degree $8$
+and the group is $D_4$.
+
+Write $m=s-2$ and $r=m(m+4)$, and take first $a=-m^{2}(m+4)$. The ratio becomes
+$(u+2m)/(u-2m)$. Setting this equal to $(\alpha+\beta u)^{2}$ with
+$\alpha,\beta\in\Q$ and equating coefficients of $1$ and $u$ produces the system
+\begin{align*}
+\alpha^{2}+r\beta^{2}-4m\alpha\beta&=1,\\
+\alpha\beta&=-\frac{2}{3m-4}\qquad(m\neq 4/3).
+\end{align*}
+Eliminating $\beta$ yields a quadratic equation for $Z=\alpha^{2}$ whose
+discriminant is a square, with roots
+\[
+Z=-\frac{m+4}{3m-4},\qquad Z=-\frac{4m}{3m-4}.
+\]
+For $Z$ to be a square in $\Q$ one of these two rational numbers must be a square.
+In the second case, $-4m/(3m-4)=p^{2}/q^{2}$ in lowest terms rearranges to
+$m=4p^{2}/(3p^{2}+4q^{2})$, whose denominator is positive, so $0\le m\le 4/3$.
+The only positive integer value is $m=1$, attained at $(p,q)=(2,1)$, and it gives
+$Z=4=2^{2}$. The corresponding parameter is $s=3$ and $a=-5$. In the first case,
+$-(m+4)/(3m-4)=p^{2}/q^{2}$ rearranges to
+$m=4(p^{2}-q^{2})/(3p^{2}+q^{2})$, which lies in the interval $(-4,4/3]$. Checking
+the integers $m\in\{-3,-2,-1,1\}$ shows that none of them makes the ratio a
+square, and $m=-4$ forces $\alpha=0$, which fails the linear equation. Thus, in
+this family, the ratio is a square only for $a=-5$.
+
+For the second family $a=m(m+4)^{2}$ with $m>0$, the same computation produces
+\[
+\alpha^{2}=-\frac{m}{3m+16}\qquad\text{or}\qquad
+\alpha^{2}=-\frac{4(m+4)}{3m+16},
+\]
+both negative for $m>0$, so neither is a square in $\Q$. The group is therefore
+$D_4$ for every irreducible member except $a=-5$, where it is $C_4$.
+\end{proof}
+
+\begin{theorem}\label{thm:gal5}
+If $f_{5,a}$ is irreducible, then $\Gal(f_{5,a})\cong S_5$.
+\end{theorem}
+
+The proof uses Dummit's resolvent \cite{Dum}. For $x^{5}+Ax+B$ it is the sextic
+\begin{equation}\label{eq:dummit}
+\begin{aligned}
+t^{6}&+8At^{5}+40A^{2}t^{4}+160A^{3}t^{3}+400A^{4}t^{2}\\
+&+(512A^{5}-3125B^{4})t+(256A^{6}-9375AB^{4}).
+\end{aligned}
+\end{equation}
+Dummit's theorem says that an irreducible quintic $x^{5}+Ax+B\in\Q[x]$ is
+solvable by radicals if and only if \eqref{eq:dummit} has a rational root, in
+which case the Galois group is $C_5$, $D_5$, or the Frobenius group $F_{20}$ of
+order $20$. We checked the criterion against a direct Galois-group computation
+for all irreducible $x^{5}+Ax+B$ with $0<|A|,|B|\le 60$: $14130$ polynomials,
+$126$ of them solvable, and no disagreement.
+
+\begin{lemma}\label{lem:nosquare}
+For $a\neq 0$, $\disc(f_{5,a})=a^{4}(3125-256a)$ is not a square.
+\end{lemma}
+
+\begin{proof}
+The exponent of $a$ is even, so the discriminant is a square if and only if
+$3125-256a=m^{2}$ for some integer $m$. Reducing modulo $256$ gives
+$m^{2}\equiv 3125\equiv 53\pmod{256}$. The squares modulo $256$ were compared with
+$53$ for every residue class; none agrees.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:gal5}]
+By Lemma~\ref{lem:nosquare} the discriminant is not a square, so the Galois group
+is not contained in $A_5$. The transitive subgroups of $S_5$ not contained in
+$A_5$ are $S_5$, the dihedral group of order $10$, and $F_{20}$; the last two are
+solvable. It is therefore enough to show that \eqref{eq:dummit}, evaluated at
+$A=B=-a$, has no rational root.
+
+Substituting $A=B=-a$ and $t=az$ factors the sextic as
+$a^{5}\bigl(a\,P(z)+3125(3-z)\bigr)$, where
+\[
+P(z)=(z-2)^{4}(z^{2}+16).
+\]
+A root $z=3$ gives $a$ arbitrary in the factor $a^{5}$ but $t=3a$ is a root of the
+sextic only for $a=0$. For $z\neq 2$ one obtains
+$a=3125(z-3)/P(z)$. Write $z=u/v$ in lowest terms with $v>0$, and set $d=u-2v$.
+Then $\gcd(d,v)=1$ and
+\[
+a=\frac{3125\,(d-v)\,v^{5}}{d^{4}\,(d^{2}+4dv+20v^{2})}.
+\]
+The denominator is coprime to $v$: indeed $\gcd(d,v)=1$ and
+$\gcd(d^{2}+4dv+20v^{2},v)=\gcd(d^{2},v)=1$. Hence $d^{4}(d^{2}+4dv+20v^{2})$
+divides $5^{5}(d-v)$. Every prime divisor of $d$ other than $5$ would then divide
+$d-v$, hence divide $v$, which is impossible. So $d=\pm 5^{\alpha}$.
+
+Write $N=d^{2}+4dv+20v^{2}$. The same coprimality gives $|d|^{4}N\le 5^{5}|d-v|$.
+Since $N=(d+2v)^{2}+16v^{2}\ge 16v^{2}$,
+\[
+16\,|d|^{4}\,v^{2}\le 3125\bigl(|d|+v\bigr).
+\]
+If $|d|\ge 25$, already $v=1$ violates the inequality, and larger $v$ makes it
+worse. If $|d|=5$, the inequality forces $v=1$. If $|d|=1$, it forces $v\le 200$.
+Testing these finitely many pairs $(d,v)$ leaves only $(d,v)=(1,1)$, which gives
+$a=0$. Thus no nonzero integer $a$ makes the sextic solvable, and the Galois
+group is $S_5$.
+\end{proof}
+
+For completeness, two reducible members are $f_{5,-1}=(x^{2}+x+1)(x^{3}-x^{2}+1)$
+and $f_{5,32}=(x+2)(x^{4}-2x^{3}+4x^{2}-8x-16)$. We do not claim that the list is
+exhaustive.
+
+\section{The unit $\theta+1$}\label{sec:unit}
+
+\begin{proposition}\label{prop:unit}
+If $f_{n,a}$ is irreducible and $\theta$ is a root, then $\theta+1$ is a unit of
+$K_{n,a}$ of norm $1$.
+\end{proposition}
+
+\begin{proof}
+For a monic minimal polynomial, $\Norm(\theta-\lambda)=(-1)^{n}f_{n,a}(\lambda)$.
+Hence
+\[
+\Norm(\theta+1)=(-1)^{n}f_{n,a}(-1)
+=(-1)^{n}\bigl((-1)^{n}+a-a\bigr)=1.
+\]
+A unit of norm $\pm 1$ lying in $\OK$ is a unit, and the norm is $+1$.
+\end{proof}
+
+Primitivity is a different question: $\theta+1$ may be a proper power of a
+fundamental unit. The phenomenon is rare for squarefree $a$, and in degree $3$
+it does not occur in a long initial range.
+
+\begin{theorem}\label{thm:prim}
+Let $n=3$ and let $a$ be squarefree with $2\le|a|\le 33535$. Then $\theta+1$ is not
+a proper power in $\OK^{\times}$. Equivalently, its image is nonzero in
+$\OK^{\times}/\{\pm 1\}$ modulo every proper subgroup of finite index.
+\end{theorem}
+
+\begin{proof}
+There are $40772$ such fields. Let $\eta=\theta+1$ and let $d_K$ be the field
+discriminant. For $40615$ of them $|d_K|$ exceeds
+$2^{6}\bigl(1+(2|a|)^{1/2}\bigr)^{3}$. In a complex cubic field the conjugates of
+a unit $\varepsilon$ satisfy $\prod|\sigma\varepsilon|=1$, and the discriminant of
+the order $\Z[\varepsilon]$ is an integer multiple of $d_K$. Comparing
+$\prod_{i<j}|\varepsilon_i-\varepsilon_j|$ with the house of $\eta$ shows that a
+representation $\eta=\pm\varepsilon^{k}$ with $k\ge 2$ would force $|d_K|$ to lie
+under that bound. This is the standard house estimate coming from
+$|\varepsilon_i-\varepsilon_j|\le 2\max|\varepsilon_\ell|$ and
+$\max|\varepsilon_\ell|\le\bigl(1+|\theta|_{\max}\bigr)^{1/k}$, using
+$|\theta|^{2}\le 2|a|$ at the real place; we omit the arithmetic, which is finite
+and was checked exactly.
+
+The remaining $157$ fields were handled directly. For $156$ of them the exponent
+$k$ permitted by the same estimate is at most an explicit bound $k_{\max}\le 30$,
+and for every prime $p\le k_{\max}$ the polynomials $x^{p}-\eta$ and
+$x^{p}+\eta$ have no root in $K$. Roots were computed with \texttt{nfroots}, which
+does not depend on the generalized Riemann hypothesis. The last field, $a=-2$,
+has discriminant small enough that \texttt{bnfcertify} certifies the full unit
+group unconditionally; the exponent of $\eta$ on that basis is $1$.
+\end{proof}
+
+Outside this range, and in higher degree, we only report computations conditional
+on GRH. For $2\le n\le 7$ and $|a|$ up to several hundred, $\theta+1$ fails to be
+primitive only for thin sets of $a$, typically perfect powers; the cubic
+exceptions with $|a|\le 3000$ are listed in the file
+\texttt{computations/check\_units.gp}.
+
+\section{Genus theory}\label{sec:class}
+
+Throughout this section, $a$ is squarefree, $\gcd(a,n)=1$, and $f_{n,a}$ is
+irreducible. For each prime $q\mid a$ write $d_q=\gcd(q-1,n)$. If $d_q>1$, let
+$k_q$ be the unique subfield of $\Q(\zeta_q)$ of degree $d_q$, and let $F_a$ be
+the compositum of these fields $k_q$. Set $g^{+}(a)=\prod_{d_q>1}d_q$, and
+$g^{+}(a)=1$ if no such $q$ exists. The field $F_a$ is totally real if and only
+if $(q-1)/d_q$ is even for every $q$ under the product, since $k_q$ is the unique
+subfield of degree $d_q$ and it is real precisely then.
+
+\begin{theorem}\label{thm:genus}
+Assume in addition that $\Gal(f_{n,a})\cong S_n$ with $n\ge 3$. Then $KF_a/K$ is
+unramified at every finite place, $K\cap F_a=\Q$, and
+\[
+[KF_a:K]=g^{+}(a).
+\]
+This degree divides the narrow class number of $K$. It divides the ordinary
+class number if $F_a$ is totally real or if $K$ has no real place. Otherwise
+$g^{+}(a)$ is even and $g^{+}(a)/2$ divides the ordinary class number.
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:split}(i), every $q\mid a$ is totally ramified in $K$: here
+$k=v_q(a)=1$, so $g=1$ and $q\OK=\mathfrak{q}^{n}$. The extension $k_q/\Q$ is
+cyclic of degree $d_q$, ramified only at $q$, and tamely, because $d_q\mid(q-1)$.
+In the compositum $Kk_q$ the ramification index of $q$ over $\Q$ is
+$\operatorname{lcm}(n,d_q)$. The hypothesis $\gcd(a,n)=1$ keeps $q$ from dividing
+$n$, and $d_q\mid n$, so the least common multiple equals $n$. The relative
+ramification index over $K$ is therefore $1$. No other finite prime ramifies in
+$k_q$, so $Kk_q/K$ is unramified at every finite place. The same holds for the
+compositum $F_a$.
+
+The field $K$ has no proper subfield. Indeed the point stabilizer $S_{n-1}\subset S_n$
+is a maximal subgroup, so the stem field of an $S_n$-extension of degree $n$ has
+no intermediate field. An abelian extension of $\Q$ cannot contain $K$, because
+$K/\Q$ is not Galois. Hence $K\cap F_a=\Q$ and $[KF_a:K]=[F_a:\Q]$. The fields
+$k_q$ are linearly disjoint because they ramify at distinct primes, so
+$[F_a:\Q]=\prod d_q$.
+
+An abelian extension of $K$ unramified at the finite places is contained in the
+narrow class field, and its degree divides the narrow class number. If $F_a$ is
+totally real, every real place of $K$ stays real in $KF_a$, so there is no
+ramification at infinity either, and the degree divides the ordinary class
+number. If $K$ has no real place, there is nothing at infinity to ramify. If some
+$k_q$ is imaginary, then $d_q$ is even: otherwise $d_q$ would divide $(q-1)/2$.
+Thus $g^{+}(a)$ is even. Complex conjugation acts on $F_a$ through a quotient of
+order $2$, and the fixed field of a lift of conjugation cuts $KF_a/K$ down to a
+subextension of index $2$ which is unramified at the infinite places as well.
+\end{proof}
+
+For $n=3,4,5$, Theorems~\ref{thm:gal3}--\ref{thm:gal5} supply the hypothesis
+$\Gal\cong S_n$ for every irreducible member outside an explicit list, so the
+divisibility is unconditional for those fields. In the cyclic cubic case the
+same construction overcounts by a factor of $3$, because $K$ itself sits inside
+the genus field; Ishida's formula \cite{Ish75} gives divisibility by $3^{t-1}$
+rather than $3^{t}$, where $t$ is the number of primes $q\mid a$ with $q\equiv 1\pmod 3$.
+
+The genus number divides the class number, but the classes it produces need not
+be the classes of the ramified primes. For $a=31$ and $n=3$, one has $g^{+}=3$
+and the class group is $(\Z/3\Z)$, while the unique ramified prime is principal.
+A separate local condition controls the subgroup generated by those primes.
+
+\begin{proposition}\label{prop:local}
+Keep the hypotheses of this section, and write $\mathfrak{q}$ for the unique
+prime of $K$ above $q\mid a$. Suppose $\prod_{q\mid a}\mathfrak{q}^{c_q}=(\beta)$
+for some $\beta\in K^{\times}$ and integers $c_q$. Then for every $q\mid a$ with
+$d_q>1$, the class of
+\[
+(-1)^{c_q(n+1)}\prod_{p\mid a,\,p\neq q}p^{c_p-c_q}
+\]
+in $\F_q^{\times}/(\F_q^{\times})^{d_q}$ lies in the image of
+$\OK^{\times}\to\F_q^{\times}/(\F_q^{\times})^{d_q}$.
+\end{proposition}
+
+\begin{proof}
+From $\theta^{n}=a(\theta+1)$ and $v_{\mathfrak{q}}(\theta)=1$ one gets
+$(\theta)=\prod_{p\mid a}\mathfrak{p}$. The ideal equation
+$\prod\mathfrak{q}^{c_q}=(\beta)$ implies $\beta^{n}=u\prod_{p\mid a}p^{c_p}$ for
+a unit $u$, because both sides generate
+$\prod\mathfrak{q}^{nc_q}=\bigl(\prod p^{c_p}\bigr)$. Set
+$\delta=\beta\,\theta^{-c_q}$. Then $v_{\mathfrak{q}}(\delta)=0$, and substituting
+$\theta^{n}=a(\theta+1)$ gives
+\[
+\delta^{n}\,(\theta+1)^{c_q}
+=u\,(-1)^{c_q(n+1)}\prod_{p\neq q}p^{c_p-c_q}
+\]
+up to the sign absorbed in $a=\pm\prod p$. Reducing modulo $\mathfrak{q}$ kills
+$\theta$, so $\theta+1\equiv 1$, and $\overline{\delta}^{n}$ is an $n$th power in
+$\F_q^{\times}$. The group of $n$th powers has index $d_q$, and $\overline{u}$ is
+the image of a global unit.
+\end{proof}
+
+The proposition is the exact obstruction used to build a R\'edei matrix. Let
+$q_1,\ldots,q_t$ be the prime divisors of $a$ with $d_{q_i}>1$, and let
+$p_1,\ldots,p_s$ be all the prime divisors of $a$. Choosing a primitive root
+modulo $q_i$, one obtains a matrix $A\in\prod_i\Z/d_{q_i}\Z$ whose columns are
+the discrete logarithms of the $p_j$, with the diagonal entry replaced by the
+logarithm of $(-1)^{n+1}a/q_i$ so that Proposition~\ref{prop:local} becomes the
+statement $Ac$ lies in the image of the unit group. Ignoring free units and
+retaining only the torsion unit $-1$ produces a concrete lower bound. That bound
+is not a formal consequence of the proposition, because free units may enlarge
+the relation lattice. It is, however, what the class group computations confirm.
+
+\section{The cyclic members and simplest cubics}\label{sec:simple}
+
+\begin{theorem}\label{thm:shanks}
+Let $t\in\Z$ and let $a=t^{2}+3t+9$. Let $\rho$ be a root of Shanks' polynomial
+$g_t=x^{3}-tx^{2}-(t+3)x-1$, and let $\rho'=-1/(1+\rho)$ be its Galois conjugate.
+Then $\rho'-\rho$ is a root of $f_{3,a}$, and $K_{3,a}=\Q(\rho)$ is the simplest
+cubic field of parameter $t$.
+\end{theorem}
+
+\begin{proof}
+The polynomial $g_t$ is irreducible: the only possible rational roots are
+$\pm 1$, and $g_t(1)=-2t-3$, $g_t(-1)=1$. Its discriminant is $(t^{2}+3t+9)^{2}$,
+so the extension is cyclic, and the standard identity
+$\rho\mapsto -1/(1+\rho)$ generates the Galois group \cite{Shanks}. Set
+$\delta=-x-1/(1+x)$ in $\Q(x)/(g_t)$. Reducing $\delta^{3}-a\delta-a$ via $g_t$
+gives zero, by a direct expansion of the numerator
+$(1+x)^{3}\bigl(\delta^{3}-a\delta-a\bigr)$ and cancellation against $g_t$. Thus
+$\delta$ is a root of $f_{3,a}$. Theorem~\ref{thm:gal3} says that $f_{3,a}$ is
+irreducible of discriminant a square, so $\Q(\delta)$ is the cyclic cubic field
+of discriminant dividing $a^{2}(2t+3)^{2}$, which is the field $\Q(\rho)$.
+\end{proof}
+
+For these fields $\theta+1$ is not merely a unit: it is the square of a Shanks
+unit, up to the Galois action. With $\rho'$ as above one has
+$\theta+1=\rho^{2}\rho'$, and $\Norm(\theta+1)=1$ agrees with
+Proposition~\ref{prop:unit}. The index $[\OK:\Z[\theta]]$ is generally greater than
+one. For $t=1$, $a=13$, one has $\disc(f)=5^{2}\cdot 13^{2}$ and $d_K=13^{2}$, so
+the index is $5$.
+
+\section{Computations}\label{sec:num}
+
+All computations were done in PARI/GP 2.15.4 \cite{PARI}. Class groups and unit
+groups computed with \texttt{bnfinit} are conditional on GRH; the local
+statements, the Galois groups in degrees $\le 7$, the identity of
+Theorem~\ref{thm:shanks}, and Theorem~\ref{thm:prim} do not use GRH.
+\texttt{bnfcertify} was used for the single cubic field not reached by the
+house bound or by \texttt{nfroots}.
+
+The splitting types and index valuations of Theorem~\ref{thm:split} and
+Theorem~\ref{thm:index} were compared with \texttt{idealprimedec} and
+\texttt{nfdisc} for every irreducible $f_{n,a}$ with $2\le n\le 9$ and
+$1\le|a|\le 400$. This is $6388$ fields and $25287$ pairs $(p,K)$ in which $p$
+divides $\disc(f_{n,a})$. The $591$ pairs in which a prime divides $\gcd(v_p(a),n)$
+were excluded, as the theorems require. No mismatch occurred.
+
+Galois groups were computed with \texttt{polgalois}. In degree $4$, every
+$a$ with $|a|\le 20000$ falls under Theorem~\ref{thm:gal4}, and the only
+non-symmetric group is $D_4$ or the single field $a=-5$. In degree $5$, every
+irreducible $f_{5,a}$ with $|a|\le 20000$ has group $S_5$, in agreement with
+Theorem~\ref{thm:gal5}. In degree $6$, with $|a|\le 3000$, the group is $S_6$
+except for the six parameters
+\[
+\begin{array}{c@{\qquad}c@{\qquad}c}
+a & |\Gal| & \text{transitive label}\\
+\hline
+-320,-125,-3 & 72 & S_3\wr C_2\\
+-116 & 120 & \mathrm{PGL}_2(\F_5)\\
+49 & 24 & C_2\wr C_3\\
+2662 & 48 & C_2\wr S_3.
+\end{array}
+\]
+In degree $7$, every irreducible $f_{7,a}$ with $|a|\le 1500$ has group $S_7$.
+
+Table~\ref{tab:cubic} illustrates Theorem~\ref{thm:genus} in degree $3$. Here
+$t$ is the number of primes $q\mid a$ with $q\equiv 1\pmod 3$, the genus number
+is $3^{t}$ in the $S_3$ case and $3^{t-1}$ in the $C_3$ case, and the column
+``R\'edei'' is the order of the subgroup generated by the ramified primes, as
+predicted by the matrix of Proposition~\ref{prop:local} with only the torsion
+unit retained. The class groups themselves are conditional on GRH. The last
+column records whether $\theta+1$ is primitive.
+
+\begin{table}[ht]
+\centering
+\caption{Cubic fields $K_{3,a}$. Class groups are conditional on GRH.}
+\label{tab:cubic}
+\small
+\begin{tabular}{@{}rrlrlrrr@{}}
+\toprule
+$a$ & $d_K$ & group & $\mathrm{Cl}$ & $t$ & genus & R\'edei & $h$\\
+\midrule
+$7$ & $49$ & $C_3$ & $1$ & $1$ & $1$ & $1$ & $1$\\
+$13$ & $169$ & $C_3$ & $1$ & $1$ & $1$ & $1$ & $1$\\
+$217$ & $47089$ & $C_3$ & $[3]$ & $2$ & $3$ & $3$ & $3$\\
+$1729$ & $2989441$ & $C_3$ & $[3,3]$ & $3$ & $9$ & $9$ & $9$\\
+$31$ & $93217$ & $S_3$ & $[3]$ & $1$ & $3$ & $1$ & $3$\\
+$14$ & $5684$ & $S_3$ & $[3]$ & $1$ & $3$ & $3$ & $3$\\
+$91$ & $2790697$ & $S_3$ & $[6,3]$ & $2$ & $9$ & $3$ & $18$\\
+$-91$ & $-3237871$ & $S_3$ & $[15,3]$ & $2$ & $9$ & $3$ & $45$\\
+$10$ & $1300$ & $S_3$ & $1$ & $0$ & $1$ & $1$ & $1$\\
+$55$ & $583825$ & $S_3$ & $[3]$ & $0$ & $1$ & $1$ & $3$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The entry $a=31$ is the example in which the genus contribution is real but the
+ramified prime is principal. The entry $a=55$ has trivial genus number and a
+class group of order $3$ coming from elsewhere. The entry $a=1729=7\cdot 13\cdot 19$
+is a cyclic field whose class group is exactly the genus group $(\Z/3\Z)^{2}$.
+
+For squarefree $a$ coprime to $n$, with $n=3$ and $|a|\le 1500$, $n=4$ and
+$|a|\le 400$, $n=5$ and $|a|\le 150$, and $n=6$ and $|a|\le 60$, the narrow class
+number was divisible by $g^{+}(a)$ and the ordinary class number by the number in
+Theorem~\ref{thm:genus}, in all $1878$ fields for which the Galois group was
+$S_n$. The matrix bound of Proposition~\ref{prop:local} was a lower bound for the
+subgroup generated by the ramified primes in every one of those fields. Both
+checks use \texttt{bnfinit} and are conditional on GRH.
+
+A larger cubic sample, still conditional on GRH, counts the $3$-rank against the
+genus number. Among the $4511$ fields with $n=3$, squarefree $a$, $3\nmid a$, and
+$2\le|a|\le 5000$ whose Galois group is $S_3$, the $3$-rank $r$ and the number
+$t$ of admissible primes satisfy $r\ge t$ in every case, as
+Theorem~\ref{thm:genus} requires. The distribution is recorded in
+Table~\ref{tab:rank}. The R\'edei bound was nontrivial for $1774$ of these fields
+and equal to the order of the subgroup generated by the ramified primes for
+$1359$ of them.
+
+\begin{table}[ht]
+\centering
+\caption{$3$-ranks of $S_3$ fields $K_{3,a}$ with squarefree $a$, $3\nmid a$,
+and $|a|\le 5000$. Conditional on GRH.}
+\label{tab:rank}
+\small
+\begin{tabular}{@{}rrrr@{}}
+\toprule
+$t$ & fields & $r=t$ & $r=t+1$\\
+\midrule
+$0$ & $1724$ & $807$ & $733$\\
+$1$ & $2238$ & $1569$ & $613$\\
+$2$ & $537$ & $426$ & $109$\\
+$3$ & $12$ & $11$ & $1$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The twelve fields with $t=3$ are the interesting ones: eleven have $3$-rank
+exactly $3$, so the genus group accounts for the whole $3$-primary part, and one
+has $3$-rank $4$.
+
+\section{Remarks}
+
+The excluded local case $p\mid\gcd\bigl(v_p(a),n\bigr)$ is the natural place for
+a sequel. The Newton polygon is still a single side, but the residual polynomial
+$Y^{g}-u$ is inseparable, and the index depends on the residual factorization of
+a refinement. A uniform formula in that case would complete
+Theorem~\ref{thm:index}.
+
+A second question is whether $\theta+1$ generates a finite-index subgroup of the
+unit group whose index stays bounded for squarefree $a$.
+Theorem~\ref{thm:prim} says that the index is $1$ throughout a long cubic range.
+The GRH computations suggest the same pattern in degrees $4$ and $5$ once perfect
+powers are removed, but the house argument loses a power of $|a|$ as soon as
+there are two real places, and we do not have a proof.
+
+\begin{thebibliography}{99}
+
+\bibitem{BMS}
+B.~Bensebaa, A.~Movahhedi, and A.~Salinier,
+The {G}alois group of {$X^{p}+aX^{s}+a$},
+Acta Arith. \textbf{134} (2008), 55--65.
+
+\bibitem{Dum}
+D.~S.~Dummit,
+Solving solvable quintics,
+Math. Comp. \textbf{57} (1991), 387--401.
+
+\bibitem{Ish75}
+M.~Ishida,
+On the genus field of an algebraic number field of odd prime degree,
+J. Math. Soc. Japan \textbf{27} (1975), 289--293.
+
+\bibitem{Ish76}
+M.~Ishida,
+\emph{The genus fields of algebraic number fields},
+Lecture Notes in Math. \textbf{555}, Springer, 1976.
+
+\bibitem{ILOSS}
+R.~Ibarra, H.~Lembeck, M.~Ozaslan, H.~Smith, and K.~E.~Stange,
+Monogenic fields arising from trinomials,
+preprint.
+
+\bibitem{JW}
+L.~Jones and D.~White,
+Monogenic trinomials with non-squarefree discriminant,
+Internat. J. Math. \textbf{32} (2021), no.~13, 2150089.
+
+\bibitem{MTT}
+K.~J.~McGown, F.~Thorne, and A.~Tucker,
+Counting quintic fields with genus number one,
+preprint, \texttt{arXiv:2006.12991}.
+
+\bibitem{Ore}
+{\"O}.~Ore,
+{N}ewtonsche {P}olygone in der {T}heorie der algebraischen {K}\"orper,
+Math. Ann. \textbf{99} (1928), 84--117.
+
+\bibitem{PARI}
+The {PARI}~Group,
+{PARI/GP} version 2.15.4, Univ. Bordeaux, 2022,
+\texttt{http://pari.math.u-bordeaux.fr/}.
+
+\bibitem{Shanks}
+D.~Shanks,
+The simplest cubic fields,
+Math. Comp. \textbf{28} (1974), 1137--1152.
+
+\bibitem{SW}
+B.~K.~Spearman and K.~S.~Williams,
+Characterization of solvable quintics {$x^{5}+ax+b$},
+Amer. Math. Monthly \textbf{101} (1994), 986--992.
+
+\end{thebibliography}
+
+\end{document}
