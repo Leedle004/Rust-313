@@ -1,0 +1,1230 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1in]{geometry}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+\setlist[enumerate]{itemsep=0.35em,topsep=0.4em}
+\setlist[itemize]{itemsep=0.3em,topsep=0.35em}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\OK}{\mathcal{O}}
+\newcommand{\Cl}{\operatorname{Cl}}
+\newcommand{\Gal}{\operatorname{Gal}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\Ann}{\operatorname{Ann}}
+\newcommand{\Fitt}{\operatorname{Fitt}}
+\newcommand{\Ind}{\operatorname{Ind}}
+\newcommand{\Reg}{\operatorname{Reg}}
+\newcommand{\ord}{\operatorname{ord}}
+\newcommand{\rk}{\operatorname{rank}}
+\newcommand{\triv}{\mathbf{1}}
+\newcommand{\ram}{\mathrm{ram}}
+\newcommand{\fin}{\mathrm{fin}}
+\newcommand{\red}{\mathrm{red}}
+\newcommand{\SD}{\mathrm{SD}}
+\newcommand{\HSt}{\mathrm{HSt}}
+\newcommand{\Nrd}{\operatorname{Nrd}}
+\newcommand{\id}{\mathrm{id}}
+
+\title{Truncated higher Stark elements and\\
+$p$-adic class-number divisibility for almost abelian\\
+extensions of imaginary quadratic fields}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $k$ be an imaginary quadratic field and let $F/k$ be finite abelian, with Galois group $G$.
+The torsion-free unit lattice $E_F=\OK_F^\times/\mu(F)$ and the augmentation kernel $X_G\subset\Z[G]$ become isomorphic over $\R$ through the Dirichlet embedding, while the product of the first derivatives $L'(0,\chi)$ of the non-trivial Artin $L$-functions of $F/k$ is a rational multiple of the Dirichlet regulator $R_F$.
+The Stark--Dirichlet module formed by these two lattices in the determinant line has generalized index
+\[
+  \frac{h_F}{h_k}\cdot\mathfrak{z}(F/k),
+\]
+where $\mathfrak{z}(F/k)$ is the explicit annihilator index of $\mu(F)$ against $\mu(k)$.
+For primes $p$ not dividing $|G|$, idempotents of $\Z_p[G]$ cut the same integer out of the non-trivial isotypic components of the class group.
+Ramification-complete truncation of the $L$-functions is necessary for an integral higher Stark element to meet the equivariant leading value: if a ramified place is omitted and the non-decomposition hypothesis fails there, the $\chi$-rank of the smaller $S$-unit lattice is strictly less than the order of vanishing, so the top exterior power in the leading degree is zero.
+Under the non-decomposition hypothesis the truncation multiplier is the integer $\prod_v|G/I_v|$, it is a $p$-unit for every $p\nmid|G|$, and the $p$-part of $h_F/h_k$ equals the $p$-part of the Stark--Dirichlet index corrected by roots of unity.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+Equivariant refinements of Stark's conjecture ask for an element of an exterior power of $S$-units whose regulator recovers the leading term, at $s=0$, of an Artin $L$-function, together with an integrality statement in the group ring.
+Tate's formulation~\cite{TateStark} isolates the leading coefficient as a lattice index in a Minkowski space built from places.
+Burns--Flach~\cite{BurnsFlach} recast the same comparison as an equivariant Tamagawa number, and Ritter--Weiss~\cite{RitterWeiss} pursued the integral group-ring statement through Iwasawa theory.
+Rubin's higher Stark elements~\cite{RubinStark} address vanishing of order greater than one by passing to exterior powers.
+Over an imaginary quadratic base, finite-order Hecke $L$-functions have a single archimedean gamma factor of type $\Gamma(s)$, so the analytic side of this comparison is unusually rigid: every non-trivial Artin $L$-function of an abelian extension $F/k$ has a simple zero at $s=0$, and the product of the derivatives is pinned down by the analytic class number formula.
+
+The present note stays inside that rigid setting and develops a self-contained lattice comparison.
+The base field $k$ is imaginary quadratic, the extension $F/k$ is finite abelian, and $F/\Q$ is not required to be Galois.
+The last point is the reason for the name adopted here: an \emph{almost abelian datum} is a pair $(F/k)$ of this type.
+Complex conjugation on $k/\Q$ need not extend to $F$, so every equivariant construction below is a module for $G=\Gal(F/k)$ alone.
+
+Three statements are proved.
+The first identifies a generalized index built from $L$-derivatives and the Dirichlet regulator with a ratio of class numbers times an annihilator index of roots of unity.
+The second decomposes the $p$-adic story, for $p\nmid|G|$, by idempotents, and shows that an integral higher Stark element representing the ramification-complete leading value cannot live at a truncation level that omits a ramified place at which Frobenius acts trivially on some non-trivial inertia-fixed character.
+The third converts the non-decomposition case into an explicit integer multiplier and a $p$-adic divisibility for $h_F/h_k$.
+
+Recent work on integral equivariant leading-term conjectures has emphasized the denominators created when ramified Euler factors are left in place.
+Those investigations are the motivation for isolating the imaginary-quadratic abelian case.
+The arguments below do not rely on them.
+The only external inputs are the analytic class number formula at $s=0$, as in Neukirch~\cite[Chapter~VII]{Neukirch}, and Hecke's functional equation for finite-order $L$-functions of $k$~\cite{Hecke1918,Neukirch}.
+Everything about truncation, idempotents, and class-group invariants is proved directly.
+Individual ratios $L'(0,\chi)/R(\chi)$ are not claimed to lie in the character field.
+Only the product over all non-trivial characters, divided by the full regulator, is shown to be rational.
+Where a step needs $p\nmid|G|$ or a non-decomposition hypothesis, the hypothesis is stated and used.
+
+\subsection{Statement of the main theorems}
+\label{subsec:statements}
+
+Write $n=|G|$, $w_K=|\mu(K)|$, and $h_K=|\Cl_K|$.
+Let $E_F=\OK_F^\times/\mu(F)$, a free $\Z$-module of rank $n-1$, and let
+\[
+  X_G=\ker\bigl(\Z[G]\xrightarrow{\varepsilon}\Z\bigr)
+\]
+be the augmentation kernel.
+Section~\ref{sec:prelim} constructs a $G$-equivariant Dirichlet embedding $\lambda_F:E_F\to X_G\otimes\R$ whose covolume on the determinant line is the Dirichlet regulator $R_F$.
+The product of leading coefficients
+\[
+  \mathcal{L}(F/k)=\prod_{\chi\in\widehat G\setminus\{\triv\}}L'(0,\chi)
+\]
+is then compared with that covolume.
+The positive rational
+\[
+  \mathfrak{z}(F/k)
+  =\bigl[\Ann_{\Z}(\mu(k)):\Ann_{\Z}(\mu(F))\bigr]^{-1}
+  =\frac{w_k}{w_F}
+\]
+is the roots-of-unity annihilator index.
+
+\begin{theorem}[Stark--Dirichlet index]
+\label{thm:A}
+Let $(F/k)$ be an almost abelian datum.
+The Stark--Dirichlet module $\SD(F/k)$ of Definition~\ref{def:sd} is a pair of rank-one lattices in the determinant line of $X_G\otimes\R$, and its generalized index against the torsion-free unit lattice satisfies
+\[
+  \Ind\bigl(\SD(F/k),\,E_F\bigr)
+  =\frac{\mathcal{L}(F/k)}{R_F}
+  =\frac{h_F}{h_k}\cdot\mathfrak{z}(F/k)\in\Q_{>0}.
+\]
+\end{theorem}
+
+A finite set $S$ of places of $k$ is a \emph{truncation set} when it contains the unique archimedean place $\infty$.
+It is \emph{ramification-complete} when it also contains every finite place ramified in $F/k$.
+The truncated $L$-function $L_S(s,\chi)$ is obtained by removing the Euler factors at the finite places in $S$ at which $\chi$ is unramified.
+For a ramified place $v$, write $I_v\subset D_v\subset G$ for the inertia and decomposition groups of a place of $F$ above $v$; both are well-defined subgroups because $G$ is abelian.
+The \emph{non-decomposition hypothesis} $\mathrm{ND}_v$ asserts that $G/I_v$ is cyclic and generated by the Frobenius element of $v$.
+
+\begin{theorem}[$p$-adic higher Stark lattices]
+\label{thm:B}
+Let $p$ be a prime not dividing $|G|$, and let $\psi$ run over the primitive idempotents of $\Q_p[G]$.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item The group ring decomposes as a product of unramified discrete valuation rings, $\Z_p[G]\cong\prod_{\psi}\OK_{\psi}$, with idempotents $e_{\psi}\in\Z_p[G]$.
+\item For every truncation set $S\ni\infty$ and every non-trivial $\psi$, the module $e_{\psi}(E_{F,S}\otimes\Z_p)$ is free of rank
+\[
+  d_{\psi}(S)=\ord_{s=0}L_S(s,\chi)
+\]
+over $\OK_{\psi}$, where $\chi$ is any complex character in the orbit cut out by $e_{\psi}$.
+The higher Stark module $\HSt_{S,\psi}^{(p)}(F/k)=\det_{\OK_{\psi}}\bigl(e_{\psi}(E_{F,S}\otimes\Z_p)\bigr)$ is therefore free of rank one over $\OK_{\psi}$.
+\item Let $v$ be ramified in $F/k$, let $S_{\star}$ be a ramification-complete truncation set, and let $S=S_{\star}\setminus\{v\}$.
+If $\mathrm{ND}_v$ fails, then for some non-trivial $\psi$ one has $d_{\psi}(S)<d_{\psi}(S_{\star})$.
+Every element of $\HSt_{S,\psi}^{(p)}(F/k)$ has vanishing image in the determinant line of degree $d_{\psi}(S_{\star})$, while the leading coefficient $L_{S_{\star}}^{*}(0,\chi)$ is nonzero.
+No integral higher Stark element of level $S$ maps to the $\psi$-component of the ramification-complete equivariant leading value.
+\end{enumerate}
+In particular, ramification-complete truncation is necessary for the existence of such an integral element whenever some omitted ramified place fails $\mathrm{ND}_v$.
+\end{theorem}
+
+\begin{theorem}[Obstruction and $p$-adic divisibility]
+\label{thm:C}
+Let $(F/k)$ be an almost abelian datum and let $S_{\ram}$ be the set of finite places of $k$ ramified in $F/k$.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \textup{(Order obstruction.)}
+If $v\in S_{\ram}$ is omitted from a truncation set $S\ni\infty$ and $\mathrm{ND}_v$ fails, then there exists $\chi\in\widehat G\setminus\{\triv\}$ with
+\[
+  \ord_{s=0}L_{S\cup\{v\}}(s,\chi)
+  >\dim_{\C}\bigl(E_{F,S}\otimes\C\bigr)_{\chi}.
+\]
+No integral higher Stark element of level $S$ maps to the ramification-complete leading value.
+\item \textup{(Truncation multiplier.)}
+Assume $\mathrm{ND}_v$ for every $v\in S_{\ram}$.
+Then each local factor $1-\chi(\varphi_v)$ is nonzero, the integer
+\[
+  \mathfrak{c}(F/k)=\prod_{v\in S_{\ram}}|G/I_v|
+\]
+equals $\prod_{\chi\neq\triv}L_{S_{\ram}}'(0,\chi)\big/\mathcal{L}(F/k)$, and the ramification-truncated index satisfies
+\[
+  \Ind^{\ram}(F/k)
+  :=\frac{1}{R_F}\prod_{\chi\neq\triv}L_{S_{\ram}}'(0,\chi)
+  =\mathfrak{c}(F/k)\cdot\frac{h_F}{h_k}\cdot\mathfrak{z}(F/k)\in\Q_{>0}.
+\]
+\item \textup{($p$-adic divisibility.)}
+Assume $\mathrm{ND}_v$ for every $v\in S_{\ram}$, and let $p\nmid|G|$.
+Then $\mathfrak{c}(F/k)$ is a $p$-adic unit, and
+\begin{align*}
+  v_p\Bigl(\frac{h_F}{h_k}\Bigr)
+  &=\sum_{\psi\neq\triv}v_p\bigl(\bigl|e_{\psi}(\Cl_F\otimes\Z_p)\bigr|\bigr)\\
+  &=v_p\bigl(\Ind(\SD(F/k),E_F)\bigr)+v_p(w_F)-v_p(w_k)\\
+  &=v_p\bigl(\Ind^{\ram}(F/k)\bigr)+v_p(w_F)-v_p(w_k)\ge 0.
+\end{align*}
+Thus the $p$-primary part of $h_k$ divides the $p$-primary part of $h_F$.
+\end{enumerate}
+\end{theorem}
+
+The inequality $v_p(h_F)\ge v_p(h_k)$ uses $p\nmid|G|$ in an essential way.
+Section~\ref{sec:examples} records the Hilbert class field of $\Q(\sqrt{-5})$, where $|G|=2$ and $v_2(h_F)<v_2(h_k)$.
+The same section checks the identity of Theorem~\ref{thm:A} on three extensions by comparing class-number data with derivatives of Dedekind zeta functions.
+
+\subsection{Organization}
+
+Section~\ref{sec:notation} fixes notation.
+Section~\ref{sec:prelim} develops the Dirichlet embedding, the Euler-product form of Artin formalism, simple zeros at $s=0$, and the character formula for orders of truncated $L$-functions.
+Section~\ref{sec:thmA} defines the Stark--Dirichlet module and proves Theorem~\ref{thm:A}.
+Section~\ref{sec:thmB} treats idempotents and higher Stark lattices and proves Theorem~\ref{thm:B}.
+Section~\ref{sec:thmC} proves the obstruction and the divisibility.
+Section~\ref{sec:examples} records the numerical checks, and Section~\ref{sec:remarks} lists open questions.
+
+\section{Notation and almost abelian data}
+\label{sec:notation}
+
+\begin{definition}
+\label{def:datum}
+An \emph{almost abelian datum} is a finite abelian extension $F/k$ in which the base field $k$ is imaginary quadratic.
+Write $G=\Gal(F/k)$ and $n=|G|$.
+The extension $F/\Q$ is not required to be Galois.
+\end{definition}
+
+Throughout, places of $k$ and of $F$ are denoted $v$ and $w$ respectively.
+The field $k$ has a unique archimedean place $\infty$, which is complex.
+A finite place $v$ of $k$ is \emph{ramified} in $F/k$ when the inertia group of any place of $F$ above $v$ is nontrivial.
+Let $S_{\ram}=S_{\ram}(F/k)$ denote the finite set of such places.
+For $v\in S_{\ram}$ the inertia group $I_v$ and the decomposition group $D_v$ are subgroups of $G$.
+Abelianness forces every subgroup to be normal, so these groups do not depend on the choice of place above $v$, and the Frobenius element $\varphi_v$ is a well-defined element of $D_v/I_v$.
+
+\begin{definition}
+\label{def:ND}
+The place $v$ satisfies the \emph{non-decomposition hypothesis} $\mathrm{ND}_v$ when the quotient $G/I_v$ is cyclic and generated by $\varphi_v$.
+Equivalently, $D_v/I_v=G/I_v$, so $v$ does not decompose in the fixed field of $I_v$.
+\end{definition}
+
+Since $D_v/I_v$ is always cyclic, generated by $\varphi_v$, the hypothesis $\mathrm{ND}_v$ fails if and only if either $G/I_v$ is non-cyclic or $\varphi_v$ does not generate it.
+In that case some non-trivial character of $G/I_v$ kills $\varphi_v$.
+
+For a number field $K$ write $\mu(K)$ for its group of roots of unity, $w_K=|\mu(K)|$, $h_K=|\Cl_K|$, and $R_K$ for the Dirichlet regulator.
+The unit rank of $k$ is zero; the convention $R_k=1$ is used, so that the class number formula at $s=0$ reads $\zeta_k(0)=-h_k/w_k$.
+Set
+\[
+  E_K=\OK_K^\times\big/\mu(K).
+\]
+Dirichlet's unit theorem gives $E_F\cong\Z^{n-1}$.
+Indeed $r_1(F)=0$ and $r_2(F)=[F:\Q]/2=n$, so the unit rank is $r_1+r_2-1=n-1$.
+
+Characters of $G$ are homomorphisms $\chi:G\to\C^{\times}$, and $\widehat G$ denotes the full character group.
+The trivial character is $\triv$.
+The idempotent attached to $\chi$ in $\C[G]$ is
+\[
+  e_{\chi}=\frac{1}{n}\sum_{g\in G}\chi(g^{-1})\,g.
+\]
+For a $\C[G]$-module $V$ write $V_{\chi}=e_{\chi}V$.
+
+$S$-units are denoted $\OK_{F,S}^{\times}$, and $E_{F,S}=\OK_{F,S}^{\times}/\mu(F)$.
+If $S$ is a finite set of places of $k$ containing $\infty$, and $S(F)$ is the set of places of $F$ above $S$, the $S$-unit theorem gives
+\[
+  \rk_{\Z}E_{F,S}=|S(F)|-1.
+\]
+
+The annihilator and Fitting ideal of a finite $\Z$-module $M$ are written $\Ann_{\Z}(M)$ and $\Fitt_{\Z}(M)$.
+For $M\cong\Z/m\Z$ one has $\Ann_{\Z}(M)=\Fitt_{\Z}(M)=(m)$.
+Generalized indices of lattices are positive real numbers, defined in Section~\ref{sec:thmA}; the main theorems prove that the indices under consideration are rational.
+
+\section{Equivariant \texorpdfstring{$L$}{L}-values, regulators, and truncation}
+\label{sec:prelim}
+
+\subsection{Archimedean places and the Dirichlet--Artin embedding}
+
+\begin{lemma}
+\label{lem:transitive}
+The group $G$ acts simply transitively on the archimedean places of $F$.
+The decomposition group of every archimedean place is trivial.
+\end{lemma}
+
+\begin{proof}
+The completion of $k$ at $\infty$ is isomorphic to $\C$.
+For each place $w$ of $F$ above $\infty$ the local extension $F_w/k_{\infty}$ is an extension of $\C$, hence has degree $1$, and the decomposition group has order $1$.
+The formula $\sum_{w\mid\infty}[F_w:k_{\infty}]=[F:k]=n$ therefore yields exactly $n$ archimedean places.
+The action of $G$ on these places is transitive, the stabilizers are the decomposition groups, and $|G|=n$, so the action is simply transitive.
+\end{proof}
+
+Fix an archimedean place $w_0$ of $F$ and an embedding $\iota_0:F\hookrightarrow\C$ inducing $w_0$ and extending a chosen embedding of $k$.
+Lemma~\ref{lem:transitive} identifies the set of archimedean places with $G$ by $g\mapsto gw_0$.
+The normalized absolute value at $gw_0$ is
+\[
+  \|u\|_{gw_0}=\bigl|\iota_0(g^{-1}u)\bigr|^2,
+\]
+so that $\log\|u\|_{gw_0}=2\log|\iota_0(g^{-1}u)|$.
+For $u\in F^{\times}$ define
+\begin{equation}
+\label{eq:lambda}
+  \lambda_F(u)=\sum_{g\in G}\log\|u\|_{gw_0}\cdot g\in\R[G].
+\end{equation}
+
+\begin{lemma}
+\label{lem:lambda}
+The map $\lambda_F$ sends $\OK_F^{\times}$ into $X_G\otimes\R$, intertwines the left $G$-actions, and induces an injection $E_F\hookrightarrow X_G\otimes\R$.
+Extended $\R$-linearly, it is an isomorphism of $\R[G]$-modules
+\[
+  \lambda_F:E_F\otimes\R\xrightarrow{\sim}X_G\otimes\R.
+\]
+Consequently, for every $\chi\in\widehat G$,
+\[
+  \dim_{\C}(E_F\otimes\C)_{\chi}=
+  \begin{cases}
+    0& \text{if }\chi=\triv,\\
+    1& \text{if }\chi\neq\triv.
+  \end{cases}
+\]
+\end{lemma}
+
+\begin{proof}
+The product formula for the field norm gives $\prod_{g\in G}\|u\|_{gw_0}=|N_{F/\Q}(u)|$.
+If $u$ is a unit this product equals $1$, so the sum of the logarithms vanishes and $\lambda_F(u)$ lies in $X_G\otimes\R$.
+
+For equivariance, take $h\in G$.
+Left multiplication on $\R[G]$ gives
+\[
+  h\cdot\lambda_F(u)=\sum_{g\in G}\log\|u\|_{h^{-1}gw_0}\cdot g.
+\]
+The embedding attached to $h^{-1}gw_0$ is $\iota_0\circ(h^{-1}g)^{-1}=\iota_0\circ g^{-1}h$, and since $G$ is abelian one has $g^{-1}h=hg^{-1}$.
+Thus
+\[
+  \log\|u\|_{h^{-1}gw_0}
+  =\log\bigl|\iota_0(g^{-1}hu)\bigr|^2
+  =\log\|hu\|_{gw_0},
+\]
+which is the coefficient of $g$ in $\lambda_F(hu)$.
+Hence $\lambda_F(hu)=h\cdot\lambda_F(u)$.
+
+If $\lambda_F(u)=0$, then every archimedean absolute value of $u$ equals $1$.
+The powers of $u$ are algebraic integers in $F$ of bounded house, so they form a finite set, and $u^{a}=u^{b}$ for some $a>b$.
+Thus $u$ is a root of unity.
+The induced map on $E_F$ is therefore injective.
+Both $E_F\otimes\R$ and $X_G\otimes\R$ have dimension $n-1$, so the $\R$-linear extension is an isomorphism.
+It is $G$-equivariant by the calculation above.
+
+Finally, $\C[G]=\bigoplus_{\chi} \C e_{\chi}$ and the augmentation $\varepsilon\otimes\C$ is the projection onto the trivial line, so $X_G\otimes\C=\bigoplus_{\chi\neq\triv}\C e_{\chi}$.
+The isomorphism $\lambda_F$ transports these multiplicities to $E_F$.
+\end{proof}
+
+\begin{lemma}
+\label{lem:regulator}
+Let $\delta_E$ be a $\Z$-basis vector of $\det_{\Z}E_F=\bigwedge^{n-1}_{\Z}E_F$ and let $\delta_X$ be a $\Z$-basis vector of $\det_{\Z}X_G$.
+Normalize the Haar measure on the hyperplane $X_G\otimes\R$ so that $X_G$ has covolume $1$ with respect to $\delta_X$.
+Then
+\[
+  \det(\lambda_F)(\delta_E)=\pm R_F\,\delta_X,
+\]
+where $R_F$ is the Dirichlet regulator of $F$.
+In particular the covolume of $\lambda_F(E_F)$ equals $R_F$.
+\end{lemma}
+
+\begin{proof}
+Index archimedean places by group elements and choose the ordered $\Z$-basis $\{g-1:g\neq 1\}$ of $X_G$, up to sign.
+If $\varepsilon_1,\ldots,\varepsilon_{n-1}$ is a $\Z$-basis of a complement of $\mu(F)$ in $\OK_F^{\times}$, the coordinates of $\lambda_F(\varepsilon_j)$ are
+\[
+  c_{g,j}=2\log\bigl|\iota_0(g^{-1}\varepsilon_j)\bigr|,\qquad g\in G,
+\]
+and $\sum_g c_{g,j}=0$.
+Deleting the coordinate at the identity, the resulting $(n-1)\times(n-1)$ matrix is the classical regulator matrix of a totally complex field: one real coordinate $2\log|\sigma(\varepsilon)|$ for each of $n-1$ archimedean places.
+The absolute value of its determinant is $R_F$ by the standard normalization of the regulator~\cite[Chapter~I]{Neukirch}.
+The relation $\sum_g c_{g,j}=0$ implies that every maximal minor has the same absolute value, and that this absolute value is the covolume of $\lambda_F(E_F)$ in the hyperplane for the measure giving $X_G$ covolume $1$.
+Hence $\det(\lambda_F)(\delta_E)=\pm R_F\,\delta_X$.
+\end{proof}
+
+\subsection{Artin \texorpdfstring{$L$}{L}-functions through the Euler product}
+
+For $\chi\in\widehat G$ the Artin $L$-function of the one-dimensional representation $\chi$ is the Euler product
+\begin{equation}
+\label{eq:artin}
+  L(s,\chi)
+  =\prod_{\substack{v\\ \chi|_{I_v}=\triv}}
+    \bigl(1-\chi(\varphi_v)\,Nv^{-s}\bigr)^{-1},
+\end{equation}
+absolutely convergent for $\operatorname{Re}(s)>1$.
+At a ramified place with $\chi|_{I_v}\neq\triv$ the local factor is $1$ and is omitted from the product.
+Class field theory identifies $\chi$ with a primitive finite-order Hecke character of $k$ whose conductor is supported exactly on the places where $\chi$ is ramified, and \eqref{eq:artin} is the Hecke $L$-function of that character.
+In particular $L(s,\triv)=\zeta_k(s)$.
+
+\begin{lemma}
+\label{lem:artin}
+As meromorphic functions on $\C$,
+\[
+  \zeta_F(s)=\prod_{\chi\in\widehat G}L(s,\chi).
+\]
+\end{lemma}
+
+\begin{proof}
+It is enough to compare Euler factors.
+Let $v$ be a finite place of $k$, set $T=Nv^{-s}$, and write $f$ for the order of $\varphi_v$ in $\Gamma=G/I_v$ and $g_{\Gamma}=|\Gamma|/f$.
+The places of $F$ above $v$ all have residue degree $f$ over $v$ after the inertia extension is taken into account, and the Euler factor of $\zeta_F$ at $v$ is $(1-T^{f})^{-|\Gamma|/f}$.
+More precisely, the inertia subgroup contributes the ramification index $|I_v|$ uniformly, the decomposition group satisfies $|D_v/I_v|=f$, and the number of places above $v$ is $|G|/|D_v|=|\Gamma|/f$, each with absolute norm $Nv^{f}$.
+Thus the Euler factor is $(1-T^{f})^{-|\Gamma|/f}$.
+
+On the Artin side only characters trivial on $I_v$ contribute a non-trivial local factor, and those characters are the characters of $\Gamma$.
+Left multiplication by $\varphi_v$ on the group algebra $\C[\Gamma]$ decomposes into $|\Gamma|/f$ cycles of length $f$, so its characteristic polynomial is $(X^{f}-1)^{|\Gamma|/f}$.
+The regular representation of an abelian group is the sum of its characters, hence
+\[
+  \prod_{\psi\in\widehat\Gamma}\bigl(Y-\psi(\varphi_v)\bigr)=(Y^{f}-1)^{|\Gamma|/f}.
+\]
+Substituting $Y=T^{-1}$ and clearing powers of $T$ yields
+\[
+  \prod_{\psi\in\widehat\Gamma}\bigl(1-\psi(\varphi_v)\,T\bigr)=(1-T^{f})^{|\Gamma|/f}.
+\]
+Inverting both sides matches the Euler factor of $\zeta_F$.
+Characters that are non-trivial on $I_v$ contribute the empty local factor $1$ on the Artin side and do not appear in $\widehat\Gamma$.
+The identity of Euler products for $\operatorname{Re}(s)>1$ extends by analytic continuation.
+\end{proof}
+
+\begin{definition}
+\label{def:trunc}
+Let $S$ be a truncation set.
+For $\chi\in\widehat G$ the \emph{$S$-truncated $L$-function} is
+\begin{equation}
+\label{eq:LS}
+  L_S(s,\chi)
+  =L(s,\chi)\prod_{\substack{v\in S\setminus\{\infty\}\\ \chi|_{I_v}=\triv}}
+    \bigl(1-\chi(\varphi_v)\,Nv^{-s}\bigr).
+\end{equation}
+The product is finite.
+If $\chi$ is ramified at $v$, that place contributes no factor.
+\end{definition}
+
+Removing the same Euler factors from every character in Lemma~\ref{lem:artin} gives the companion identity
+\begin{equation}
+\label{eq:zetaS}
+  \zeta_{F,S}(s)=\prod_{\chi\in\widehat G}L_S(s,\chi),
+\end{equation}
+where $\zeta_{F,S}$ is the Dedekind zeta function with the Euler factors at places above $S\setminus\{\infty\}$ removed.
+
+\subsection{Simple zeros}
+
+The input from Hecke is the following form of the functional equation.
+A constant factor $2$, sometimes inserted so that the gamma factor reads $\Gamma_{\C}(s)=2(2\pi)^{-s}\Gamma(s)$, does not affect zeros or the non-vanishing argument below and is omitted.
+
+\begin{hypothesis}[Hecke]
+\label{hyp:hecke}
+Let $\psi$ be a non-trivial primitive finite-order Hecke character of $k$, of conductor $\mathfrak{f}$.
+The completed function
+\[
+  \Lambda(s,\psi)
+  =\bigl(|D_k|\,N\mathfrak{f}\bigr)^{s/2}(2\pi)^{-s}\Gamma(s)\,L(s,\psi)
+\]
+is entire, and $\Lambda(s,\psi)=W(\psi)\,\Lambda(1-s,\overline{\psi})$ for a constant $W(\psi)$ of absolute value $1$.
+\end{hypothesis}
+
+This is Hecke's theorem~\cite{Hecke1918}; a modern account is given in~\cite[Chapter~VII]{Neukirch}.
+The next lemma is the structural fact that makes the imaginary-quadratic case rigid.
+
+\begin{lemma}
+\label{lem:simple}
+Let $\chi\in\widehat G\setminus\{\triv\}$.
+Then $L(s,\chi)$ is entire, $\ord_{s=0}L(s,\chi)=1$, and $L'(0,\chi)\neq 0$.
+Moreover $L(1,\chi)\neq 0$.
+\end{lemma}
+
+\begin{proof}
+By the Euler product \eqref{eq:artin} and the identification recalled above, $L(s,\chi)$ is the primitive Hecke $L$-function of a non-trivial finite-order character of $k$.
+Hypothesis~\ref{hyp:hecke} supplies entirety.
+
+Lemma~\ref{lem:artin} gives $\prod_{\eta\neq\triv}L(s,\eta)=\zeta_F(s)/\zeta_k(s)$.
+Both Dedekind zeta functions have a single simple pole at $s=1$, with nonzero residues, so the quotient extends holomorphically through $s=1$ and takes a nonzero value there.
+Each factor $L(s,\eta)$ for $\eta\neq\triv$ is entire, hence holomorphic at $s=1$.
+A product of holomorphic functions that is nonzero at a point has every factor nonzero at that point.
+Thus $L(1,\chi)\neq 0$, and the same applies to $\overline{\chi}$.
+
+Hypothesis~\ref{hyp:hecke} yields $\Lambda(0,\chi)=W(\chi)\,\Lambda(1,\overline{\chi})$.
+The value
+\[
+  \Lambda(1,\overline{\chi})
+  =\bigl(|D_k|\,N\mathfrak{f}\bigr)^{1/2}(2\pi)^{-1}\Gamma(1)\,L(1,\overline{\chi})
+\]
+is nonzero because $\Gamma(1)=1$ and $L(1,\overline{\chi})\neq 0$.
+Hence $\Lambda(0,\chi)\neq 0$.
+The remaining factors $(|D_k|\,N\mathfrak{f})^{s/2}(2\pi)^{-s}$ are holomorphic and nonzero at $s=0$, while $\Gamma(s)$ has a simple pole there.
+A simple pole in the gamma factor, cancelled in the product $\Lambda$ but not over-cancelled, forces $L(s,\chi)$ to have a simple zero at $s=0$.
+\end{proof}
+
+\begin{corollary}
+\label{cor:product}
+One has
+\begin{equation}
+\label{eq:product}
+  \prod_{\chi\neq\triv}L'(0,\chi)
+  =\frac{\zeta_F^{*}(0)}{\zeta_k(0)}
+  =\frac{h_F}{h_k}\cdot\frac{w_k}{w_F}\cdot R_F,
+\end{equation}
+where $\zeta_F^{*}(0)=\lim_{s\to 0}s^{-(n-1)}\zeta_F(s)$ and $\zeta_k(0)=-h_k/w_k$.
+\end{corollary}
+
+\begin{proof}
+The analytic class number formula~\cite[Chapter~VII]{Neukirch} gives
+\[
+  \zeta_F^{*}(0)=-\frac{h_F R_F}{w_F},\qquad \zeta_k(0)=-\frac{h_k}{w_k},
+\]
+the second because the unit rank of $k$ is zero and $R_k=1$.
+Both quantities are nonzero.
+Lemma~\ref{lem:artin} and Lemma~\ref{lem:simple} expand the product near $s=0$:
+\[
+  \zeta_F(s)
+  =\zeta_k(s)\prod_{\chi\neq\triv}L(s,\chi)
+  =\bigl(\zeta_k(0)+O(s)\bigr)
+   \Biggl(\Biggl(\prod_{\chi\neq\triv}L'(0,\chi)\Biggr)s^{n-1}+O(s^{n})\Biggr).
+\]
+The coefficient of $s^{n-1}$ is $\zeta_k(0)\prod_{\chi\neq\triv}L'(0,\chi)$.
+The order of $\zeta_F$ at $s=0$ is exactly $n-1$, so this coefficient equals $\zeta_F^{*}(0)$.
+Dividing by $\zeta_k(0)$ produces the first equality of \eqref{eq:product}, and the class number formula produces the second.
+The right-hand side is positive, so the product of the derivatives is positive.
+\end{proof}
+
+No claim is made about the individual complex numbers $L'(0,\chi)$.
+Their product is rational after division by $R_F$, because the right-hand side of \eqref{eq:product} is rational times $R_F$.
+
+\subsection{Orders after truncation}
+
+\begin{lemma}
+\label{lem:order}
+Let $S$ be a truncation set and let $\chi\in\widehat G\setminus\{\triv\}$.
+Set
+\[
+  Z(S,\chi)
+  =\bigl\{v\in S\setminus\{\infty\}:\chi|_{I_v}=\triv\text{ and }\chi(\varphi_v)=1\bigr\}.
+\]
+Then
+\[
+  \ord_{s=0}L_S(s,\chi)=1+|Z(S,\chi)|,
+\]
+and the leading coefficient is
+\begin{equation}
+\label{eq:leading}
+\begin{aligned}
+  L_S^{*}(0,\chi)
+  &=L'(0,\chi)
+    \Biggl(\prod_{\substack{v\in S\setminus\{\infty\}\\ \chi|_{I_v}=\triv\\ \chi(\varphi_v)\neq 1}}
+      \bigl(1-\chi(\varphi_v)\bigr)\Biggr)
+    \Biggl(\prod_{v\in Z(S,\chi)}\log Nv\Biggr).
+\end{aligned}
+\end{equation}
+In particular, if $Z(S,\chi)$ is empty, then $\ord_{s=0}L_S(s,\chi)=1$ and
+\[
+  L_S'(0,\chi)
+  =L'(0,\chi)\prod_{\substack{v\in S\setminus\{\infty\}\\ \chi|_{I_v}=\triv}}\bigl(1-\chi(\varphi_v)\bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+Start from \eqref{eq:LS} and the simple zero of Lemma~\ref{lem:simple}.
+For each finite place in the product, the expansion
+\[
+  1-\chi(\varphi_v)\,Nv^{-s}
+  =1-\chi(\varphi_v)+\chi(\varphi_v)\,s\log Nv+O(s^2)
+\]
+is holomorphic.
+If $\chi(\varphi_v)\neq 1$ the value at $s=0$ equals $1-\chi(\varphi_v)\neq 0$, so the order is unchanged and the leading coefficient is multiplied by that constant.
+If $\chi(\varphi_v)=1$ the factor equals $s\log Nv+O(s^2)$, a simple zero with leading coefficient $\log Nv$.
+Places at which $\chi$ is ramified do not appear.
+Adding these contributions to the simple zero of $L(s,\chi)$ gives the order formula and \eqref{eq:leading}.
+\end{proof}
+
+The same count governs $S$-units.
+
+\begin{lemma}
+\label{lem:mult}
+Let $S$ be a truncation set and let $\chi\in\widehat G\setminus\{\triv\}$.
+Then
+\[
+  \dim_{\C}\bigl(E_{F,S}\otimes\C\bigr)_{\chi}
+  =\#\{v\in S:\chi|_{D_v}=\triv\}
+  =1+|Z(S,\chi)|
+  =\ord_{s=0}L_S(s,\chi).
+\]
+The trivial character has multiplicity $|S|-1$ in $E_{F,S}\otimes\C$.
+\end{lemma}
+
+\begin{proof}
+The $G$-equivariant Dirichlet embedding on $S$-units identifies $E_{F,S}\otimes\R$ with the augmentation kernel $X_{S(F)}\otimes\R$ inside $\R[S(F)]$, by the $S$-unit theorem and the same equivariance argument as in Lemma~\ref{lem:lambda}.
+The permutation module $\Z[S(F)]$ decomposes as $\bigoplus_{v\in S}\operatorname{Ind}_{D_v}^{G}\Z$.
+For a one-dimensional character the Frobenius reciprocity computation
+\[
+  \bigl\langle\operatorname{Ind}_{D_v}^{G}\triv,\,\chi\bigr\rangle
+  =\bigl\langle\triv,\,\chi|_{D_v}\bigr\rangle
+\]
+equals $1$ if $\chi|_{D_v}=\triv$ and equals $0$ otherwise.
+The augmentation $X_{S(F)}\to 0$ is the kernel of a map onto the trivial representation, so it does not change multiplicities of non-trivial characters.
+Therefore the multiplicity of $\chi$ is the number of $v\in S$ with $\chi|_{D_v}=\triv$.
+
+The archimedean decomposition group is trivial by Lemma~\ref{lem:transitive}, so $\chi$ always contributes the place $\infty$.
+For a finite place, $\chi|_{D_v}=\triv$ if and only if $\chi|_{I_v}=\triv$ and $\chi(\varphi_v)=1$, which is the condition defining $Z(S,\chi)$.
+Lemma~\ref{lem:order} identifies the resulting integer with the order of vanishing.
+The multiplicity of the trivial character in $\Z[S(F)]$ equals $|S|$, and passage to the augmentation kernel reduces it by one.
+\end{proof}
+
+\begin{corollary}
+\label{cor:match}
+For every truncation set $S$ and every $\chi\in\widehat G$, the order of vanishing of $L_S(s,\chi)$ at $s=0$ equals the multiplicity of $\chi$ in $E_{F,S}\otimes\C$, except that both sides are interpreted for $\chi=\triv$ as $|S|-1$ on the unit side and as the order of $\zeta_{k,S}$ on the $L$-function side.
+In particular the equality for non-trivial characters holds whether or not $S$ contains $S_{\ram}$.
+\end{corollary}
+
+The corollary is deliberately weaker than a recommendation to omit ramified places.
+Rank matching at a small truncation set $S$ controls $L_S$, not the leading term of a larger truncation.
+Section~\ref{sec:thmB} uses the gap between the two ranks when a ramified place is restored.
+
+\subsection{The roots-of-unity annihilator}
+
+Since $\mu(k)\subset\mu(F)$ and both groups are cyclic, $w_k$ divides $w_F$.
+
+\begin{lemma}
+\label{lem:ann}
+The quotient $\mu(F)/\mu(k)$ is cyclic of order $w_F/w_k$, and
+\[
+  \Ann_{\Z}\bigl(\mu(F)/\mu(k)\bigr)=\Bigl(\frac{w_F}{w_k}\Bigr).
+\]
+Equivalently,
+\[
+  \mathfrak{z}(F/k)
+  :=\bigl[\Ann_{\Z}(\mu(k)):\Ann_{\Z}(\mu(F))\bigr]^{-1}
+  =\frac{w_k}{w_F}
+  =\bigl[\Z:\Ann_{\Z}(\mu(F)/\mu(k))\bigr]^{-1}.
+\]
+One also has $\Fitt_{\Z}(\mu(F))=(w_F)$ and $\Fitt_{\Z}(\mu(k))=(w_k)$, so $\mathfrak{z}(F/k)$ is the ratio of the positive generators of these Fitting ideals.
+\end{lemma}
+
+\begin{proof}
+A finite subgroup of $\C^{\times}$ is cyclic, so $\mu(F)$ is cyclic of order $w_F$ and contains a unique subgroup of each dividing order.
+That subgroup of order $w_k$ is $\mu(k)$.
+The quotient of cyclic groups is cyclic of order $w_F/w_k$, and the annihilator of $\Z/m\Z$ is $(m)$.
+The identification $\Ann_{\Z}(\mu(K))=(w_K)$ gives
+\[
+  \bigl[\Ann_{\Z}(\mu(k)):\Ann_{\Z}(\mu(F))\bigr]
+  =\bigl[w_k\Z:w_F\Z\bigr]
+  =\frac{w_F}{w_k},
+\]
+and inverting this index produces $\mathfrak{z}(F/k)$.
+The Fitting ideals of cyclic groups coincide with their annihilators.
+\end{proof}
+
+The group $G$ acts on $\mu(F)$.
+The invariant subgroup is $\mu(F)^{G}=\mu(F)\cap k=\mu(k)$, so $H^{0}(G,\mu(F))$ has order $w_k$.
+The scalar $\mathfrak{z}(F/k)$ is exactly the ratio of this invariant order to $|\mu(F)|$.
+A finer group-ring Fitting ideal of $\mu(F)$ would see the cyclotomic character of the action; the index in Theorem~\ref{thm:A} uses only the underlying abelian group, which is what the class number formula produces.
+
+\section{The Stark--Dirichlet module}
+\label{sec:thmA}
+
+\begin{definition}
+\label{def:sd}
+Let $\delta_X$ be a generator of $\det_{\Z}X_G\cong\Z$, and equip $X_G\otimes\R$ with the Haar measure of Lemma~\ref{lem:regulator}.
+The \emph{regulator lattice} and the \emph{leading lattice} in the real line $\R\delta_X$ are
+\begin{align*}
+  \Lambda_{\mathrm{reg}}(F/k)
+    &=R_F\,\Z\cdot\delta_X,\\
+  \Lambda_{\mathrm{lead}}(F/k)
+    &=\mathcal{L}(F/k)\,\Z\cdot\delta_X,
+\end{align*}
+where $\mathcal{L}(F/k)=\prod_{\chi\neq\triv}L'(0,\chi)$.
+The \emph{Stark--Dirichlet module} $\SD(F/k)$ is the ordered pair of these two lattices.
+Its \emph{generalized index} against the torsion-free unit lattice is the ratio of positive generators
+\begin{equation}
+\label{eq:ind}
+  \Ind\bigl(\SD(F/k),\,E_F\bigr)
+  =\frac{\mathcal{L}(F/k)}{R_F}\in\R_{>0}.
+\end{equation}
+\end{definition}
+
+The generator $\delta_X$ cancels in the ratio, so the index does not depend on that choice.
+Lemma~\ref{lem:regulator} is the statement that the covolume of $\lambda_F(E_F)$ is the generator of $\Lambda_{\mathrm{reg}}$.
+
+\begin{proof}[Proof of Theorem~\ref{thm:A}]
+Corollary~\ref{cor:product} gives
+\[
+  \frac{\mathcal{L}(F/k)}{R_F}
+  =\frac{h_F}{h_k}\cdot\frac{w_k}{w_F}.
+\]
+Lemma~\ref{lem:ann} identifies $w_k/w_F$ with $\mathfrak{z}(F/k)$.
+The right-hand side lies in $\Q_{>0}$, and the left-hand side is the generalized index \eqref{eq:ind}.
+\end{proof}
+
+The proof is short because the preparatory lemmas carry the analytic content.
+What the theorem asserts is the equality of two independently defined quantities: the lattice index formed from $L$-derivatives and $\lambda_F(E_F)$, and the arithmetic ratio $(h_F/h_k)\mathfrak{z}(F/k)$.
+
+\begin{corollary}
+\label{cor:rational}
+The generalized index $\Ind(\SD(F/k),E_F)$ lies in $\Q_{>0}$.
+For every prime $p$,
+\begin{equation}
+\label{eq:vp}
+  v_p\bigl(\Ind(\SD(F/k),E_F)\bigr)
+  =v_p(h_F)-v_p(h_k)+v_p(w_k)-v_p(w_F).
+\end{equation}
+\end{corollary}
+
+\begin{remark}
+\label{rem:not-integral}
+The index need not lie in $\Z$.
+For the Hilbert class field of $\Q(\sqrt{-5})$ the value is $1/4$; see Section~\ref{sec:examples}.
+Integrality of a Stark element that hits $\mathcal{L}(F/k)$ on the nose is a stronger requirement, measured by whether this rational number lies in $\Z$, and is not claimed.
+\end{remark}
+
+For later comparison, record the reduced-norm form of the same identity.
+The equivariant leading element in the complex group ring is
+\begin{equation}
+\label{eq:Theta}
+  \Theta(F/k)
+  =\sum_{\chi\neq\triv}L'(0,\chi^{-1})\,e_{\chi}\in\C[G].
+\end{equation}
+Its reduced norm on the reduced regular representation $\bigoplus_{\chi\neq\triv}\C$ is
+\[
+  \Nrd\bigl(\Theta(F/k)\bigr)
+  =\prod_{\chi\neq\triv}L'(0,\chi^{-1})
+  =\mathcal{L}(F/k),
+\]
+the second equality by reindexing $\chi\mapsto\chi^{-1}$.
+Theorem~\ref{thm:A} is therefore also the statement
+\[
+  \frac{\Nrd\bigl(\Theta(F/k)\bigr)}{R_F}
+  =\frac{h_F}{h_k}\cdot\mathfrak{z}(F/k).
+\]
+
+\section{Idempotents and higher Stark lattices}
+\label{sec:thmB}
+
+\subsection{The group ring at primes away from the group order}
+
+\begin{lemma}
+\label{lem:etale}
+Let $p$ be a prime not dividing $n=|G|$.
+Then $\Z_p[G]$ is a finite \'etale $\Z_p$-algebra.
+It decomposes as a product of discrete valuation rings
+\[
+  \Z_p[G]\cong\prod_{\psi}\OK_{\psi},
+\]
+indexed by the primitive idempotents $e_{\psi}$ of $\Q_p[G]$, where each $\OK_{\psi}$ is the valuation ring of a finite unramified extension of $\Q_p$.
+The idempotents $e_{\psi}$ lie in $\Z_p[G]$.
+\end{lemma}
+
+\begin{proof}
+A finite abelian group is a direct product of cyclic groups, and $\Z[G\times H]\cong\Z[G]\otimes_{\Z}\Z[H]$.
+It is therefore enough to treat $G$ cyclic of order $n$ and then observe that a tensor product of finite \'etale $\Z_p$-algebras is finite \'etale.
+
+For $G$ cyclic, $\Z_p[G]\cong\Z_p[X]/(X^{n}-1)$.
+In $\F_p[X]$ the derivative of $X^{n}-1$ is $nX^{n-1}$.
+If a root of $X^{n}-1$ in an algebraic closure of $\F_p$ were a common root of the derivative, then $p$ would divide $n$, which is excluded.
+Thus $X^{n}-1$ is separable over $\F_p$.
+Hensel's lemma lifts its factorization into distinct irreducibles to a factorization of $X^{n}-1$ in $\Z_p[X]$ as a product of monic polynomials with unit discriminant.
+The Chinese remainder theorem yields
+\[
+  \Z_p[X]/(X^{n}-1)\cong\prod_{i}\Z_p[X]/(f_i),
+\]
+and each $\Z_p[X]/(f_i)$ is the valuation ring of the unramified extension of $\Q_p$ cut out by $f_i$.
+An unramified extension has a unique prime above $p$, so each factor is a discrete valuation ring.
+The corresponding idempotents are the images of $(1,0,\ldots)$, $(0,1,\ldots)$, and so on, and therefore lie in $\Z_p[G]$.
+\end{proof}
+
+Each idempotent $e_{\psi}$ is a sum of complex idempotents $e_{\chi}$ over a $\Gal(\overline{\Q}_p/\Q_p)$-orbit of characters, after any embedding of the cyclotomic values into $\overline{\Q}_p$.
+Because $p\nmid n$, the conductor of each character divides a power of an integer coprime to $p$, so these cyclotomic extensions are unramified at $p$, in agreement with Lemma~\ref{lem:etale}.
+
+\begin{lemma}
+\label{lem:orbit}
+Fix $p\nmid n$ and a truncation set $S$.
+The function $\chi\mapsto\ord_{s=0}L_S(s,\chi)$ is constant on $\Gal(\overline{\Q}_p/\Q_p)$-orbits of characters.
+If $e_{\psi}$ cuts out such an orbit $\Omega_{\psi}$ of non-trivial characters, then for every $\chi\in\Omega_{\psi}$
+\[
+  \dim_{K_{\psi}}e_{\psi}(E_{F,S}\otimes\Q_p)
+  =\ord_{s=0}L_S(s,\chi),
+\]
+where $K_{\psi}=\operatorname{Frac}(\OK_{\psi})$.
+\end{lemma}
+
+\begin{proof}
+An automorphism $\sigma$ fixing $\Q_p$ acts on character values by $\sigma(\chi)(g)=\sigma(\chi(g))$.
+The equality $\sigma(\chi)(\varphi_v)=1$ holds if and only if $\sigma(\chi(\varphi_v))=1$, hence if and only if $\chi(\varphi_v)=1$, because $\sigma$ fixes $1$.
+The same applies to the restriction of $\chi$ to $I_v$.
+Lemma~\ref{lem:order} therefore gives the same order of vanishing at every character of the orbit.
+
+The complex multiplicity of each such $\chi$ in $E_{F,S}\otimes\C$ equals that order, by Lemma~\ref{lem:mult}.
+The $\Q_p$-dimension of $e_{\psi}(E_{F,S}\otimes\Q_p)$ equals $|\Omega_{\psi}|$ times this common multiplicity, while $[K_{\psi}:\Q_p]=|\Omega_{\psi}|$.
+Dividing yields the rank over $K_{\psi}$.
+\end{proof}
+
+\subsection{Higher Stark modules}
+
+\begin{definition}
+\label{def:hst}
+Let $p\nmid|G|$, let $S$ be a truncation set, and let $e_{\psi}$ be a non-trivial primitive idempotent of $\Z_p[G]$.
+The module $e_{\psi}(E_{F,S}\otimes\Z_p)$ is finitely generated and torsion-free over the discrete valuation ring $\OK_{\psi}$.
+It is therefore free, of some rank $d_{\psi}(S)$.
+The \emph{higher Stark module} of level $S$ at $\psi$ is the determinant
+\[
+  \HSt_{S,\psi}^{(p)}(F/k)
+  =\bigwedge^{d_{\psi}(S)}_{\OK_{\psi}}
+    e_{\psi}\bigl(E_{F,S}\otimes\Z_p\bigr),
+\]
+a free $\OK_{\psi}$-module of rank one.
+An \emph{integral higher Stark element} of level $S$ at $\psi$ is an $\OK_{\psi}$-basis vector of this module.
+\end{definition}
+
+Freeness over a discrete valuation ring is the reason for restricting to $p\nmid|G|$.
+At primes dividing $|G|$ the group ring is not \'etale, torsion-free modules need not be free, and the determinant line requires a derived construction that this note does not undertake.
+
+\begin{proof}[Proof of Theorem~\ref{thm:B}]
+Assertion (i) is Lemma~\ref{lem:etale}.
+
+For (ii), Lemma~\ref{lem:orbit} computes the generic rank $d_{\psi}(S)$ as $\ord_{s=0}L_S(s,\chi)$.
+A finitely generated torsion-free module over a discrete valuation ring is free of rank equal to the dimension of its generic fiber.
+The top exterior power of a free module of that rank is free of rank one.
+This is $\HSt_{S,\psi}^{(p)}(F/k)$.
+
+For (iii), let $v$ be ramified, let $S_{\star}$ contain $v$, and set $S=S_{\star}\setminus\{v\}$.
+Assume $\mathrm{ND}_v$ fails.
+By Definition~\ref{def:ND} there exists a non-trivial character $\chi$ of $G/I_v$ with $\chi(\varphi_v)=1$.
+Viewed as a character of $G$, one has $\chi|_{I_v}=\triv$, $\chi\neq\triv$, and $\chi(\varphi_v)=1$, so $v\in Z(S_{\star},\chi)$ while $v\notin Z(S,\chi)$.
+Lemma~\ref{lem:order} gives
+\[
+  \ord_{s=0}L_{S_{\star}}(s,\chi)
+  =\ord_{s=0}L_S(s,\chi)+1.
+\]
+Let $\psi$ be the idempotent whose orbit contains $\chi$.
+Every Galois conjugate of $\chi$ likewise satisfies $\sigma(\chi)(\varphi_v)=1$ and is trivial on $I_v$, so the common order of vanishing on the orbit increases by exactly $1$.
+Lemma~\ref{lem:orbit} identifies $d_{\psi}$ with that common order, and therefore $d_{\psi}(S_{\star})=d_{\psi}(S)+1$.
+
+The higher Stark module of level $S$ is an exterior power of degree $d_{\psi}(S)$.
+The ramification-complete leading coefficient $L_{S_{\star}}^{*}(0,\chi)$ is the nonzero generator of a determinant line of degree $d_{\psi}(S_{\star})>d_{\psi}(S)$, in the sense of the covolume on $\bigwedge^{d_{\psi}(S_{\star})}(E_{F,S_{\star}}\otimes\R)_{\chi}$.
+The exterior power of degree $d_{\psi}(S_{\star})$ of a free module of rank $d_{\psi}(S)$ is zero.
+Equivalently, if $V\subset W$ are vector spaces over the fraction field of $\OK_{\psi}$ with $\dim V<\dim W$, then $\bigwedge^{\dim W}V=0$, so every element of the level-$S$ determinant has image zero in the level-$S_{\star}$ determinant line.
+The leading coefficient is nonzero by definition of the order of vanishing.
+Hence no integral higher Stark element of level $S$ maps to that leading value.
+
+Ramification-complete truncation is exactly the operation of restoring every such $v$ to the truncation set, which raises the rank of $\HSt_{S,\psi}^{(p)}$ to the degree in which the leading coefficient lives.
+Without that restoration the integral element does not exist.
+\end{proof}
+
+\begin{remark}
+\label{rem:nd-ok}
+If instead $\mathrm{ND}_v$ holds, Lemma~\ref{lem:order} shows that restoring $v$ does not increase $\ord_{s=0}L_S(s,\chi)$ for any $\chi\neq\triv$.
+The non-trivial higher Stark modules of level $S$ and of level $S\cup\{v\}$ have the same rank.
+Truncation is then invisible at the level of ranks and is felt only through the algebraic multiplier of Theorem~\ref{thm:C}(ii).
+The necessity statement in Theorem~\ref{thm:B}(iii) is the complementary case, in which the multiplier is replaced by a jump in order and the integral element in the smaller degree is impossible.
+Both cases are required for a complete description; neither is optional in the statement.
+\end{remark}
+
+\subsection{What the integral element is asked to match}
+
+It remains to spell out the meaning of ``maps to the equivariant leading value'', used in Theorem~\ref{thm:B}(iii) and Theorem~\ref{thm:C}(i).
+
+\begin{definition}
+\label{def:maps}
+Let $S_{\star}$ be ramification-complete and let $\chi\neq\triv$ satisfy $m=\ord_{s=0}L_{S_{\star}}(s,\chi)$.
+A class $\eta$ in a top exterior power of a $\chi$-isotypic unit lattice \emph{maps to} the leading value $L_{S_{\star}}^{*}(0,\chi)$ when the following two conditions hold.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item The $\chi$-rank $d$ of the lattice equals $m$, so that the regulator embedding identifies the determinant line of the lattice with the determinant line of $(X_{S_{\star}(F)}\otimes\R)_{\chi}$.
+\item Under that identification, the image of $\eta$ equals $L_{S_{\star}}^{*}(0,\chi)$ times the fixed volume form coming from the Haar measure that gives the augmentation lattice covolume $1$.
+\end{enumerate}
+If $d<m$, condition (a) fails and $\eta$ does not map to the leading value.
+\end{definition}
+
+Condition (b) is the usual Stark regulator identity in a single character component, assembled equivariantly by taking one integral element in each higher Stark module $\HSt_{S,\psi}^{(p)}$.
+Theorem~\ref{thm:B} does not assert that an element satisfying (b) exists.
+Existence of a generator of the free module $\HSt_{S_{\star},\psi}^{(p)}$ is unconditional; equality of its regulator with the leading coefficient is a form of the equivariant Stark conjecture and is not proved here.
+What is proved is the obstruction: when the degree is wrong, condition (a) already fails, so no choice of integral element can satisfy the identity.
+
+\section{Obstruction and class-number divisibility}
+\label{sec:thmC}
+
+\subsection{The order obstruction}
+
+\begin{proof}[Proof of Theorem~\ref{thm:C}(i)]
+The argument is the character form of Theorem~\ref{thm:B}(iii), without $p$-adic coefficients.
+Since $\mathrm{ND}_v$ fails, there exists $\chi\neq\triv$ with $v\in Z(S\cup\{v\},\chi)$ and $v\notin Z(S,\chi)$.
+Lemmas~\ref{lem:order} and~\ref{lem:mult} give
+\[
+  \ord_{s=0}L_{S\cup\{v\}}(s,\chi)
+  =1+|Z(S\cup\{v\},\chi)|
+  >1+|Z(S,\chi)|
+  =\dim_{\C}(E_{F,S}\otimes\C)_{\chi}.
+\]
+The top exterior power of the $\chi$-component of $E_{F,S}$ in this larger degree vanishes, while $L_{S\cup\{v\}}^{*}(0,\chi)\neq 0$.
+Definition~\ref{def:maps} therefore excludes every integral element of level $S$.
+\end{proof}
+
+The same conclusion can be phrased without choosing $\chi$.
+If $\mathrm{ND}_v$ fails, the permutation module on places of $F$ above $v$ contributes a non-trivial character to $X_{(S\cup\{v\})(F)}$, and the $S$-unit lattice at level $S$ maps into the proper subspace of the larger Minkowski space on which the new place has coordinate zero.
+A covolume in the larger degree cannot be represented by a wedge of vectors from the smaller subspace.
+
+\subsection{The truncation multiplier}
+
+\begin{lemma}
+\label{lem:cyclotomic-product}
+Let $\Gamma$ be a finite abelian group and let $\varphi\in\Gamma$.
+Then
+\[
+  \prod_{\psi\in\widehat\Gamma\setminus\{\triv\}}\bigl(1-\psi(\varphi)\bigr)
+  =
+  \begin{cases}
+    |\Gamma|& \text{if }\Gamma=\langle\varphi\rangle,\\
+    0& \text{otherwise.}
+  \end{cases}
+\]
+\end{lemma}
+
+\begin{proof}
+The product vanishes if and only if some non-trivial character kills $\varphi$, which happens if and only if $\varphi$ lies in a maximal subgroup, if and only if $\langle\varphi\rangle\neq\Gamma$.
+If $\Gamma=\langle\varphi\rangle$, then $\Gamma$ is cyclic of some order $f$ and the values $\psi(\varphi)$ run through all $f$-th roots of unity exactly once.
+The polynomial identity $X^{f}-1=\prod_{j=0}^{f-1}(X-\zeta^{j})$ gives, after dividing by $X-1$ and setting $X=1$,
+\[
+  \prod_{j=1}^{f-1}(1-\zeta^{j})=f.
+\]
+The left-hand side is the product in the statement, and $f=|\Gamma|$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:C}(ii)]
+Assume $\mathrm{ND}_v$ for every ramified $v$.
+For each such $v$ and each $\chi\neq\triv$ with $\chi|_{I_v}=\triv$, the character $\chi$ descends to a non-trivial character of $G/I_v=\langle\varphi_v\rangle$, so $\chi(\varphi_v)\neq 1$.
+Lemma~\ref{lem:order} therefore keeps the order of $L_{S_{\ram}}(s,\chi)$ equal to $1$, and
+\begin{equation}
+\label{eq:local-factor}
+  L_{S_{\ram}}'(0,\chi)
+  =L'(0,\chi)\prod_{\substack{v\in S_{\ram}\\ \chi|_{I_v}=\triv}}\bigl(1-\chi(\varphi_v)\bigr).
+\end{equation}
+Characters ramified at $v$ contribute an empty factor at that place.
+Taking the product over $\chi\neq\triv$ and rearranging gives
+\begin{align*}
+  \prod_{\chi\neq\triv}\frac{L_{S_{\ram}}'(0,\chi)}{L'(0,\chi)}
+  &=\prod_{v\in S_{\ram}}
+    \prod_{\substack{\chi\neq\triv\\ \chi|_{I_v}=\triv}}\bigl(1-\chi(\varphi_v)\bigr).
+\end{align*}
+For fixed $v$ the inner product is the product of Lemma~\ref{lem:cyclotomic-product} for $\Gamma=G/I_v$ and $\varphi=\varphi_v$.
+The hypothesis $\mathrm{ND}_v$ is exactly $\Gamma=\langle\varphi\rangle$, so the inner product equals $|G/I_v|$.
+Hence
+\[
+  \prod_{\chi\neq\triv}L_{S_{\ram}}'(0,\chi)
+  =\mathfrak{c}(F/k)\,\mathcal{L}(F/k),
+\]
+with $\mathfrak{c}(F/k)=\prod_{v\in S_{\ram}}|G/I_v|$.
+Each $|G/I_v|$ is a positive integer, and an empty product equals $1$, so $\mathfrak{c}(F/k)\in\Z_{>0}$.
+Dividing by $R_F$ and applying Theorem~\ref{thm:A} yields
+\[
+  \Ind^{\ram}(F/k)
+  =\mathfrak{c}(F/k)\cdot\frac{h_F}{h_k}\cdot\mathfrak{z}(F/k).
+\]
+The right-hand side is rational and positive.
+\end{proof}
+
+\begin{corollary}
+\label{cor:primitive}
+Assume $\mathrm{ND}_v$ for every $v\in S_{\ram}$, and assume $\mathfrak{c}(F/k)\neq 1$.
+Let $\eta_0$ be a $\Z$-basis vector of $\det_{\Z}E_F$, so that the regulator of $\eta_0$ equals $R_F$ in absolute value.
+Then $\eta_0$ cannot map to both $\mathcal{L}(F/k)$ and $\prod_{\chi\neq\triv}L_{S_{\ram}}'(0,\chi)$.
+An integral element that maps to one of these two leading products differs from an integral element that maps to the other by the integer factor $\mathfrak{c}(F/k)$ in the determinant line.
+\end{corollary}
+
+\begin{proof}
+The two leading products differ by the integer $\mathfrak{c}(F/k)\neq 1$, by the identity in the proof of Theorem~\ref{thm:C}(ii).
+A single real number $R_F$ cannot equal both products unless the rational index compensates, and the compensation for one product is $\mathfrak{c}(F/k)$ times the compensation for the other.
+\end{proof}
+
+Corollary~\ref{cor:primitive} is the non-decomposition form of the obstruction.
+Omitting the ramified places replaces the target leading product by its quotient by $\mathfrak{c}(F/k)$.
+An element integral at a prime divisor of $\mathfrak{c}(F/k)$ and primitive in the determinant line can hit at most one of the two targets.
+Combined with Theorem~\ref{thm:C}(i), one obtains a complete dichotomy.
+If $\mathrm{ND}_v$ fails, the integral element of the smaller level does not exist in the right degree.
+If $\mathrm{ND}_v$ holds, the element may exist in the right degree, but the omitted-truncation leading value and the ramification-complete leading value differ by the integer $|G/I_v|$, so integrality relative to a primitive generator cannot serve both targets when that integer is greater than $1$.
+
+\subsection{Class-group invariants away from the group order}
+
+\begin{lemma}
+\label{lem:invariants}
+Let $p\nmid|G|$.
+Extension of ideals defines a homomorphism $j:\Cl_k\to\Cl_F^{G}$, and the field norm defines $N:\Cl_F\to\Cl_k$.
+After tensoring with $\Z_p$ these maps become inverse isomorphisms up to the unit $n=|G|$:
+\[
+  j:\Cl_k\otimes\Z_p\xrightarrow{\sim}(\Cl_F\otimes\Z_p)^{G},
+\]
+with inverse $n^{-1}N$.
+In particular,
+\[
+  v_p\bigl(\bigl|(\Cl_F\otimes\Z_p)^{G}\bigr|\bigr)=v_p(h_k)
+\]
+and
+\begin{equation}
+\label{eq:split}
+  v_p(h_F)-v_p(h_k)
+  =v_p\bigl(\bigl|e'(\Cl_F\otimes\Z_p)\bigr|\bigr)\ge 0,
+\end{equation}
+where $e'=1-e_{\triv}$ is the sum of the non-trivial idempotents.
+\end{lemma}
+
+\begin{proof}
+If $\mathfrak{b}$ is an ideal of $\OK_k$, the extended ideal $\mathfrak{b}\OK_F$ is stable under $G$, so $j$ lands in the invariant classes.
+If $\mathfrak{a}$ is an ideal of $\OK_F$, the product of its conjugates equals $(N_{F/k}\mathfrak{a})\,\OK_F$, hence $j\circ N$ is multiplication by the norm element $N_G=\sum_{g\in G}g$ on $\Cl_F$.
+In the other direction, $N_{F/k}(\mathfrak{b}\OK_F)=\mathfrak{b}^{n}$, so $N\circ j$ is multiplication by $n$ on $\Cl_k$.
+
+Since $p\nmid n$, the scalar $n$ is a unit in $\Z_p$, and the trivial idempotent $e_{\triv}=N_G/n$ lies in $\Z_p[G]$ by Lemma~\ref{lem:etale}.
+For every $\Z_p[G]$-module $M$ the invariant submodule equals the image of this idempotent: $M^{G}=e_{\triv}M$.
+Indeed an invariant vector is fixed by $e_{\triv}$, and a vector in the image of $e_{\triv}$ is fixed by $G$ because $e_{\triv}$ is central and $ge_{\triv}=e_{\triv}$.
+Taking $G$-invariants is therefore an exact functor on $\Z_p[G]$-modules, realized by multiplication with $e_{\triv}$.
+
+On $\Cl_k\otimes\Z_p$ the composition $n^{-1}N\circ j$ is the identity.
+On $(\Cl_F\otimes\Z_p)^{G}$ the composition $j\circ n^{-1}N$ equals $n^{-1}N_G=e_{\triv}$, which acts as the identity on invariants.
+Thus $j$ and $n^{-1}N$ are inverse isomorphisms between $\Cl_k\otimes\Z_p$ and $(\Cl_F\otimes\Z_p)^{G}$.
+Comparing orders gives $v_p(|(\Cl_F\otimes\Z_p)^{G}|)=v_p(h_k)$.
+
+Lemma~\ref{lem:etale} supplies a decomposition of the finite module $\Cl_F\otimes\Z_p$ as the product of its idempotent components, so
+\[
+  \bigl|\Cl_F\otimes\Z_p\bigr|
+  =\bigl|e_{\triv}(\Cl_F\otimes\Z_p)\bigr|\cdot\bigl|e'(\Cl_F\otimes\Z_p)\bigr|.
+\]
+The first factor on the right has $p$-valuation $v_p(h_k)$, and the left-hand side has $p$-valuation $v_p(h_F)$.
+Subtracting produces \eqref{eq:split}.
+The valuation of an order is nonnegative.
+\end{proof}
+
+The hypothesis $p\nmid|G|$ cannot be omitted.
+Section~\ref{sec:examples} gives an extension with $|G|=2$, $h_k=2$ and $h_F=1$.
+
+\begin{proof}[Proof of Theorem~\ref{thm:C}(iii)]
+Assume $\mathrm{ND}_v$ for all ramified $v$, and let $p\nmid|G|$.
+Each integer $|G/I_v|$ divides $|G|$, so $v_p(\mathfrak{c}(F/k))=0$.
+Theorem~\ref{thm:C}(ii) therefore yields
+\[
+  v_p\bigl(\Ind^{\ram}(F/k)\bigr)
+  =v_p\bigl(\Ind(\SD(F/k),E_F)\bigr).
+\]
+Corollary~\ref{cor:rational} rewrites the untruncated valuation as
+\[
+  v_p\bigl(\Ind(\SD(F/k),E_F)\bigr)
+  =v_p(h_F)-v_p(h_k)+v_p(w_k)-v_p(w_F),
+\]
+which rearranges to
+\[
+  v_p\Bigl(\frac{h_F}{h_k}\Bigr)
+  =v_p\bigl(\Ind(\SD(F/k),E_F)\bigr)+v_p(w_F)-v_p(w_k).
+\]
+The same equality holds with $\Ind^{\ram}$ in place of the untruncated index.
+
+Lemma~\ref{lem:invariants} decomposes the class-group difference by idempotents.
+Since $\Z_p[G]\cong\prod_{\psi}\OK_{\psi}$, one has
+\[
+  \bigl|e'(\Cl_F\otimes\Z_p)\bigr|
+  =\prod_{\psi\neq\triv}\bigl|e_{\psi}(\Cl_F\otimes\Z_p)\bigr|,
+\]
+and taking $p$-valuations produces the sum in the statement.
+Nonnegativity is \eqref{eq:split}.
+In particular $v_p(h_F)\ge v_p(h_k)$, so the $p$-primary part of $h_k$ divides the $p$-primary part of $h_F$.
+\end{proof}
+
+The three expressions in Theorem~\ref{thm:C}(iii) are the content of the divisibility.
+The sum over idempotents is a decomposition of the $p$-part of the relative class number.
+The Stark--Dirichlet index computes the same integer after the roots-of-unity correction $v_p(w_F)-v_p(w_k)$ is inserted.
+Non-decomposition enters so that the ramification-truncated index, which is the leading term attached to the truncation level at which higher Stark elements are formed, has the same $p$-valuation.
+If some $\mathrm{ND}_v$ fails, Lemma~\ref{lem:order} introduces a positive power of $\log Nv$ into the leading coefficient, the truncated index ceases to be rational, and the comparison with $h_F/h_k$ is not a $p$-adic valuation identity.
+
+\begin{corollary}
+\label{cor:unit-correction}
+Under the hypotheses of Theorem~\ref{thm:C}(iii), if moreover $p\nmid w_F$, then
+\[
+  v_p\Bigl(\frac{h_F}{h_k}\Bigr)
+  =v_p\bigl(\Ind^{\ram}(F/k)\bigr)
+  =\sum_{\psi\neq\triv}v_p\bigl(\bigl|e_{\psi}(\Cl_F\otimes\Z_p)\bigr|\bigr).
+\]
+\end{corollary}
+
+\begin{proof}
+If $p\nmid w_F$, then $p\nmid w_k$ as well, because $w_k$ divides $w_F$.
+The correction terms $v_p(w_F)$ and $v_p(w_k)$ vanish.
+\end{proof}
+
+\section{Numerical checks}
+\label{sec:examples}
+
+The identity of Theorem~\ref{thm:A} was compared, for three almost abelian data, with derivatives of Dedekind zeta functions computed in PARI/GP~\cite{PARI}.
+In each case $G$ is cyclic of order $2$, so there is one non-trivial character.
+Then $\mathcal{L}(F/k)=L'(0,\chi)$, and this derivative equals $\zeta_F^{*}(0)/\zeta_k(0)$.
+PARI returns Taylor derivatives; the leading coefficient of a zero of order $r$ is the $r$-th derivative divided by $r!$.
+In all three cases the ratio of the analytic side to $(h_F/h_k)(w_k/w_F)R_F$ equals $1$ through $30$ decimal places.
+The arithmetic factor itself is an exact rational number computed from class groups and roots of unity.
+A script reproducing the comparison is included as \texttt{examples/verify-index.gp}.
+
+\subsection{A non-integral index, and sharpness at primes dividing the group order}
+
+Let $k=\Q(\sqrt{-5})$.
+Then $h_k=2$ and $w_k=2$, so $\zeta_k(0)=-1$.
+The Hilbert class field $F$ is $\Q(\sqrt{-5},\,i)$, with minimal polynomial $x^{4}+12x^{2}+16$ over $\Q$.
+This extension is unramified at every finite place, so $S_{\ram}$ is empty, $\mathfrak{c}(F/k)=1$, and $\mathrm{ND}_v$ holds vacuously.
+The class group and roots of unity are $h_F=1$ and $w_F=4$.
+Theorem~\ref{thm:A} predicts
+\[
+  \Ind\bigl(\SD(F/k),E_F\bigr)
+  =\frac{1}{2}\cdot\frac{2}{4}
+  =\frac{1}{4}.
+\]
+The regulator is positive and the identity $L'(0,\chi)=R_F/4$ is the numerical content of the check.
+In particular the index is rational but not an integer, as allowed by Remark~\ref{rem:not-integral}.
+
+Here $|G|=2$.
+For the prime $p=2$, which divides $|G|$, one has $v_2(h_F)=0<1=v_2(h_k)$.
+Lemma~\ref{lem:invariants} and Theorem~\ref{thm:C}(iii) both exclude this prime.
+The example shows that the exclusion is sharp: the inequality $v_p(h_F)\ge v_p(h_k)$ can fail when $p$ divides $|G|$.
+
+\subsection{A ramified quadratic extension with trivial multiplier}
+
+Let $k=\Q(i)$, so $h_k=1$ and $w_k=4$, and let $F=k(\sqrt{1+i})$, with minimal polynomial $x^{4}-2x^{2}+2$ over $\Q$.
+The discriminant of $F$ is a power of $2$, so the unique ramified finite place lies above $2$.
+The Galois group has order $2$.
+A ramified place in a cyclic extension of prime order has inertia equal to the whole group, hence $|G/I_v|=1$ and the product of Lemma~\ref{lem:cyclotomic-product} over non-trivial characters trivial on $I_v$ is an empty product, equal to $1$.
+Truncation at this place does not change $L(s,\chi)$.
+Both class numbers equal $1$ and $w_F=4$, so Theorem~\ref{thm:A} predicts that the index equals $1$, and the numerical comparison agrees.
+
+\subsection{A prime that divides the base class number but not the group order}
+
+Let $k=\Q(\sqrt{-23})$, so $h_k=3$ and $w_k=2$, and let $F=k(\sqrt{2})$, with minimal polynomial $x^{4}+42x^{2}+625$ over $\Q$.
+Then $|G|=2$, the prime $p=3$ does not divide $|G|$, and the computation gives $h_F=6$, $w_F=2$.
+Theorem~\ref{thm:C}(iii) predicts $v_3(h_F)\ge v_3(h_k)$.
+Both valuations equal $1$, so the non-trivial idempotent component of $\Cl_F\otimes\Z_3$ is trivial and the divisibility holds with equality of valuations.
+The arithmetic factor is $(6/3)\cdot(2/2)=2$, and the comparison of $L'(0,\chi)$ with $2R_F$ again agrees to working precision.
+This is a case in which the $p$-part of $h_k$ divides the $p$-part of $h_F$ for a prime $p\nmid|G|$, with the Stark--Dirichlet index equal to $2$ carrying no further $3$-power.
+
+\section{Remarks and open questions}
+\label{sec:remarks}
+
+The product formula of Theorem~\ref{thm:A} is unconditional.
+It does not factor canonically into a product of rational numbers indexed by characters, because a proper subproduct of the derivatives $L'(0,\chi)$ need not be a rational multiple of the covolume of the corresponding isotypic component.
+Stark's conjecture asserts precisely that each ratio $L'(0,\chi)/R(F/k,\chi)$ is algebraic and lies in the field generated by the values of $\chi$~\cite{Stark,TateStark}.
+Over imaginary quadratic fields the rank-one case is tied to elliptic units~\cite{Robert,RubinElliptic}, but the lattice index proved here does not produce those units and does not require them.
+
+\begin{remark}[On the scope of the divisibility]
+\label{rem:scope}
+The nonnegativity $v_p(h_F)\ge v_p(h_k)$ for $p\nmid|G|$ is a statement about ideal classes, proved by comparing the norm and the extension map after $n$ has become invertible.
+The Stark--Dirichlet index enters when one wants the same integer as a valuation of $L$-derivatives divided by the regulator, corrected by $w_F/w_k$.
+Non-decomposition is the condition under which ramified truncation multiplies the $L$-derivative by a rational integer rather than by a positive power of $\log Nv$.
+Without it, the truncated leading coefficient is not a rational multiple of $R_F$, and there is nothing to compare $p$-adically with $h_F/h_k$.
+\end{remark}
+
+Several natural extensions lie outside the proofs given here.
+
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item \textbf{Primes dividing $|G|$.}
+Lemma~\ref{lem:etale} fails when $p$ divides $n$, and the example of Section~\ref{sec:examples} shows that the class-number inequality can reverse.
+A derived determinant over the order $\Z_p[G]$, in the sense of the equivariant Tamagawa number conjecture~\cite{BurnsFlach}, might restore a statement with an explicit error ideal supported at $p$.
+The note does not construct that determinant.
+\item \textbf{Algebraicity of isotypic ratios.}
+Determine whether $\prod_{\chi\in\Omega}L'(0,\chi)$, as $\Omega$ runs over $\Gal(\overline{\Q}/\Q)$-orbits, becomes rational after division by the covolume of $e_{\Omega}\lambda_F(E_F)$ and by the discriminant of the character field.
+Theorem~\ref{thm:A} is the case of a single orbit consisting of all non-trivial characters, where the discriminant factors cancel in the full regulator.
+A proper suborbit is not treated.
+\item \textbf{Non-abelian extensions with an abelian subgroup of small index.}
+If $N/\Q$ is Galois and $\Gal(N/\Q)$ has a normal subgroup with quotient $C_2$ whose fixed field is imaginary quadratic, the extension of that fixed field is abelian and falls under Definition~\ref{def:datum}.
+The conjugate action of $\Gal(k/\Q)$ on $G$ mixes characters.
+An integral statement that is equivariant for the full group $\Gal(N/\Q)$, rather than for $G$, would require a non-abelian regulator and is open even at the level of the product formula.
+\item \textbf{Leopoldt's conjecture in the $p$-adic regulator.}
+The complex embedding $\lambda_F$ was enough to compare ranks.
+A $p$-adic logarithm $E_F\otimes\Z_p\to X_G\otimes\Z_p$ would let the higher Stark module map directly to a $p$-adic leading element.
+Leopoldt's conjecture is not known for every abelian extension of an imaginary quadratic field, so no such map is used.
+\item \textbf{Auxiliary truncation sets disjoint from $S_{\ram}$.}
+Rubin--Stark elements are often modified by an auxiliary set $T$ of places, disjoint from the truncation set, in order to clear denominators at primes dividing $w_F$~\cite{RubinStark}.
+The multiplier $\prod_{v\in T}(1-\chi(\varphi_v)Nv)$ is an algebraic integer when $\chi$ is unramified at $v$.
+Inserting it into $\Theta(F/k)$ changes $\mathfrak{z}(F/k)$ by a controlled factor.
+The interaction of that factor with the annihilator of $\mu(F)/\mu(k)$ is not carried out here.
+\end{enumerate}
+
+The three theorems are arranged so that each hypothesis is visible in the statement it supports.
+Theorem~\ref{thm:A} has no extra hypothesis beyond the almost abelian datum.
+Theorem~\ref{thm:B} requires $p\nmid|G|$ for the \'etale decomposition, and requires failure of $\mathrm{ND}_v$ for the vanishing that makes truncation necessary.
+Theorem~\ref{thm:C} requires $\mathrm{ND}_v$ in order that the truncated index stay rational, and requires $p\nmid|G|$ for the class-group isomorphism.
+Removing any of these restrictions changes the shape of the result, as the Hilbert class field of $\Q(\sqrt{-5})$ shows for the prime dividing the group order.
+
+\begin{thebibliography}{99}
+
+\bibitem{BurnsFlach}
+D.~Burns and M.~Flach,
+\emph{Tamagawa numbers for motives with (non-commutative) coefficients},
+Documenta Math.\ \textbf{6} (2001), 501--570.
+
+\bibitem{Hecke1918}
+E.~Hecke,
+\emph{Eine neue Art von Zetafunktionen und ihre Beziehungen zur Verteilung der Primzahlen},
+Math.\ Z.\ \textbf{1} (1918), 357--376;
+\emph{zweite Mitteilung}, Math.\ Z.\ \textbf{6} (1920), 11--51.
+
+\bibitem{Neukirch}
+J.~Neukirch,
+\emph{Algebraic Number Theory},
+Grundlehren der mathematischen Wissenschaften, vol.~322,
+Springer, Berlin, 1999.
+
+\bibitem{PARI}
+The PARI~Group,
+\emph{PARI/GP version 2.15.4},
+Univ.\ Bordeaux, 2024,
+\url{http://pari.math.u-bordeaux.fr/}.
+
+\bibitem{RitterWeiss}
+J.~Ritter and A.~Weiss,
+\emph{The lifted root number conjecture and Iwasawa theory},
+Mem.\ Amer.\ Math.\ Soc.\ \textbf{157} (2002), no.~748.
+
+\bibitem{Robert}
+G.~Robert,
+\emph{Unit\'es elliptiques},
+Bull.\ Soc.\ Math.\ France, M\'em.\ no.~36, 1973.
+
+\bibitem{RubinElliptic}
+K.~Rubin,
+\emph{Elliptic curves with complex multiplication and the conjecture of Birch and Swinnerton-Dyer},
+Invent.\ Math.\ \textbf{64} (1981), 455--470.
+
+\bibitem{RubinStark}
+K.~Rubin,
+\emph{A Stark conjecture ``over $\Z$'' for abelian $L$-functions with multiple zeros},
+Ann.\ Inst.\ Fourier (Grenoble) \textbf{46} (1996), 33--62.
+
+\bibitem{Stark}
+H.~M.~Stark,
+\emph{$L$-functions at $s=1$},
+I, Adv.\ Math.\ \textbf{7} (1971), 301--343;
+II, Adv.\ Math.\ \textbf{17} (1975), 60--92;
+III, Adv.\ Math.\ \textbf{22} (1976), 64--84;
+IV, Adv.\ Math.\ \textbf{35} (1980), 197--235.
+
+\bibitem{TateStark}
+J.~Tate,
+\emph{Les conjectures de Stark sur les fonctions $L$ d'Artin en $s=0$},
+Progress in Mathematics, vol.~47,
+Birkh\"auser, Boston, 1984.
+
+\bibitem{Washington}
+L.~C.~Washington,
+\emph{Introduction to Cyclotomic Fields},
+Graduate Texts in Mathematics, vol.~83,
+2nd ed., Springer, New York, 1997.
+
+\end{thebibliography}
+
+\end{document}
