@@ -1,0 +1,187 @@
+========================================
+Curve: y^2 = x^3 - x, CM by Z[i]
+Conductor: 32
+Torsion invariants: [2, 2]
+j-invariant: 1728
+p=5 ap=-2 ap_mod_p=3 v_p(alpha-1)=0 divpol_degs=[4, 8]
+  m=3 NT_p=1
+    q=3 ord=4 card=64 p_divides=0
+  m=6 NT_p=1
+    q=2 ord=4 card=9 p_divides=0
+    q=3 ord=4 card=64 p_divides=0
+  m=21 NT_p=1
+    q=3 ord=4 card=64 p_divides=0
+    q=7 ord=4 card=2304 p_divides=0
+p=13 ap=6 ap_mod_p=6 v_p(alpha-1)=0 divpol_degs=[12, 72]
+  m=3 NT_p=1
+    q=3 ord=3 card=28 p_divides=0
+  m=6 NT_p=1
+    q=2 ord=12 card=3969 p_divides=0
+    q=3 ord=3 card=28 p_divides=0
+  m=15 NT_p=1
+    q=3 ord=3 card=28 p_divides=0
+    q=5 ord=4 card=640 p_divides=0
+  m=21 NT_p=1
+    q=3 ord=3 card=28 p_divides=0
+    q=7 ord=12 card=13841051904 p_divides=0
+p=17 ap=2 ap_mod_p=2 v_p(alpha-1)=0 divpol_degs=[16, 128]
+  m=3 NT_p=1
+    q=3 ord=16 card=43033600 p_divides=0
+  m=6 NT_p=1
+    q=2 ord=8 card=225 p_divides=0
+    q=3 ord=16 card=43033600 p_divides=0
+  m=15 NT_p=1
+    q=3 ord=16 card=43033600 p_divides=0
+    q=5 ord=16 card=152587560960 p_divides=1
+  m=21 NT_p=1
+    q=3 ord=16 card=43033600 p_divides=0
+    q=7 ord=16 card=33232919040000 p_divides=0
+p=29 ap=-10 ap_mod_p=19 v_p(alpha-1)=0 divpol_degs=[28, 392]
+  m=3 NT_p=1
+    q=3 ord=28 card=22876782889024 p_divides=0
+  m=6 NT_p=1
+    q=2 ord=28 card=268402689 p_divides=0
+    q=3 ord=28 card=22876782889024 p_divides=0
+  m=15 NT_p=1
+    q=3 ord=28 card=22876782889024 p_divides=0
+    q=5 ord=14 card=6103668512 p_divides=1
+  m=21 NT_p=1
+    q=3 ord=28 card=22876782889024 p_divides=0
+    q=7 ord=7 card=823544 p_divides=0
+p=37 ap=-2 ap_mod_p=35 v_p(alpha-1)=0 divpol_degs=[36, 648]
+  m=3 NT_p=1
+    q=3 ord=18 card=387459856 p_divides=1
+  m=6 NT_p=1
+    q=2 ord=36 card=68718952449 p_divides=0
+    q=3 ord=18 card=387459856 p_divides=1
+  m=15 NT_p=1
+    q=3 ord=18 card=387459856 p_divides=1
+    q=5 ord=36 card=14551915228371080297196160 p_divides=1
+  m=21 NT_p=1
+    q=3 ord=18 card=387459856 p_divides=1
+    q=7 ord=9 card=40353608 p_divides=0
+p=41 ap=10 ap_mod_p=10 v_p(alpha-1)=0 divpol_degs=[40, 800]
+  m=3 NT_p=1
+    q=3 ord=8 card=6400 p_divides=0
+  m=6 NT_p=1
+    q=2 ord=20 card=1046529 p_divides=0
+    q=3 ord=8 card=6400 p_divides=0
+  m=15 NT_p=1
+    q=3 ord=8 card=6400 p_divides=0
+    q=5 ord=20 card=95367450947200 p_divides=0
+  m=21 NT_p=1
+    q=3 ord=8 card=6400 p_divides=0
+    q=7 ord=40 card=6366805760909027826156902544000000 p_divides=0
+p=53 ap=14 ap_mod_p=14 v_p(alpha-1)=0 divpol_degs=[52, 1352]
+  m=3 NT_p=1
+    q=3 ord=52 card=6461081889221589567275584 p_divides=0
+  m=6 NT_p=1
+    q=2 ord=52 card=4503599493152769 p_divides=0
+    q=3 ord=52 card=6461081889221589567275584 p_divides=0
+  m=15 NT_p=1
+    q=3 ord=52 card=6461081889221589567275584 p_divides=0
+    q=5 ord=52 card=2220446049250313079295303501806843520 p_divides=1
+  m=21 NT_p=1
+    q=3 ord=52 card=6461081889221589567275584 p_divides=0
+    q=7 ord=26 card=9387480337841532326464 p_divides=1
+p=61 ap=-10 ap_mod_p=51 v_p(alpha-1)=0 divpol_degs=[60, 1800]
+  m=3 NT_p=1
+    q=3 ord=10 card=59536 p_divides=1
+  m=6 NT_p=1
+    q=2 ord=60 card=1152921502459363329 p_divides=0
+    q=3 ord=10 card=59536 p_divides=1
+  m=15 NT_p=1
+    q=3 ord=10 card=59536 p_divides=1
+    q=5 ord=30 card=931322574629258737952 p_divides=0
+  m=21 NT_p=1
+    q=3 ord=10 card=59536 p_divides=1
+    q=7 ord=60 card=508021860739623365322188152573535920387918349109504 p_divides=0
+p=73 ap=-6 ap_mod_p=67 v_p(alpha-1)=0 divpol_degs=[72, 2592]
+  m=3 NT_p=1
+    q=3 ord=12 card=529984 p_divides=0
+  m=6 NT_p=1
+    q=2 ord=9 card=513 p_divides=0
+    q=3 ord=12 card=529984 p_divides=0
+  m=15 NT_p=1
+    q=3 ord=12 card=529984 p_divides=0
+    q=5 ord=72 card=211758236813575084767080636393608569006315575646720 p_divides=1
+  m=21 NT_p=1
+    q=3 ord=12 card=529984 p_divides=0
+    q=7 ord=24 card=191581231352883840000 p_divides=0
+========================================
+Curve: y^2 = x^3 + 1, CM by Z[omega]
+Conductor: 36
+Torsion invariants: [6]
+j-invariant: 0
+p=7 ap=-4 ap_mod_p=3 v_p(alpha-1)=0 divpol_degs=[6, 18]
+  m=2 NT_p=1
+    q=2 ord=3 card=9 p_divides=0
+  m=5 NT_p=1
+    q=5 ord=6 card=15876 p_divides=1
+  m=10 NT_p=1
+    q=2 ord=3 card=9 p_divides=0
+    q=5 ord=6 card=15876 p_divides=1
+p=13 ap=2 ap_mod_p=2 v_p(alpha-1)=0 divpol_degs=[12, 72]
+  m=2 NT_p=1
+    q=2 ord=12 card=3969 p_divides=0
+  m=5 NT_p=1
+    q=5 ord=4 card=576 p_divides=0
+  m=10 NT_p=1
+    q=2 ord=12 card=3969 p_divides=0
+    q=5 ord=4 card=576 p_divides=0
+p=19 ap=8 ap_mod_p=8 v_p(alpha-1)=0 divpol_degs=[18, 162]
+  m=2 NT_p=1
+    q=2 ord=18 card=263169 p_divides=1
+  m=5 NT_p=1
+    q=5 ord=9 card=1953126 p_divides=0
+  m=10 NT_p=1
+    q=2 ord=18 card=263169 p_divides=1
+    q=5 ord=9 card=1953126 p_divides=0
+p=31 ap=-4 ap_mod_p=27 v_p(alpha-1)=0 divpol_degs=[30, 450]
+  m=2 NT_p=1
+    q=2 ord=5 card=33 p_divides=0
+  m=5 NT_p=1
+    q=5 ord=3 card=126 p_divides=0
+  m=10 NT_p=1
+    q=2 ord=5 card=33 p_divides=0
+    q=5 ord=3 card=126 p_divides=0
+p=37 ap=-10 ap_mod_p=27 v_p(alpha-1)=0 divpol_degs=[36, 648]
+  m=2 NT_p=1
+    q=2 ord=36 card=68718952449 p_divides=0
+  m=5 NT_p=1
+    q=5 ord=36 card=14551915228359222412109376 p_divides=0
+  m=10 NT_p=1
+    q=2 ord=36 card=68718952449 p_divides=0
+    q=5 ord=36 card=14551915228359222412109376 p_divides=0
+p=43 ap=8 ap_mod_p=8 v_p(alpha-1)=0 divpol_degs=[42, 882]
+  m=2 NT_p=1
+    q=2 ord=14 card=16641 p_divides=1
+  m=5 NT_p=1
+    q=5 ord=42 card=227373675443233013153076171876 p_divides=1
+  m=10 NT_p=1
+    q=2 ord=14 card=16641 p_divides=1
+    q=5 ord=42 card=227373675443233013153076171876 p_divides=1
+======== bad reduction places outside m ========
+y^2=x^3-x, q=2
+p=5 q=2 d=4 card=9 p_divides=0
+p=13 q=2 d=12 card=3969 p_divides=0
+p=17 q=2 d=8 card=225 p_divides=0
+p=29 q=2 d=28 card=268402689 p_divides=0
+p=37 q=2 d=36 card=68718952449 p_divides=0
+p=41 q=2 d=20 card=1046529 p_divides=0
+p=53 q=2 d=52 card=4503599493152769 p_divides=0
+p=61 q=2 d=60 card=1152921502459363329 p_divides=0
+p=73 q=2 d=9 card=513 p_divides=0
+y^2=x^3+1, q=2 and q=3
+p=7 q=2 d=3 card=9 p_divides=0
+p=7 q=3 d=6 card=784 p_divides=1
+p=13 q=2 d=12 card=3969 p_divides=0
+p=13 q=3 d=3 card=28 p_divides=0
+p=19 q=2 d=18 card=263169 p_divides=1
+p=19 q=3 d=18 card=387459856 p_divides=1
+p=31 q=2 d=5 card=33 p_divides=0
+p=31 q=3 d=30 card=205891160792464 p_divides=1
+p=37 q=2 d=36 card=68718952449 p_divides=0
+p=37 q=3 d=18 card=387459856 p_divides=1
+p=43 q=2 d=14 card=16641 p_divides=1
+p=43 q=3 d=42 card=109418989152433065616 p_divides=1

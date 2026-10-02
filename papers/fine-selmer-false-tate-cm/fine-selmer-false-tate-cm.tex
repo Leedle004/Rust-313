@@ -1,0 +1,1016 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath,amssymb,amsthm,mathtools,amscd}
+\usepackage[margin=1in]{geometry}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Gal}{\mathrm{Gal}}
+\newcommand{\Sel}{\operatorname{Sel}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\coker}{\operatorname{coker}}
+\newcommand{\Sha}{\operatorname{Sha}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\res}{\operatorname{res}}
+\newcommand{\cores}{\operatorname{cor}}
+\newcommand{\Frob}{\operatorname{Frob}}
+\newcommand{\Norm}{\operatorname{Norm}}
+\newcommand{\Char}{\operatorname{Char}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\cd}{\operatorname{cd}}
+\newcommand{\cyc}{\mathrm{cyc}}
+\newcommand{\gr}{\mathrm{gr}}
+\newcommand{\flatp}{\flat}
+\newcommand{\pp}{\mathfrak{p}}
+\newcommand{\ppb}{\overline{\mathfrak{p}}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\Lam}{\Lambda}
+\newcommand{\Gp}{G^{\circ}}
+\newcommand{\Gam}{\Gamma^{\circ}}
+
+\title{Fine Selmer groups of CM elliptic curves\\
+in false Tate towers, and a criterion for \(\mu=0\)}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let \(E/\Q\) be an elliptic curve with complex multiplication by the ring of integers of an imaginary quadratic field, and let \(p\) be an odd prime of good ordinary reduction that splits in the CM field. For a \(p\)-power-free integer \(m>1\) we study the fine Selmer group of \(E\), in the sense of Coates--Sujatha, along the false Tate tower \(\Q(\mu_{p^\infty},m^{1/p^\infty})\). The Galois group of the tower is a semidirect product \(\Z_p\rtimes\Z_p^\times\). We prove a layer-by-layer control theorem whose error is supported on the cohomology of decomposition groups at places above \(p\) and at places dividing \(m\), and we compute the error at \(p\) from the CM ordinary filtration: it is killed by the unit root of the Hecke polynomial. When that root is nontrivial modulo \(p\), the radical \(m\) is locally non-split at \(p\), and a residue-field Euler factor at each prime dividing \(mN_E\) is a \(p\)-unit, the fine \(\mu\)-invariant of the false Tate tower equals the fine \(\mu\)-invariant of the cyclotomic tower. The same local analysis yields an exact discrepancy formula between the fine invariant and the Greenberg ordinary invariant. The local Euler factor attached to the unit root has content zero, and it is a unit of the cyclotomic Iwasawa algebra precisely under the non-anomalous hypothesis, so it contributes neither \(\mu\) nor an exceptional zero. The difference of the two \(\mu\)-invariants equals the \(\mu\)-invariant of the quotient of Greenberg Selmer by fine Selmer. The Mordell--Weil part of that quotient is finitely generated over \(\Z_p\). Vanishing of the fine invariant therefore forces vanishing of the ordinary invariant exactly when the remaining Tate--Shafarevich discrepancy is finitely generated over \(\Z_p\).
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+The fine Selmer group of an elliptic curve is the subgroup of the classical \(p^\infty\)-Selmer group cut out by the strongest local condition at primes above \(p\): a class is required to vanish in local Galois cohomology of the \(p\)-power torsion, rather than merely to lie in the image of the local points or in a Greenberg ordinary subspace. Coates and Sujatha introduced this group as the part of the Selmer complex whose Iwasawa theory is expected to have \(\mu\)-invariant zero over every \(p\)-adic Lie extension, and they formulated the conjecture that its Pontryagin dual is finitely generated over the Iwasawa algebra of the kernel of the cyclotomic character. Wuthrich computed the cyclotomic Euler characteristic and gave the relation with the \(p\)-part of the Tate--Shafarevich group. The false Tate tower, a Kummer extension of the cyclotomic \(\Z_p\)-extension ramified at one auxiliary integer \(m\), is the model two-dimensional \(p\)-adic Lie extension in which Hachimori--Venjakob tested faithfulness and Euler characteristics of ordinary Selmer groups.
+
+This paper treats a situation in which the local error can be written in closed form. The curve has complex multiplication by the full ring of integers of an imaginary quadratic field \(K\) of class number one, and \(p\) splits in \(K\). Ordinary reduction is then equivalent to the splitting, the \(p\)-divisible group decomposes into two Lubin--Tate lines over \(\Q_p\), and the unit root of Frobenius lies in the image of a global element of \(K\) under the embedding determined by one of the primes above \(p\). The false Tate extension, once a single congruence on \(m\) is imposed, is totally ramified at the unique prime above \(p\). Consequently the decomposition group at that prime is the full Galois group of the tower, and the action on each CM line is an explicit character. The invariants of those characters are cyclic of order \(p^{v_p(\alpha-1)}\), where \(\alpha\) is the unit root, and they vanish as soon as \(a_p(E)\not\equiv 1\pmod{p}\).
+
+The resulting control theorem is strong enough to identify the fine \(\mu\)-invariant of the false Tate tower with the fine \(\mu\)-invariant of the cyclotomic tower. Vanishing on the cyclotomic line, which is the Coates--Sujatha conjecture in dimension one and is known whenever a cyclotomic \(p\)-adic \(L\)-function of content zero is available, therefore propagates to the semidirect product. A parallel argument for the Greenberg Selmer group produces a discrepancy module. Its \(\mu\)-invariant is the difference of the two Selmer invariants. The Mordell--Weil contribution to the discrepancy is finitely generated over \(\Z_p\), by Rohrlich's bound on ranks in the cyclotomic tower together with Kato's inequality. The local Euler factor built from \(\alpha\) has content zero and is a unit in the non-anomalous case, so the difference of \(\mu\)-invariants, if positive, is carried by the quotient of the two \(p\)-primary Tate--Shafarevich groups.
+
+The arguments are arranged so that every input is either a standard structural fact (inflation--restriction for \(p\)-adic Lie groups of dimension at most two, the main theorem of complex multiplication, Rohrlich's boundedness theorem, Kato's torsion theorem for the cyclotomic Selmer group of a modular elliptic curve) or a computation internal to this paper. We do not treat almost abelian extensions, Stark--Dirichlet indices, higher Stark elements, or the arithmetic of trinomials.
+
+\section{Notation and standing hypotheses}
+\label{sec:notation}
+
+Throughout, \(p\) is an odd prime and \(K\) is an imaginary quadratic field of class number one, with ring of integers \(\cO_K\). Let \(E/\Q\) be an elliptic curve with \(\End_{\overline{\Q}}(E)\cong\cO_K\). The \(j\)-invariant of \(E\) is then rational, and the nine possible fields \(K\) are the imaginary quadratic fields of class number one. Write \(N_E\) for the conductor of \(E\) and \(\psi_E\) for the Grossencharacter of \(K\) attached to \(E\) by the theory of complex multiplication, normalised so that the \(L\)-function of \(\psi_E\) equals the Hasse--Weil \(L\)-function of \(E\).
+
+\begin{hypothesis}[Running hypotheses]
+\label{hyp:run}
+The following are in force from Section~\ref{sec:local} onward, except where a statement names a weaker set.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \(p\nmid N_E\), and \(p\) splits in \(K\) as \(p\cO_K=\pp\ppb\) with \(\pp\neq\ppb\). Equivalently, \(E\) has good ordinary reduction at \(p\).
+\item \(m>1\) is an integer not divisible by \(p\), every exponent in the prime factorisation of \(m\) is strictly less than \(p\), and \(\gcd(m,N_E)=1\).
+\end{enumerate}
+\end{hypothesis}
+
+Let \(\zeta_{p^n}\) be a primitive \(p^n\)-th root of unity and let \(m^{1/p^n}\) be a coherent choice of \(p^n\)-th root of \(m\). Define
+\begin{align*}
+F_n &= \Q\bigl(\zeta_{p^n},\, m^{1/p^n}\bigr),&
+F_\infty &= \bigcup_{n\ge 1} F_n, &
+F^{\cyc} &= \Q(\mu_{p^\infty}).
+\end{align*}
+Set
+\begin{align*}
+H &= \Gal(F_\infty/F^{\cyc}),&
+\Gamma &= \Gal(F^{\cyc}/\Q)\cong\Z_p^\times,&
+G &= \Gal(F_\infty/\Q).
+\end{align*}
+The cyclotomic character \(\chi:G_\Q\to\Z_p^\times\) identifies \(\Gamma\) with \(\Z_p^\times\). Writing \(\Delta=\Gal(\Q(\mu_p)/\Q)\) and \(\Gam=\Gal(F^{\cyc}/\Q(\mu_p))\), one has \(\Gamma=\Delta\times\Gam\) with \(\Delta\) of order \(p-1\) and \(\Gam\cong\Z_p\). The conjugation action on the Kummer radical is
+\begin{equation}
+\label{eq:semidirect}
+\gamma h\gamma^{-1} = h^{\chi(\gamma)},\qquad h\in H,\;\gamma\in\Gamma,
+\end{equation}
+so \(G\cong H\rtimes\Gamma\). The pro-\(p\) open subgroup \(\Gp=\Gal(F_\infty/\Q(\mu_p))\) is isomorphic to \(H\rtimes\Gam\cong\Z_p\rtimes\Z_p\). Fix the topological generator \(\gamma\in\Gam\) characterised by \(\chi(\gamma)=1+p\), and write \(\Lam(\Gam)=\Z_p[[\Gam]]\cong\Z_p[[T]]\) via \(\gamma\mapsto 1+T\).
+
+Let \(S\) be the finite set of places of \(\Q\) consisting of \(p\), the infinite place, and the primes dividing \(mN_E\). For a finite extension \(L/\Q\) contained in the maximal extension \(\Q_S\) unramified outside \(S\), write \(G_S(L)=\Gal(\Q_S/L)\) and write \(E[p^\infty]\) for the Galois module of \(p\)-power torsion on \(E\).
+
+\begin{definition}[Fine and Greenberg Selmer groups]
+\label{def:sel}
+The \emph{fine Selmer group} of \(E\) over \(L\) is
+\begin{equation}
+\label{eq:fine}
+\Sel^{\flatp}(E/L)
+ =
+\ker\Biggl(
+H^1\bigl(G_S(L),E[p^\infty]\bigr)
+\longrightarrow
+\prod_{v\in S(L)^{f}}
+H^1\bigl(L_v,E[p^\infty]\bigr)
+\Biggr),
+\end{equation}
+the product running over finite places. For \(L=F_\infty\) or \(L=F^{\cyc}\) the group is the direct limit over finite subextensions. At places not dividing \(p\) the local Kummer sequence identifies \(H^1(L_v,E[p^\infty])\) with \(H^1(L_v,E)[p^\infty]\) up to the finite group \(E(L_v)[p^\infty]\), so away from \(p\) the fine condition is the classical one. At places above \(p\) it is strictly stronger.
+
+Since \(p\) splits and \(E\) is ordinary, there is a unique \(G_{\Q_p}\)-stable exact sequence of \(p\)-divisible groups
+\begin{equation}
+\label{eq:filt}
+0\to C\to E[p^\infty]\to C^-\to 0
+\end{equation}
+with \(C\) connected of height one and \(C^-\) \'etale of height one. The \emph{Greenberg Selmer group} \(\Sel^{\gr}(E/L)\) is defined by the same formula as \eqref{eq:fine}, except that the local factor at each \(v\mid p\) is replaced by the quotient \(H^1(L_v,E[p^\infty])/H^1_{\mathrm{ord}}(L_v,E[p^\infty])\), where \(H^1_{\mathrm{ord}}\) is the image of \(H^1(L_v,C)\). Thus \(\Sel^{\flatp}(E/L)\subseteq\Sel^{\gr}(E/L)\).
+\end{definition}
+
+The Pontryagin dual of the fine Selmer group is the compact module
+\[
+\cX^{\flatp}(E/L)=\Hom\bigl(\Sel^{\flatp}(E/L),\Q_p/\Z_p\bigr).
+\]
+The Greenberg dual \(\cX^{\gr}(E/L)\) is defined in the same way.
+Both are modules over the appropriate Iwasawa algebra. If \(M\) is a compact \(\Lam(\Gam)\)-module, finitely generated and torsion, \(\mu(M)\) denotes its classical Iwasawa \(\mu\)-invariant and \(\lambda(M)\) its \(\lambda\)-invariant. If \(M\) is not torsion we set \(\mu(M)=+\infty\).
+
+\begin{definition}[False Tate \(\mu\)-invariants]
+\label{def:mu}
+Let \(I_H\subset\Z_p[[H]]\) be the augmentation ideal. The module of \(H\)-coinvariants \(\cX^{\flatp}(E/F_\infty)_H\) carries a residual action of \(\Gamma=\Delta\times\Gam\). Decompose into \(\Delta\)-isotypic components and set
+\[
+\mu^{\flatp}(E/F_\infty)
+ =
+\sum_{\eta\in\widehat{\Delta}}
+\mu\bigl(\cX^{\flatp}(E/F_\infty)_H^{(\eta)}\bigr),
+\]
+and likewise \(\mu^{\gr}(E/F_\infty)\) and the cyclotomic invariants \(\mu^{\flatp}(E/F^{\cyc})\), \(\mu^{\gr}(E/F^{\cyc})\).
+\end{definition}
+
+This is the \(\mu\)-invariant of the Akashi series of \(\cX^{\flatp}\) along \(H\) whenever the homology group \(H_1(H,\cX^{\flatp})\) has \(\mu\)-invariant zero, which holds automatically once the coinvariants are finitely generated over \(\Z_p\): Nakayama's lemma for the local ring \(\Z_p[[H]]\cong\Z_p[[t]]\) then shows that \(\cX^{\flatp}\) is finitely generated over \(\Z_p[[H]]\), and the kernel of \(h-1\) on a finitely generated module over that ring is finitely generated over \(\Z_p\).
+
+Three further conditions appear in the statements.
+
+\begin{hypothesis}
+\label{hyp:extra}
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item \textup{(NA)} Non-anomalous reduction: \(a_p(E)\not\equiv 1\pmod{p}\).
+\item \textup{(NT\(_p\))} Local non-splitting of the radical: \(m^{p-1}\not\equiv 1\pmod{p^2}\).
+\item \textup{(Fin\(_S\))} For every prime \(q\in S\setminus\{p\}\) let \(d_q\) be the multiplicative order of \(q\) modulo \(p\). Then \(p\) does not divide \(\#\widetilde{E}(\F_{q^{d_q}})\), where \(\widetilde{E}\) is the reduction of \(E\) at \(q\).
+\item \textup{(Irr)} The residual representation \(E[p]\) is irreducible as an \(\F_p[G_\Q]\)-module.
+\end{enumerate}
+\end{hypothesis}
+
+Condition (NA) is the local non-triviality hypothesis at the primes of \(K\) above \(p\): if \(\alpha\in\Z_p^\times\) is the unit root of \(X^2-a_p(E)X+p\), then \(\alpha\equiv a_p(E)\pmod{p}\), so (NA) is exactly \(\alpha\not\equiv 1\pmod{p}\). Under the CM identification of Section~\ref{sec:cm}, \(\alpha\) is the value of the unramified character on the \'etale line at \(\ppb\).
+
+\section{Complex multiplication, the false Tate tower, and Selmer groups}
+\label{sec:prelim}
+
+\subsection{The ordinary CM filtration}
+\label{sec:cm}
+
+By the main theorem of complex multiplication, \(T_pE\) is free of rank one over \(\cO_K\otimes\Z_p\cong\Z_p\times\Z_p\), the two factors corresponding to \(\pp\) and \(\ppb\), and \(G_K\) acts through a pair of characters \(\psi_{\pp},\psi_{\ppb}:G_K\to\Z_p^\times\) with product \(\chi|_{G_K}\). The Weil pairing identifies the determinant of \(T_pE\) with \(\chi\). Fix the embedding \(K\hookrightarrow\Q_p\) attached to \(\ppb\), so that the connected component in \eqref{eq:filt} is the \(\pp\)-divisible group. Then, as \(G_{\Q_p}\)-modules,
+\begin{equation}
+\label{eq:chars}
+C\cong (\Q_p/\Z_p)(\psi_{\pp}),\qquad
+C^-\cong (\Q_p/\Z_p)(\psi_{\ppb}),
+\end{equation}
+the inertia subgroup acts on \(C\) through \(\chi\) and trivially on \(C^-\), and \(\psi_{\ppb}\) is unramified with
+\begin{equation}
+\label{eq:alpha}
+\psi_{\ppb}(\Frob_p)=\alpha,
+\end{equation}
+the unit root of \(X^2-a_p(E)X+p=0\). In particular \(\psi_{\pp}=\chi\cdot\psi_{\ppb}^{-1}\). Since \(h_K=1\), the prime \(\ppb\) is principal, \(\alpha\) is the image of a generator of \(\ppb\) under \(K_{\ppb}\cong\Q_p\), and \(\alpha\in\Z_p^\times\).
+
+The residual representation is reducible over \(\Q\) if and only if \(E\) admits a cyclic subgroup of order \(p\) stable under \(G_\Q\), if and only if \(E\) admits a \(\Q\)-rational isogeny of degree \(p\). Indeed any \(G_\Q\)-stable line in \(E[p]\) is the kernel of such an isogeny, and conversely the kernel of a rational \(p\)-isogeny is a stable line. Over \(K\) the representation always splits, so irreducibility over \(\Q\) is the statement that the two residual characters \(\overline{\psi}_{\pp}\) and \(\overline{\psi}_{\ppb}\) are not twists of each other by the quadratic character of \(K/\Q\) in a way that produces a rational line; equivalently, the division polynomial has no factor of degree \((p-1)/2\) over \(\Q\). This is the condition checked numerically in Section~\ref{sec:examples}.
+
+\begin{lemma}
+\label{lem:rayclass}
+The degree \([K(E[p^n]):K(\mu_{p^n})]\) tends to infinity with \(n\). More precisely, for all large \(n\),
+\[
+[K(E[p^n]):K]
+\ge
+c\, p^{2n}
+\]
+with a positive constant \(c\) depending only on \(E\) and \(p\), while \([K(\mu_{p^n}):K]\le p^{n-1}(p-1)\).
+\end{lemma}
+
+\begin{proof}
+The image of \(G_K\) in \(\Aut_{\cO_K\otimes\Z_p}(T_pE)\cong(\cO_K\otimes\Z_p)^\times\cong\Z_p^\times\times\Z_p^\times\) is open. This is the \(p\)-adic form of the main theorem of complex multiplication: the torsion fields \(K(E[p^n])\) contain the ray class fields of \(K\) of conductor a bounded multiple of \(p^n\), up to a finite extension independent of \(n\), and the ray class group modulo \(p^n=\pp^n\ppb^n\) has order
+\[
+h_K\cdot\frac{\bigl|(\cO_K/p^n)^\times\bigr|}{|\cO_K^\times|}
+=
+\frac{1}{|\cO_K^\times|}\,p^{2n}\Bigl(1-\frac1p\Bigr)^2
+\]
+since \(h_K=1\). The cyclotomic extension \(K(\mu_{p^n})/K\) has degree at most \(\varphi(p^n)\). Comparing the two growth rates gives the claim. The determinant relation \(\psi_{\pp}\psi_{\ppb}=\chi\) shows that the kernel of the product map on an open subgroup of \(\Z_p^\times\times\Z_p^\times\) contributes the extra factor of size \(\asymp p^n\) of \(K(E[p^n])\) over \(K(\mu_{p^n})\).
+\end{proof}
+
+\subsection{The false Tate extension}
+\label{sec:tower}
+
+\begin{lemma}
+\label{lem:localdegree}
+Assume \textup{(NT\(_p\))}. Then for every \(n\ge 1\),
+\[
+\bigl[\Q_p(\mu_{p^n},m^{1/p^n}):\Q_p\bigr]
+=
+\varphi(p^n)\,p^n
+=
+(p-1)\,p^{2n-1}.
+\]
+In particular there is a unique place of \(F_n\) above \(p\), it is totally ramified over \(\Q_p\) with residue field \(\F_p\), and the same holds for \(F_\infty\).
+\end{lemma}
+
+\begin{proof}
+Write \(\Z_p^\times=\mu_{p-1}\times(1+p\Z_p)\) and \(m=\omega(m)\langle m\rangle\) for the Teichm\"uller decomposition. Then \(m^{p-1}=\langle m\rangle^{p-1}\). Since \(p-1\in\Z_p^\times\), one has \(\langle m\rangle\in 1+p^2\Z_p\) if and only if \(m^{p-1}\in 1+p^2\Z_p\). Condition (NT\(_p\)) therefore means
+\[
+v_p\bigl(\langle m\rangle-1\bigr)=1.
+\]
+The \(p\)-power map on principal units satisfies \((1+p\Z_p)^p=1+p^2\Z_p\). Indeed the \(p\)-adic logarithm is an isomorphism \(1+p\Z_p\xrightarrow{\sim}p\Z_p\) for \(p\) odd, so
+\[
+\log\bigl((1+p\Z_p)^p\bigr)=p\cdot p\Z_p=p^2\Z_p,
+\]
+and the exponential recovers the group \(1+p^2\Z_p\). Thus \(\langle m\rangle\) is not a \(p\)-th power in \(\Q_p^\times\).
+
+We claim it is not a \(p\)-th power in the larger group \(\Q_p(\mu_p)^\times\). If \(\langle m\rangle=y^p\) with \(y\in\Q_p(\mu_p)^\times\), the field norm to \(\Q_p\) yields
+\[
+\langle m\rangle^{p-1}=\Norm(y)^p,
+\]
+so \(\langle m\rangle^{p-1}\) is a \(p\)-th power in \(\Q_p^\times\). The Kummer group \(\Q_p^\times/(\Q_p^\times)^p\) is an \(\F_p\)-vector space, and multiplication by \(p-1\) is invertible on it. Hence \(\langle m\rangle\) itself is a \(p\)-th power in \(\Q_p^\times\), a contradiction. Kummer theory gives
+\[
+\bigl[\Q_p(\mu_p,m^{1/p}):\Q_p(\mu_p)\bigr]=p.
+\]
+
+Let \(L_\infty=\Q_p(\mu_{p^\infty},m^{1/p^\infty})\) and \(H_{\mathrm{loc}}=\Gal(L_\infty/\Q_p(\mu_{p^\infty}))\). The group \(H_{\mathrm{loc}}\) is a closed subgroup of \(\Z_p\), so it is \(0\) or \(p^k\Z_p\) for some \(k\ge 0\). The quotient of order \(p\) already constructed shows that \(H_{\mathrm{loc}}\) surjects onto \(\Z/p\Z\), which forces \(k=0\) and \(H_{\mathrm{loc}}\cong\Z_p\). The unique open subgroup of index \(p^n\) cuts out \(\Q_p(\mu_{p^n},m^{1/p^n})\), of degree \(p^n\) over \(\Q_p(\mu_{p^n})\). Multiplying by the cyclotomic degree \(\varphi(p^n)\) gives the local degree. The global degree \([F_n:\Q]\) is at most \(\varphi(p^n)p^n\) and at least the local degree, so equality holds, the place above \(p\) is unique, and the residue degree is \(1\).
+\end{proof}
+
+\begin{lemma}
+\label{lem:disjoint}
+Assume Hypothesis~\ref{hyp:run}. Then \(E(F_\infty)[p^\infty]\) is finite. If in addition some prime \(\ell\mid N_E\) does not divide \(m\), the inertia group at \(\ell\) acts on \(T_pE\) through a finite quotient of order prime to \(p\), and
+\[
+E(F_\infty)[p^\infty]
+\subseteq
+E[p^\infty]^{I_\ell}.
+\]
+\end{lemma}
+
+\begin{proof}
+Let \(q\) be a prime divisor of \(m\). Then \(p\nmid v_q(m)\) by Hypothesis~\ref{hyp:run}, so the Kummer extension \(F_\infty/F^{\cyc}\) is ramified at \(q\) of ramification index divisible by arbitrarily high powers of \(p\). The field \(K(E[p^\infty])\) is ramified only at primes dividing \(p\) and the conductor of \(\psi_E\), hence not at \(q\). Any subextension of \(F_\infty\cap K(E[p^\infty])\) over \(K(\mu_{p^\infty})\) would be both ramified and unramified at \(q\), so
+\[
+F_\infty\cap K(E[p^\infty])\subseteq K(\mu_{p^\infty}).
+\]
+A point of \(E[p^n]\) rational over \(F_\infty\) generates an extension inside this intersection. Lemma~\ref{lem:rayclass} says that \(E[p^n]\) does not fit inside \(K(\mu_{p^\infty})\) for large \(n\), so only finitely many torsion points are rational over \(F_\infty\).
+
+For the inertia statement, \(F_\infty/\Q\) is unramified at \(\ell\nmid mp\), so a decomposition group at \(\ell\) may be chosen with its inertia subgroup inside \(\Gal(\overline{\Q}/F_\infty)\). Every point of \(E(F_\infty)\) is therefore fixed by that inertia group.
+\end{proof}
+
+\begin{lemma}
+\label{lem:ab}
+Let \(\Gamma_n=\Gal(F_\infty/F_n)\). For \(n\ge 1\) there is an isomorphism of topological groups \(\Gamma_n\cong\langle\gamma_n\rangle\ltimes\langle h_n\rangle\) with \(\gamma_n=\gamma^{p^{n-1}}\), \(h_n\) a generator of the unique open subgroup of index \(p^n\) in \(H\), and
+\[
+\gamma_n h_n\gamma_n^{-1}=h_n^{u_n},\qquad u_n=(1+p)^{p^{n-1}},\qquad v_p(u_n-1)=n.
+\]
+The closed commutator subgroup is \(\langle h_n^{p^n}\rangle\), and
+\[
+\Gamma_n^{\mathrm{ab}}\cong\Z_p\times\Z/p^n\Z.
+\]
+\end{lemma}
+
+\begin{proof}
+The description of \(\Gamma_n\) is the standard one coming from \eqref{eq:semidirect} and Lemma~\ref{lem:localdegree}: the cyclotomic quotient of \(\Gamma_n\) is \(\Gal(F^{\cyc}/F^{\cyc}\cap F_n)=\langle\gamma^{p^{n-1}}\rangle\), and the Kummer quotient has order \(p^n\). The valuation formula \(v_p((1+p)^{p^{n-1}}-1)=n\) is the lifting-the-exponent evaluation for \(p\) odd and \(v_p(1+p)=1\). The commutator \([\gamma_n,h_n]=h_n^{u_n-1}\) therefore generates the closed subgroup \(h_n^{p^n\Z_p}\), and conjugates by powers of \(\gamma_n\) multiply the exponent by units, so they do not enlarge the subgroup. The abelianisation is the direct product of the infinite cyclic procyclic group generated by the image of \(\gamma_n\) and the finite cyclic group generated by the image of \(h_n\).
+\end{proof}
+
+\begin{lemma}
+\label{lem:cohfinite}
+Let \(T\) be a finite abelian \(p\)-group on which \(\Gamma_n\) acts trivially, and assume \(n\) is large enough that \(u_n\equiv 1\pmod{\exp(T)}\). Then
+\[
+\bigl|H^1(\Gamma_n,T)\bigr|=|T|^2,\qquad \bigl|H^2(\Gamma_n,T)\bigr|=|T|.
+\]
+If instead the acting group is an open subgroup of \(H\cong\Z_p\), then \(H^2\) vanishes and \(|H^1|\) equals the order of the coinvariants of \(T\).
+\end{lemma}
+
+\begin{proof}
+Trivial action gives \(H^1(\Gamma_n,T)=\Hom(\Gamma_n^{\mathrm{ab}},T)\). Continuous homomorphisms from \(\Z_p\) to a finite abelian \(p\)-group \(T\) are in bijection with the elements of \(T\), and \(\Hom(\Z/p^n\Z,T)\cong T\) once \(n\ge v_p(\exp(T))\). Lemma~\ref{lem:ab} therefore yields order \(|T|^2\).
+
+For the second cohomology, use the Lyndon--Hochschild--Serre sequence of \(1\to\langle h_n\rangle\to\Gamma_n\to\langle\gamma_n\rangle\to 1\). Both factors are isomorphic to \(\Z_p\), of cohomological dimension one, so \(H^i(\langle h_n\rangle,T)=0\) for \(i\ge 2\), \(H^0=T\) and \(H^1\cong T\). The hypothesis \(u_n\equiv 1\pmod{\exp(T)}\) makes the conjugation action on \(H^1(\langle h_n\rangle,T)\cong\Hom(\langle h_n\rangle,T)\) trivial, and the action on \(H^0\) is already trivial. The spectral sequence therefore has only one nonzero \(E_2\)-term of total degree two, namely \(H^1(\langle\gamma_n\rangle,H^1(\langle h_n\rangle,T))\cong T\), and the differentials out of it land in groups that vanish by cohomological dimension. Hence \(H^2(\Gamma_n,T)\cong T\).
+
+The procyclic case is the standard computation \(H^1(\Z_p,T)=T/(h-1)T\) and \(H^i=0\) for \(i\ge 2\).
+\end{proof}
+
+Cohomological dimension two for \(\Gp\), used implicitly when we assert finiteness of \(H^i(\Gamma_n,T)\) for finite discrete \(T\), is Lazard's theorem: a torsion-free \(p\)-adic analytic group has \(p\)-cohomological dimension equal to its dimension.
+
+\section{Local cohomology}
+\label{sec:local}
+
+\subsection{Vanishing at the prime above \(p\)}
+
+\begin{proposition}
+\label{prop:localtors}
+Assume \textup{(NT\(_p\))}, and let \(w\) be the unique place of \(F_\infty\) above \(p\). Then
+\[
+E(F_{\infty,w})[p^\infty]
+\]
+is cyclic of order dividing \(p^{v_p(\alpha-1)}\) on each of the two lines \(C\) and \(C^-\). In particular, if \textup{(NA)} holds, then \(E(F_{\infty,w})[p^\infty]=0\), and the same vanishing holds for the local cyclotomic extension \(\Q_p(\mu_{p^\infty})\).
+\end{proposition}
+
+\begin{proof}
+Lemma~\ref{lem:localdegree} gives a unique place, total ramification, and residue field \(\F_p\). The absolute Galois group of \(F_{\infty,w}\) therefore still surjects onto \(\Gal(\overline{\F}_p/\F_p)\), because a totally ramified extension is linearly disjoint from the unramified \(\Z\)-extension.
+
+The module of local points is \(E[p^\infty]^{G_{F_{\infty,w}}}\). On the \'etale line, \(\psi_{\ppb}\) is unramified of value \(\alpha\) at Frobenius, so some element of \(G_{F_{\infty,w}}\) acts as multiplication by \(\alpha\). The invariants inside \(\Q_p/\Z_p\) are the kernel of multiplication by \(\alpha-1\), a cyclic group of order \(p^{v_p(\alpha-1)}\) (and trivial if the valuation is zero).
+
+On the connected line the character is \(\chi\cdot\psi_{\ppb}^{-1}\). The extension \(F_{\infty,w}\) contains \(\mu_{p^\infty}\), so \(\chi\) is trivial on \(G_{F_{\infty,w}}\) and the restricted character equals \(\psi_{\ppb}^{-1}\). The same Frobenius element acts by \(\alpha^{-1}\), and \(\ker(\alpha^{-1}-1)=\ker(\alpha-1)\).
+
+Under (NA) one has \(v_p(\alpha-1)=0\), so both groups of invariants vanish. The identical Frobenius argument applies to \(\Q_p(\mu_{p^\infty})\), which is likewise totally ramified of residue degree one and contains \(\mu_{p^\infty}\).
+\end{proof}
+
+\begin{proposition}
+\label{prop:localH1}
+Assume \textup{(NA)} and \textup{(NT\(_p\))}. Let \(L_n=\Q_p(\mu_{p^n})\) and let \(C\) be the connected line \eqref{eq:chars}. Then for every \(n\ge 1\) and every \(m\ge 1\),
+\[
+H^0(L_n,C[p^m])=H^2(L_n,C[p^m])=0,
+\]
+and
+\[
+\# H^1(L_n,C[p^m]) = p^{m\,[L_n:\Q_p]}.
+\]
+Consequently \(H^1(L_n,C)\) is cofree of corank \([L_n:\Q_p]=\varphi(p^n)\):
+\[
+H^1(L_n,C)\cong\bigl(\Q_p/\Z_p\bigr)^{\varphi(p^n)}.
+\]
+The same conclusions hold with \(L_n\) replaced by the local field of \(F_n\) at its unique prime above \(p\).
+\end{proposition}
+
+\begin{proof}
+The group \(G_{L_n}\) surjects onto Frobenius of the residue field \(\F_p\). Choose a lift \(\varphi\) with \(\psi_{\ppb}(\varphi)=\alpha\) and \(\chi(\varphi)\in 1+p^n\Z_p\). Then the connected character satisfies
+\[
+\psi_{\pp}(\varphi)=\chi(\varphi)\,\alpha^{-1}\equiv\alpha^{-1}\not\equiv 1\pmod{p}
+\]
+by (NA). Multiplication by \(\psi_{\pp}(\varphi)-1\) is invertible on \(\Z/p^m\Z\), so there are no invariants. Tate duality identifies \(H^2(L_n,C[p^m])\) with the dual of \(H^0(L_n,C[p^m]^\vee(1))\). The Cartier dual of \((\Q_p/\Z_p)(\psi_{\pp})\) is \((\Q_p/\Z_p)(\chi\psi_{\pp}^{-1})=(\Q_p/\Z_p)(\psi_{\ppb})\), whose invariants vanish by the same congruence \(\alpha\not\equiv 1\pmod{p}\). The local Euler--Poincar\'e formula for a module of order \(p^m\) over a \(p\)-adic field of degree \(d\) reads
+\[
+\frac{\#H^1}{\#H^0\cdot\#H^2}=p^{md}.
+\]
+Both \(H^0\) and \(H^2\) are trivial, so \(\#H^1(L_n,C[p^m])=p^{md}\).
+
+The Kummer sequence \(0\to C[p^m]\to C\xrightarrow{\cdot p^m}C\to 0\) and the vanishing of \(H^0(L_n,C)\) (pass to the limit over \(m\), or repeat the Frobenius argument on the divisible module) give \(H^1(L_n,C[p^m])\cong H^1(L_n,C)[p^m]\). A divisible group whose \(p^m\)-torsion has order exactly \(p^{m d}\) for every \(m\) is cofree of corank \(d\). Replacing \(L_n\) by the local field of \(F_n\) only increases the degree, and the same Frobenius congruence applies because the residue field is still \(\F_p\).
+\end{proof}
+
+\begin{theorem}
+\label{thm:freeness}
+Assume \textup{(NA)}. Let \(J=\varinjlim_n H^1(\Q_p(\mu_{p^n}),C)\) and let \(\cL=\Hom(J,\Q_p/\Z_p)\) be its Pontryagin dual, a compact module over \(\Z_p[[\Gamma]]\). Then each \(\Delta\)-isotypic component of \(\cL\) is free of rank one over \(\Lam(\Gam)\). In particular \(\mu(\cL^{(\eta)})=0\) for every \(\eta\).
+\end{theorem}
+
+\begin{proof}
+Write \(\Gamma_n=\Gal(\Q_p(\mu_{p^\infty})/\Q_p(\mu_{p^n}))\) for \(n\ge 1\), so \([\Gam:\Gam\cap\Gamma_n]=p^{n-1}\). Proposition~\ref{prop:localtors} gives \(H^0(\Q_p(\mu_{p^\infty}),C)=0\). Inflation--restriction along the procyclic group \(\Gamma_n\), whose second cohomology vanishes, yields
+\[
+H^1(\Q_p(\mu_{p^n}),C)\cong J^{\Gamma_n}.
+\]
+Dualising, the coinvariants \(\cL_{\Gamma_n}\) are free \(\Z_p\)-modules of rank \(\varphi(p^n)=(p-1)p^{n-1}\). Decompose into \(\Delta\)-eigenspaces. Each component \(\cL^{(\eta)}\) has coinvariants under \(\Gam\cap\Gamma_n\) free of rank \(p^{n-1}\).
+
+A compact module \(M\) over \(\Lam=\Lam(\Gam)\) whose coinvariants \(M_{\Gam_n}\) are free of rank \(r\,[\Gam:\Gam_n]\) for every \(n\) is itself free of rank \(r\). Indeed \(M_{\Gam}\cong\Z_p^r\) implies, by Nakayama, that \(r\) elements generate \(M\), giving a surjection \(\Lam^r\twoheadrightarrow M\). The kernel \(K\) is finitely generated because \(\Lam\) is Noetherian. The induced map on coinvariants \(\Lam^r_{\Gam_n}\to M_{\Gam_n}\) is a surjection of free \(\Z_p\)-modules of equal rank, hence an isomorphism, so \(K_{\Gam_n}=0\). In particular \(K=I_{\Gam}K\). A compact module over \(\Z_p[[T]]\) equal to its augmentation ideal times itself is zero. Thus \(M\cong\Lam^r\). Applying this with \(r=1\) to each isotypic component gives the theorem.
+\end{proof}
+
+\subsection{Places dividing \(m\) and the conductor}
+
+\begin{proposition}
+\label{prop:finS}
+Let \(q\neq p\) be a prime of good reduction for \(E\), and let \(L_\infty=\Q_q(\mu_{p^\infty},m^{1/p^\infty})\) with \(p\nmid v_q(m)\) if \(q\) divides \(m\), or simply \(L_\infty=\Q_q(\mu_{p^\infty})\) if \(q\) does not divide \(m\). Let \(d\) be the multiplicative order of \(q\) modulo \(p\). If \(p\nmid \#\widetilde{E}(\F_{q^d})\), then
+\[
+E(L_\infty)[p^\infty]=0.
+\]
+In particular this holds for every \(q\in S\setminus\{p\}\) under \textup{(Fin\(_S\))}.
+\end{proposition}
+
+\begin{proof}
+Good reduction at \(q\neq p\) and the N\'eron--Ogg--Shafarevich criterion make \(T_pE\) unramified at \(q\), so \(p\)-power torsion injects into the points of the reduced curve over the residue field of \(L_\infty\). The Kummer extension by \(m^{1/p^\infty}\), when present, is totally ramified, so the residue field of \(L_\infty\) is \(\F_q(\mu_{p^\infty})\). That residue extension contains precisely the degrees whose prime-to-\(p\) part divides \(d\) and whose \(p\)-part is arbitrary: the order of \(q\) modulo \(p^n\) equals \(d\cdot p^{n-n_0}\) for large \(n\).
+
+A point of the reduced \(p\)-divisible group is therefore rational over the residue field if and only if it is fixed by \(\Frob_q^{d p^N}\) for some \(N\). Let \(\alpha_q,\beta_q\) be the roots of \(X^2-a_q(E)X+q\) in an unramified extension of \(\Z_p\). They are \(p\)-adic units because their product is \(q\), a \(p\)-adic unit. The hypothesis \(p\nmid\#\widetilde{E}(\F_{q^d})\) is the statement
+\[
+v_p\bigl((\alpha_q^d-1)(\beta_q^d-1)\bigr)=0,
+\]
+so neither root satisfies \(\alpha_q^d\equiv 1\pmod{\mathfrak{P}}\). The residue multiplicative group is prime to \(p\), and \(x\mapsto x^{p^N}\) is an automorphism of it. Hence \(\alpha_q^{d p^N}\equiv 1\) modulo the maximal ideal if and only if \(\alpha_q^d\equiv 1\), which has been excluded. Multiplication by \(\Frob_q^{d p^N}-1\) is invertible on \(T_pE\), and the group of rational \(p\)-power torsion vanishes.
+\end{proof}
+
+\begin{remark}
+The same computation shows what happens when (Fin\(_S\)) fails. If \(v_p(\alpha_q^d-1)=k\ge 1\), the kernels of \(\Frob^{d p^N}-1\) grow, and \(E(L_\infty)[p^\infty]\) contains a copy of \(\Q_p/\Z_p\). The error term in the control theorem is then the cohomology of that divisible module and need not be of bounded order. Section~\ref{sec:examples} records primes for which this occurs.
+\end{remark}
+
+\section{The control theorem}
+\label{sec:control}
+
+Let \(\Gamma_n=\Gal(F_\infty/F_n)\) and write \(D_{n,v}\subseteq\Gamma_n\) for a decomposition group at a place \(v\) of \(F_n\). Let
+\[
+T(F_\infty)=E(F_\infty)[p^\infty],\qquad
+T_v=E(F_{\infty,v})[p^\infty],
+\]
+and let
+\[
+\kappa_n:\Sel^{\flatp}(E/F_n)\longrightarrow\Sel^{\flatp}(E/F_\infty)^{\Gamma_n}
+\]
+be the restriction map.
+
+\begin{theorem}[Layer control]
+\label{thm:control}
+Assume Hypothesis~\ref{hyp:run}. Then \(T(F_\infty)\) is finite, and for every \(n\ge 1\) there is an exact sequence of cofinitely generated \(\Z_p\)-modules
+\begin{equation}
+\label{eq:snake}
+0\to\ker\kappa_n\to
+H^1\bigl(\Gamma_n,T(F_\infty)\bigr)
+\to
+\bigoplus_{v\in S(F_n)^{f}}
+H^1(D_{n,v},T_v)
+\to
+\coker\kappa_n
+\to
+Q_n
+\to 0,
+\end{equation}
+in which \(Q_n\) is a subquotient of \(H^2(\Gamma_n,T(F_\infty))\). In particular, whenever every \(T_v\) is finite, \(\ker\kappa_n\) and \(\coker\kappa_n\) are finite, \(\ker\kappa_n\) injects into \(H^1(\Gamma_n,T(F_\infty))\), and
+\[
+\bigl|\coker\kappa_n\bigr|
+\quad\text{divides}\quad
+\bigl|H^2(\Gamma_n,T(F_\infty))\bigr|
+\cdot
+\prod_{v\in S(F_n)^{f}}
+\bigl|H^1(D_{n,v},T_v)\bigr|.
+\]
+\end{theorem}
+
+\begin{proof}
+Finiteness of \(T(F_\infty)\) is Lemma~\ref{lem:disjoint}. The extension \(F_\infty/F_n\) is unramified outside \(S\), so
+\[
+0\to G_S(F_\infty)\to G_S(F_n)\to\Gamma_n\to 0
+\]
+is exact. The five-term sequence of continuous cohomology with coefficients in \(M=E[p^\infty]\) reads
+\begin{equation}
+\label{eq:five}
+\begin{aligned}
+0&\to H^1\bigl(\Gamma_n,T(F_\infty)\bigr)
+\to H^1\bigl(G_S(F_n),M\bigr)\\
+&\to H^1\bigl(G_S(F_\infty),M\bigr)^{\Gamma_n}
+\to H^2\bigl(\Gamma_n,T(F_\infty)\bigr).
+\end{aligned}
+\end{equation}
+The identification \(M^{G_S(F_\infty)}=T(F_\infty)\) uses that every \(p\)-power torsion point is ramified only at primes in \(S\). At each finite place \(v\) of \(F_n\) the same sequence, applied to the local Galois group and the decomposition group \(D_{n,v}\), gives
+\begin{equation}
+\label{eq:locfive}
+\begin{aligned}
+0&\to H^1(D_{n,v},T_v)
+\to H^1(F_{n,v},M)\\
+&\to H^1(F_{\infty,w},M)^{D_{n,v}}
+\to H^2(D_{n,v},T_v).
+\end{aligned}
+\end{equation}
+
+Write \(A_n=H^1(G_S(F_n),M)\), \(A_\infty=H^1(G_S(F_\infty),M)^{\Gamma_n}\), and write \(L_n\), \(L_\infty\) for the corresponding products of local cohomology groups over finite places in \(S\). Restriction is \(\Gamma_n\)-equivariant, so
+\[
+\Sel^{\flatp}(E/F_\infty)^{\Gamma_n}
+=
+\ker(A_\infty\to L_\infty).
+\]
+Let \(\operatorname{Im}_n\) and \(\operatorname{Im}_\infty\) be the images of \(A_n\to L_n\) and \(A_\infty\to L_\infty\). The commutative diagram of short exact sequences
+\[
+\begin{CD}
+0 @>>> \Sel^{\flatp}(E/F_n) @>>> A_n @>>> \operatorname{Im}_n @>>> 0\\
+@VVV @VV{\kappa_n}V @VV{\alpha}V @VV{\iota}V\\
+0 @>>> \Sel^{\flatp}(E/F_\infty)^{\Gamma_n} @>>> A_\infty @>>> \operatorname{Im}_\infty @>>> 0
+\end{CD}
+\]
+has, by the snake lemma, an exact sequence
+\[
+\ker\alpha\to\ker\iota\to\coker\kappa_n\to\coker\alpha\to\coker\iota.
+\]
+From \eqref{eq:five}, \(\ker\alpha\) is a quotient of \(H^1(\Gamma_n,T(F_\infty))\) and \(\coker\alpha\) injects into \(H^2(\Gamma_n,T(F_\infty))\). The kernel of \(\iota\) injects into \(\ker(L_n\to L_\infty)\), which by \eqref{eq:locfive} is a subgroup of \(\bigoplus_v H^1(D_{n,v},T_v)\). Rearranging the resulting filtration gives \eqref{eq:snake}. If every local torsion module is finite, Lazard's theorem supplies finiteness of the cohomology groups of the compact \(p\)-adic analytic group \(\Gamma_n\), and the divisibility of orders follows by comparing cardinalities in \eqref{eq:snake}.
+\end{proof}
+
+\begin{theorem}[Sharpened control]
+\label{thm:sharp}
+Assume Hypothesis~\ref{hyp:run}, \textup{(NA)}, \textup{(NT\(_p\))} and \textup{(Fin\(_S\))}. Let \(T=E(F_\infty)[p^\infty]\), a finite group. There exists \(n_0\) such that for all \(n\ge n_0\),
+\[
+\bigl|\ker\kappa_n\bigr|
+\quad\text{divides}\quad
+|T|^2,
+\qquad
+\bigl|\coker\kappa_n\bigr|
+\quad\text{divides}\quad
+|T|.
+\]
+If moreover \(T=0\), then \(\kappa_n\) is an isomorphism for all large \(n\). The same bounds hold for the Greenberg Selmer group in place of the fine Selmer group.
+\end{theorem}
+
+\begin{proof}
+Proposition~\ref{prop:localtors} gives \(T_w=0\) at the unique place above \(p\), and Proposition~\ref{prop:finS} gives \(T_v=0\) at every other finite place in \(S\). All local summands in \eqref{eq:snake} vanish. The group \(T\) is rational over some finite layer \(F_{n_1}\), so \(\Gamma_n\) acts trivially on \(T\) for \(n\ge n_1\). For \(n\) large enough that \(u_n\equiv 1\pmod{\exp(T)}\) as well, Lemma~\ref{lem:cohfinite} supplies the stated orders, and Theorem~\ref{thm:control} gives the divisibilities. Vanishing of \(T\) kills both the \(H^1\) and the \(H^2\) terms.
+
+For the Greenberg group the local target at \(w\mid p\) is \(H^1(F_{n,w},C^-)\) rather than the full local cohomology. The five-term sequence controlling that target has coefficients in the \'etale line, whose \(G_{F_{\infty,w}}\)-invariants vanish by the same application of Proposition~\ref{prop:localtors}. The local error at \(p\) is again zero, and the places away from \(p\) are unchanged.
+\end{proof}
+
+The form needed for \(\mu\)-invariants is control along the procyclic Kummer direction, over the cyclotomic base.
+
+\begin{theorem}[Cyclotomic control]
+\label{thm:cyccontrol}
+Assume Hypothesis~\ref{hyp:run}, \textup{(NA)}, \textup{(NT\(_p\))} and \textup{(Fin\(_S\))}. Restriction
+\[
+\kappa_H:
+\Sel^{\flatp}(E/F^{\cyc})
+\longrightarrow
+\Sel^{\flatp}(E/F_\infty)^{H}
+\]
+has finite kernel and finite cokernel, both of order dividing a power of \(|E(F_\infty)[p^\infty]|\) independent of any auxiliary layer. The same statement holds for \(\Sel^{\gr}\). Consequently the dual maps on \(H\)-coinvariants
+\[
+\cX^{\flatp}(E/F_\infty)_H
+\longrightarrow
+\cX^{\flatp}(E/F^{\cyc}),
+\qquad
+\cX^{\gr}(E/F_\infty)_H
+\longrightarrow
+\cX^{\gr}(E/F^{\cyc})
+\]
+have finite kernel and cokernel, and
+\begin{equation}
+\label{eq:muequal}
+\mu^{\flatp}(E/F_\infty)=\mu^{\flatp}(E/F^{\cyc}),
+\qquad
+\mu^{\gr}(E/F_\infty)=\mu^{\gr}(E/F^{\cyc}).
+\end{equation}
+The \(\lambda\)-invariants of corresponding isotypic components agree as well.
+\end{theorem}
+
+\begin{proof}
+Apply the proof of Theorem~\ref{thm:control} with \(\Gamma_n\) replaced by \(H\cong\Z_p\). Procyclic groups have cohomological dimension one, so the \(H^2(H,T(F_\infty))\) term in \eqref{eq:five} is zero and global restriction is surjective onto the invariants, with kernel \(H^1(H,T(F_\infty))\). At every finite place of \(F^{\cyc}\) the local torsion module over \(F_\infty\) vanishes by Propositions~\ref{prop:localtors} and~\ref{prop:finS}, so local restriction is an isomorphism. The snake sequence therefore confines both the kernel and the cokernel of \(\kappa_H\) to subquotients of \(H^1(H,T(F_\infty))\), which is finite of order at most \(|T(F_\infty)|\) by Lemma~\ref{lem:cohfinite}.
+
+A map of compact \(\Lam(\Gam)\)-modules with finite kernel and cokernel identifies characteristic ideals up to units of \(\Z_p\), so it preserves \(\mu\) and \(\lambda\). The Greenberg case is identical once local invariants of the \'etale quotient are known to vanish, which is the second half of Proposition~\ref{prop:localtors}.
+\end{proof}
+
+\section{The \(\mu\)-vanishing criterion}
+\label{sec:mu}
+
+\begin{theorem}[Cyclotomic torsion]
+\label{thm:kato}
+Let \(E/\Q\) be an elliptic curve of good ordinary reduction at an odd prime \(p\). Then \(\cX^{\gr}(E/F^{\cyc})\) and \(\cX^{\flatp}(E/F^{\cyc})\) are finitely generated torsion modules over \(\Z_p[[\Gamma]]\).
+\end{theorem}
+
+\begin{proof}
+Kato's Euler system produces the torsion statement for the Greenberg dual of any elliptic curve over \(\Q\): the dual of \(\Sel^{\gr}(E/F^{\cyc})\) is a finitely generated torsion module over the cyclotomic Iwasawa algebra. (Modularity of \(E\), used to construct the Euler system, is the theorem of Wiles, Taylor--Wiles, Breuil--Conrad--Diamond--Taylor; curves with complex multiplication were known to be modular earlier.) The inclusion \(\Sel^{\flatp}\subseteq\Sel^{\gr}\) dualises to a surjection \(\cX^{\gr}\twoheadrightarrow\cX^{\flatp}\), so the fine dual is a quotient of a finitely generated torsion module, hence itself finitely generated and torsion.
+
+Rohrlich's theorem, that \(L(E,\chi,1)\neq 0\) for all but finitely many characters of \(\Gamma\), already bounds the Mordell--Weil rank in the cyclotomic tower and is the analytic input behind the torsion statement; we invoke Kato for the integral statement that includes the Tate--Shafarevich contribution.
+\end{proof}
+
+\begin{theorem}[\(\mu\)-criterion]
+\label{thm:mu}
+Assume Hypothesis~\ref{hyp:run} together with \textup{(Irr)}, \textup{(NA)}, \textup{(NT\(_p\))} and \textup{(Fin\(_S\))}. Then
+\begin{equation}
+\label{eq:criterion}
+\mu^{\flatp}(E/F_\infty)
+=
+\mu^{\flatp}(E/F^{\cyc}).
+\end{equation}
+In particular, \(\mu^{\flatp}(E/F_\infty)=0\) if and only if the cyclotomic fine \(\mu\)-invariant vanishes. Equivalently, \(\cX^{\flatp}(E/F_\infty)\) is finitely generated as a module over \(\Z_p[[H]]\) if and only if \(\cX^{\flatp}(E/F^{\cyc})\) is finitely generated over \(\Z_p\).
+
+The three arithmetic conditions entering the criterion are independent of the auxiliary choice of generator of \(\Gam\):
+\begin{itemize}
+\item \textup{(Irr)} says that \(E[p]\) has no \(G_\Q\)-stable line;
+\item \textup{(NA)} says that the residual Grossencharacter \(\overline{\psi}_{\ppb}\) is nontrivial on a Frobenius element at the unique place of \(F_\infty\) above \(p\);
+\item \textup{(NT\(_p\))} says that this place is unique, and that the connected character \(\psi_{\pp}\) remains nontrivial on its inertia subgroup.
+\end{itemize}
+\end{theorem}
+
+\begin{proof}
+Theorem~\ref{thm:cyccontrol} is the equality of \(\mu\)-invariants. The equivalence with finite generation over \(\Z_p[[H]]\) is Nakayama's lemma. Let \(Y=\cX^{\flatp}(E/F_\infty)\) and let \(h\) be a topological generator of \(H\). The coinvariants \(Y_H=Y/(h-1)Y\) are finitely generated over \(\Z_p\) if and only if \(Y/(p,h-1)Y\) is finite over \(\F_p\). For the power series ring \(\Z_p[[t]]\), \(t=h-1\), this is necessary and sufficient for \(Y\) to be finitely generated. Theorem~\ref{thm:cyccontrol} identifies \(Y_H\) with \(\cX^{\flatp}(E/F^{\cyc})\) up to finite kernel and cokernel, and a finitely generated torsion \(\Lam(\Gam)\)-module is finitely generated over \(\Z_p\) if and only if its \(\mu\)-invariant vanishes. Theorem~\ref{thm:kato} supplies the torsion hypothesis.
+
+It remains only to record the dictionary between the three conditions and the Galois action. Irreducibility was recalled in Section~\ref{sec:cm}. The congruence \(\alpha\equiv a_p(E)\pmod{p}\) and the evaluation \(\psi_{\ppb}(\Frob_p)=\alpha\) are \eqref{eq:alpha}, so (NA) is nontriviality of the residual \'etale character on the decomposition group, which surjects onto Frobenius by Lemma~\ref{lem:localdegree}. The connected character restricts to \(\chi\) on inertia. For \(p\) odd the mod \(p\) cyclotomic character is nontrivial on tame inertia, so once (NT\(_p\)) has made the decomposition group the full local Galois group, inertia acts nontrivially on \(C[p]\).
+\end{proof}
+
+\begin{corollary}
+\label{cor:transfer}
+Under the hypotheses of Theorem~\ref{thm:mu}, if the Mazur--Swinnerton-Dyer \(p\)-adic \(L\)-function of \(E\) has \(\mu\)-invariant zero, then \(\mu^{\flatp}(E/F_\infty)=\mu^{\gr}(E/F_\infty)=0\).
+\end{corollary}
+
+\begin{proof}
+Kato's divisibility says that the characteristic ideal of \(\cX^{\gr}(E/F^{\cyc})\) divides the ideal generated by the \(p\)-adic \(L\)-function. A content-zero power series therefore forces \(\mu^{\gr}(E/F^{\cyc})=0\). The fine dual is a quotient, so its \(\mu\)-invariant is at most as large, and Theorem~\ref{thm:mu} moves the vanishing to \(F_\infty\). The identification \(\mu^{\gr}(E/F_\infty)=\mu^{\gr}(E/F^{\cyc})\) is \eqref{eq:muequal}. Both false Tate invariants are therefore zero. Theorem~\ref{thm:compare} identifies their difference, with no \(p\)-adic \(L\)-function hypothesis, as the \(\mu\)-invariant of the Tate--Shafarevich discrepancy.
+\end{proof}
+
+\begin{remark}
+For CM curves the cyclotomic \(\mu\)-invariant is not the invariant studied by Schneps and Gillard. Their vanishing theorems concern the Coates--Wiles \(\Z_p\)-extension of \(K\), ramified at exactly one of \(\pp,\ppb\), and the Katz \(p\)-adic \(L\)-function along that line. The cyclotomic line is ramified at both primes. Corollary~\ref{cor:transfer} therefore keeps the cyclotomic content-zero hypothesis explicit instead of quoting the Coates--Wiles theorem as if it applied to \(F^{\cyc}\).
+\end{remark}
+
+\begin{proposition}
+\label{prop:irrinv}
+Under \textup{(Irr)}, \(E[p]^{G_{F^{\cyc}}}=0\). If \(K\) is not contained in \(F^{\cyc}\), the same vanishing holds for \(G_{F_\infty}\) as soon as \(F_\infty\cap K(E[p])\) does not contain a stable line.
+\end{proposition}
+
+\begin{proof}
+Irreducibility forces both residual characters \(\overline{\psi}_{\pp}\) and \(\overline{\psi}_{\ppb}\) to be nontrivial: the induction of the trivial character of \(G_K\) is \(1\oplus\varepsilon_{K/\Q}\), which is reducible. Each character factors through a ray class field of \(K\) ramified at only one of \(\pp,\ppb\), up to the fixed conductor of \(\psi_E\). The cyclotomic character is ramified at every prime above \(p\). Hence neither residual character becomes trivial on \(G_{K\cdot F^{\cyc}}\). A vector in \(E[p]\) fixed by \(G_{F^{\cyc}}\) would be fixed by \(G_{K\cdot F^{\cyc}}\), and on restriction to \(G_K\) the representation splits into the two lines, so each component would be invariant and therefore zero.
+\end{proof}
+
+Proposition~\ref{prop:irrinv} is the only point at which (Irr) enters Theorem~\ref{thm:mu}. It removes \(E[p]\)-invariants over the cyclotomic base, which is the input to the Greenberg--Nakayama argument that a finite \(\Lam(\Gam)\)-submodule of \(\cX^{\flatp}(E/F^{\cyc})\) would produce a trivial quotient of \(E[p]\). We record the consequence, since it is used again in the comparison.
+
+\begin{lemma}
+\label{lem:nofinite}
+Assume \textup{(Irr)} and the hypotheses of Theorem~\ref{thm:kato}. Then neither \(\cX^{\flatp}(E/F^{\cyc})\) nor \(\cX^{\gr}(E/F^{\cyc})\) has a nonzero finite \(\Lam(\Gam)\)-submodule.
+\end{lemma}
+
+\begin{proof}
+A finite submodule is killed by \(p^k\) and by \(\gamma^{p^n}-1\) for some \(n\), so its dual is a finite \(\Gamma\)-invariant quotient of the corresponding Selmer group, valued in \(E[p^k]\). Restricting to the \(p\)-torsion and using Proposition~\ref{prop:irrinv}, inflation--restriction embeds this quotient into a subquotient of \(H^1(G_S(\Q),E[p])\), and the \(\Gamma\)-invariants of a trivial residual quotient would split off a \(G_\Q\)-homomorphism from \(E[p]\) to a trivial module. Irreducibility forbids a trivial subrepresentation, and it equally forbids a trivial quotient. Hence the finite submodule is zero. The standard reference for the formal shape of the argument is Greenberg's treatment of finite \(\Lambda\)-submodules; the input special to this paper is Proposition~\ref{prop:irrinv}.
+\end{proof}
+
+\section{Comparison with the Greenberg Selmer group}
+\label{sec:compare}
+
+Let
+\[
+\cQ(E/F_\infty)
+=
+\Sel^{\gr}(E/F_\infty)\big/\Sel^{\flatp}(E/F_\infty)
+\]
+and write \(Z=\cQ(E/F_\infty)^\vee\), a compact module over \(\Z_p[[\Gp]]\). The \(H\)-coinvariants \(Z_H\) are a module over \(\Lam(\Gam)\) up to the action of \(\Delta\).
+
+\begin{lemma}
+\label{lem:exactQ}
+The sequence of discrete modules
+\begin{equation}
+\label{eq:Q}
+0\to
+\Sel^{\flatp}(E/F_\infty)
+\to
+\Sel^{\gr}(E/F_\infty)
+\to
+\cQ(E/F_\infty)
+\to 0
+\end{equation}
+is exact, and \(\cQ(E/F_\infty)\) injects into \(H^1(F_{\infty,w},C)\) at the unique place \(w\mid p\).
+\end{lemma}
+
+\begin{proof}
+Exactness on the left and in the middle is the inclusion of kernels coming from Definition~\ref{def:sel}. The quotient of the two kernels injects into the ordinary local subspace \(H^1_{\mathrm{ord}}(F_{\infty,w},E[p^\infty])\), which is the image of \(H^1(F_{\infty,w},C)\). Under (NA) and (NT\(_p\)), Proposition~\ref{prop:localH1} shows that \(H^0(F_{\infty,w},C^-)=0\), so the map \(H^1(F_{\infty,w},C)\to H^1(F_{\infty,w},E[p^\infty])\) is injective and the ordinary subspace is the full group \(H^1(F_{\infty,w},C)\).
+\end{proof}
+
+\begin{lemma}
+\label{lem:euler}
+The power series
+\begin{equation}
+\label{eq:euler}
+\cE_{\pp}(T)
+=
+1-\alpha(1+T)^{-1}
+\in\Lam(\Gam)
+\end{equation}
+has content valuation zero. It is a unit of \(\Lam(\Gam)\) if and only if \textup{(NA)} holds. If \(v_p(\alpha-1)\ge 1\), its Weierstrass degree is \(1\).
+\end{lemma}
+
+\begin{proof}
+Expand \((1+T)^{-1}=\sum_{j\ge 0}(-1)^j T^j\). Then
+\[
+\cE_{\pp}(T)
+=
+(1-\alpha)+\alpha T-\alpha T^2+\alpha T^3-\cdots.
+\]
+The coefficient of \(T\) is \(\alpha\in\Z_p^\times\), so the greatest common divisor of the coefficients is a unit and the content valuation is zero. The constant term is a unit if and only if \(v_p(\alpha-1)=0\), which is (NA), and a power series in \(\Z_p[[T]]\) with unit constant term is a unit. If \(v_p(\alpha-1)\ge 1\), the Newton polygon has vertices at \((0,v_p(\alpha-1))\) and \((1,0)\), hence a single segment of horizontal length \(1\).
+\end{proof}
+
+\begin{lemma}
+\label{lem:cyclic}
+Assume \textup{(NA)}. For each character \(\eta\) of \(\Delta\), the \(\eta\)-component of \(\cQ(E/F^{\cyc})^\vee\) is a cyclic torsion module \(\Lam(\Gam)/I_\eta\) for an ideal \(I_\eta\neq 0\). Its \(\mu\)-invariant is the largest integer \(k\) such that \(I_\eta\subset p^k\Lam(\Gam)\).
+\end{lemma}
+
+\begin{proof}
+Lemma~\ref{lem:exactQ}, applied to the cyclotomic tower in place of \(F_\infty\), gives an injection of \(\cQ(E/F^{\cyc})\) into \(J=\varinjlim H^1(\Q_p(\mu_{p^n}),C)\). The unique prime of \(F^{\cyc}\) above \(p\) is totally ramified, so the same local identification used in Lemma~\ref{lem:exactQ} applies: under (NA) one has \(H^0(\Q_p(\mu_{p^\infty}),C^-)=0\), and the ordinary subspace is the full group \(H^1(\Q_p(\mu_{p^\infty}),C)\). Dualising the injection produces a surjection \(\cL\twoheadrightarrow\cQ(E/F^{\cyc})^\vee\). Theorem~\ref{thm:freeness} splits \(\cL\) into \(\Delta\)-components, each free of rank one. The image of the \(\eta\)-component is therefore \(\Lam(\Gam)/I_\eta\) for \(I_\eta=\ker(\Lam(\Gam)^{(\eta)}\to\cQ(E/F^{\cyc})^{\vee,(\eta)})\).
+
+The ideal is nonzero because the target is torsion: it injects into \(\cX^{\gr}(E/F^{\cyc})\) by the dual of the defining surjection of \(\cQ\), and Theorem~\ref{thm:kato} supplies torsion of the Greenberg dual. For a cyclic module \(\Lam/I\), the quotient \((\Lam/I)/p(\Lam/I)\) is \(\F_p[[T]]/(I\bmod p)\). This is finite if and only if the image of \(I\) in \(\F_p[[T]]\) is nonzero, if and only if \(I\not\subset p\Lam\). Iterating, the largest \(k\) with \(I\subset p^k\Lam\) is the \(\mu\)-invariant.
+\end{proof}
+
+\begin{lemma}
+\label{lem:MW}
+Assume Hypothesis~\ref{hyp:run} and \textup{(NA)}. Let
+\[
+M_\infty=E(F^{\cyc})\otimes_{\Z}\Q_p/\Z_p
+\]
+and let \(Q^{\mathrm{MW}}\) be the image of \(M_\infty\) in \(\cQ(E/F^{\cyc})\). Then \(Q^{\mathrm{MW}}\) is a cofinitely generated \(\Z_p\)-module, and the \(\mu\)-invariant of its Pontryagin dual vanishes. The \(\lambda\)-invariant of that dual is at most the stable Mordell--Weil rank of \(E\) in the cyclotomic tower.
+\end{lemma}
+
+\begin{proof}
+Lemma~\ref{lem:disjoint} gives finiteness of \(E(F_\infty)[p^\infty]\), hence of the subgroup \(E(F^{\cyc})[p^\infty]\). The Kummer map therefore embeds \(M_\infty\) into \(H^1(G_S(F^{\cyc}),E[p^\infty])\). A global point satisfies the Greenberg local condition: its localisation at the prime above \(p\) lies in the image of \(E(\Q_p(\mu_{p^\infty}))\), and for ordinary reduction that image lands in \(H^1(\Q_p(\mu_{p^\infty}),C)\). Thus \(M_\infty\) lands in \(\Sel^{\gr}(E/F^{\cyc})\), and \(Q^{\mathrm{MW}}\) is a quotient of a submodule of \(M_\infty\).
+
+Rohrlich's theorem asserts that \(L(E,\chi,1)\neq 0\) for all but finitely many finite-order characters \(\chi\) of \(\Gamma\). Kato's Euler system converts a nonvanishing value into a rank bound: the \(\Z\)-rank of \(E(\Q(\mu_{p^n}))\) is at most the number of such vanishing twists of conductor dividing \(p^n\), up to the fixed contribution of the Teichm\"uller component \(\Delta\). The set of vanishing twists is finite, so the rank is bounded by an integer \(r\) independent of \(n\). Passing to the direct limit,
+\[
+M_\infty\cong(\Q_p/\Z_p)^{r'},\qquad r'\le r.
+\]
+A quotient of \((\Q_p/\Z_p)^{r'}\) is cofinitely generated over \(\Z_p\) of corank at most \(r'\). Its Pontryagin dual is a finitely generated \(\Z_p\)-module with continuous \(\Gam\)-action, hence a torsion \(\Lam(\Gam)\)-module killed by a monic polynomial, the characteristic polynomial of a topological generator. A monic polynomial has content valuation zero, so the \(\mu\)-invariant vanishes and the \(\lambda\)-invariant is at most \(r'\).
+\end{proof}
+
+\begin{lemma}
+\label{lem:residualgrowth}
+Assume \textup{(NA)}. Let
+\[
+M_n
+=
+\bigl(\Sel^{\gr}(E/F^{\cyc})/\Sel^{\flatp}(E/F^{\cyc})\bigr)[p]^{\Gamma_n},
+\]
+where \(\Gamma_n=\Gal(F^{\cyc}/\Q(\mu_{p^n}))\), and let \(Z^{\cyc}=\cQ(E/F^{\cyc})^\vee\). Then the following are equivalent:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \(\mu(Z^{\cyc})=0\);
+\item \(\sup_n\dim_{\F_p} M_n<\infty\);
+\item \(Z^{\cyc}\) is finitely generated over \(\Z_p\).
+\end{enumerate}
+In characteristic \(p\),
+\begin{equation}
+\label{eq:freshman}
+(1+T)^{p^n}-1=T^{p^n}
+\end{equation}
+in \(\F_p[[T]]\). Consequently a free summand of \((Z^{\cyc})/p(Z^{\cyc})\) produces coinvariants of dimension growing like a positive multiple of \(p^n\), while a torsion summand contributes a bounded dimension.
+\end{lemma}
+
+\begin{proof}
+Write \(N=(Z^{\cyc})/p(Z^{\cyc})\), a finitely generated module over \(\F_p[[\Gam]]\). The ring \(\F_p[[T]]\) is a discrete valuation ring with uniformiser \(T\), so \(N\) splits as a free module plus a torsion module, and the torsion summand is a direct sum of cyclic modules \(\F_p[[T]]/(T^{k_i})\), hence finite. By \eqref{eq:freshman} the coinvariants of a free summand of rank \(r\ge 1\) under \(\Gamma_n\) have dimension \(r\,p^n\). The coinvariants of a finite module are bounded independently of \(n\). Thus \(\mu(Z^{\cyc})>0\) if and only if \(N\) has a free summand, if and only if \(\dim N_{\Gamma_n}\) is unbounded.
+
+The extension \(\Q(E[p])/\Q\) is finite, so \(\Gamma_n\) acts trivially on \(E[p]\) for all large \(n\). Inflation--restriction for the procyclic group \(\Gamma_n\) identifies the kernel of
+\[
+H^1\bigl(G_S(\Q(\mu_{p^n})),E[p]\bigr)
+\to
+H^1\bigl(G_S(F^{\cyc}),E[p]\bigr)^{\Gamma_n}
+\]
+with \(H^1(\Gamma_n,E[p])\cong E[p]\), of dimension \(2\), and the corresponding local kernel at the prime above \(p\) has dimension at most \(1\). The \(\Gamma_n\)-invariants of the residual quotient over \(F^{\cyc}\) and the residual quotient over the layer \(\Q(\mu_{p^n})\) therefore differ by a group of dimension at most \(2\). Pontryagin duality identifies \(N_{\Gamma_n}\) with the \(\F_p\)-dual of \(M_n\) up to that bounded error. Boundedness of \(\dim M_n\) is consequently equivalent to torsion of \(N\), hence to \(\mu(Z^{\cyc})=0\).
+
+A finitely generated torsion \(\Lam(\Gam)\)-module is finitely generated over \(\Z_p\) if and only if its \(\mu\)-invariant vanishes: the structure theorem writes it, up to pseudo-isomorphism, as a sum of cyclic modules \(\Lam/(p^{a_i})\) and \(\Lam/(f_j)\) with \(f_j\) distinguished, and only the first family fails to be finitely generated over \(\Z_p\).
+\end{proof}
+
+\begin{theorem}[Euler discrepancy]
+\label{thm:compare}
+Assume Hypothesis~\ref{hyp:run} together with \textup{(Irr)}, \textup{(NA)}, \textup{(NT\(_p\))} and \textup{(Fin\(_S\))}. Then \(Z_H\) is a finitely generated torsion \(\Lam(\Gam)\)-module, and
+\begin{equation}
+\label{eq:add}
+\mu^{\gr}(E/F_\infty)
+=
+\mu^{\flatp}(E/F_\infty)
++
+\mu(Z_H).
+\end{equation}
+The same identity holds for \(\lambda\)-invariants. Writing \(Z^{\Sha}\) for the Pontryagin dual of
+\[
+\cQ(E/F^{\cyc})\big/Q^{\mathrm{MW}},
+\]
+one has \(\mu(Z_H)=\mu(Z^{\Sha})\). Equivalently, by Lemma~\ref{lem:residualgrowth},
+\begin{equation}
+\label{eq:force}
+\mu^{\flatp}(E/F_\infty)=0
+\quad\Longrightarrow\quad
+\mu^{\gr}(E/F_\infty)=0
+\end{equation}
+if and only if \(\sup_n\dim_{\F_p} M_n<\infty\). The local Euler factor \(\cE_{\pp}\) is a unit of \(\Lam(\Gam)\), so neither the \(\mu\)-difference nor any exceptional zero is produced by the local factor at \(\pp\). A positive value of \(\mu(Z_H)\) is the \(\mu\)-invariant of the quotient of the Greenberg Tate--Shafarevich group by its fine subgroup.
+\end{theorem}
+
+\begin{proof}
+Theorem~\ref{thm:kato} and the cyclotomic case of the inclusion \(\Sel^{\flatp}\subseteq\Sel^{\gr}\) give a short exact sequence of discrete modules over \(F^{\cyc}\),
+\[
+0\to
+\Sel^{\flatp}(E/F^{\cyc})
+\to
+\Sel^{\gr}(E/F^{\cyc})
+\to
+\cQ(E/F^{\cyc})
+\to 0.
+\]
+Dualising yields
+\begin{equation}
+\label{eq:dualexact}
+0\to
+\cQ(E/F^{\cyc})^\vee
+\to
+\cX^{\gr}(E/F^{\cyc})
+\to
+\cX^{\flatp}(E/F^{\cyc})
+\to 0.
+\end{equation}
+All three modules are finitely generated and torsion over \(\Z_p[[\Gamma]]\): the outer two by Theorem~\ref{thm:kato}, the kernel because it is a closed submodule of a finitely generated torsion module over a Noetherian ring. In a short exact sequence of finitely generated torsion modules over \(\Z_p[[T]]\), characteristic power series multiply, so \(\mu\) and \(\lambda\) add. Theorem~\ref{thm:cyccontrol} identifies the false Tate coinvariants of \(\cX^{\gr}\), \(\cX^{\flatp}\) and \(Z\) with the three modules of \eqref{eq:dualexact} up to finite kernel and cokernel, which does not change \(\mu\) or \(\lambda\). This is \eqref{eq:add}, including the inequality \(\mu^{\flatp}\le\mu^{\gr}\).
+
+The short exact sequence \(0\to Q^{\mathrm{MW}}\to\cQ(E/F^{\cyc})\to\cQ(E/F^{\cyc})/Q^{\mathrm{MW}}\to 0\) dualises to a short exact sequence of compact modules. Lemma~\ref{lem:MW} gives \(\mu((Q^{\mathrm{MW}})^\vee)=0\), so additivity of \(\mu\) yields \(\mu(\cQ(E/F^{\cyc})^\vee)=\mu(Z^{\Sha})\). Cyclotomic control again replaces the cyclotomic dual by \(Z_H\) without changing \(\mu\). Lemma~\ref{lem:cyclic} identifies each \(\Delta\)-component of the cyclotomic dual with \(\Lam/I_\eta\), whose \(\mu\)-invariant is the content valuation of \(I_\eta\); summing over \(\eta\) recovers \(\mu(Z_H)\).
+
+Lemma~\ref{lem:residualgrowth} converts \(\mu(Z_H)=0\) into the boundedness of \(\dim M_n\), and \eqref{eq:force} is then immediate from \eqref{eq:add}. Lemma~\ref{lem:euler} says that \(\cE_{\pp}\) is a unit under (NA). The principal ideal it generates is the unit ideal, so imposing vanishing of \(\cE_{\pp}\) cuts out the zero module and contributes neither a positive content valuation nor a distinguished Weierstrass factor to \(I_\eta\). The value \(\mu(Z_H)\) is therefore not a local Euler contribution at \(\pp\).
+\end{proof}
+
+\begin{remark}
+The content-zero statement for \(\cE_{\pp}\) is stronger than non-anomalous reduction. Even in the anomalous case the linear coefficient of \(\cE_{\pp}\) is the unit root, so \(p\) does not divide the series. For CM curves \(\alpha\) is an algebraic integer of norm \(p\), embedded as a unit at \(\ppb\); it need not be a root of unity. The congruence \(\alpha\equiv 1\pmod{p}\) is a genuine condition on \(a_p(E)\), visible in the examples of the next section, and is not implied by the finiteness of \(\cO_K^\times\).
+\end{remark}
+
+\section{Examples}
+\label{sec:examples}
+
+The numerical statements in this section were produced by the script \texttt{checks.gp} accompanying this note, using PARI/GP~2.15, and are recorded in \texttt{checks-output.txt}. They test the residual and local hypotheses. They do not compute \(\mu\)-invariants.
+
+\subsection{The curve \(y^2=x^3-x\)}
+
+Let \(E:y^2=x^3-x\). Then \(\End(E)\cong\Z[i]\), \(K=\Q(i)\), \(j(E)=1728\) and \(N_E=32\). The torsion subgroup over \(\Q\) is \(\Z/2\Z\times\Z/2\Z\), so \(E(\Q)[p]=0\) for every odd \(p\). A prime \(p\) splits in \(K\) if and only if \(p\equiv 1\pmod{4}\). For every such prime through \(p=73\) the script finds \(v_p(\alpha-1)=0\), so (NA) holds, and the \(p\)-division polynomial factors as a product of two irreducible polynomials in \(\Q[x]\), of degrees \(p-1\) and \((p-1)^2/2\). The positive divisors of the division polynomial therefore have degrees in
+\[
+\bigl\{0,\; p-1,\; (p-1)^2/2,\; (p^2-1)/2\bigr\}.
+\]
+A rational cyclic subgroup of order \(p\) would cut out a factor of degree \((p-1)/2\). For \(p>2\) one has \(0<(p-1)/2<p-1\), so no such factor exists. Hence (Irr) holds for all these primes.
+
+The bad prime is \(2\). For each split \(p\le 73\), if \(d\) is the order of \(2\) modulo \(p\), then \(p\) does not divide \(\#E(\F_{2^d})\). Thus the conductor prime satisfies (Fin\(_S\)) throughout this range.
+
+Two radicals illustrate the remaining conditions.
+
+\begin{proposition}
+\label{prop:ex1}
+For \(E:y^2=x^3-x\) the following triples satisfy \textup{(Irr)}, \textup{(NA)}, \textup{(NT\(_p\))} and \textup{(Fin\(_S\))}, so Theorems~\ref{thm:sharp}, \ref{thm:mu} and \ref{thm:compare} apply.
+\begin{center}
+\begin{tabular}{cclc}
+\(p\) & \(a_p\) & \(m\) & verification\\
+\hline
+\(5\) & \(-2\) & \(3\) & \(3^4=81\equiv 6\pmod{25}\), \(\#E(\F_{3^4})=64\)\\
+\(13\) & \(6\) & \(3\) & \(3^{12}\equiv 105\pmod{169}\), \(\#E(\F_{3^3})=28\)\\
+\(41\) & \(10\) & \(21\) & \(q\in\{3,7\}\) and the prime \(2\) all have \(p\nmid\#E(\F_{q^{d_q}})\)\\
+\end{tabular}
+\end{center}
+In each case \(\mu^{\flatp}(E/F_\infty(m))=\mu^{\flatp}(E/\Q(\mu_{p^\infty}))\), and the Greenberg invariant exceeds this common value by \(\mu(Z_H)=\mu(Z^{\Sha})\).
+\end{proposition}
+
+The same computation shows that the hypotheses are not automatic. For \(p=37\), \(a_{37}=-2\not\equiv 1\pmod{37}\) and the division polynomial still has degrees \(36\) and \(648\), so (Irr) and (NA) hold, but
+\[
+\#E(\F_{3^{18}})=387459856
+\]
+is divisible by \(37\). Condition (Fin\(_S\)) fails for every multiple of \(3\), and the local error at \(q=3\) in Theorem~\ref{thm:control} need not be of bounded order. For \(p=17\) and \(m=15\) the prime \(q=5\) divides \(\#E(\F_{5^{16}})\), while \(m=3\) and \(m=6\) are admissible.
+
+\subsection{The curve \(y^2=x^3+1\)}
+
+Let \(E:y^2=x^3+1\). Then \(\End(E)\cong\Z[\omega]\) with \(\omega=e^{2\pi i/3}\), \(N_E=36\) and \(E(\Q)_{\mathrm{tors}}\cong\Z/6\Z\). For \(p>3\) the rational torsion contributes nothing to \(E[p]\). Splitting of \(p\) in \(\Q(\sqrt{-3})\) is the condition \(p\equiv 1\pmod{3}\).
+
+\begin{proposition}
+\label{prop:ex2}
+For \(E:y^2=x^3+1\), \(p=13\), \(a_{13}=2\) and \(m=2\), the conditions \textup{(Irr)}, \textup{(NA)}, \textup{(NT\(_p\))} and \textup{(Fin\(_S\))} all hold. The division polynomial has irreducible factors of degrees \(12\) and \(72\), so there is no factor of degree \(6\). One has \(v_{13}(\alpha-1)=0\), \(2^{12}\not\equiv 1\pmod{169}\), and
+\[
+\#E(\F_{2^{12}})=3969,\qquad \#E(\F_{3^{3}})=28,
+\]
+neither of which is divisible by \(13\). Theorems~\ref{thm:mu} and \ref{thm:compare} apply to the tower \(\Q(\mu_{13^\infty},2^{1/13^\infty})\).
+\end{proposition}
+
+For contrast, \(p=7\) satisfies (NA) and (Irr) (division degrees \(6\) and \(18\)), but \(\#E(\F_{3^6})=784\) is divisible by \(7\), and so is \(\#E(\F_{5^6})\). Neither the conductor prime \(3\) nor the radical \(5\) satisfies (Fin\(_S\)).
+
+\begin{remark}
+No value of \(\mu^{\flatp}\) is asserted for these towers. The propositions confirm only that the hypotheses of the identification \(\mu^{\flatp}(E/F_\infty)=\mu^{\flatp}(E/F^{\cyc})\) and of the discrepancy formula in Theorem~\ref{thm:compare} are satisfied. Determining whether the fine value is zero is the cyclotomic fine \(\mu\)-problem for the curve and the prime, which Corollary~\ref{cor:transfer} reduces to the content of the Mazur--Swinnerton-Dyer \(p\)-adic \(L\)-function. Under that content-zero hypothesis both the fine and the Greenberg invariants vanish, so the Tate--Shafarevich discrepancy has \(\mu\)-invariant zero for these triples as well.
+\end{remark}
+
+\section*{Acknowledgements}
+The control formalism follows the pattern introduced for ordinary Selmer groups by Mazur and extended to fine Selmer groups by Coates--Sujatha and Wuthrich. The false Tate tower is the extension studied by Hachimori--Venjakob. The local freeness argument is an instance of Nakayama's lemma in the form used throughout cyclotomic Iwasawa theory. The author is responsible for the organisation around the CM unit root and for the error terms at the primes dividing \(m\).
+
+\begin{thebibliography}{99}
+
+\bibitem{BK90}
+S.~Bloch and K.~Kato,
+\emph{\(L\)-functions and Tamagawa numbers of motives},
+in The Grothendieck Festschrift, Vol.~I,
+Progr.\ Math.\ \textbf{86}, Birkh\"auser, 1990, pp.~333--400.
+
+\bibitem{CFKSV}
+J.~Coates, T.~Fukaya, K.~Kato, R.~Sujatha and O.~Venjakob,
+\emph{The \(\mathrm{GL}_2\) main conjecture for elliptic curves without complex multiplication},
+Publ.\ Math.\ Inst.\ Hautes \'Etudes Sci.\ \textbf{101} (2005), 163--208.
+
+\bibitem{CG96}
+J.~Coates and R.~Greenberg,
+\emph{Kummer theory for abelian varieties over local fields},
+Invent.\ Math.\ \textbf{124} (1996), 129--174.
+
+\bibitem{CS05}
+J.~Coates and R.~Sujatha,
+\emph{Fine Selmer groups of elliptic curves over \(p\)-adic Lie extensions},
+Math.\ Ann.\ \textbf{331} (2005), 809--839.
+
+\bibitem{CS10}
+J.~Coates and R.~Sujatha,
+\emph{Galois Cohomology of Elliptic Curves},
+second edition, Tata Institute of Fundamental Research Lectures, Narosa, 2010.
+
+\bibitem{Col79}
+R.~F.~Coleman,
+\emph{Division values in local fields},
+Invent.\ Math.\ \textbf{53} (1979), 91--116.
+
+\bibitem{dS87}
+E.~de Shalit,
+\emph{Iwasawa Theory of Elliptic Curves with Complex Multiplication},
+Perspectives in Mathematics \textbf{3}, Academic Press, 1987.
+
+\bibitem{FW79}
+B.~Ferrero and L.~C.~Washington,
+\emph{The Iwasawa invariant \(\mu_p\) vanishes for abelian number fields},
+Ann.\ of Math.\ \textbf{109} (1979), 377--395.
+
+\bibitem{Gi85}
+R.~Gillard,
+\emph{Fonctions \(L\) \(p\)-adiques des corps quadratiques imaginaires et de leurs extensions ab\'eliennes},
+J.\ Reine Angew.\ Math.\ \textbf{358} (1985), 76--91.
+
+\bibitem{Gr89}
+R.~Greenberg,
+\emph{Iwasawa theory for \(p\)-adic representations},
+in Algebraic Number Theory -- in honor of K.~Iwasawa,
+Adv.\ Stud.\ Pure Math.\ \textbf{17} (1989), 97--137.
+
+\bibitem{Gr99}
+R.~Greenberg,
+\emph{Iwasawa theory for elliptic curves},
+in Arithmetic Theory of Elliptic Curves (Cetraro, 1997),
+Lecture Notes in Math.\ \textbf{1716}, Springer, 1999, pp.~51--144.
+
+\bibitem{HV03}
+Y.~Hachimori and O.~Venjakob,
+\emph{Completely faithful Selmer groups over Kummer extensions},
+Doc.\ Math.\ Extra Vol.\ (2003), 443--478.
+
+\bibitem{How02}
+S.~Howson,
+\emph{Euler characteristics as invariants of Iwasawa modules},
+Proc.\ London Math.\ Soc.\ \textbf{85} (2002), 634--658.
+
+\bibitem{Ka04}
+K.~Kato,
+\emph{\(p\)-adic Hodge theory and values of zeta functions of modular forms},
+Ast\'erisque \textbf{295} (2004), 117--290.
+
+\bibitem{La87}
+S.~Lang,
+\emph{Elliptic Functions},
+second edition, Grad.\ Texts in Math.\ \textbf{112}, Springer, 1987.
+
+\bibitem{Laz65}
+M.~Lazard,
+\emph{Groupes analytiques \(p\)-adiques},
+Inst.\ Hautes \'Etudes Sci.\ Publ.\ Math.\ \textbf{26} (1965), 5--219.
+
+\bibitem{Maz72}
+B.~Mazur,
+\emph{Rational points of abelian varieties with values in towers of number fields},
+Invent.\ Math.\ \textbf{18} (1972), 183--266.
+
+\bibitem{NSW}
+J.~Neukirch, A.~Schmidt and K.~Wingberg,
+\emph{Cohomology of Number Fields},
+second edition, Grundlehren Math.\ Wiss.\ \textbf{323}, Springer, 2008.
+
+\bibitem{PR94}
+B.~Perrin-Riou,
+\emph{Th\'eorie d'Iwasawa des repr\'esentations \(p\)-adiques sur un corps local},
+Invent.\ Math.\ \textbf{115} (1994), 81--161.
+
+\bibitem{Ro84}
+D.~E.~Rohrlich,
+\emph{On \(L\)-functions of elliptic curves and cyclotomic towers},
+Invent.\ Math.\ \textbf{75} (1984), 409--423.
+
+\bibitem{Rub91}
+K.~Rubin,
+\emph{The ``main conjectures'' of Iwasawa theory for imaginary quadratic fields},
+Invent.\ Math.\ \textbf{103} (1991), 25--68.
+
+\bibitem{Rub00}
+K.~Rubin,
+\emph{Euler Systems},
+Ann.\ of Math.\ Stud.\ \textbf{147}, Princeton Univ.\ Press, 2000.
+
+\bibitem{Sch87}
+L.~Schneps,
+\emph{On the \(\mu\)-invariant of \(p\)-adic \(L\)-functions attached to elliptic curves with complex multiplication},
+J.\ Number Theory \textbf{25} (1987), 20--33.
+
+\bibitem{Se72}
+J.-P.~Serre,
+\emph{Propri\'et\'es galoisiennes des points d'ordre fini des courbes elliptiques},
+Invent.\ Math.\ \textbf{15} (1972), 259--331.
+
+\bibitem{ST68}
+J.-P.~Serre and J.~Tate,
+\emph{Good reduction of abelian varieties},
+Ann.\ of Math.\ \textbf{88} (1968), 492--517.
+
+\bibitem{Si86}
+J.~H.~Silverman,
+\emph{The Arithmetic of Elliptic Curves},
+Grad.\ Texts in Math.\ \textbf{106}, Springer, 1986.
+
+\bibitem{Si94}
+J.~H.~Silverman,
+\emph{Advanced Topics in the Arithmetic of Elliptic Curves},
+Grad.\ Texts in Math.\ \textbf{151}, Springer, 1994.
+
+\bibitem{Ve02}
+O.~Venjakob,
+\emph{On the structure theory of the Iwasawa algebra of a \(p\)-adic Lie group},
+J.\ Eur.\ Math.\ Soc.\ \textbf{4} (2002), 271--311.
+
+\bibitem{Wa97}
+L.~C.~Washington,
+\emph{Introduction to Cyclotomic Fields},
+second edition, Grad.\ Texts in Math.\ \textbf{83}, Springer, 1997.
+
+\bibitem{Wu07}
+C.~Wuthrich,
+\emph{Iwasawa theory of the fine Selmer group},
+J.\ Algebraic Geom.\ \textbf{16} (2007), 83--108.
+
+\end{thebibliography}
+
+\end{document}
